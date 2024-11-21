@@ -1,0 +1,299 @@
+<div class="common-content" *ngFor="let step of stepsApi">
+  <div class="content_step" [ngClass]="step?.theme">
+    <div class="content_step--wrapper">
+      <div class="content_step--title">
+        <div class="content_step--title-top">{{ step?.name }}</div>
+      </div>
+      <div class="content_step--list">
+        <ng-container *ngIf="step?.name === 'Cuộc thi sắp diễn ra'">
+          <swiper-container
+            [loop]="true"
+            [autoplay]="{ delay: 3000 }"
+            [breakpoints]="breakpoints"
+            [watchSlidesProgress]="true"
+            class="swiper-container"
+          >
+            <swiper-slide
+              *ngFor="let product of step.steps"
+              class="content_step--item"
+            >
+              <img
+                [src]="product?.image"
+                alt="{{ product?.title }}"
+                class="content_step--item-avatar"
+              />
+              <p class="content_step--item-title">{{ product?.title }}</p>
+              <p class="content_step--item-subtitle">{{ product?.subTitle }}</p>
+              <div class="content_step--item-description">
+                <div>
+                  <div [innerHTML]="product?.description">
+                    <!-- {{ product?.description }} -->
+                  </div>
+                </div>
+              </div>
+            </swiper-slide>
+          </swiper-container>
+        </ng-container>
+
+        <ng-container *ngIf="step?.name === 'Tham gia học với 4 bước đơn giản'">
+          <swiper-container
+            [loop]="true"
+            [autoplay]="{ delay: 3000 }"
+            [breakpoints]="stepsBreakpoints"
+            [watchSlidesProgress]="true"
+            class="swiper-container"
+          >
+            <swiper-slide
+              *ngFor="let item of step.steps"
+              class="content_step--item-step"
+            >
+              <img
+                [src]="item?.image"
+                alt="{{ item?.name }}"
+                class="content_step--item-avatar"
+              />
+              <p class="content_step--item-title">{{ item?.name }}</p>
+              <p class="content_step--item-subtitle">{{ item?.description }}</p>
+            </swiper-slide>
+          </swiper-container>
+        </ng-container>
+
+        <ng-container *ngIf="step?.name === 'Thông tin chung Học Hiệu Quả'">
+          <swiper-container
+            [loop]="true"
+            [autoplay]="{ delay: 3000 }"
+            [breakpoints]="infoBreakpoints"
+            navigation="true"
+            [watchSlidesProgress]="true"
+            class="swiper-container"
+          >
+            <swiper-slide
+              *ngFor="let info of step.steps"
+              class="content_step--item-info"
+            >
+              <img
+                [src]="info?.image"
+                alt="{{ info?.name }}"
+                class="content_step--item-avatar"
+              />
+              <p class="content_step--item-title">{{ info?.name }}</p>
+              <p class="content_step--item-subtitle">{{ info?.description }}</p>
+            </swiper-slide>
+          </swiper-container>
+        </ng-container>
+
+        <ng-container *ngIf="step?.name === 'Lý do học tập tại Học Hiệu Quả'">
+          <swiper-container
+            [loop]="true"
+            [autoplay]="{ delay: 3000 }"
+            [breakpoints]="reasonsBreakpoints"
+            navigation="true"
+            [watchSlidesProgress]="true"
+            class="swiper-container"
+          >
+            <swiper-slide
+              *ngFor="let reason of step.steps"
+              class="content_step--item-why"
+            >
+              <img
+                [src]="reason?.image"
+                alt="{{ reason?.name }}"
+                class="content_step--item-avatar"
+              />
+              <p class="content_step--item-title">{{ reason?.name }}</p>
+              <p class="content_step--item-subtitle">
+                {{ reason?.description }}
+              </p>
+            </swiper-slide>
+          </swiper-container>
+        </ng-container>
+
+        <ng-container
+          *ngIf="step?.name === 'Trải nghiệm phương pháp học hiện đại'"
+        >
+          <swiper-container
+            [loop]="true"
+            [autoplay]="{ delay: 3000 }"
+            [breakpoints]="reasonsBreakpoints"
+            navigation="true"
+            [watchSlidesProgress]="true"
+            class="swiper-container"
+          >
+            <swiper-slide
+              *ngFor="let reason of step.steps"
+              class="content_step--item-join"
+            >
+              <img
+                [src]="reason?.image"
+                alt="{{ reason?.name }}"
+                class="content_step--item-avatar"
+              />
+              <p class="content_step--item-title">{{ reason?.name }}</p>
+              <p class="content_step--item-subtitle">
+                {{ reason?.description }}
+              </p>
+            </swiper-slide>
+          </swiper-container>
+        </ng-container>
+
+        <ng-container *ngIf="step?.name === 'Học viên nói gì về Học Hiệu Quả'">
+          <swiper-container
+            [loop]="true"
+            [autoplay]="{ delay: 3000 }"
+            [breakpoints]="infoBreakpoints"
+            navigation="true"
+            [watchSlidesProgress]="true"
+            class="swiper-container"
+          >
+            <swiper-slide
+              *ngFor="let reason of step.steps"
+              class="content_step--item-feedback"
+            >
+              <img
+                [src]="reason?.image"
+                alt="{{ reason?.name }}"
+                class="content_step--item-avatar"
+              />
+              <p class="content_step--item-title">{{ reason?.title }}</p>
+              <p class="content_step--item-subtitle">
+                {{ reason?.description }}
+              </p>
+            </swiper-slide>
+          </swiper-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <!-- Thông tin chung -->
+  <!-- <div class="content_step white-theme">
+    <div class="content_step--wrapper">
+      <div class="content_step--title">
+        <div class="content_step--title-top">Thông tin chung</div>
+      </div>
+      <div class="content_step--list">
+        <swiper-container
+          [loop]="true"
+          [autoplay]="{ delay: 3000 }"
+          [breakpoints]="infoBreakpoints"
+          navigation="true"
+          [watchSlidesProgress]="true"
+          class="swiper-container"
+        >
+          <swiper-slide
+            *ngFor="let step of steps"
+            class="content_step--item-info"
+          >
+            <img
+              [src]="step?.image"
+              alt="{{ step?.name }}"
+              class="content_step--item-avatar"
+            />
+            <p class="content_step--item-title">{{ step?.name }}</p>
+            <p class="content_step--item-subtitle">{{ step?.description }}</p>
+          </swiper-slide>
+        </swiper-container>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- Lý do học tập tại Học Hiệu Quả -->
+  <!-- <div class="content_step white-theme">
+    <div class="content_step--wrapper">
+      <div class="content_step--title">
+        <div class="content_step--title-top">
+          Lý do học tập tại Học Hiệu Quả
+        </div>
+      </div>
+      <div class="content_step--list">
+        <swiper-container
+          [loop]="true"
+          [autoplay]="{ delay: 3000 }"
+          [breakpoints]="reasonsBreakpoints"
+          navigation="true"
+          [watchSlidesProgress]="true"
+          class="swiper-container"
+        >
+          <swiper-slide
+            *ngFor="let reason of reasons"
+            class="content_step--item-why"
+          >
+            <img
+              [src]="reason?.image"
+              alt="{{ reason?.name }}"
+              class="content_step--item-avatar"
+            />
+            <p class="content_step--item-title">{{ reason?.name }}</p>
+            <p class="content_step--item-subtitle">{{ reason?.description }}</p>
+          </swiper-slide>
+        </swiper-container>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- Trải nghiệm phương pháp học hiện đại -->
+  <!-- <div class="content_step white-theme">
+    <div class="content_step--wrapper">
+      <div class="content_step--title">
+        <div class="content_step--title-top">
+          Trải nghiệm phương pháp học hiện đại
+        </div>
+      </div>
+      <div class="content_step--list">
+        <swiper-container
+          [loop]="true"
+          [autoplay]="{ delay: 3000 }"
+          [breakpoints]="reasonsBreakpoints"
+          navigation="true"
+          [watchSlidesProgress]="true"
+          class="swiper-container"
+        >
+          <swiper-slide
+            *ngFor="let reason of reasons"
+            class="content_step--item-join"
+          >
+            <img
+              [src]="reason?.image"
+              alt="{{ reason?.name }}"
+              class="content_step--item-avatar"
+            />
+            <p class="content_step--item-title">{{ reason?.name }}</p>
+            <p class="content_step--item-subtitle">{{ reason?.description }}</p>
+          </swiper-slide>
+        </swiper-container>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- Học viên nói về Học Hiệu Quả -->
+  <!-- <div class="content_step white-theme">
+    <div class="content_step--wrapper">
+      <div class="content_step--title">
+        <div class="content_step--title-top">Học viên nói về Học Hiệu Quả</div>
+      </div>
+      <div class="content_step--list">
+        <swiper-container
+          [loop]="true"
+          [autoplay]="{ delay: 3000 }"
+          [breakpoints]="infoBreakpoints"
+          navigation="true"
+          [watchSlidesProgress]="true"
+          class="swiper-container"
+        >
+          <swiper-slide
+            *ngFor="let reason of reasons"
+            class="content_step--item-feedback"
+          >
+            <img
+              [src]="reason?.image"
+              alt="{{ reason?.name }}"
+              class="content_step--item-avatar"
+            />
+            <p class="content_step--item-title">{{ reason?.name }}</p>
+            <p class="content_step--item-subtitle">{{ reason?.description }}</p>
+          </swiper-slide>
+        </swiper-container>
+      </div>
+    </div>
+  </div> -->
+</div>

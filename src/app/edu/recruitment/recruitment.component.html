@@ -1,0 +1,176 @@
+<div class="recruit common-content">
+  <div class="common-content" *ngFor="let step of steps">
+    <div class="content_step white-theme" [ngClass]="step?.theme">
+      <div class="content_step--wrapper">
+        <div class="content_step--title">
+          <div class="content_step--title-top">{{ step?.name }}</div>
+        </div>
+        <div class="content_step--list">
+          <!-- // Step 1 -->
+          <ng-container
+            *ngIf="step?.name === 'Ai nên đăng ký giảng dạy trên Học hiệu quả'"
+          >
+            <swiper-container
+              [loop]="true"
+              [autoplay]="{ delay: 3000 }"
+              [breakpoints]="stepsBreakpoints"
+              [watchSlidesProgress]="true"
+              [navigation]="true"
+              class="swiper-container"
+            >
+              <swiper-slide
+                *ngFor="let item of step.steps"
+                class="content_step--item-step"
+              >
+                <img
+                  [src]="item?.image"
+                  alt="{{ item?.name }}"
+                  class="content_step--item-avatar"
+                />
+                <p class="content_step--item-title">{{ item?.name }}</p>
+                <p class="content_step--item-subtitle">
+                  {{ item?.description }}
+                </p>
+              </swiper-slide>
+            </swiper-container>
+          </ng-container>
+
+          <!-- Step 2 -->
+          <ng-container
+            *ngIf="step?.name === '4 bước để trở thành giảng viên Học hiệu quả'"
+          >
+            <swiper-container
+              [loop]="true"
+              [autoplay]="{ delay: 3000 }"
+              [breakpoints]="stepsBreakpoints"
+              [watchSlidesProgress]="true"
+              class="swiper-container"
+            >
+              <swiper-slide
+                *ngFor="let item of step.steps"
+                class="content_step--item-step"
+              >
+                <img
+                  [src]="item?.image"
+                  alt="{{ item?.name }}"
+                  class="content_step--item-avatar"
+                />
+                <p class="content_step--item-title">{{ item?.name }}</p>
+                <p class="content_step--item-subtitle">
+                  {{ item?.description }}
+                </p>
+              </swiper-slide>
+            </swiper-container>
+          </ng-container>
+
+          <!-- Step 3, 4 -->
+          <ng-container
+            *ngIf="step?.name === 'Lý do nên giảng dạy trên Học hiệu quả'"
+          >
+            <swiper-container
+              [loop]="true"
+              [autoplay]="{ delay: 3000 }"
+              [breakpoints]="stepsBreakpoints2"
+              [watchSlidesProgress]="true"
+              class="swiper-container"
+            >
+              <swiper-slide
+                *ngFor="let item of step.steps"
+                class="content_step--item-step--why"
+              >
+                <img
+                  [src]="item?.image"
+                  alt="{{ item?.name }}"
+                  class="content_step--item-avatar"
+                />
+                <p class="content_step--item-title">{{ item?.name }}</p>
+                <p class="content_step--item-subtitle">
+                  {{ item?.description }}
+                </p>
+              </swiper-slide>
+            </swiper-container>
+          </ng-container>
+
+          <!-- Step 5 -->
+          <ng-container *ngIf="step?.name === 'Ai nên đăng ký giảng dạy'">
+            <swiper-container
+              [loop]="true"
+              [autoplay]="{ delay: 3000 }"
+              [breakpoints]="stepsBreakpoints"
+              [watchSlidesProgress]="true"
+              class="swiper-container"
+            >
+              <swiper-slide
+                *ngFor="let item of step.steps"
+                class="content_step--item-step"
+              >
+                <img
+                  [src]="item?.image"
+                  alt="{{ item?.name }}"
+                  class="content_step--item-avatar"
+                />
+                <p class="content_step--item-title">{{ item?.name }}</p>
+                <p class="content_step--item-subtitle">
+                  {{ item?.description }}
+                </p>
+              </swiper-slide>
+            </swiper-container>
+          </ng-container>
+
+          <!-- Step 6 -->
+          <ng-container
+            *ngIf="step?.name === 'Học hiệu quả là e-learning platform'"
+          >
+            <swiper-container
+              [loop]="true"
+              [autoplay]="{ delay: 3000 }"
+              [breakpoints]="stepsBreakpoints2"
+              [watchSlidesProgress]="true"
+              class="swiper-container"
+            >
+              <swiper-slide
+                *ngFor="let item of step.steps"
+                class="content_step--item-step--why"
+              >
+                <img
+                  [src]="item?.image"
+                  alt="{{ item?.name }}"
+                  class="content_step--item-avatar"
+                />
+                <p class="content_step--item-title">{{ item?.name }}</p>
+                <p
+                  class="content_step--item-subtitle"
+                  [innerHTML]="item?.description"
+                ></p>
+              </swiper-slide>
+            </swiper-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="header-title">Vị trí tuyển dụng</h3>
+  <div class="recruit-list">
+    <ng-container *ngFor="let item of recruitment">
+      <div class="recruit-item" *ngIf="item?.status === 1">
+        <div class="grid">
+          <div class="col-12 md:col-2 logo">
+            <img src="https://hochieuqua7.web.app/images/logo.png" alt="logo" />
+          </div>
+          <div class="col-12 md:col-7">
+            <div class="name">{{ item?.name }}</div>
+            <div class="salary">{{ item?.price }}</div>
+            <div class="description" [innerHTML]="item?.requirement"></div>
+          </div>
+          <div class="col-12 md:col-3 text-right">
+            <div>
+              <p-badge [value]="'Hot'" severity="danger"></p-badge>
+            </div>
+            <div>{{ item?.createdDate | date : 'dd-MM-yyyy HH:mm' }}</div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

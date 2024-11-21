@@ -1,0 +1,75 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'primeng/resources/themes/lara-light-blue/theme.css';
+@import 'primeng/resources/primeng.css';
+@import 'primeicons/primeicons.css';
+
+.p-menubar
+  .p-menubar-root-list
+  > .p-menuitem
+  > .p-menuitem-content
+  .p-menuitem-link
+  .p-menuitem-text {
+  color: white !important;
+  font-weight: 500;
+  background: none;
+}
+
+.p-toolbar.p-component {
+  border: none;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 0 20px;
+  background: none;
+}
+
+.pi-home:before {
+  color: white;
+}
+
+* {
+  font-family: Quicksand, sans-serif;
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0.5em 0;
+}
+
+p {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  unicode-bidi: isolate;
+}
+
+.swiper-button-next {
+  background-color: #d8d8d8;
+  border-radius: 100%;
+  transition: 0.3s ease-in-out;
+  height: 44px;
+  width: 44px;
+}
+
+.swiper-button-prev {
+  background-color: #d8d8d8;
+  border-radius: 100%;
+  transition: 0.3s ease-in-out;
+  height: 44px;
+  width: 44px;
+}
+
+/* svg {
+  color: gray;
+  font-size: 18px;
+  font-weight: bolder;
+  transition: 0.3s ease-in-out;
+} */

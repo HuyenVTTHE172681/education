@@ -1,0 +1,92 @@
+<div class="feature-teacher commom-content">
+  <div class="header-title center">ĐỘI NGŨ GIÁO VIÊN</div>
+  <div class="teacher-list">
+    <swiper-container
+      [loop]="true"
+      [autoplay]="{ delay: 3000 }"
+      [navigation]="true"
+      [breakpoints]="breakpoints"
+      [watchSlidesProgress]="true"
+      class="swiper-container"
+    >
+      <swiper-slide
+        *ngFor="let teacher of teachers"
+        class="subject_course-item-wrapper"
+      >
+        <div class="teacher-item">
+          <img
+            *ngIf="teacher?.avatar; else defaultAvatar"
+            [src]="teacher?.avatar"
+            alt="{{ teacher?.name }}"
+            class="teacher-item--avatar"
+          />
+          <!-- Nếu không có teacher.avatar, hiển thị ảnh mặc định -->
+          <ng-template #defaultAvatar>
+            <img
+              src="https://hochieuqua7.web.app/images/menu/account.png"
+              alt="Default Avatar"
+              class="teacher-item--avatar"
+            />
+          </ng-template>
+          <div class="name">{{ teacher?.name }}</div>
+          <div class="sub-description text-center">
+            <!-- {{ teacher?.descriptionShort }} -->
+            <div [innerHTML]="teacher?.descriptionShort"></div>
+          </div>
+          <img
+            [src]="teacher?.avatar"
+            alt="{{ teacher?.name }}"
+            class="teacher-item--bg"
+          />
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+  <div class="view-all pointer mt-2">
+    <b>Xem tất cả</b>
+    <i
+      class="pi pi-fast-forward"
+      style="font-size: 1rem; margin-left: 10px"
+    ></i>
+  </div>
+</div>
+
+<div class="feature-teacher commom-content">
+  <div class="header-title center">ĐỐ VUI</div>
+  <div class="teacher-list">
+    <swiper-container
+      [loop]="true"
+      [autoplay]="{ delay: 3000 }"
+      [navigation]="true"
+      [breakpoints]="breakpoints"
+      [watchSlidesProgress]="true"
+      class="swiper-container"
+    >
+      <swiper-slide
+        *ngFor="let quiz of quizzes"
+        class="subject_course-item-wrapper"
+      >
+        <div class="teacher-item">
+          <img
+            [src]="quiz?.avatar"
+            alt="{{ quiz?.title }}"
+            class="teacher-item--avatar"
+          />
+          <div class="name">{{ quiz?.title }}</div>
+          <img
+            [src]="quiz?.avatar"
+            alt="{{ quiz?.title }}"
+            class="teacher-item--bg"
+          />
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+  <div class="view-all pointer mt-2">
+    <b>Xem tất cả</b>
+    <i
+      class="pi pi-fast-forward"
+      style="font-size: 1rem; margin-left: 10px"
+    ></i>
+  </div>
+</div>

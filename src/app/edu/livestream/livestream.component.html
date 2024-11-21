@@ -1,0 +1,83 @@
+<p>livestream works!</p>
+
+<div class="livestream-wrapper comment-content">
+  <div class="livestream_header">
+    <h2 class="header-title">Học trực tuyến cùng HocHieuQua Livestream!</h2>
+  </div>
+  <div class="livestream_nearing"></div>
+  <div class="livestream_old">
+    <h2 class="header-title">Livestream sắp diễn ra</h2>
+    <div class="grid livestream_action mt-4">
+      <div class="col-12 sm:col-4">
+        <div class="field">
+          <span class="p-float-label">
+            <input
+              type="text"
+              pInputText
+              style="
+                background: #e3e7f2;
+                border: 1px solid #d0d9ef;
+                font-size: 14px;
+                height: 35px;
+                width: 100%;
+              "
+            />
+            <label for="dropdown">Tìm kiếm</label>
+          </span>
+        </div>
+      </div>
+      <div class="col-12 sm:col-4">
+        <div class="field">
+          <span class="p-float-label">
+            <p-dropdown
+              [options]="classRoom"
+              [(ngModel)]="selectedClassRoom"
+              optionLabel="name"
+              placeholder="Tất cả"
+              [style]="{
+                background: '#e3e7f2',
+                border: '1px solid #d0d9ef',
+                fontSize: '14px',
+                height: '35px',
+                width: '100%'
+              }"
+            ></p-dropdown>
+            <label
+              for="dropdown"
+              style="color: #000; left: 0; top: -0.65rem; font-size: 13px"
+              >Lớp học</label
+            >
+          </span>
+        </div>
+      </div>
+      <div class="col-12 sm:col-4">
+        <div class="field">
+          <span class="p-float-label">
+            <p-dropdown
+              [options]="subject"
+              [(ngModel)]="selectedSubject"
+              optionLabel="name"
+              placeholder="Tất cả"
+              [style]="{
+                background: '#e3e7f2',
+                border: '1px solid #d0d9ef',
+                fontSize: '14px',
+                height: '35px',
+                width: '100%'
+              }"
+            ></p-dropdown>
+            <label
+              for="dropdown"
+              style="color: #000; left: 0; top: -0.65rem; font-size: 13px"
+              >Môn học</label
+            >
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12"></div>
+
+    <!-- Paginator -->
+    <div class="justify-content-end"></div>
+  </div>
+</div>

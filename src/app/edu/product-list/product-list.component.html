@@ -1,0 +1,129 @@
+<div [style]="{ width: '100%', height: '350px' }">
+  <swiper-container
+    style="--swiper-navigation-color: #fff"
+    navigation="true"
+    loop="true"
+    autoplay="{ delay: 3000 }"
+  >
+    <swiper-slide *ngFor="let slider of slider">
+      <div class="product-item">
+        <img [src]="slider.imageUrl" />
+      </div>
+    </swiper-slide>
+  </swiper-container>
+</div>
+
+<div class="classes commom-content p-0">
+  <div class="classes-list">
+    <swiper-container
+      [loop]="true"
+      [autoplay]="{ delay: 3000 }"
+      [navigation]="true"
+      [breakpoints]="breakpointSlides"
+      [watchSlidesProgress]="true"
+      class="swiper-container"
+    >
+      <swiper-slide
+        *ngFor="let classRoom of classRooms; let i = index"
+        class="slide__item-wrapper"
+      >
+        <div
+          class="classes-item"
+          [ngStyle]="{ 'background-color': getBackgroundColor(i) }"
+        >
+          <p class="name">{{ classRoom?.name }}</p>
+          <img
+            class="avatar"
+            [src]="classRoom?.avatar"
+            alt="{{ classRoom?.name }}"
+          />
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+</div>
+
+<div class="banner">
+  <img
+    src="https://hochieuqua7.web.app/images/user/introduce/header.jpg"
+    alt="logo"
+    [style]="{ width: '100%' }"
+    class="banner_img"
+  />
+  <div class="banner_content">
+    <h1>Học viên Online Học hiệu quả</h1>
+    <h3>Nơi chia sẻ kiến thức và kinh nghiệm thực tế tới hàng triệu người</h3>
+    <h2>HỌC MỌI LÚC, MỌI NƠI</h2>
+  </div>
+</div>
+
+<div class="subject_wrapper subject-content" *ngFor="let product of products">
+  <div class="subject-title">Khóa học {{ product?.name }} nổi bật</div>
+  <div class="subject_course">
+    <div class="subject_course-list">
+      <swiper-container
+        [loop]="true"
+        [autoplay]="{ delay: 3000 }"
+        [navigation]="true"
+        [breakpoints]="breakpoints"
+        [watchSlidesProgress]="true"
+      >
+        <swiper-slide
+          style="width: auto; margin-right: 10px"
+          *ngFor="let course of product?.courses"
+        >
+          <div class="subject_course-item">
+            <img
+              *ngIf="course?.courseBanner; else defaultImage"
+              [src]="course?.courseBanner"
+              alt="{{ course?.name }}"
+              class="subject_course-item--image"
+            />
+            <!-- Nếu không có courseBanner, hiện thị ảnh mặc định -->
+            <ng-template #defaultImage>
+              <img
+                [src]="product?.avatar"
+                alt="Default Image"
+                class="subject_course-item--image"
+              />
+            </ng-template>
+            <p class="subject_course-item--name">{{ course?.name }}</p>
+            <div class="subject_course-item--teacher">
+              <p class="course-item--teacher">{{ course?.teacherId }}</p>
+            </div>
+            <div class="subject_course-item--description">
+              <div class="rate">
+                <p-rating
+                  [(ngModel)]="course.averageRating"
+                  [cancel]="false"
+                ></p-rating>
+              </div>
+              <div class="price">
+                <div class="price-discount">
+                  {{ course?.price | number : '1.0-0' }}
+                </div>
+                <div class="price-total">
+                  {{ course?.priceDiscount | number : '1.0-0' }}
+                </div>
+              </div>
+            </div>
+            <div class="subject_course-item--viewmore">
+              <p-button
+                label="Xem thêm"
+                icon="pi pi-arrow-right"
+                [style]="{
+                  fontSize: '16px',
+                  height: '35px',
+                  textAlign: 'center'
+                }"
+              ></p-button>
+            </div>
+          </div>
+        </swiper-slide>
+      </swiper-container>
+    </div>
+  </div>
+</div>
+
+<app-exam-home></app-exam-home>
+<app-teacher-quiz></app-teacher-quiz>

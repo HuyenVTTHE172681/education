@@ -1,0 +1,134 @@
+<div class="test-wrapper common-content">
+  <div class="grid test-header">
+    <div class="col-12">
+      <div class="header-title">Các đề ôn thi hay 2</div>
+      <div class="test">
+        <div class="test-right">
+          <div class="test-right--action">
+            <div class="field">
+              <span class="p-float-label">
+                <input
+                  type="text"
+                  pInputText
+                  style="
+                    background: #e3e7f2;
+                    border: 1px solid #d0d9ef;
+                    font-size: 14px;
+                    height: 35px;
+                    width: 100%;
+                  "
+                />
+                <label for="dropdown">Tìm kiếm</label>
+              </span>
+            </div>
+            <div class="field">
+              <span class="p-float-label">
+                <p-dropdown
+                  [options]="classRoom"
+                  [(ngModel)]="selectedClassRoom"
+                  optionLabel="name"
+                  placeholder="Tất cả"
+                  [style]="{
+                    background: '#e3e7f2',
+                    border: '1px solid #d0d9ef',
+                    fontSize: '14px',
+                    height: '35px',
+                    width: '100%'
+                  }"
+                ></p-dropdown>
+                <label
+                  for="dropdown"
+                  style="color: #000; left: 0; top: -0.65rem; font-size: 13px"
+                  >Lớp học</label
+                >
+              </span>
+            </div>
+            <div class="field">
+              <span class="p-float-label">
+                <p-dropdown
+                  [options]="subject"
+                  [(ngModel)]="selectedSubject"
+                  optionLabel="name"
+                  placeholder="Tất cả"
+                  [style]="{
+                    background: '#e3e7f2',
+                    border: '1px solid #d0d9ef',
+                    fontSize: '14px',
+                    height: '35px',
+                    width: '100%'
+                  }"
+                ></p-dropdown>
+                <label
+                  for="dropdown"
+                  style="color: #000; left: 0; top: -0.65rem; font-size: 13px"
+                  >Môn học</label
+                >
+              </span>
+            </div>
+          </div>
+
+          <div class="test-right--item" *ngFor="let test of testAbility">
+            <div class="info">
+              <div class="title">
+                <div class="subject">
+                  <i class="pi pi-book" style="margin-right: 10px"></i>
+                </div>
+                <div class="name">{{ test?.name }}</div>
+              </div>
+              <div class="subtitle">
+                <div class="time">
+                  <i class="pi pi-clock" style="margin-right: 10px"></i>
+                  <span>{{ test?.time }} phút</span>
+                </div>
+                <div class="question">
+                  <i
+                    class="pi pi-question-circle"
+                    style="margin-right: 10px"
+                  ></i>
+                </div>
+              </div>
+            </div>
+            <div class="action">
+              <p-button
+                label="Thi ngay"
+                icon="pi pi-caret-right"
+                (onClick)="showDialog()"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Paginator -->
+      <div
+        class="flex align-items-center justify-content-start"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          gap: 10px;
+        "
+      >
+        <p-paginator
+          [first]="first"
+          [rows]="rows"
+          [totalRecords]="120"
+          [rowsPerPageOptions]="[10, 20, 30]"
+          (onPageChange)="onPageChange($event)"
+        />
+
+        <div class="flex justify-content-center align-items-center gap-3">
+          <span>Từ 1 đến 10</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog
+  header="Nhập thông tin cần thiết"
+  [(visible)]="showFormRegisterTest"
+  [modal]="true"
+  [style]="{ width: '38rem' }"
+>
+  <app-test-ability-register></app-test-ability-register>
+</p-dialog>

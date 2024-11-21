@@ -1,0 +1,114 @@
+<div class="login-form">
+  <form class="login-form">
+    <p-card [style]="{ width: '800px', height: '600px' }">
+      <div class="container">
+        <div class="content-left">
+          <img alt="Card" src="/src/assets/login.png" class="login-image" />
+        </div>
+        <div class="content-right">
+          <div class="field">
+            <input
+              type="text"
+              pInputText
+              formControlName="userName"
+              class="input-field"
+              placeholder="Nhập tài khoản"
+            />
+          </div>
+
+          <div class="field">
+            <input
+              type="text"
+              pInputText
+              formControlName="userName"
+              class="input-field"
+              placeholder="Nhập tài khoản"
+            />
+          </div>
+
+          <div class="field">
+            <input
+              type="text"
+              pInputText
+              formControlName="userName"
+              class="input-field"
+              placeholder="Nhập tài khoản"
+            />
+          </div>
+          <div class="field">
+            <input
+              type="text"
+              pInputText
+              formControlName="userName"
+              class="input-field"
+              placeholder="Nhập tài khoản"
+            />
+          </div>
+          <div class="field">
+            <input
+              type="text"
+              pInputText
+              formControlName="userName"
+              class="input-field"
+              placeholder="Nhập tài khoản"
+            />
+          </div>
+
+          <div class="field">
+            <input
+              type="text"
+              pInputText
+              formControlName="userName"
+              class="input-field"
+              placeholder="Nhập tài khoản"
+            />
+          </div>
+
+          <div class="field">
+            <input
+              type="text"
+              pInputText
+              formControlName="password"
+              class="input-field"
+              placeholder="Nhập mật khẩu"
+            />
+            <!-- <i
+          [ngClass]="
+            showIcon ? 'pi pi-eye-slash input-icon' : 'pi pi-eye input-icon'
+          "
+          aria-hidden="true"
+          (click)="onChange()"
+        ></i> -->
+            <!-- <i class="pi pi-lock input-icon"></i> -->
+            <!-- <div
+          *ngIf="
+            loginObj.get('password')?.touched &&
+            loginObj.get('password')?.invalid
+          "
+          class="error-message"
+        >
+          Mật khẩu là bắt buộc.
+        </div> -->
+          </div>
+
+          <p-button
+            label="Đăng ký"
+            [style]="{
+              display: 'block',
+              margin: '0 auto',
+              width: '200px',
+              background: '#3b3420',
+              'margin-top': '35px',
+              'border-color': '#3b3420'
+            }"
+          ></p-button>
+
+          <p>
+            Login in here!!!
+            <a routerLink="/login">Login</a>
+          </p>
+        </div>
+      </div>
+    </p-card>
+  </form>
+</div>

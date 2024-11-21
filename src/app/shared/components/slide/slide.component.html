@@ -1,0 +1,59 @@
+<div [style]="{ width: '100%', height: '350px' }">
+
+  <swiper-container
+    style="--swiper-navigation-color: #fff"
+    navigation="true"
+    loop="true"
+    autoplay="{ delay: 3000 }"
+  >
+    <swiper-slide *ngFor="let slider of slider">
+      <div class="product-item">
+        <img [src]="slider.imageUrl" />
+      </div>
+    </swiper-slide>
+  </swiper-container>
+</div>
+
+<div class="classes commom-content p-0">
+  <div class="classes-list">
+    <swiper-container
+      [loop]="true"
+      [autoplay]="{ delay: 3000 }"
+      [navigation]="true"
+      [breakpoints]="breakpoints"
+      [watchSlidesProgress]="true"
+      class="swiper-container"
+    >
+      <swiper-slide
+        *ngFor="let classRoom of classRooms; let i = index"
+        class="slide__item-wrapper"
+      >
+        <div
+          class="classes-item"
+          [ngStyle]="{ 'background-color': getBackgroundColor(i) }"
+        >
+          <p class="name">{{ classRoom?.name }}</p>
+          <img
+            class="avatar"
+            [src]="classRoom?.avatar"
+            alt="{{ classRoom?.name }}"
+          />
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+</div>
+
+<div class="banner">
+  <img
+    src="https://hochieuqua7.web.app/images/user/introduce/header.jpg"
+    alt="logo"
+    [style]="{ width: '100%' }"
+    class="banner_img"
+  />
+  <div class="banner_content">
+    <h1>Học viên Online Học hiệu quả</h1>
+    <h3>Nơi chia sẻ kiến thức và kinh nghiệm thực tế tới hàng triệu người</h3>
+    <h2>HỌC MỌI LÚC, MỌI NƠI</h2>
+  </div>
+</div>

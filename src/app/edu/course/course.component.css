@@ -1,0 +1,170 @@
+.common-content {
+  background: #fff;
+  margin: 0 auto;
+  max-width: 1600px;
+  padding: 10px 20px;
+}
+
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+  margin-top: -0.5rem;
+}
+
+.col-12 {
+  flex: 0 0 auto;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.header-title {
+  color: #041c47;
+  font-size: 18px;
+  font-weight: bolder;
+  padding: 5px 0;
+  position: relative;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.header-title::after {
+  background-color: #0a3b85;
+  bottom: 0;
+  content: '';
+  height: 4px;
+  left: 0;
+  min-width: 60px;
+  position: absolute;
+  transform: translateY(0);
+}
+
+.test {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.test-right--action {
+  grid-gap: 5px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding-top: 30px;
+}
+
+.title {
+  align-items: center;
+  display: flex;
+  gap: 15px;
+}
+
+.subject {
+  background: rgba(0, 128, 255, 0.205);
+  border-radius: 5px;
+  color: #0080ff;
+  font-weight: 700;
+  padding: 5px 10px;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.subtitle {
+  display: flex;
+  gap: 25px;
+  margin-top: 15px;
+}
+
+input {
+  background: #e3e7f2;
+  border: 1px solid #d0d9ef;
+  font-size: 14px;
+  height: 35px;
+  width: 100%;
+}
+
+.field {
+  margin-bottom: 18px !important;
+}
+
+.p-float-label {
+  display: block;
+  position: relative;
+}
+
+label {
+  position: absolute;
+  pointer-events: none;
+  top: 50%;
+  margin-top: -0.5rem;
+  transition-property: all;
+  transition-timing-function: ease;
+  line-height: 1;
+}
+
+.course-list {
+  grid-gap: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.course-item {
+  border-radius: 10px;
+  box-shadow: 0 2px 7px -2px rgba(70, 131, 243, 0.7);
+  cursor: pointer;
+  height: 95%;
+  margin: 10px;
+  overflow: hidden;
+  padding: 10px;
+  position: relative;
+  transition: 0.4s ease-in-out;
+}
+
+.course-item--avatar {
+  border-radius: 5px;
+  height: 150px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.course-item--name {
+  font-size: 17px;
+  font-weight: 700;
+  height: 50px;
+  letter-spacing: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.course-item--teacher {
+  display: -webkit-box;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.course-item--description {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.p-rating {
+  gap: 4px !important;
+}
+
+.price {
+  font-size: 16px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.price-discount {
+  font-weight: 400;
+  text-decoration: line-through;
+}

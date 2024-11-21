@@ -1,0 +1,89 @@
+.login-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Để căn giữa form theo chiều dọc */
+  background-color: #f8f9fa; /* Màu nền nhẹ */
+}
+
+p-card {
+  border-radius: 10px; /* Bo góc cho card */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+}
+
+.container {
+  display: flex;
+}
+
+.content-left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-left .login-image {
+  max-width: 100%; /* Đảm bảo hình ảnh không vượt quá chiều rộng */
+  height: auto; /* Tự động điều chỉnh chiều cao */
+}
+
+.content-right {
+  flex: 1;
+  padding: 20px;
+}
+
+.field {
+  position: relative;
+  margin-bottom: 20px; /* Khoảng cách giữa các trường */
+}
+
+.input-field {
+  width: 100%; /* Đảm bảo trường nhập chiếm 100% chiều rộng */
+  padding: 10px;
+  border: 1px solid #ccc; /* Đường viền xám */
+  border-radius: 5px; /* Bo góc cho trường nhập */
+  transition: border-color 0.3s; /* Hiệu ứng chuyển tiếp */
+}
+
+.input-field:focus {
+  border-color: #3b3420; /* Đổi màu viền khi focus */
+  outline: none; /* Xóa outline mặc định */
+}
+
+.input-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px; /* Đặt vị trí icon bên trái */
+  transform: translateY(-50%); /* Giữa theo chiều dọc */
+  color: #888; /* Màu icon */
+}
+
+.error-message {
+  color: red; /* Màu chữ cho thông báo lỗi */
+  font-size: 12px; /* Kích thước chữ nhỏ hơn */
+  margin-top: 5px; /* Khoảng cách trên */
+}
+
+p-button {
+  background-color: #3b3420; /* Màu nền của nút */
+  border: none; /* Không có đường viền */
+  color: white; /* Màu chữ trắng */
+  border-radius: 5px; /* Bo góc cho nút */
+}
+
+p-button:hover {
+  background-color: #2c2418; /* Màu nền khi hover */
+}
+
+p {
+  text-align: center; /* Căn giữa đoạn văn */
+}
+
+a {
+  color: #3b3420; /* Màu chữ cho liên kết */
+  text-decoration: none; /* Không có gạch chân */
+}
+
+a:hover {
+  text-decoration: underline; /* Gạch chân khi hover */
+}

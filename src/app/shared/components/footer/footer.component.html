@@ -1,0 +1,112 @@
+<div class="footer-wrapper">
+  <div class="footer-top common-content">
+    <div class="footer-top--item">
+      <div class="footer-top--item-header">Chăm sóc khách hàng</div>
+      <div class="footer-top--item-content">
+        <ul>
+          <li>Trung tâm trợ giúp</li>
+          <li>Email: hhieuqua.com</li>
+          <li>Đường dây nóng: 0826 978 789</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-top--item">
+      <div class="footer-top--item-header">Về hochieuqua</div>
+      <div class="footer-top--item-content">
+        <ul>
+          <li>Giới thiệu về HocHieuQua</li>
+          <li>Liên hệ chúng tôi</li>
+          <li>Câu hỏi thường gặp</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-top--item">
+      <div class="footer-top--item-header">Hỗ trợ</div>
+      <div class="footer-top--item-content">
+        <ul>
+          <li>Các phương thưc thanh toán</li>
+          <li>Chính sách đổi trả</li>
+          <li>Chính sách bảo mật</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="footer-bottom">
+    <div class="footer-bottom--wrapper">
+      <div class="footer-bottom--left" >
+        <div>
+          <div class="footer-bottom--left-logo">
+            <div class="footer-bottom--left-logo-img">
+              <img
+                src="https://bsite.net/tntan796/images/638157397545141173_logo.png"
+              />
+            </div>
+            <div class="footer-bottom--left-logo-title">
+              <strong color="#0779f4">TEducation</strong>
+            </div>
+          </div>
+          <div>
+            <div>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rem
+              aspernatur, unde atque impedit nobis excepturi vel dolorem sequi
+              mollitia iste provident odio architecto debitis veniam? Amet
+              doloremque ab eveniet eius.
+            </div>
+          </div>
+          <div>Công ty cổ phần TEducation</div>
+          <div>Địa chỉ: Nam Từ Liêm - Tây Mỗ - Nam Từ Liêm - Hà Nội</div>
+        </div>
+      </div>
+      <div class="footer-bottom--right">
+        <div>
+          <div class="footer-bottom--right-download">
+            <h3 class="download-link">
+              <strong style="color: #0779f4">Liên kết</strong>
+            </h3>
+            <div>
+              <a href="" target="_blank" style="margin-right: 10px">
+                <img
+                  src="https://bsite.net/tntan796/images/638097598845717542_facebook.png"
+                  width="68"
+                  height="68"
+                />
+              </a>
+              <a href="" target="_blank">
+                <img
+                  src="https://bsite.net/tntan796/images/638097600016881422_youtube.png"
+                  width="68"
+                  height="68"
+                />
+              </a>
+            </div>
+            <div class="footer-bottom--right-connect">
+              <div class="connect-link">&nbsp;</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  
+  
+    <div class="footer-bottom">
+    <div class="footer-bottom--wrapper">
+      <div class="footer-bottom--left" *ngIf="footerLeft.length > 0">
+        <div *ngFor="let item of footerLeft">
+          <div [innerHTML]="item.content"></div>
+        </div>
+      </div>
+      <div class="footer-bottom--right" *ngIf="footerRight.length > 0">
+        <div *ngFor="let item of footerRight">
+          <div [innerHTML]="item.content"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <img
+    src="https://hochieuqua7.web.app/images/footer/footer4.png"
+    class="footer-background"
+  />
+</div>

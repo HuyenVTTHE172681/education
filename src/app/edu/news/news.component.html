@@ -1,0 +1,59 @@
+<div class="news1-component common-content">
+  <div class="news1-cover"></div>
+  <div class="news1-content">
+    <div class="news1-left">
+      <div class="header-title">Tin tức</div>
+      <div class="news1-left--list">
+        <div class="news1-left--item" *ngFor="let item of news">
+          <img [src]="item?.avatar" alt="" class="image" />
+          <div class="title">{{ item?.title }}</div>
+          <div class="tools">
+            <div class="tools-time">
+              <img
+                src="https://hochieuqua7.web.app/images/common/icons/blue/date/5033368.png"
+                alt="clock"
+                class="icon-16 mr-1"
+              />
+              <span>{{ item?.createdDate | date: "dd-MM-yyyy HH:mm" }}</span>
+            </div>
+            <div class="tools-view">
+              <img
+                src="https://hochieuqua7.web.app/images/common/icons/blue/design/4449969.png"
+                alt="view"
+                class="icon-16 mr-1"
+              />
+              <span>{{ item?.view }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="news1-right">
+      <div class="header-title">Bài khác</div>
+      <div class="news1-tab" >
+        <p-tabView>
+          <p-tabPanel header="Nhiều lượt xem">
+            <div class="news1-right--list" *ngFor="let newsByView of newsByView">
+              <div class="news1-right--item">{{ newsByView?.title }}</div>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel header="Bài mới nhất">
+            <div class="news1-right--list" *ngFor="let newsByDate of newsByDate">
+              <div class="news1-right--item">{{ newsByDate?.title }}</div>
+            </div>
+          </p-tabPanel>
+        </p-tabView>
+      </div>
+      <div class="header-title">Nhóm tin tức</div>
+      <div class="category-list" *ngFor="let newsCategory of newsCategory">
+        <div class="category-item">
+          <img
+            src="https://hochieuqua7.web.app/images/common/icons/blue/ecommerce/3537047.png"
+            alt=""
+          />
+          {{ newsCategory?.name }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

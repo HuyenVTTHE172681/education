@@ -1,0 +1,53 @@
+<p-toolbar class="header">
+  <div class="p-toolbar-group-left">
+    <a (click)="goToHome()" class="go-to-home">
+      <img
+        src="https://hochieuqua7.web.app/images/logo.png"
+        alt="logo"
+        [style]="{ width: '65px' }"
+      />
+    </a>
+  </div>
+  <div class="flex gap12 end col-6 middle p-0 justify-content-end">
+    <div *ngIf="user; else noLogin">
+      <div class="card flex align-items-center">
+        <span class="notification">
+          <i class="pi pi-bell text-1xl" pBadge value="2"></i>
+        </span>
+        <div class="user-info" (click)="toggleDropdown()">
+          <img [src]="user?.avatar" alt="User Avatar" class="userlogo" />
+          <span class="username">{{ user?.username }}</span>
+        </div>
+
+        <div class="userbutton">
+          <p-splitButton
+            label="{{ user?.username }}"
+            icon="pi pi-user"
+            [model]="items"
+          ></p-splitButton>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noLogin>
+      <div class="p-toolbar-group-right profile">
+        <div class="card flex align-items-center">
+          <p-button
+            class="p-button-text d-flex middle gap6"
+            label="Đăng ký"
+            icon="pi pi-user"
+            (onClick)="register()"
+            [ngStyle]="{ marginRight: '10px' }"
+          />
+          <p-button
+            class="p-button-text d-flex middle gap6"
+            label="Đăng nhập"
+            icon="pi pi-sign-in"
+            [outlined]="true"
+            (onClick)="login()"
+          />
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</p-toolbar>

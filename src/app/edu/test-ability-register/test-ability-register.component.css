@@ -1,0 +1,89 @@
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+  margin-top: -0.5rem;
+}
+
+.mt-4 {
+  margin-top: 1.5rem !important;
+}
+
+.field {
+  margin-bottom: 18px !important;
+}
+
+.col-12 {
+  flex: 0 0 auto;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.p-float-label {
+  height: 45px;
+  width: 100%;
+  position: relative;
+}
+
+.p-input-icon-right i {
+  color: #b4b4b4;
+}
+
+.pi {
+  speak: none;
+  font-feature-settings: normal;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  line-height: 1;
+  text-transform: none;
+}
+
+.p-inputtext {
+  background: #e3e7f2;
+  border: 1px solid #d0d9ef;
+  font-size: 14px;
+  height: 35px;
+  width: 100%;
+}
+
+.input-form input {
+  border-radius: 10px;
+}
+
+.field .p-float-label > label {
+  font-size: 14px;
+}
+
+.p-float-label label {
+  position: absolute;
+  pointer-events: none;
+  top: 50%;
+  margin-top: -0.5rem;
+  transition-property: all;
+  transition-timing-function: ease;
+  line-height: 1;
+}
+
+.p-float-label > label {
+  color: #6c757d;
+  left: 0.75rem;
+  transition-duration: 0.15s;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+/* color: #000;
+    left: 0;
+    top: -0.65rem; */
+
+.p-float-label label:focus {
+  color: #000;
+  left: 0;
+  top: -0.65rem;
+  font-size: 13px;
+}

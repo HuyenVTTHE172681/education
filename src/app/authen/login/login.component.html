@@ -1,0 +1,80 @@
+<div class="login-form">
+  <form
+    [formGroup]="loginObj"
+    (ngSubmit)="login()"
+    class="login-form"
+    *ngIf="!isLoading"
+  >
+    <p-card [style]="{ width: '400px' }">
+      <ng-template pTemplate="header">
+        <img alt="Card" src="/src/assets/login.png" class="login-image" />
+      </ng-template>
+      <span *ngIf="error">{{ error }}</span>
+
+      <div class="field">
+        <input
+          type="text"
+          pInputText
+          formControlName="Username"
+          class="input-field"
+          placeholder="Nhập tài khoản"
+        />
+        <i class="pi pi-user input-icon"></i>
+        <div
+          *ngIf="
+            loginObj.get('userName')?.touched &&
+            loginObj.get('userName')?.invalid
+          "
+          class="error-message"
+        >
+          Tài khoản là bắt buộc.
+        </div>
+      </div>
+
+      <div class="field">
+        <input
+          [type]="passwordType"
+          pInputText
+          formControlName="Password"
+          class="input-field"
+          placeholder="Nhập mật khẩu"
+        />
+        <i
+          [ngClass]="
+            showIcon ? 'pi pi-eye-slash input-icon' : 'pi pi-eye input-icon'
+          "
+          aria-hidden="true"
+          (click)="onChange()"
+        ></i>
+        <!-- <i class="pi pi-lock input-icon"></i> -->
+        <div
+          *ngIf="
+            loginObj.get('password')?.touched &&
+            loginObj.get('password')?.invalid
+          "
+          class="error-message"
+        >
+          Mật khẩu là bắt buộc.
+        </div>
+      </div>
+
+      <p-button
+        label="Đăng nhập"
+        [style]="{
+          display: 'block',
+          margin: '0 auto',
+          width: '200px',
+          background: '#3b3420',
+          'margin-top': '35px',
+          'border-color': '#3b3420'
+        }"
+        (click)="login()"
+      ></p-button>
+
+      <p>
+        Don't have an account?
+        <a routerLink="/register">Register here</a>
+      </p>
+    </p-card>
+  </form>
+</div>
