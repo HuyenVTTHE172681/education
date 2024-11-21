@@ -42,11 +42,12 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('refresh_token', res.refresh_token);
             alert('Đăng nhập hợp lệ.');
             this.isLoading = false;
-            this.router.navigate(['/edu']);
+            this.router.navigate(['/quan-tri']);
           },
           (err) => {
             console.log(err);
             alert('Đăng nhập không hợp lệ. Vui long thử lại.');
+             this.router.navigate(['/edu']);
             this.isLoading = false;
           }
         );
