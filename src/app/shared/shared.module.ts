@@ -12,6 +12,8 @@ import { CarouselModule } from 'primeng/carousel';
 import { SlideComponent } from './components/slide/slide.component';
 import { register } from 'swiper/element/bundle'; // Import register function
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { OrderListModule } from 'primeng/orderlist';
 
 register(); // Register Swiper
 
@@ -31,6 +33,8 @@ register(); // Register Swiper
     MenubarModule,
     CarouselModule,
     SplitButtonModule,
+    OverlayPanelModule,
+    OrderListModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
