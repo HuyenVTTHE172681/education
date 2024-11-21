@@ -1,0 +1,71 @@
+<div class="khoa-hoc customer-table common-content">
+  <p-table [value]="course" [tableStyle]="{ 'min-width': '60rem' }">
+    <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+            Products
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="code" style="width: 20%">
+          <p-checkbox [binary]="true" inputId="binary" />
+        </th>
+        <th pSortableColumn="code" style="width: 20%"></th>
+        <th pSortableColumn="code" style="width: 20%">
+          Ảnh <p-sortIcon field="code" />
+        </th>
+        <th pSortableColumn="code" style="width: 20%">
+          Tên <p-sortIcon field="code" />
+        </th>
+        <th pSortableColumn="code" style="width: 20%">
+          Hiển thị <p-sortIcon field="code" />
+        </th>
+        <th pSortableColumn="code" style="width: 20%">
+          HT Trang chủ<p-sortIcon field="code" />
+        </th>
+        <th pSortableColumn="code" style="width: 20%">
+          Giá<p-sortIcon field="code" />
+        </th>
+        <th pSortableColumn="code" style="width: 20%">
+          Giá giảm<p-sortIcon field="code" />
+        </th>
+        <th pSortableColumn="code" style="width: 20%">
+          Giáo viên<p-sortIcon field="code" />
+        </th>
+        <th pSortableColumn="code" style="width: 20%">
+          Lớp học<p-sortIcon field="code" />
+        </th>
+        <th pSortableColumn="code" style="width: 20%">
+          Môn học<p-sortIcon field="code" />
+        </th>
+        <th pSortableColumn="code" style="width: 20%">
+          Mã<p-sortIcon field="code" />
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td><p-checkbox [binary]="true" inputId="binary" /></td>
+        <td><i class="pi pi-ellipsis-v"></i></td>
+        <td>
+           <img
+              [src]="product?.courseAvatar"
+              width="50"
+              height="50"
+              class="shadow-4"
+              style="border-radius: 6px"
+            />
+        </td>
+        <td>{{ product?.name }}</td>
+        <td>{{ product?.status }}</td>
+        <td>{{ product?.isShowHome }}</td>
+        <td>{{ product?.price }}</td>
+        <td>{{ product?.priceDiscount }}</td>
+        <td>{{ product?.teacherName }}</td>
+        <td>{{ product?.classRoomName }}</td>
+        <td>{{ product?.subjectName }}</td>
+        <td>{{ product?.code }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

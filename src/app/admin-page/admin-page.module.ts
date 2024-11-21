@@ -1,0 +1,14 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TongQuanComponent } from './tong-quan/tong-quan.component';
+import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
+import { KhoaHocComponent } from './khoa-hoc/khoa-hoc.component';
+import { TableModule } from 'primeng/table';
+import { CheckboxModule } from 'primeng/checkbox';
+import { AdminPageRoutingModule } from './admin-page-routing.module';
+
+@NgModule({
+  declarations: [TongQuanComponent, AdminLayoutComponent, KhoaHocComponent],
+  imports: [CommonModule, AdminPageRoutingModule, TableModule, CheckboxModule],
+})
+export class AdminPageModule {}
