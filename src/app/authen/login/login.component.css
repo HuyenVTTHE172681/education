@@ -58,3 +58,110 @@
   font-size: 12px;
   margin-top: 5px;
 }
+
+/* **************************** */
+
+.xac-thuc {
+  height: 98vh;
+  overflow: hidden;
+  width: 98vw;
+}
+
+.content {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: fit-content;
+  z-index: 1000;
+}
+
+.area {
+  background: #fff;
+  height: 98vh;
+  width: 98%;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 31px 2px #a9a6a6;
+  max-width: 100%;
+  min-height: 700px;
+  overflow: hidden;
+  position: relative;
+  width: 960px;
+}
+
+.container-left {
+  background: #0a3b85;
+  padding: 20px;
+  position: relative;
+}
+
+.container-right {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.container-left--description {
+  color: #fff;
+  text-align: center;
+}
+
+.container-left--image {
+  bottom: 10%;
+  position: absolute;
+  width: 100%;
+}
+
+.container-left--description b {
+  color: #fbff00;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.container-right {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.login-wrapper {
+  padding: 10px;
+  width: 90%;
+}
+
+.login-title {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.login-title--left h2 {
+  font-size: 22px;
+  font-size: bolder;
+  text-transform: uppercase;
+}
+
+.login-title--right {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.login-title--right .subtitle {
+  color: #000;
+}
+
+.login-title--right .register-now {
+  color: #0a3b85;
+  cursor: pointer;
+}
