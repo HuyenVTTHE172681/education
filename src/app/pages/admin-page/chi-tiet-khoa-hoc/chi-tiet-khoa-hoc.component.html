@@ -2,238 +2,63 @@
   <div class="detail-breadcumb">
     <p-breadcrumb class="max-w-full" [model]="menuBreachCrumbs" [home]="home" />
   </div>
-  <p-tabView>
-    <p-tabPanel>
-      <ng-template pTemplate="header">
-        <div class="flex align-items-center gap-2">
-          <span>
-            <i class="pi pi-map-marker" style="font-size: 12px"></i>
-          </span>
-          <span class="font-bold white-space-nowrap m-0">Thông tin</span>
-        </div>
-      </ng-template>
-      <p>Tab content for Điểm...</p>
-    </p-tabPanel>
-
-    <p-tabPanel>
-      <ng-template pTemplate="header">
-        <div class="flex align-items-center gap-2">
-          <span>
-            <i class="pi pi-list" style="font-size: 12px"></i>
-          </span>
-          <span class="font-bold white-space-nowrap m-0">Chương trình học</span>
-        </div>
-      </ng-template>
-      <p>Tab content for Đánh giá...</p>
-    </p-tabPanel>
-
-    <p-tabPanel>
-      <ng-template pTemplate="header">
-        <div class="flex align-items-center gap-2">
-          <span>
-            <i class="pi pi-sort-numeric-down-alt" style="font-size: 12px"></i>
-          </span>
-          <span class="font-bold white-space-nowrap m-0">Điểm</span>
-        </div>
-      </ng-template>
-      <p>Tab content for Đánh giá...</p>
-    </p-tabPanel>
-
-    <p-tabPanel>
-      <ng-template pTemplate="header">
-        <div class="flex align-items-center gap-2">
-          <span>
-            <i class="pi pi-star" style="font-size: 12px"></i>
-          </span>
-          <span class="font-bold white-space-nowrap m-0">Đánh giá</span>
-        </div>
-      </ng-template>
-      <p>Tab content for Đánh giá...</p>
-    </p-tabPanel>
-  </p-tabView>
-
-  <div>
-    <div class="quan-tri-chi-tiet-mon-hoc common-content">
-      <div class="grid mt-3">
-        <div class="col-12 md:col-2">
-          <div class="grid mt-3">
-            <div class="col-12 avatar">
-              <img
-                src="https://hhq.runasp.net/images/638212960568580924_Picture4.jpg"
-                alt=""
-              />
-              <label for="upload-image">
-                <i class="pi pi-upload"></i> Avatar
-              </label>
-            </div>
-            <div class="col-12 avatar mt-2">
-              <img
-                src="https://hhq.runasp.net/images/638674307608004689_NuvfKwh.jpeg"
-                alt=""
-              />
-              <label for="upload-image2">
-                <i class="pi pi-upload"></i> Banner
-              </label>
-            </div>
+  <div class="tab-view">
+    <p-tabView
+      [(activeIndex)]="activeTabIndex"
+      (onChange)="onTabChange($event)"
+    >
+      <p-tabPanel [routerLink]="['/chi-tiet-khoa-hoc', id, 0]">
+        <ng-template pTemplate="header">
+          <div class="flex align-items-center gap-2">
+            <span>
+              <i class="pi pi-map-marker" style="font-size: 12px"></i>
+            </span>
+            <span class="font-bold white-space-nowrap m-0">Thông tin</span>
           </div>
-        </div>
-        <div class="col-12 md:col-10">
-          <form action="" class="p-fluid mt-3">
-            <div class="grid">
-              <div class="col-12 md:col-4">
-                <div class="field">
-                  <p-floatLabel>
-                    <p-iconField iconPosition="right">
-                      <p-inputIcon styleClass="pi pi-at" />
-                      <input id="name" type="text" pInputText />
-                    </p-iconField>
-                    <label for="name"
-                      >Tên khóa học <span class="text-red-500">*</span></label
-                    >
-                  </p-floatLabel>
-                </div>
-              </div>
-              <div class="col-12 md:col-4">
-                <div class="field">
-                  <p-floatLabel>
-                    <p-dropdown
-                      [options]="cities"
-                      optionLabel="name"
-                      placeholder="Select a City"
-                    ></p-dropdown>
-                    <label for=""
-                      >Lớp học <span class="text-red-500">*</span></label
-                    >
-                  </p-floatLabel>
-                </div>
-              </div>
-              <div class="col-12 md:col-4">
-                <div class="field">
-                  <p-floatLabel>
-                    <p-dropdown
-                      [options]="cities"
-                      optionLabel="name"
-                      placeholder="Select a City"
-                    ></p-dropdown>
-                    <label for=""
-                      >Môn học <span class="text-red-500">*</span></label
-                    >
-                  </p-floatLabel>
-                </div>
-              </div>
-              <div class="col-12 md:col-4">
-                <div class="field">
-                  <p-floatLabel>
-                    <p-dropdown
-                      [options]="cities"
-                      optionLabel="name"
-                      placeholder="Select a City"
-                    ></p-dropdown>
-                    <label for=""
-                      >Năm học <span class="text-red-500">*</span></label
-                    >
-                  </p-floatLabel>
-                </div>
-              </div>
-              <div class="col-12 md:col-4">
-                <div class="field">
-                  <p-floatLabel>
-                    <p-iconField iconPosition="right">
-                      <p-inputIcon styleClass="pi pi-shopping-cart" />
-                      <input id="price" type="text" pInputText />
-                    </p-iconField>
-                    <label for="price"
-                      >Giá <span class="text-red-500">*</span></label
-                    >
-                  </p-floatLabel>
-                </div>
-              </div>
-              <div class="col-12 md:col-4">
-                <div class="field">
-                  <p-floatLabel>
-                    <p-iconField iconPosition="right">
-                      <p-inputIcon styleClass="pi pi-money-bill" />
-                      <input id="priceDiscount" type="text" pInputText />
-                    </p-iconField>
-                    <label for="priceDiscount"
-                      >Giá giảm <span class="text-red-500">*</span></label
-                    >
-                  </p-floatLabel>
-                </div>
-              </div>
-              <div class="col-12 md:col-4">
-                <div class="field">
-                  <p-floatLabel>
-                    <p-iconField iconPosition="right">
-                      <p-inputIcon styleClass="pi pi-at" />
-                      <input id="promotionTime" type="text" pInputText />
-                    </p-iconField>
-                  </p-floatLabel>
-                </div>
-              </div>
-              <div class="col-12 md:col-4">
-                <div class="field">
-                  <p-floatLabel>
-                    <p-inputSwitch></p-inputSwitch>
-                    <label for="content" class="manual-active"
-                      >Hiển thị <span class="text-red-500">*</span></label
-                    >
-                  </p-floatLabel>
-                </div>
-              </div>
-              <div class="col-12 md:col-4">
-                <div class="field">
-                  <p-floatLabel>
-                    <p-inputSwitch></p-inputSwitch>
-                    <label for="content" class="manual-active"
-                      >Hiển thị trang chủ
-                      <span class="text-red-500">*</span></label
-                    >
-                  </p-floatLabel>
-                </div>
-              </div>
-              <div class="col-12 pt-0 pb-0">
-                <div class="field">
-                  <p-floatLabel>
-                    <p-dropdown
-                      [options]="cities"
-                      optionLabel="name"
-                      placeholder="Select a City"
-                    ></p-dropdown>
-                    <label for="username"
-                      >Lớp học <span class="text-red-500">*</span></label
-                    >
-                  </p-floatLabel>
-                </div>
-              </div>
-              <div class="col-12 pt-0">
-                <div class="field">
-                  <label for="" class="font-size-14">Thông tin khóa học</label>
-                  <p-editor [style]="{ height: '320px' }" />
-                </div>
-              </div>
-              <div class="col-12 pt-0">
-                <div class="field">
-                  <label for="" class="font-size-14"
-                    >Thông tin thêm khóa học</label
-                  >
-                  <p-editor [style]="{ height: '320px' }" />
-                </div>
-              </div>
-              <div class="col-12 pt-0">
-                <div class="field">
-                  <label for="" class="font-size-14">Thông tin giáo viên</label>
-                  <p-editor [style]="{ height: '320px' }" />
-                </div>
-              </div>
-              <div class="col-12 fixed-action">
-                <p-button label="Hủy bỏ" [outlined]="true" icon="pi pi-times" />
-                <p-button label="Lưu lại" icon="pi pi-save" />
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+        </ng-template>
+        <app-information></app-information>
+      </p-tabPanel>
+
+      <p-tabPanel>
+        <ng-template pTemplate="header">
+          <div class="flex align-items-center gap-2">
+            <span>
+              <i class="pi pi-list" style="font-size: 12px"></i>
+            </span>
+            <span class="font-bold white-space-nowrap m-0"
+              >Chương trình học</span
+            >
+          </div>
+        </ng-template>
+        <app-chuong-trinh-hoc></app-chuong-trinh-hoc>
+      </p-tabPanel>
+
+      <p-tabPanel>
+        <ng-template pTemplate="header">
+          <div class="flex align-items-center gap-2">
+            <span>
+              <i
+                class="pi pi-sort-numeric-down-alt"
+                style="font-size: 12px"
+              ></i>
+            </span>
+            <span class="font-bold white-space-nowrap m-0">Điểm</span>
+          </div>
+        </ng-template>
+        <app-scores></app-scores>
+      </p-tabPanel>
+
+      <p-tabPanel>
+        <ng-template pTemplate="header">
+          <div class="flex align-items-center gap-2">
+            <span>
+              <i class="pi pi-star" style="font-size: 12px"></i>
+            </span>
+            <span class="font-bold white-space-nowrap m-0">Đánh giá</span>
+          </div>
+        </ng-template>
+        <app-feedback></app-feedback>
+      </p-tabPanel>
+    </p-tabView>
   </div>
 </div>

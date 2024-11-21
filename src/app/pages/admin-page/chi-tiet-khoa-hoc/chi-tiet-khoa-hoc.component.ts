@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { InformationComponent } from './information/information.component';
+import { ChuongTrinhHocComponent } from './chuong-trinh-hoc/chuong-trinh-hoc.component';
+import { ScoresComponent } from './scores/scores.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 @Component({
   selector: 'app-chi-tiet-khoa-hoc',
@@ -9,26 +14,34 @@ import { MenuItem } from 'primeng/api';
 export class ChiTietKhoaHocComponent implements OnInit {
   menuBreachCrumbs: any[] = [];
   home: MenuItem | undefined;
-  cities: any[] = [];
   checked: boolean = false;
+  activeTabIndex: number = 0;
+  id: string | null = null;
 
-  constructor() {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('id');
+    console.log(this.id);
     this.menuBreachCrumbs = [
-      { label: 'Quản trị' },
-      { label: 'Khóa học' },
+      { label: 'Quản trị', routerLink: '/quan-tri' },
+      { label: 'Khóa học', routerLink: '/quan-tri/khoa-hoc' },
       { label: 'Chi tiết khóa học' },
     ];
 
     this.home = { icon: 'pi pi-shop', routerLink: '/' };
 
-    this.cities = [
-      { name: 'New York', code: 'NY' },
-      { name: 'Rome', code: 'RM' },
-      { name: 'London', code: 'LDN' },
-      { name: 'Istanbul', code: 'IST' },
-      { name: 'Paris', code: 'PRS' },
-    ];
+    this.route.paramMap.subscribe((params) => {
+      const tabIndex = +params.get('tabIndex')!;
+      this.activeTabIndex = tabIndex;
+    });
+  }
+
+  onTabChange(event: any): void {
+    if (this.id) {
+      this.router.navigate([
+        `quan-tri/chi-tiet-khoa-hoc/${this.id}/${event.index}`,
+      ]); // Điều hướng đến tab mới
+    }
   }
 }

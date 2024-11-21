@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InformationComponent } from './information.component';
+import { ChuongTrinhHocComponent } from './chuong-trinh-hoc.component';
 
-describe('InformationComponent', () => {
-  let component: InformationComponent;
-  let fixture: ComponentFixture<InformationComponent>;
+describe('ChuongTrinhHocComponent', () => {
+  let component: ChuongTrinhHocComponent;
+  let fixture: ComponentFixture<ChuongTrinhHocComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [InformationComponent]
+      declarations: [ChuongTrinhHocComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(InformationComponent);
+    fixture = TestBed.createComponent(ChuongTrinhHocComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
