@@ -14,18 +14,22 @@
         <span class="notification">
           <i class="pi pi-bell text-1xl" pBadge value="2"></i>
         </span>
-        <div class="user-info" (click)="toggleDropdown()">
+        <div class="user-info" (click)="optionTopbar.toggle($event)">
           <img [src]="user?.avatar" alt="User Avatar" class="userlogo" />
           <span class="username">{{ user?.username }}</span>
+          <i
+            class="pi pi-angle-down"
+            style="font-size: 1.5rem; color: black"
+          ></i>
         </div>
 
-        <div class="userbutton">
+        <!-- <div class="userbutton">
           <p-splitButton
             label="{{ user?.username }}"
             icon="pi pi-user"
             [model]="items"
           ></p-splitButton>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -51,3 +55,17 @@
     </ng-template>
   </div>
 </p-toolbar>
+
+<p-overlayPanel #optionTopbar styleClass="option-topbar">
+  <div *ngFor="let item of items">
+    <div
+      class="flex flex-wrap p-2 align-items-center gap-3"
+      (click)="executeCommand(item.command, optionTopbar)"
+      style="cursor: pointer"
+    >
+      <i class="{{ item?.icon }}"></i>
+      <span class="font-bold">{{ item?.label }}</span>
+    </div>
+  </div>
+</p-overlayPanel>
+
