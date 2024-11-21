@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { KhoaHocComponent } from './khoa-hoc/khoa-hoc.component';
+import { ChiTietKhoaHocComponent } from './chi-tiet-khoa-hoc/chi-tiet-khoa-hoc.component';
+import { TongQuanComponent } from './tong-quan/tong-quan.component';
 
 const routes: Routes = [
   {
@@ -10,10 +12,15 @@ const routes: Routes = [
         path: '',
         redirectTo: '',
         pathMatch: 'full',
+        component: TongQuanComponent,
       },
       {
-        path: '',
+        path: 'quan-tri/khoa-hoc',
         component: KhoaHocComponent,
+      },
+      {
+        path: 'quan-tri/chi-tiet-khoa-hoc/:id',
+        component: ChiTietKhoaHocComponent,
       },
     ],
   },
@@ -21,8 +28,16 @@ const routes: Routes = [
 
 // const routes: Routes = [
 //   {
-//     path: '', 
+//     path: '',
+//     component: TongQuanComponent,
+//   },
+//   {
+//     path: 'quan-tri/khoa-hoc',
 //     component: KhoaHocComponent,
+//   },
+//   {
+//     path: 'quan-tri/chi-tiet-khoa-hoc/:id',
+//     component: ChiTietKhoaHocComponent,
 //   },
 // ];
 

@@ -1,16 +1,29 @@
 <div class="khoa-hoc customer-table common-content">
   <p-table [value]="course" [tableStyle]="{ 'min-width': '60rem' }">
     <ng-template pTemplate="caption">
-      <div class="flex align-items-center justify-content-between">
-        Products
-      </div>
       <div class="grid align-items-end">
         <div class="col-12 md:col-4">
           <p-breadcrumb class="max-w-full" [model]="items" [home]="home" />
+          <div class="header-title hidden-mobile">Khóa học</div>
         </div>
         <div
           class="col-12 md:col-8 text-right flex justify-content-end align-items-end"
-        ></div>
+        >
+          <div class="mr-2 text-left search">
+            <label for="search">Tìm kiếm: </label>
+            <p-inputGroup>
+              <input type="text" pInputText placeholder="Keyword" />
+              <button
+                type="button"
+                pButton
+                icon="pi pi-search"
+                class="p-button-warning"
+              ></button>
+            </p-inputGroup>
+          </div>
+          <p-button label="Bộ lọc" icon="pi pi-check" />
+          <p-button label="Thêm mới" icon="pi pi-check" />
+        </div>
       </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -64,7 +77,13 @@
             style="border-radius: 6px"
           />
         </td>
-        <td>{{ product?.name }}</td>
+        <td>
+          <a
+            [routerLink]="['/quan-tri/chi-tiet-khoa-hoc', product?.classRoomId]"
+          >
+            {{ product?.name }}
+          </a>
+        </td>
         <td>{{ product?.status }}</td>
         <td>{{ product?.isShowHome }}</td>
         <td>{{ product?.price }}</td>
