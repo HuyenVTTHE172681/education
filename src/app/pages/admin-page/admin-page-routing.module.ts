@@ -15,11 +15,11 @@ const routes: Routes = [
         component: TongQuanComponent,
       },
       {
-        path: 'quan-tri/khoa-hoc',
+        path: 'khoa-hoc',
         component: KhoaHocComponent,
       },
       {
-        path: 'quan-tri/chi-tiet-khoa-hoc/:id',
+        path: 'chi-tiet-khoa-hoc/:id',
         component: ChiTietKhoaHocComponent,
       },
     ],
