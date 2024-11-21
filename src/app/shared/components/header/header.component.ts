@@ -98,4 +98,11 @@ export class HeaderComponent implements OnInit {
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
+
+  executeCommand(command: Function, overlayPanel: any) {
+    if (command) {
+      command();
+    }
+    overlayPanel.hide();
+  }
 }
