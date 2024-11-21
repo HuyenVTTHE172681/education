@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-chi-tiet-khoa-hoc',
@@ -6,23 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './chi-tiet-khoa-hoc.component.css',
 })
 export class ChiTietKhoaHocComponent implements OnInit {
-  items: any[] = [];
+  menuBreachCrumbs: any[] = [];
+  home: MenuItem | undefined;
   cities: any[] = [];
   checked: boolean = false;
 
-  home: any = { icon: 'pi pi-home', routerLink: '/' };
   constructor() {}
 
   ngOnInit(): void {
-    this.items = [
-      { label: 'Electronics' },
-      { label: 'Computer' },
-      { label: 'Accessories' },
-      { label: 'Keyboard' },
-      { label: 'Wireless' },
+    this.menuBreachCrumbs = [
+      { label: 'Quản trị' },
+      { label: 'Khóa học' },
+      { label: 'Chi tiết khóa học' },
     ];
 
-    this.home = { icon: 'pi pi-home', routerLink: '/' };
+    this.home = { icon: 'pi pi-shop', routerLink: '/' };
 
     this.cities = [
       { name: 'New York', code: 'NY' },

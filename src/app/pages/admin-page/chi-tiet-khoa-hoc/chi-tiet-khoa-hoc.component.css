@@ -5,6 +5,10 @@
   padding: 10px 20px;
 }
 
+.detail-breadcumb {
+  margin-bottom: 14px;
+}
+
 .mt-2 {
   margin-top: 0.5rem !important;
 }
@@ -77,4 +81,10 @@ label {
 
 .mr-2 {
   margin-right: 0.5rem !important;
+}
+
+.manual-active {
+  font-size: 13px !important;
+  left: 0 !important;
+  top: -0.65rem;
 }
