@@ -2,6 +2,8 @@
 @import 'primeng/resources/themes/lara-light-blue/theme.css';
 @import 'primeng/resources/primeng.css';
 @import 'primeicons/primeicons.css';
+@import '../node_modules/quill/dist/quill.core.css';
+@import '../node_modules/quill/dist/quill.snow.css';
 
 .p-menubar
   .p-menubar-root-list
@@ -67,9 +69,32 @@ p {
   width: 44px;
 }
 
-/* svg {
-  color: gray;
-  font-size: 18px;
-  font-weight: bolder;
-  transition: 0.3s ease-in-out;
-} */
+.p-datatable-header.ng-star-inserted {
+  background: #fff;
+  border: none;
+  padding: 0;
+}
+
+nav.p-breadcrumb.p-component {
+  background: transparent;
+  border: none !important;
+  padding: 0.3rem 0 !important;
+  font-size: 12px;
+}
+
+a#pn_id_1_header_action {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #0a3b85;
+  font-size: 14px;
+}
+
+button.p-ripple.p-element.p-button.p-component.p-button-outlined {
+  font-size: 0.875rem;
+  padding: 0.4375rem 0.65625rem;
+}
+
+button.p-ripple.p-element.p-button.p-component {
+  font-size: 0.875rem;
+  padding: 0.4375rem 0.65625rem;
+}
