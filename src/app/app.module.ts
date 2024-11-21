@@ -11,6 +11,8 @@ import { register } from 'swiper/element/bundle';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AdminPageModule } from './pages/admin-page/admin-page.module';
+import { EduModule } from './pages/edu/edu.module';
 
 register();
 @NgModule({
@@ -24,7 +26,9 @@ register();
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AdminPageModule,
+    EduModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
