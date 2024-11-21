@@ -16,7 +16,10 @@ export class CourseComponent implements OnInit {
   rows = 10;
 
   courses: any[] = [];
-  constructor(private testAbilitySr: TestAbilityService, private courseSrv: CourseService) {}
+  constructor(
+    private testAbilitySr: TestAbilityService,
+    private courseSrv: CourseService
+  ) {}
 
   ngOnInit(): void {
     this.getClassrooms();
@@ -42,6 +45,7 @@ export class CourseComponent implements OnInit {
       }));
     });
   }
+
 
   getCourse(): void {
     this.courseSrv.getCourse().subscribe((data) => {

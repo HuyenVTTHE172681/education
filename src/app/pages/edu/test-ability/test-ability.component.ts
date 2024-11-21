@@ -1,64 +1,112 @@
 import { Component, OnInit } from '@angular/core';
 import { TestAbilityService } from '../../../services/test-ability.service';
+import { Test } from '../../../models/test.model';
+import { IResponeList } from '../../../models/common.model';
 
 @Component({
   selector: 'app-test-ability',
   templateUrl: './test-ability.component.html',
-  styleUrl: './test-ability.component.css',
+  styleUrls: ['./test-ability.component.css'],
 })
 export class TestAbilityComponent implements OnInit {
-  testAbility: any[] = [];
-  classRoom: any[] = [];
-  subject: any[] = [];
-  selectedClassRoom: string | null = null;
-  selectedSubject: string | null = null;
-  showFormRegisterTest: boolean = false;
-  first = 0;
-  rows = 10;
+  testAbilities: Test[] = [];
+  classRooms: any[] = [];
+  subjects: any[] = [];
+  totalItems: number = 0;
 
-  constructor(private testAbilitySr: TestAbilityService) {}
+  // Pagination and filters
+  page: number = 1;
+  size: number = 10;
+  searchText: string = '';
+  selectedClassRoom: string = '';
+  selectedSubject: string = '';
+
+  // Show dialog
+  showFormRegisterTest: boolean = false;
+
+  constructor(private testAbilityService: TestAbilityService) {}
 
   ngOnInit(): void {
-    this.getClassrooms();
-    this.getSubjects();
-    this.loadTest(this.first, this.rows);
+    this.getClassRooms(); // Load class rooms
+    this.getSubjects(); // Load subjects
+    this.getAllTestAbilities(); // Load test abilities
   }
 
-  loadTest(offSet: number, pageSize: number) {
-    this.testAbilitySr.getTestAbility().subscribe((data) => {
-      this.testAbility = data;
-    });
+  // Fetch all test abilities with filters
+  isShowInAbilityTest: number = 1;
+  isFromCMS: number = 0;
+  getAllTestAbilities(): void {
+    this.testAbilityService
+      .getTestAbility(
+        this.page,
+        this.size,
+        this.isShowInAbilityTest,
+        this.selectedClassRoom,
+        this.selectedSubject,
+        this.isFromCMS
+      )
+      .subscribe({
+        next: (data: IResponeList<Test>) => {
+          this.testAbilities = data.data.data;
+          this.totalItems = data.data.recordsTotal;
+          console.log('TestAbilities:', this.testAbilities);
+        },
+        error: (error) => {
+          console.log(error);
+          console.log('>:<');
+        },
+      });
+    console.log('TestAbilities:', this.testAbilities);
   }
-  getClassrooms(): void {
-    this.testAbilitySr.getClassrooms().subscribe((data) => {
-      this.classRoom = data.map((item: any) => ({
-        name: item.name, // Tên lớp học
-        value: item.id, // ID lớp học
-      }));
-      console.log(this.classRoom);
+
+  // Fetch all classrooms for filtering
+  getClassRooms(): void {
+    this.testAbilityService.getClassrooms().subscribe({
+      next: (data) => {
+        this.classRooms = data.map((item: any) => ({
+          name: item.name, // Tên lớp học
+          value: item.id, // ID lớp học
+        }));
+        console.log('ClassRooms:', this.classRooms); // In ra kết quả các lớp học
+      },
+      error: (error) => {
+        console.error('Error fetching classrooms:', error);
+      },
     });
   }
 
+  // Fetch all subjects for filtering
   getSubjects(): void {
-    this.testAbilitySr.getSubjects().subscribe((data) => {
-      this.subject = data.map((item: any) => ({
-        name: item.name, // Tên môn học
-        value: item.id, // ID môn học
-      }));
+    this.testAbilityService.getSubjects().subscribe({
+      next: (data) => {
+        this.subjects = data.map((item: any) => ({
+          name: item.name, // Tên môn học
+          value: item.id, // ID môn học
+        }));
+        console.log('Subjects:', this.subjects); // In ra kết quả các môn học
+      },
+      error: (error) => {
+        console.error('Error fetching subjects:', error);
+      },
     });
   }
 
-  onPageChange(event: any) {
-    this.first = event.first; // vị trí bắt đầu
-    this.rows = event.rows; // số lượng item mỗi trang, mặc định là 10
-
-    const pageIndex = this.first / this.rows; // Tính trang hiện tại
-    const offSet = pageIndex * this.rows; // Tính offset
-
-    this.loadTest(offSet, this.rows);
+  // Handle pagination change
+  onPageChange(event: any): void {
+    this.page = event.page + 1; // Update current page
+    this.size = event.rows; // Update page size
+    this.getAllTestAbilities(); // Fetch the test abilities for the new page
+    console.log('Page changed:', this.page);
   }
 
+  // Show dialog to register test
   showDialog() {
     this.showFormRegisterTest = true;
+  }
+
+  // Optional: You can add search functionality for the filter as well
+  onSearchChange(): void {
+    this.page = 1; // Reset to the first page on search change
+    this.getAllTestAbilities();
   }
 }

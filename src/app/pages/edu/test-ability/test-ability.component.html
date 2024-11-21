@@ -24,7 +24,7 @@
             <div class="field">
               <span class="p-float-label">
                 <p-dropdown
-                  [options]="classRoom"
+                  [options]="classRooms"
                   [(ngModel)]="selectedClassRoom"
                   optionLabel="name"
                   placeholder="Tất cả"
@@ -46,7 +46,7 @@
             <div class="field">
               <span class="p-float-label">
                 <p-dropdown
-                  [options]="subject"
+                  [options]="subjects"
                   [(ngModel)]="selectedSubject"
                   optionLabel="name"
                   placeholder="Tất cả"
@@ -67,7 +67,7 @@
             </div>
           </div>
 
-          <div class="test-right--item" *ngFor="let test of testAbility">
+          <div class="test-right--item" *ngFor="let test of testAbilities">
             <div class="info">
               <div class="title">
                 <div class="subject">
@@ -109,12 +109,11 @@
         "
       >
         <p-paginator
-          [first]="first"
-          [rows]="rows"
-          [totalRecords]="120"
-          [rowsPerPageOptions]="[10, 20, 30]"
+          [rows]="size"
+          [totalRecords]="totalItems"
+          [first]="(page - 1) * size"
           (onPageChange)="onPageChange($event)"
-        />
+        ></p-paginator>
 
         <div class="flex justify-content-center align-items-center gap-3">
           <span>Từ 1 đến 10</span>
