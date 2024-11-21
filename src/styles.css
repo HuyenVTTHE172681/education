@@ -98,3 +98,37 @@ button.p-ripple.p-element.p-button.p-component {
   font-size: 0.875rem;
   padding: 0.4375rem 0.65625rem;
 }
+
+svg.p-icon {
+  width: 10px;
+}
+
+.field input {
+  background: #e3e7f2;
+  border: 1px solid #d0d9ef;
+  font-size: 14px;
+  height: 35px;
+  width: 100%;
+}
+
+.field
+  span.p-element.p-dropdown-label.p-inputtext.p-placeholder.ng-star-inserted {
+  background: none;
+  border: none;
+  font-size: 14px;
+  height: 35px;
+  width: 100%;
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+  padding: 0.8rem;
+}
+
+.tab-view ul.p-tabview-nav {
+  border: none;
+}
+
+.tab-view li.ng-star-inserted {
+  border: 1px solid #e5e7eb;
+  border-width: 0 0 2px 0;
+}
