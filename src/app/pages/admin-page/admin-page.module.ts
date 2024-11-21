@@ -19,9 +19,23 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { EditorModule } from 'primeng/editor';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { InformationComponent } from './chi-tiet-khoa-hoc/information/information.component';
+import { ChuongTrinhHocComponent } from './chi-tiet-khoa-hoc/chuong-trinh-hoc/chuong-trinh-hoc.component';
+import { ScoresComponent } from './chi-tiet-khoa-hoc/scores/scores.component';
+import { FeedbackComponent } from './chi-tiet-khoa-hoc/feedback/feedback.component';
 
 @NgModule({
-  declarations: [TongQuanComponent, KhoaHocComponent, ChiTietKhoaHocComponent],
+  declarations: [
+    TongQuanComponent,
+    KhoaHocComponent,
+    ChiTietKhoaHocComponent,
+    InformationComponent,
+    ChuongTrinhHocComponent,
+    ScoresComponent,
+    FeedbackComponent,
+  ],
   imports: [
     CommonModule,
     AdminPageRoutingModule,
@@ -40,6 +54,8 @@ import { EditorModule } from 'primeng/editor';
     InputSwitchModule,
     AutoCompleteModule,
     EditorModule,
+    AvatarModule,
+    AvatarGroupModule,
   ],
 })
 export class AdminPageModule {}
