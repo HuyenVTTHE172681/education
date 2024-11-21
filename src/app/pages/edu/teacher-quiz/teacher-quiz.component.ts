@@ -1,5 +1,5 @@
 import { Component, NgModule, OnInit } from '@angular/core';
-import { HomeService } from '../../services/home.service';
+import { HomeService } from '../../../services/home.service';
 
 @Component({
   selector: 'app-teacher-quiz',

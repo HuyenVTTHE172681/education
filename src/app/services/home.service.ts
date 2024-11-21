@@ -3,17 +3,22 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MenuItem } from 'primeng/api';
+import { API_URL } from '../environments/constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HomeService {
+  apiBaseUrl: string = '';
+
   private apiUrl = 'https://hhq.runasp.net/api/Home';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.apiBaseUrl = API_URL.URL_API_CORE;
+  }
 
   getSlider(): Observable<any[]> {
-    return this.http.get<any>(this.apiUrl).pipe(
+    return this.http.get<any>(`${this.apiBaseUrl}/Home`).pipe(
       map((response) => {
         return response.data.slides.map((item: any) => ({
           name: item.name,
@@ -25,7 +30,7 @@ export class HomeService {
   }
 
   getSubjects(): Observable<any[]> {
-    return this.http.get<any>(this.apiUrl).pipe(
+    return this.http.get<any>(`${this.apiBaseUrl}/Home`).pipe(
       map((response) => {
         return response.data.subjects.map((item: any) => ({
           id: item.id,
@@ -39,7 +44,7 @@ export class HomeService {
   }
 
   getQuiz(): Observable<any[]> {
-    return this.http.get<any>(this.apiUrl).pipe(
+    return this.http.get<any>(`${this.apiBaseUrl}/Home`).pipe(
       map((response) => {
         return response.data.quizs.map((item: any) => ({
           id: item.id,
@@ -56,7 +61,7 @@ export class HomeService {
   }
 
   getTeachers(): Observable<any[]> {
-    return this.http.get<any>(this.apiUrl).pipe(
+    return this.http.get<any>(`${this.apiBaseUrl}/Home`).pipe(
       map((response) => {
         return response.data.teachers.map((item: any) => ({
           accountId: item.accountId,
@@ -72,7 +77,7 @@ export class HomeService {
   }
 
   getClassRooms(): Observable<any[]> {
-    return this.http.get<any>(this.apiUrl).pipe(
+    return this.http.get<any>(`${this.apiBaseUrl}/Home`).pipe(
       map((response) => {
         return response.data.classRooms.map((item: any) => ({
           id: item.id,

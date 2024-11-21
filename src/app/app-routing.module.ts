@@ -24,12 +24,15 @@ const routes: Routes = [
     path: 'quan-tri',
     component: ContentLayoutComponent,
     loadChildren: () =>
-      import('./admin-page/admin-page.module').then((m) => m.AdminPageModule),
+      import('./pages/admin-page/admin-page.module').then(
+        (m) => m.AdminPageModule
+      ),
   },
   {
     path: 'edu',
     component: ContentLayoutComponent,
-    loadChildren: () => import('./edu/edu.module').then((m) => m.EduModule),
+    loadChildren: () =>
+      import('./pages/edu/edu.module').then((m) => m.EduModule),
   },
   {
     path: 'login',

@@ -1,9 +1,17 @@
 <div class="khoa-hoc customer-table common-content">
   <p-table [value]="course" [tableStyle]="{ 'min-width': '60rem' }">
     <ng-template pTemplate="caption">
-        <div class="flex align-items-center justify-content-between">
-            Products
+      <div class="flex align-items-center justify-content-between">
+        Products
+      </div>
+      <div class="grid align-items-end">
+        <div class="col-12 md:col-4">
+          <p-breadcrumb class="max-w-full" [model]="items" [home]="home" />
         </div>
+        <div
+          class="col-12 md:col-8 text-right flex justify-content-end align-items-end"
+        ></div>
+      </div>
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
@@ -48,13 +56,13 @@
         <td><p-checkbox [binary]="true" inputId="binary" /></td>
         <td><i class="pi pi-ellipsis-v"></i></td>
         <td>
-           <img
-              [src]="product?.courseAvatar"
-              width="50"
-              height="50"
-              class="shadow-4"
-              style="border-radius: 6px"
-            />
+          <img
+            [src]="product?.courseAvatar"
+            width="50"
+            height="50"
+            class="shadow-4"
+            style="border-radius: 6px"
+          />
         </td>
         <td>{{ product?.name }}</td>
         <td>{{ product?.status }}</td>

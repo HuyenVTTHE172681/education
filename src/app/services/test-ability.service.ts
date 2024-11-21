@@ -2,27 +2,24 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { API_URL } from '../environments/constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TestAbilityService {
-  // Get test ability
-  private apiUrl1 =
-    'https://hhq.runasp.net/api/test?IsShowInAbilityTest=1&classId&courseId&filter=&isFromCMS=0&offSet=0&pageSize=10&subjectId&testCategoryId=kiem-tra';
+  apiBaseUrl: string = '';
 
-  // Get classroom
-  private apiUrl2 =
-    'https://hhq.runasp.net/api/ClassRoom?filter=&offSet=0&pageSize=1000';
+  constructor(private http: HttpClient) {
+    this.apiBaseUrl = API_URL.URL_API_CORE;
+  }
 
-  // News subject
-  private apiUrl3 =
-    'https://hhq.runasp.net/api/Subject?classId=-1&filter=&offSet=0&pageSize=1000';
-
-  constructor(private http: HttpClient) {}
-
-    getTestAbility(): Observable<any[]> {
-      return this.http.get<any>(this.apiUrl1).pipe(
+  getTestAbility(): Observable<any[]> {
+    return this.http
+      .get<any>(
+        `${this.apiBaseUrl}/test?IsShowInAbilityTest=1&classId&courseId&filter=&isFromCMS=0&offSet=0&pageSize=10&subjectId&testCategoryId=kiem-tra`
+      )
+      .pipe(
         map((response) => {
           return response.data.data.map((item: any) => ({
             accountsSpecial: item.accountsSpecial,
@@ -67,41 +64,47 @@ export class TestAbilityService {
           }));
         })
       );
-    }
+  }
 
   getClassrooms(): Observable<any[]> {
-    return this.http.get<any>(this.apiUrl2).pipe(
-      map((response) => {
-        return response.data.data.map((item: any) => ({
-          avatar: item.avatar,
-          code: item.code,
-          courseId: item.courseId,
-          id: item.id,
-          name: item.name,
-          order: item.order,
-          status: item.status,
-          subjectId: item.subjectId,
-          totalFiltered: item.totalFiltered,
-        }));
-      })
-    );
+    return this.http
+      .get<any>(`${this.apiBaseUrl}/ClassRoom?filter=&offSet=0&pageSize=1000`)
+      .pipe(
+        map((response) => {
+          return response.data.data.map((item: any) => ({
+            avatar: item.avatar,
+            code: item.code,
+            courseId: item.courseId,
+            id: item.id,
+            name: item.name,
+            order: item.order,
+            status: item.status,
+            subjectId: item.subjectId,
+            totalFiltered: item.totalFiltered,
+          }));
+        })
+      );
   }
 
   getSubjects(): Observable<any[]> {
-    return this.http.get<any>(this.apiUrl3).pipe(
-      map((response) => {
-        return response.data.data.map((item: any) => ({
-          avatar: item.avatar,
-          code: item.code,
-          courseId: item.courseId,
-          id: item.id,
-          name: item.name,
-          order: item.order,
-          status: item.status,
-          subjectId: item.subjectId,
-          totalFiltered: item.totalFiltered,
-        }));
-      })
-    );
+    return this.http
+      .get<any>(
+        `${this.apiBaseUrl}/Subject?classId=-1&filter=&offSet=0&pageSize=1000`
+      )
+      .pipe(
+        map((response) => {
+          return response.data.data.map((item: any) => ({
+            avatar: item.avatar,
+            code: item.code,
+            courseId: item.courseId,
+            id: item.id,
+            name: item.name,
+            order: item.order,
+            status: item.status,
+            subjectId: item.subjectId,
+            totalFiltered: item.totalFiltered,
+          }));
+        })
+      );
   }
 }

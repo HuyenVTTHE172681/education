@@ -12,7 +12,6 @@ export class AuthService {
   public user$ = this.userSubject.asObservable(); // Quan sát trạng thái user
 
   constructor(private http: HttpClient) {
-    // Kiểm tra user từ localStorage khi khởi tạo
     const user = localStorage.getItem('user');
     if (user) {
       this.userSubject.next(JSON.parse(user));

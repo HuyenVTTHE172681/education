@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TestAbilityService } from '../../services/test-ability.service';
+import { TestAbilityService } from '../../../services/test-ability.service';
 
 @Component({
   selector: 'app-test-ability',

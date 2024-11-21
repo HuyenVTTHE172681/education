@@ -6,9 +6,10 @@ import { KhoaHocComponent } from './khoa-hoc/khoa-hoc.component';
 import { TableModule } from 'primeng/table';
 import { CheckboxModule } from 'primeng/checkbox';
 import { AdminPageRoutingModule } from './admin-page-routing.module';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @NgModule({
   declarations: [TongQuanComponent, AdminLayoutComponent, KhoaHocComponent],
-  imports: [CommonModule, AdminPageRoutingModule, TableModule, CheckboxModule],
+  imports: [CommonModule, AdminPageRoutingModule, TableModule, CheckboxModule, BreadcrumbModule],
 })
 export class AdminPageModule {}
