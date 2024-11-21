@@ -47,6 +47,7 @@ export class CourseService {
           return response.data.data.map((item: any) => ({
             id: item.id,
             classRoomName: item.classRoomName,
+            classRoomId: item.classRoomId,
             courseAvatar: item.courseAvatar,
             courseBanner: item.courseBanner,
             isShowHome: item.isShowHome,
