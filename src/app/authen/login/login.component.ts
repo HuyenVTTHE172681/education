@@ -33,13 +33,13 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.loginObj.valid) {
-      this.isLoading = true;
       setTimeout(() => {
         this.authenticationSrv.login(this.loginObj.value).subscribe(
           (res) => {
             console.log(res);
             localStorage.setItem('token', res.token);
             localStorage.setItem('refresh_token', res.refresh_token);
+            console.log('token', res.token);
             alert('Đăng nhập hợp lệ.');
             this.isLoading = false;
             this.router.navigate(['/quan-tri']);
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
           (err) => {
             console.log(err);
             alert('Đăng nhập không hợp lệ. Vui long thử lại.');
-             this.router.navigate(['/edu']);
+            this.router.navigate(['/edu']);
             this.isLoading = false;
           }
         );
@@ -58,6 +58,23 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  loginn(): void {
+    if (this.loginObj.valid) {
+      this.authenticationSrv.login(this.loginObj.value).subscribe({
+        next: (res) => {
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('refresh_token', res.refresh_token);
+          console.log('token', res.token);
+          alert('Đăng nhập hợp lệ.');
+          this.router.navigate(['/quan-tri']);
+        },
+        error: (err) => {
+          console.log(err);
+          alert('Đăng nhập không hợp lệ. Vui long thử lại.');
+        },
+      });
+    }
+  }
   onChange() {
     if (this.passwordType === 'password') {
       this.passwordType = 'text';

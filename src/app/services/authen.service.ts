@@ -33,7 +33,6 @@ export class AuthService {
     );
   }
 
-
   getUser(): any {
     return this.userSubject.getValue();
   }

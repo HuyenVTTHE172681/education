@@ -8,3 +8,11 @@ export interface IResponeList<T> {
     recordsFiltered: number;
   };
 }
+
+
+export interface IResponeListData<T> {
+  statusCode: number;
+  message: string;
+  status: string;
+  data: T;
+}

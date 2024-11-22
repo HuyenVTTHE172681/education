@@ -46,7 +46,3 @@ export class Test {
   totalViewed: number = 0;
   videoUrl: string | null = null;
 }
-
-export interface TestAbilityResponse {
-    
-}

@@ -22,7 +22,7 @@ export class ChiTietKhoaHocComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
-    console.log(this.id);
+    console.log('ID course: ', this.id);
     this.menuBreachCrumbs = [
       { label: 'Quản trị', routerLink: '/quan-tri' },
       { label: 'Khóa học', routerLink: '/quan-tri/khoa-hoc' },

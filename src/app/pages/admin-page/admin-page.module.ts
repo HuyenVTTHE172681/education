@@ -25,6 +25,7 @@ import { InformationComponent } from './chi-tiet-khoa-hoc/information/informatio
 import { ChuongTrinhHocComponent } from './chi-tiet-khoa-hoc/chuong-trinh-hoc/chuong-trinh-hoc.component';
 import { ScoresComponent } from './chi-tiet-khoa-hoc/scores/scores.component';
 import { FeedbackComponent } from './chi-tiet-khoa-hoc/feedback/feedback.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,8 @@ import { FeedbackComponent } from './chi-tiet-khoa-hoc/feedback/feedback.compone
     EditorModule,
     AvatarModule,
     AvatarGroupModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
 })
 export class AdminPageModule {}
