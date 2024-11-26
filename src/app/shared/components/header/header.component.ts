@@ -67,7 +67,20 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getUser();
+    this.loadUserInfo();
+  }
+
+  getUser() {
+    this.authenSrv.getUserInfo('current-username').subscribe({
+      next: (user) => {
+        this.user = user;
+        localStorage.setItem('user', JSON.stringify(user));
+        console.log(this.user + 'USERSRRRR');
+      },
+      error: (err) => {
+        console.error('Lỗi lấy thông tin user:', err);
+      },
+    });
   }
 
   goToHome() {
@@ -82,19 +95,22 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/register']);
   }
 
-  getUser() {
-    this.user = this.authenSrv.user$.subscribe((res) => {
-      this.user = res;
-      console.log('USERRRRRRRRR:', this.user.avatar);
-    });
-  }
+  // logout(): void {
+  //   localStorage.removeItem('token');
+  //   localStorage.removeItem('refresh_token');
+  //   localStorage.removeItem('userInfo');
+  //   this.user = null;
+  //   this.router.navigate(['/edu']);
+  // }
 
-  logout(): void {
-    this.authenSrv.logout();
+  logout() {
+    console.log('Đăng xuất, xóa dữ liệu localStorage.');
+    localStorage.clear();
     this.user = null;
+    alert('Bạn đã đăng xuất.');
+    window.location.reload(); // Tải lại trang để reset UI
     this.router.navigate(['/edu']);
   }
-
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
@@ -104,5 +120,34 @@ export class HeaderComponent implements OnInit {
       command();
     }
     overlayPanel.hide();
+  }
+
+  loadUserInfo() {
+    const savedUser = localStorage.getItem('user');
+    console.log('Thông tin người dùng từ localStorage:', savedUser);
+
+    if (savedUser) {
+      this.user = JSON.parse(savedUser);
+      console.log('Người dùng hiện tại:', this.user);
+    } else {
+      const token = localStorage.getItem('token');
+      console.log('Không tìm thấy thông tin user, token hiện tại:', token);
+
+      if (token) {
+        // Gọi lại API nếu cần cập nhật thông tin
+        this.authenSrv.getUserInfo('username-from-token').subscribe({
+          next: (res) => {
+            console.log('Phản hồi từ API lấy thông tin user:', res);
+
+            this.user = res.data;
+            localStorage.setItem('user', JSON.stringify(this.user));
+          },
+          error: (err) => {
+            console.error('Lỗi khi gọi API lấy thông tin user:', err);
+            alert('Không thể lấy thông tin người dùng.');
+          },
+        });
+      }
+    }
   }
 }

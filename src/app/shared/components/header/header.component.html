@@ -15,21 +15,25 @@
           <i class="pi pi-bell text-1xl" pBadge value="2"></i>
         </span>
         <div class="user-info" (click)="optionTopbar.toggle($event)">
-          <img [src]="user?.avatar" alt="User Avatar" class="userlogo" />
-          <span class="username">{{ user?.username }}</span>
+          <ng-container *ngIf="user?.avatar; else defaultAvatar">
+            <img [src]="user?.avatar" alt="User Avatar" class="userlogo" />
+          </ng-container>
+          <ng-template #defaultAvatar>
+            <p-avatar
+              icon="pi pi-user"
+              styleClass="mr-2"
+              size="xlarge"
+              shape="circle"
+            >
+            </p-avatar>
+          </ng-template>
+          <span class="username">{{ user?.userName }}</span>
           <i
             class="pi pi-angle-down"
             style="font-size: 1.5rem; color: black"
           ></i>
         </div>
 
-        <!-- <div class="userbutton">
-          <p-splitButton
-            label="{{ user?.username }}"
-            icon="pi pi-user"
-            [model]="items"
-          ></p-splitButton>
-        </div> -->
       </div>
     </div>
 
@@ -56,6 +60,43 @@
   </div>
 </p-toolbar>
 
+<!-- <p-toolbar class="header">
+  <div class="p-toolbar-group-left">
+    <a routerLink="/home">
+      <img
+        src="https://hochieuqua7.web.app/images/logo.png"
+        alt="logo"
+        style="width: 65px"
+      />
+    </a>
+  </div>
+
+  <div class="p-toolbar-group-right">
+    <div *ngIf="user; else noLogin">
+      <div class="user-info">
+        <ng-container *ngIf="user.avatar; else defaultAvatar">
+          <img [src]="user.avatar" alt="User Avatar" class="user-avatar" />
+        </ng-container>
+        <ng-template #defaultAvatar>
+          <p-avatar
+            icon="pi pi-user"
+            styleClass="mr-2"
+            size="large"
+            shape="circle"
+          ></p-avatar>
+        </ng-template>
+        <span class="username">{{ user.name }}</span>
+        <button pButton label="Đăng xuất" (click)="logout()"></button>
+      </div>
+    </div>
+
+    <ng-template #noLogin>
+      <p-button label="Đăng nhập" routerLink="/login"></p-button>
+    </ng-template>
+  </div>
+</p-toolbar> -->
+
+
 <p-overlayPanel #optionTopbar styleClass="option-topbar">
   <div *ngFor="let item of items">
     <div
@@ -68,4 +109,3 @@
     </div>
   </div>
 </p-overlayPanel>
-

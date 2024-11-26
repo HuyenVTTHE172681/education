@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { API_URL } from '../environments/constants';
@@ -67,27 +68,46 @@ export class CourseService {
       );
   }
 
+  // getCourseById(id: string): Observable<IResponeListData<Course>> {
+  //   const apiURL = `${this.apiBaseUrl}/Course/GetCourseByIdCMS?id=${id}&accountId=null`;
+  //   console.log('API URRL: ', apiURL);
 
-  getCourseById(id: string): Observable<IResponeListData<Course>> {
-    const apiURL = `${this.apiBaseUrl}/Course/GetCourseByIdCMS?id=${id}&accountId=null`;
-    console.log('API URRL: ', apiURL);
+  //   const token = localStorage.getItem('token');
+  //   const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+  //   return this.http
+  //     .get<IResponeListData<Course>>(apiURL)
+  //     .pipe(catchError(this.handleError));
+  // }
+
+  getCourseById(
+    id: string,
+    accountId: string
+  ): Observable<IResponeListData<Course>> {
+    const apiURL = `${this.apiBaseUrl}/Course/GetCourseByIdCMS?id=${id}&accountId=${accountId}`;
+    console.log('API URL:', apiURL);
+
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
 
     return this.http
-      .get<IResponeListData<Course>>(apiURL)
+      .get<IResponeListData<Course>>(apiURL, { headers })
       .pipe(catchError(this.handleError));
   }
-  // Hàm xử lý lỗi
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
+      console.error('Client-side error:', error.error.message);
     } else {
       console.error(
-        `Backend returned code ${error.status}, ` +
+        `Server returned code ${error.status}, ` +
           `body was: ${JSON.stringify(error.error)}`
       );
     }
     return throwError(
-      () => new Error('Something went wrong; please try again later.')
+      () => new Error(`Error: ${error.status} - ${error.message}`)
     );
   }
 }

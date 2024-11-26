@@ -14,6 +14,8 @@ import { register } from 'swiper/element/bundle'; // Import register function
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { OrderListModule } from 'primeng/orderlist';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 
 register(); // Register Swiper
 
@@ -35,6 +37,8 @@ register(); // Register Swiper
     SplitButtonModule,
     OverlayPanelModule,
     OrderListModule,
+    AvatarModule,
+    AvatarGroupModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

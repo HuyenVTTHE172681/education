@@ -1,44 +1,46 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { API_URL } from '../environments/constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  apiBaseUrl: string = '';
   private apiUrl = 'https://hhq.runasp.net/api/Authentication/authenticate';
-  private userSubject = new BehaviorSubject<any>(null); // Trạng thái user
-  public user$ = this.userSubject.asObservable(); // Quan sát trạng thái user
 
   constructor(private http: HttpClient) {
-    const user = localStorage.getItem('user');
-    if (user) {
-      this.userSubject.next(JSON.parse(user));
-    }
+    this.apiBaseUrl = API_URL.URL_API_CORE;
   }
 
   login(data: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, data).pipe(
-      map((response) => {
-        if (response?.status === 'success') {
-          const userData = response.data;
-          localStorage.setItem('token', userData.token); // Lưu token
-          localStorage.setItem('user', JSON.stringify(userData)); // Lưu user
-          this.userSubject.next(userData); // Cập nhật trạng thái user
-          return userData;
-        }
-        throw new Error('Login failed');
+      map((res) => {
+        return res;
       })
     );
   }
 
-  getUser(): any {
-    return this.userSubject.getValue();
+  // https://hhq.runasp.net/api/Account/GetAccountByUserName?username=admin
+  getUserInfo(username: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+
+    return this.http
+      .get<any>(
+        `${this.apiBaseUrl}/Account/GetAccountByUserName?username=${username}`,
+        { headers }
+      )
+      .pipe();
   }
 
-  logout(): void {
-    localStorage.clear();
-    this.userSubject.next(null); // Cập nhật trạng thái user về null
+  // Hàm xử lý lỗi
+  private handleError(error: HttpErrorResponse) {
+    console.error('An error occurred:', error.message);
+    return throwError('Something went wrong; please try again later.');
   }
 }

@@ -28,53 +28,99 @@ export class LoginComponent implements OnInit {
       Password: [''],
     });
 
-    this.getUser();
+    // this.getUser();
   }
+
+  // login() {
+  //   if (this.loginObj.valid) {
+  //     setTimeout(() => {
+  //       this.authenticationSrv.login(this.loginObj.value).subscribe(
+  //         (res) => {
+  //           console.log(res);
+  //           localStorage.setItem('token', res.token);
+  //           localStorage.setItem('refresh_token', res.refresh_token);
+  //           console.log('token', res.token);
+  //           alert('Đăng nhập hợp lệ.');
+  //           this.isLoading = false;
+  //           this.router.navigate(['/quan-tri']);
+  //         },
+  //         (err) => {
+  //           console.log(err);
+  //           alert('Đăng nhập không hợp lệ. Vui long thử lại.');
+  //           this.router.navigate(['/edu']);
+  //           this.isLoading = false;
+  //         }
+  //       );
+  //     }, 1000);
+  //   } else {
+  //     this.loginObj.markAllAsTouched();
+  //     alert('Vui lòng nhập đầy đủ thông tin hợp lệ.');
+  //   }
+  // }
+
+  // loginn(): void {
+  //   if (this.loginObj.valid) {
+  //     this.authenticationSrv.login(this.loginObj.value).subscribe({
+  //       next: (res) => {
+  //         localStorage.setItem('token', res.token);
+  //         localStorage.setItem('refresh_token', res.refresh_token);
+  //         console.log('token', res.token);
+  //         alert('Đăng nhập hợp lệ.');
+  //         this.router.navigate(['/quan-tri']);
+  //       },
+  //       error: (err) => {
+  //         console.log(err);
+  //         alert('Đăng nhập không hợp lệ. Vui long thử lại.');
+  //       },
+  //     });
+  //   }
+  // }
 
   login() {
-    if (this.loginObj.valid) {
-      setTimeout(() => {
-        this.authenticationSrv.login(this.loginObj.value).subscribe(
-          (res) => {
-            console.log(res);
-            localStorage.setItem('token', res.token);
-            localStorage.setItem('refresh_token', res.refresh_token);
-            console.log('token', res.token);
-            alert('Đăng nhập hợp lệ.');
-            this.isLoading = false;
-            this.router.navigate(['/quan-tri']);
-          },
-          (err) => {
-            console.log(err);
-            alert('Đăng nhập không hợp lệ. Vui long thử lại.');
-            this.router.navigate(['/edu']);
-            this.isLoading = false;
-          }
-        );
-      }, 1000);
-    } else {
-      this.loginObj.markAllAsTouched();
-      alert('Vui lòng nhập đầy đủ thông tin hợp lệ.');
-    }
+    // if (!this.loginObj.Username || !this.loginObj.Password) {
+    //   alert('Vui lòng nhập tên đăng nhập và mật khẩu.');
+    //   return;
+    // }
+
+    console.log('Bắt đầu gửi request đăng nhập với dữ liệu:', this.loginObj);
+
+    this.authenticationSrv.login(this.loginObj.value).subscribe({
+      next: (res) => {
+        console.log('Phản hồi từ API đăng nhập:', res);
+
+        const token = res.data.token;
+        const username = res.data.username;
+
+        if (token) {
+          // Lưu token vào localStorage
+          localStorage.setItem('token', token);
+          console.log('Token đã được lưu:', token);
+
+          // Lấy thông tin chi tiết của user
+          this.authenticationSrv.getUserInfo(username).subscribe({
+            next: (userRes) => {
+              console.log('Thông tin người dùng từ API:', userRes);
+
+              localStorage.setItem('user', JSON.stringify(userRes.data));
+              alert('Đăng nhập thành công!');
+              this.router.navigate(['/home']); // Điều hướng đến trang chính
+            },
+            error: (err) => {
+              console.error('Lỗi khi lấy thông tin người dùng:', err);
+              alert('Không thể lấy thông tin người dùng.');
+            },
+          });
+        } else {
+          alert('Đăng nhập thất bại! Không tìm thấy token.');
+        }
+      },
+      error: (err) => {
+        console.error('Lỗi khi gửi request đăng nhập:', err);
+        alert('Tên đăng nhập hoặc mật khẩu không đúng.');
+      },
+    });
   }
 
-  loginn(): void {
-    if (this.loginObj.valid) {
-      this.authenticationSrv.login(this.loginObj.value).subscribe({
-        next: (res) => {
-          localStorage.setItem('token', res.token);
-          localStorage.setItem('refresh_token', res.refresh_token);
-          console.log('token', res.token);
-          alert('Đăng nhập hợp lệ.');
-          this.router.navigate(['/quan-tri']);
-        },
-        error: (err) => {
-          console.log(err);
-          alert('Đăng nhập không hợp lệ. Vui long thử lại.');
-        },
-      });
-    }
-  }
   onChange() {
     if (this.passwordType === 'password') {
       this.passwordType = 'text';
@@ -87,10 +133,10 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  getUser() {
-    this.user = this.authenticationSrv.user$.subscribe((res) => {
-      this.user = res;
-      console.log('USER:', this.user);
-    });
-  }
+  // getUser() {
+  //   this.user = this.authenticationSrv.user$.subscribe((res) => {
+  //     this.user = res;
+  //     console.log('USER:', this.user);
+  //   });
+  // }
 }
