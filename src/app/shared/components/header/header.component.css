@@ -24,7 +24,7 @@
   border-radius: 100%;
   height: 48px;
   width: 48px;
-   margin-right: 10px;
+  margin-right: 10px;
 }
 
 /* Style for the user info (avatar + username) */
@@ -78,3 +78,7 @@ p-splitButton .p-button-icon {
   font-size: 16px; /* Change icon size if necessary */
 }
 
+.option-header:hover {
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}

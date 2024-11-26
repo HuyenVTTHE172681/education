@@ -60,47 +60,10 @@
   </div>
 </p-toolbar>
 
-<!-- <p-toolbar class="header">
-  <div class="p-toolbar-group-left">
-    <a routerLink="/home">
-      <img
-        src="https://hochieuqua7.web.app/images/logo.png"
-        alt="logo"
-        style="width: 65px"
-      />
-    </a>
-  </div>
-
-  <div class="p-toolbar-group-right">
-    <div *ngIf="user; else noLogin">
-      <div class="user-info">
-        <ng-container *ngIf="user.avatar; else defaultAvatar">
-          <img [src]="user.avatar" alt="User Avatar" class="user-avatar" />
-        </ng-container>
-        <ng-template #defaultAvatar>
-          <p-avatar
-            icon="pi pi-user"
-            styleClass="mr-2"
-            size="large"
-            shape="circle"
-          ></p-avatar>
-        </ng-template>
-        <span class="username">{{ user.name }}</span>
-        <button pButton label="Đăng xuất" (click)="logout()"></button>
-      </div>
-    </div>
-
-    <ng-template #noLogin>
-      <p-button label="Đăng nhập" routerLink="/login"></p-button>
-    </ng-template>
-  </div>
-</p-toolbar> -->
-
-
 <p-overlayPanel #optionTopbar styleClass="option-topbar">
   <div *ngFor="let item of items">
     <div
-      class="flex flex-wrap p-2 align-items-center gap-3"
+      class="flex flex-wrap p-2 align-items-center gap-3 option-header"
       (click)="executeCommand(item.command, optionTopbar)"
       style="cursor: pointer"
     >

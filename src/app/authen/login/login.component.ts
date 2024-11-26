@@ -28,61 +28,10 @@ export class LoginComponent implements OnInit {
       Password: [''],
     });
 
-    // this.getUser();
   }
 
-  // login() {
-  //   if (this.loginObj.valid) {
-  //     setTimeout(() => {
-  //       this.authenticationSrv.login(this.loginObj.value).subscribe(
-  //         (res) => {
-  //           console.log(res);
-  //           localStorage.setItem('token', res.token);
-  //           localStorage.setItem('refresh_token', res.refresh_token);
-  //           console.log('token', res.token);
-  //           alert('Đăng nhập hợp lệ.');
-  //           this.isLoading = false;
-  //           this.router.navigate(['/quan-tri']);
-  //         },
-  //         (err) => {
-  //           console.log(err);
-  //           alert('Đăng nhập không hợp lệ. Vui long thử lại.');
-  //           this.router.navigate(['/edu']);
-  //           this.isLoading = false;
-  //         }
-  //       );
-  //     }, 1000);
-  //   } else {
-  //     this.loginObj.markAllAsTouched();
-  //     alert('Vui lòng nhập đầy đủ thông tin hợp lệ.');
-  //   }
-  // }
-
-  // loginn(): void {
-  //   if (this.loginObj.valid) {
-  //     this.authenticationSrv.login(this.loginObj.value).subscribe({
-  //       next: (res) => {
-  //         localStorage.setItem('token', res.token);
-  //         localStorage.setItem('refresh_token', res.refresh_token);
-  //         console.log('token', res.token);
-  //         alert('Đăng nhập hợp lệ.');
-  //         this.router.navigate(['/quan-tri']);
-  //       },
-  //       error: (err) => {
-  //         console.log(err);
-  //         alert('Đăng nhập không hợp lệ. Vui long thử lại.');
-  //       },
-  //     });
-  //   }
-  // }
-
   login() {
-    // if (!this.loginObj.Username || !this.loginObj.Password) {
-    //   alert('Vui lòng nhập tên đăng nhập và mật khẩu.');
-    //   return;
-    // }
-
-    console.log('Bắt đầu gửi request đăng nhập với dữ liệu:', this.loginObj);
+     console.log('Bắt đầu gửi request đăng nhập với dữ liệu:', this.loginObj);
 
     this.authenticationSrv.login(this.loginObj.value).subscribe({
       next: (res) => {
