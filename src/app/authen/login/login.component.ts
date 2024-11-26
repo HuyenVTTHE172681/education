@@ -27,11 +27,10 @@ export class LoginComponent implements OnInit {
       Username: [''],
       Password: [''],
     });
-
   }
 
   login() {
-     console.log('Bắt đầu gửi request đăng nhập với dữ liệu:', this.loginObj);
+    console.log('Bắt đầu gửi request đăng nhập với dữ liệu:', this.loginObj);
 
     this.authenticationSrv.login(this.loginObj.value).subscribe({
       next: (res) => {
@@ -52,7 +51,7 @@ export class LoginComponent implements OnInit {
 
               localStorage.setItem('user', JSON.stringify(userRes.data));
               alert('Đăng nhập thành công!');
-              this.router.navigate(['/home']); // Điều hướng đến trang chính
+              this.router.navigate(['/home']);
             },
             error: (err) => {
               console.error('Lỗi khi lấy thông tin người dùng:', err);

@@ -68,18 +68,6 @@ export class CourseService {
       );
   }
 
-  // getCourseById(id: string): Observable<IResponeListData<Course>> {
-  //   const apiURL = `${this.apiBaseUrl}/Course/GetCourseByIdCMS?id=${id}&accountId=null`;
-  //   console.log('API URRL: ', apiURL);
-
-  //   const token = localStorage.getItem('token');
-  //   const headers = token ? { Authorization: `Bearer ${token}` } : {};
-
-  //   return this.http
-  //     .get<IResponeListData<Course>>(apiURL)
-  //     .pipe(catchError(this.handleError));
-  // }
-
   getCourseById(
     id: string,
     accountId: string
@@ -95,6 +83,40 @@ export class CourseService {
     return this.http
       .get<IResponeListData<Course>>(apiURL, { headers })
       .pipe(catchError(this.handleError));
+  }
+
+  getCourseYear(
+    filter: string,
+    offSet: number,
+    pageSize: number,
+    status: number
+  ): Observable<any[]> {
+    const apiUrl = `${this.apiBaseUrl}/CourseYear?filter=${filter}&offSet=${offSet}&pageSize=${pageSize}&status=${status}`;
+
+    console.log('API URL:', apiUrl);
+
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+
+    return this.http.get<any>(apiUrl, { headers }).pipe(
+      map((response) => response?.data?.data || []) // Trích xuất mảng `data.data` từ phản hồi
+    );
+  }
+
+  getSubject(
+    classId: string,
+    filter: string = '',
+    offSet: number = 0,
+    pageSize: number = 10000
+  ): Observable<any[]> {
+    const apiUrl = `${this.apiBaseUrl}/Subject?classId=${classId}&filter=${filter}&offSet=${offSet}&pageSize=${pageSize}`;
+
+    console.log('API url: ', apiUrl);
+    return this.http.get<any>(apiUrl).pipe(
+      map((response) => response?.data?.data || []) // Trích xuất mảng `data.data` từ phản hồi
+    );
   }
 
   private handleError(error: HttpErrorResponse) {

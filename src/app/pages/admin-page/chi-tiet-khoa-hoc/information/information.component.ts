@@ -7,87 +7,173 @@ import { Teacher } from '../../../../models/teacher.model';
 import { TeacherService } from '../../../../services/teacher.service';
 import { CourseService } from '../../../../services/course.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Course } from '../../../../models/course.model';
+import { Course, CourseYear } from '../../../../models/course.model';
+import { config } from 'rxjs';
+import { Subject } from '../../../../models/subject.model';
 
 @Component({
   selector: 'app-information',
   templateUrl: './information.component.html',
-  styleUrl: './information.component.css',
+  styleUrls: ['./information.component.css'], // Sửa thành styleUrls để tránh lỗi
 })
-export class InformationComponent {
-  // cities: any[] = [];
-  // id: string | null = null;
-  // accountId: string | null = null;
-  // page: number = 1;
-  // size: number = 10000;
-  // searchText: string = '';
+export class InformationComponent implements OnInit {
+  id: string | null = null;
+  accountId: string | null = null;
+  page: number = 0;
+  size: number = 10000;
+  searchText: string = '';
+  classRoomId: string | null = null;
 
-  // classRoom: ClassRoom[] = [];
-  // teacher: Teacher[] = [];
-  // courseForm: FormGroup;
+  classRoom: ClassRoom[] = [];
+  teacher: Teacher[] = [];
+  courseYears: CourseYear[] = [];
+  subject: Subject[] = [];
+  status: number = -1;
+  courseForm: FormGroup;
 
-  // constructor(
-  //   private route: ActivatedRoute,
-  //   private router: Router,
-  //   private classRoomSrv: ClassRoomService,
-  //   private teacherSrv: TeacherService,
-  //   private courseSrv: CourseService,
-  //   private formBuilder: FormBuilder
-  // ) {
-  //   this.courseForm = this.formBuilder.group({
-  //     id: [],
-  //     name: [],
-  //     price: [],
-  //     priceDiscount: [],
-  //   });
-  // }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private classRoomSrv: ClassRoomService,
+    private teacherSrv: TeacherService,
+    private courseSrv: CourseService,
+    private formBuilder: FormBuilder
+  ) {
+    this.courseForm = this.formBuilder.group({
+      id: [],
+      name: [],
+      price: [],
+      priceDiscount: [],
+      courseAvatar: [],
+      courseBanner: [],
+      isShowHome: [],
+      classRoom: [],
+      courseYears: [],
+      teacher: [],
+      courseInfo1: [],
+      courseInfo2: [],
+      promotionTime: [],
+      shortSummary: [],
+      subject: [],
+    });
+  }
 
-  // ngOnInit(): void {
-  //   this.id = this.route.snapshot.paramMap.get('id');
+  ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('id');
 
-  //   if (this.id) {
-  //     this.getCourseById(this.id);
-  //   }
-  //   this.getClassRoom();
-  //   this.getTeachers();
+    if (this.id) {
+      this.getCourseById(this.id);
+    }
+    this.getClassRoom();
+    this.getTeachers();
+    this.getCourseYears();
+  }
 
-  //   console.log('Id course in infor comp:' + this.id);
-  //   this.cities = [
-  //     { name: 'New York', code: 'NY' },
-  //     { name: 'Rome', code: 'RM' },
-  //     { name: 'London', code: 'LDN' },
-  //     { name: 'Istanbul', code: 'IST' },
-  //     { name: 'Paris', code: 'PRS' },
-  //   ];
-  // }
+  getSubjectsByClassRoomId(classRoomId: string): void {
+    this.courseSrv
+      .getSubject(classRoomId, this.searchText, this.page, this.size)
+      .subscribe({
+        next: (response) => {
+          this.subject = response;
+          console.log('Subject:', this.subject);
 
-  // getClassRoom() {
-  //   this.classRoomSrv
-  //     .getClassRooms(this.page, this.size, this.searchText)
-  //     .subscribe({
-  //       next: (data: IResponeList<ClassRoom>) => {
-  //         this.classRoom = data.data.data;
-  //         console.log('Class room in infor comp: ', this.classRoom);
-  //       },
-  //     });
-  // }
+          // Sau khi tải danh sách, kiểm tra subjectId và cập nhật form
+          const subjectId = this.courseForm.get('subject')?.value?.id;
+          if (subjectId) {
+            const selectedSubject = this.subject.find(
+              (subject) => subject.id === subjectId
+            );
+            this.courseForm.patchValue({
+              subject: selectedSubject || null, // Nếu không tìm thấy, gán null
+            });
+          }
+        },
+        error: () => {
+          console.error('Error fetching subjects.');
+        },
+      });
+  }
 
-  // getTeachers() {
-  //   this.teacherSrv
-  //     .getTeachers(this.page, this.size, this.searchText)
-  //     .subscribe({
-  //       next: (data: IResponeList<Teacher>) => {
-  //         this.teacher = data.data.data;
-  //         console.log('Teacher in infor comp: ', this.teacher);
-  //       },
-  //     });
-  // }
+  getCourseYears() {
+    this.courseSrv.getCourseYear('', 0, 1000, -1).subscribe({
+      next: (data) => {
+        this.courseYears = data; // `data` đã là danh sách `data.data`
+        console.log('Course Years:', this.courseYears);
+      },
+      error: (err) => {
+        console.error('Error loading course years:', err);
+      },
+    });
+  }
+  getClassRoom() {
+    this.classRoomSrv
+      .getClassRooms(this.page, this.size, this.searchText)
+      .subscribe({
+        next: (data: IResponeList<ClassRoom>) => {
+          this.classRoom = data.data.data;
+        },
+      });
+  }
 
-  // getCourseById(id: string, accountId: string = 'null') {
-  //   this.courseSrv.getCourseById(id, accountId).subscribe({
-  //     next: (data) => {
-  //       this.courseForm.patchValue(data.data);
-  //     },
-  //   });
-  // }
+  getTeachers() {
+    this.teacherSrv
+      .getTeachers(this.page, this.size, this.searchText)
+      .subscribe({
+        next: (data: IResponeList<Teacher>) => {
+          this.teacher = data.data.data;
+        },
+      });
+  }
+
+  getCourseById(id: string, accountId: string = 'null') {
+    this.courseSrv.getCourseById(id, accountId).subscribe({
+      next: (data) => {
+        if (data.statusCode === 200) {
+          const courseData = data.data;
+          this.classRoomId = courseData.classRoomId;
+
+          // Patch form value và chuyển đổi 0/1 -> true/false cho isShowHome
+          this.courseForm.patchValue({
+            id: courseData.id,
+            name: courseData.name,
+            price: courseData.price,
+            priceDiscount: courseData.priceDiscount,
+            courseAvatar: courseData.courseAvatar,
+            courseBanner: courseData.courseBanner,
+            promotionTime: courseData.promotionTime,
+            isShowHome: courseData.isShowHome === 1, // Chuyển 0/1 -> true/false
+            classRoom:
+              this.classRoom.find(
+                (room) => room.id === courseData.classRoomId
+              ) || null,
+            teacher:
+              this.teacher.find(
+                (teacher) => teacher.id === courseData.teacherId
+              ) || null,
+            courseYears: this.courseYears.find(
+              (years) => years.id === courseData.courseYearId
+            ),
+            courseInfo1: courseData.courseInfo1,
+            courseInfo2: courseData.courseInfo2,
+            shortSummary: courseData.shortSummary,
+            subject: { id: courseData.subjectId },
+          });
+          if (this.classRoomId) {
+            this.getSubjectsByClassRoomId(this.classRoomId);
+          }
+        }
+      },
+      error: () => {
+        console.log('Lỗi khi lấy thông tin khóa học');
+      },
+    });
+  }
+
+  convertToBoolean(value: number): boolean {
+    return value === 1;
+  }
+
+  convertToNumber(value: boolean): number {
+    return value ? 1 : 0;
+  }
 }
