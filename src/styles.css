@@ -133,3 +133,11 @@ svg.p-icon {
   border: 1px solid #e5e7eb;
   border-width: 0 0 2px 0;
 }
+
+.field .p-element.p-multiselect-label-container {
+  background: none;
+  border: none;
+  font-size: 14px;
+  height: 35px;
+  width: 100%;
+}

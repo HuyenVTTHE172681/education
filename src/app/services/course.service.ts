@@ -119,6 +119,21 @@ export class CourseService {
     );
   }
 
+  getCourseSchedule(
+    courseId: string,
+    filter: string,
+    offSet: number = 0,
+    pageSize: number = 10000
+  ): Observable<any[]> {
+    
+    const apiUrl = `${this.apiBaseUrl}/CourseSchedule?courseId=${courseId}&filter=${filter}&offSet=${offSet}&pageSize=${pageSize}`;
+    console.log('API url: ', apiUrl);
+
+    return this.http.get<any>(apiUrl).pipe(
+      map((response) => response?.data?.data || []) 
+    );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error('Client-side error:', error.error.message);

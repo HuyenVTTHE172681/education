@@ -1,1 +1,129 @@
-<p>chuong-trinh-hoc works!</p>
+<div class="chuong-trinh-hoc mt-2">
+  <div class="grid">
+    <div class="col-12 flex justify-content-end gap-3">
+      <p-button
+        label="{{ expandAllText }}"
+        icon="{{ expandAllIcon }}"
+        (onClick)="toggleExpandCollapse()"
+      />
+      <p-button label="Submit" icon="pi pi-check" />
+    </div>
+  </div>
+
+  <div class="card" *ngIf="files.length > 0">
+    <p-table
+      [value]="files"
+      dataKey="id"
+      [tableStyle]="{ 'min-width': '60rem' }"
+      [expandedRowKeys]="expandedRows"
+      (onRowExpand)="expandedRows[$event.data.id] = true"
+      (onRowCollapse)="expandedRows[$event.data.id] = false"
+    >
+
+      <!-- Parent Table Header -->
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 3rem"></th>
+          <th style="width: 120px; left: 64px"></th>
+          <th pSortableColumn="name" style="min-width: 500px">
+            Tên <p-sortIcon field="name" />
+          </th>
+          <th pSortableColumn="order">Thứ tự <p-sortIcon field="order" /></th>
+          <th pSortableColumn="status">
+            Trạng thái <p-sortIcon field="status" />
+          </th>
+        </tr>
+      </ng-template>
+
+      <!-- Parent Table Rows -->
+      <ng-template pTemplate="body" let-file let-expanded="expanded">
+        <tr>
+          <td>
+            <p-button
+              type="button"
+              pRipple
+              [pRowToggler]="file"
+              [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+              [text]="true"
+              [rounded]="true"
+              [plain]="true"
+            />
+          </td>
+          <td>
+            <div class="main-action" style="display: flex; gap: 2px">
+              <p-button icon="pi pi-plus" [text]="true" severity="secondary" />
+              <p-button
+                icon="pi pi-ellipsis-v"
+                [text]="true"
+                severity="secondary"
+              />
+            </div>
+          </td>
+          <td>{{ file.data.name }}</td>
+          <td>{{ file.data.order }}</td>
+          <td>{{ file.data.status }}</td>
+        </tr>
+      </ng-template>
+
+      <!-- Child Table for Expanded Rows -->
+      <ng-template pTemplate="rowexpansion" let-file>
+        <tr>
+          <td colspan="4">
+            <div class="p-3">
+              <p-table [value]="file.children" dataKey="id">
+                <!-- Child Table Header -->
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th pSortableColumn="testCategoryName">
+                      Loại bài <p-sortIcon field="testCategoryName" />
+                    </th>
+                    <th pSortableColumn="order">
+                      Sắp xếp <p-sortIcon field="order" />
+                    </th>
+                    <th pSortableColumn="time">
+                      Thời gian <p-sortIcon field="time" />
+                    </th>
+                    <th pSortableColumn="deadlineDate">
+                      Hạn nộp <p-sortIcon field="deadlineDate" />
+                    </th>
+                    <th pSortableColumn="isFree">
+                      Miễn phí <p-sortIcon field="isFree" />
+                    </th>
+                    <th pSortableColumn="isSpecial">
+                      Đặc biệt <p-sortIcon field="isSpecial" />
+                    </th>
+                    <th pSortableColumn="isAutoSendMail">
+                      Tự gửi mail <p-sortIcon field="isAutoSendMail" />
+                    </th>
+                  </tr>
+                </ng-template>
+
+                <!-- Child Table Rows -->
+                <ng-template pTemplate="body" let-test>
+                  <tr>
+                    <td>{{ test.data.testCategoryName }}</td>
+                    <td>{{ test.data.order }}</td>
+                    <td>{{ test.data.time }} phút</td>
+                    <td>{{ test.data.deadlineDate || 'Không có hạn nộp' }}</td>
+                    <td>{{ test.data.isFree }}</td>
+                    <td>{{ test.data.isSpecial }}</td>
+                    <td>{{ test.data.isAutoSendMail }}</td>
+                  </tr>
+                </ng-template>
+
+                <!-- Empty Message for Child Table -->
+                <ng-template pTemplate="emptymessage">
+                  <tr>
+                    <td colspan="7">
+                      Không có bài kiểm tra nào trong khoá học này.
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

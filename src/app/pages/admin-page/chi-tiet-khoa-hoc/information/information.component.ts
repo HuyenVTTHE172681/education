@@ -14,7 +14,7 @@ import { Subject } from '../../../../models/subject.model';
 @Component({
   selector: 'app-information',
   templateUrl: './information.component.html',
-  styleUrls: ['./information.component.css'], // Sửa thành styleUrls để tránh lỗi
+  styleUrls: ['./information.component.css'], 
 })
 export class InformationComponent implements OnInit {
   id: string | null = null;
@@ -47,6 +47,7 @@ export class InformationComponent implements OnInit {
       courseAvatar: [],
       courseBanner: [],
       isShowHome: [],
+      status: [],
       classRoom: [],
       courseYears: [],
       teacher: [],
@@ -121,6 +122,7 @@ export class InformationComponent implements OnInit {
       .subscribe({
         next: (data: IResponeList<Teacher>) => {
           this.teacher = data.data.data;
+          console.log('Teacher: ', this.teacher);
         },
       });
   }
@@ -130,9 +132,8 @@ export class InformationComponent implements OnInit {
       next: (data) => {
         if (data.statusCode === 200) {
           const courseData = data.data;
-          this.classRoomId = courseData.classRoomId;
 
-          // Patch form value và chuyển đổi 0/1 -> true/false cho isShowHome
+          // Cập nhật danh sách giáo viên và form
           this.courseForm.patchValue({
             id: courseData.id,
             name: courseData.name,
@@ -142,14 +143,14 @@ export class InformationComponent implements OnInit {
             courseBanner: courseData.courseBanner,
             promotionTime: courseData.promotionTime,
             isShowHome: courseData.isShowHome === 1, // Chuyển 0/1 -> true/false
+            status: courseData.status === 1,
             classRoom:
               this.classRoom.find(
                 (room) => room.id === courseData.classRoomId
               ) || null,
-            teacher:
-              this.teacher.find(
-                (teacher) => teacher.id === courseData.teacherId
-              ) || null,
+            teacher: this.teacher.find(
+              (teacher) => teacher.courseId === courseData.teacherId
+            ),
             courseYears: this.courseYears.find(
               (years) => years.id === courseData.courseYearId
             ),
@@ -158,6 +159,8 @@ export class InformationComponent implements OnInit {
             shortSummary: courseData.shortSummary,
             subject: { id: courseData.subjectId },
           });
+
+          console.log('Form value: ', this.courseForm.value);
           if (this.classRoomId) {
             this.getSubjectsByClassRoomId(this.classRoomId);
           }
@@ -169,6 +172,9 @@ export class InformationComponent implements OnInit {
     });
   }
 
+  onTeacherChange(event: any): void {
+    console.log('Selected Teachers:', event.value);
+  }
   convertToBoolean(value: number): boolean {
     return value === 1;
   }

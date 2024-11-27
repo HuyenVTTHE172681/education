@@ -26,6 +26,8 @@ import { ChuongTrinhHocComponent } from './chi-tiet-khoa-hoc/chuong-trinh-hoc/ch
 import { ScoresComponent } from './chi-tiet-khoa-hoc/scores/scores.component';
 import { FeedbackComponent } from './chi-tiet-khoa-hoc/feedback/feedback.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { TreeTableModule } from 'primeng/treetable';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AvatarGroupModule,
     FormsModule,
     ReactiveFormsModule,
+    MultiSelectModule,
+    TreeTableModule
   ],
 })
 export class AdminPageModule {}

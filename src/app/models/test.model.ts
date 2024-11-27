@@ -1,5 +1,6 @@
 import { ClassRoom } from './classRoom.model'; // Giả sử bạn có ClassRoom model
 import { Course } from './course.model'; // Giả sử bạn có Course model
+import { Quiz } from './quiz.model';
 
 export class Test {
   id: string = '';
@@ -29,7 +30,7 @@ export class Test {
   numberQuestionPass: number = 0;
   order: number = 0;
   pointShowLessonLink: number = 0;
-  quizzs: any | null = null;
+  quizzs: Quiz[] = [];
   relationTests: any | null = null;
   remainMinute: number = 0;
   status: number = 0;
@@ -45,4 +46,5 @@ export class Test {
   totalPointPass: number = 0;
   totalViewed: number = 0;
   videoUrl: string | null = null;
+  courseScheduleId: string = '';
 }

@@ -139,13 +139,16 @@
                       placeholder="Khuyến mãi đến"
                     />
                   </p-iconField>
+                  <label for="promotionTime"
+                    >Khuyến mãi đến<span class="text-red-500">*</span></label
+                  >
                 </p-floatLabel>
               </div>
             </div>
             <div class="col-12 md:col-4">
               <div class="field">
                 <p-floatLabel>
-                  <p-inputSwitch formControlName="isShowHome"></p-inputSwitch>
+                  <p-inputSwitch formControlName="status"></p-inputSwitch>
                   <label for="content" class="manual-active"
                     >Hiển thị <span class="text-red-500">*</span></label
                   >
@@ -166,12 +169,28 @@
             <div class="col-12 pt-0 pb-0">
               <div class="field">
                 <p-floatLabel>
-                  <p-dropdown
+                  <!-- <p-dropdown
                     [options]="teacher"
                     optionLabel="name"
                     placeholder="Select teacher"
                     formControlName="teacher"
-                  ></p-dropdown>
+                  ></p-dropdown> -->
+                  <p-multiSelect
+                    [options]="teacher"
+                    formControlName="teacher"
+                    placeholder="Giáo viên"
+                    optionLabel="name"
+                    display="chip"
+                    [showClear]="true"
+                    [disabled]="true"
+                  ></p-multiSelect>
+                  <div>
+                    <p>
+                      Selected Teachers:
+                      {{ courseForm.get('teacher')?.value | json }}
+                    </p>
+                    <!-- Hiển thị danh sách giáo viên đã chọn -->
+                  </div>
                   <label for="username"
                     >Giáo viên <span class="text-red-500">*</span></label
                   >
