@@ -14,7 +14,7 @@ import { Subject } from '../../../../models/subject.model';
 @Component({
   selector: 'app-information',
   templateUrl: './information.component.html',
-  styleUrls: ['./information.component.css'], 
+  styleUrls: ['./information.component.css'],
 })
 export class InformationComponent implements OnInit {
   id: string | null = null;
@@ -50,7 +50,7 @@ export class InformationComponent implements OnInit {
       status: [],
       classRoom: [],
       courseYears: [],
-      teacher: [],
+      teacher: this.formBuilder.control({ value: null, disabled: true }),
       courseInfo1: [],
       courseInfo2: [],
       promotionTime: [],
@@ -75,10 +75,9 @@ export class InformationComponent implements OnInit {
       .getSubject(classRoomId, this.searchText, this.page, this.size)
       .subscribe({
         next: (response) => {
+          // console.log('API Response of Subject:', response);
           this.subject = response;
-          console.log('Subject:', this.subject);
 
-          // Sau khi tải danh sách, kiểm tra subjectId và cập nhật form
           const subjectId = this.courseForm.get('subject')?.value?.id;
           if (subjectId) {
             const selectedSubject = this.subject.find(
@@ -98,7 +97,7 @@ export class InformationComponent implements OnInit {
   getCourseYears() {
     this.courseSrv.getCourseYear('', 0, 1000, -1).subscribe({
       next: (data) => {
-        this.courseYears = data; // `data` đã là danh sách `data.data`
+        this.courseYears = data;
         console.log('Course Years:', this.courseYears);
       },
       error: (err) => {
@@ -123,6 +122,11 @@ export class InformationComponent implements OnInit {
         next: (data: IResponeList<Teacher>) => {
           this.teacher = data.data.data;
           console.log('Teacher: ', this.teacher);
+
+          this.courseForm.get('teacher')?.enable();
+        },
+        error: (err) => {
+          console.log('Error loading teachers: ', err);
         },
       });
   }
@@ -132,7 +136,10 @@ export class InformationComponent implements OnInit {
       next: (data) => {
         if (data.statusCode === 200) {
           const courseData = data.data;
-
+          const teacher =
+            courseData.teacher && courseData.teacher.length > 0
+              ? courseData.teacher[0]
+              : null;
           // Cập nhật danh sách giáo viên và form
           this.courseForm.patchValue({
             id: courseData.id,
@@ -148,9 +155,7 @@ export class InformationComponent implements OnInit {
               this.classRoom.find(
                 (room) => room.id === courseData.classRoomId
               ) || null,
-            teacher: this.teacher.find(
-              (teacher) => teacher.courseId === courseData.teacherId
-            ),
+            teacher: teacher ? [teacher] : [], // Set teacher if available
             courseYears: this.courseYears.find(
               (years) => years.id === courseData.courseYearId
             ),
@@ -160,9 +165,18 @@ export class InformationComponent implements OnInit {
             subject: { id: courseData.subjectId },
           });
 
+          console.log('Course Data ID:', courseData.id);
           console.log('Form value: ', this.courseForm.value);
-          if (this.classRoomId) {
-            this.getSubjectsByClassRoomId(this.classRoomId);
+          console.log(
+            'Form Value - Subject:',
+            this.courseForm.get('subject')?.value
+          );
+
+          if (courseData.classRoomId) {
+            console.log('Fetching subjects for ClassRoomId:', this.classRoomId);
+            this.getSubjectsByClassRoomId(courseData.classRoomId);
+          } else {
+            console.warn('ClassRoomId is missing. Skipping subject fetch.');
           }
         }
       },
