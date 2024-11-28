@@ -127,4 +127,17 @@ export class ChuongTrinhHocComponent implements OnInit {
     this.selectedFile = file; // Lưu file vào biến selectedFile
     console.log('File:', this.selectedFile);
   }
+
+  getStatus(status: number): string {
+    return status === 1 ? 'pi pi-check' : 'pi pi-times';
+  }
+
+  getStyle(status: number) {
+    switch (status) {
+      case 1: 
+      return 'success';
+      default:
+        return 'danger';
+    }
+  }
 }

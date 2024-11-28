@@ -61,7 +61,9 @@
           </td>
           <td>{{ file.data.name }}</td>
           <td>{{ file.data.order }}</td>
-          <td>{{ file.data.status }}</td>
+          <td>
+            <p-button [icon]="getStatus(file.data.status)" [text]="true" />
+            {{ file.data.status }}</td>
         </tr>
       </ng-template>
 
