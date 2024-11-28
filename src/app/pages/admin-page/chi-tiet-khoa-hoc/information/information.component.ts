@@ -50,7 +50,7 @@ export class InformationComponent implements OnInit {
       status: [],
       classRoom: [],
       courseYears: [],
-      teacher: this.formBuilder.control({ value: null, disabled: true }),
+      teachers: [],
       courseInfo1: [],
       courseInfo2: [],
       promotionTime: [],
@@ -136,10 +136,6 @@ export class InformationComponent implements OnInit {
       next: (data) => {
         if (data.statusCode === 200) {
           const courseData = data.data;
-          const teacher =
-            courseData.teacher && courseData.teacher.length > 0
-              ? courseData.teacher[0]
-              : null;
           // Cập nhật danh sách giáo viên và form
           this.courseForm.patchValue({
             id: courseData.id,
@@ -155,7 +151,7 @@ export class InformationComponent implements OnInit {
               this.classRoom.find(
                 (room) => room.id === courseData.classRoomId
               ) || null,
-            teacher: teacher ? [teacher] : [], // Set teacher if available
+            teachers: courseData.teachers, // You can set it as null for no teacher selected
             courseYears: this.courseYears.find(
               (years) => years.id === courseData.courseYearId
             ),
@@ -165,12 +161,7 @@ export class InformationComponent implements OnInit {
             subject: { id: courseData.subjectId },
           });
 
-          console.log('Course Data ID:', courseData.id);
           console.log('Form value: ', this.courseForm.value);
-          console.log(
-            'Form Value - Subject:',
-            this.courseForm.get('subject')?.value
-          );
 
           if (courseData.classRoomId) {
             console.log('Fetching subjects for ClassRoomId:', this.classRoomId);
@@ -187,8 +178,16 @@ export class InformationComponent implements OnInit {
   }
 
   onTeacherChange(event: any): void {
-    console.log('Selected Teachers:', event.value);
+    const selectedTeachers = this.courseForm.get('teachers')?.value;
+    if (selectedTeachers && selectedTeachers.length > 0) {
+      const teacherNames = selectedTeachers.map((teacher: any) => teacher.name);
+      console.log('Selected Teacher Names:', teacherNames);
+    }
   }
+
+  // onTeacherChange(event: any): void {
+  //   console.log('Selected Teachers:', event.value);
+  // }
   convertToBoolean(value: number): boolean {
     return value === 1;
   }
