@@ -73,7 +73,7 @@ export class CourseService {
     accountId: string
   ): Observable<IResponeListData<Course>> {
     const apiURL = `${this.apiBaseUrl}/Course/GetCourseByIdCMS?id=${id}&accountId=${accountId}`;
-    console.log('API URL:', apiURL);
+    console.log('Course ById API URL:', apiURL);
 
     const token = localStorage.getItem('token');
     const headers = token
@@ -93,7 +93,7 @@ export class CourseService {
   ): Observable<any[]> {
     const apiUrl = `${this.apiBaseUrl}/CourseYear?filter=${filter}&offSet=${offSet}&pageSize=${pageSize}&status=${status}`;
 
-    console.log('API URL:', apiUrl);
+    console.log('Course Year API URL:', apiUrl);
 
     const token = localStorage.getItem('token');
     const headers = token
@@ -113,7 +113,7 @@ export class CourseService {
   ): Observable<any[]> {
     const apiUrl = `${this.apiBaseUrl}/Subject?classId=${classId}&filter=${filter}&offSet=${offSet}&pageSize=${pageSize}`;
 
-    console.log('API url: ', apiUrl);
+    console.log('Subject with ClassId API url : ', apiUrl);
     return this.http.get<any>(apiUrl).pipe(
       map((response) => response?.data?.data || []) // Trích xuất mảng `data.data` từ phản hồi
     );
@@ -125,13 +125,12 @@ export class CourseService {
     offSet: number = 0,
     pageSize: number = 10000
   ): Observable<any[]> {
-    
     const apiUrl = `${this.apiBaseUrl}/CourseSchedule?courseId=${courseId}&filter=${filter}&offSet=${offSet}&pageSize=${pageSize}`;
-    console.log('API url: ', apiUrl);
+    console.log('Course Schedule API url: ', apiUrl);
 
-    return this.http.get<any>(apiUrl).pipe(
-      map((response) => response?.data?.data || []) 
-    );
+    return this.http
+      .get<any>(apiUrl)
+      .pipe(map((response) => response?.data?.data || []));
   }
 
   private handleError(error: HttpErrorResponse) {
