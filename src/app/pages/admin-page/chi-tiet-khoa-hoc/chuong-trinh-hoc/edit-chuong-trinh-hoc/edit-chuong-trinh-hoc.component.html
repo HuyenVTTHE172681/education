@@ -1,0 +1,36 @@
+<div class="header-title">Thêm/Sửa chương trình học</div>
+<div class="chuong-trinh-hoc-form" *ngIf="file">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="grid mt-4">
+    <div class="col-12 field">
+      <p-floatLabel>
+        <p-iconField iconPosition="right">
+          <p-inputIcon styleClass="pi pi-users" />
+          <input pInputText formControlName="name" class="input-field" />
+        </p-iconField>
+        <label for="name"
+          >Tên chương trình <span class="text-red-500">*</span></label
+        >
+      </p-floatLabel>
+    </div>
+    <div class="col-12 field">
+      <p-floatLabel>
+        <p-iconField iconPosition="right">
+          <p-inputIcon styleClass="pi pi-sort-numeric-down" />
+          <input pInputText formControlName="order" class="input-field" />
+        </p-iconField>
+        <label for="order">Thứ tự <span class="text-red-500">*</span></label>
+      </p-floatLabel>
+    </div>
+    <div class="col-12 field">
+      <p-floatLabel>
+        <p-inputSwitch formControlName="status"></p-inputSwitch>
+        <label for="status" class="manual-active"
+          >Hiển thị <span class="text-red-500">*</span></label
+        >
+      </p-floatLabel>
+    </div>
+    <div class="col-12 text-right">
+      <button class="button-continous" type="submit">Tiếp tục</button>
+    </div>
+  </form>
+</div>

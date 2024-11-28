@@ -19,7 +19,6 @@
       (onRowExpand)="expandedRows[$event.data.id] = true"
       (onRowCollapse)="expandedRows[$event.data.id] = false"
     >
-
       <!-- Parent Table Header -->
       <ng-template pTemplate="header">
         <tr>
@@ -56,6 +55,7 @@
                 icon="pi pi-ellipsis-v"
                 [text]="true"
                 severity="secondary"
+                (onClick)="setSelectedFile(file); menu.toggle($event)"
               />
             </div>
           </td>
@@ -127,3 +127,17 @@
     </p-table>
   </div>
 </div>
+
+<div class="card flex justify-content-center">
+  <p-menu #menu [model]="items" [popup]="true" />
+</div>
+
+<p-sidebar
+  [(visible)]="sidebarForEdit"
+  [position]="'right'"
+  [modal]="true"
+  [showCloseIcon]="true"
+  class="custom-sidebar"
+>
+   <app-edit-chuong-trinh-hoc [file]="selectedFile || {}"></app-edit-chuong-trinh-hoc>
+</p-sidebar>

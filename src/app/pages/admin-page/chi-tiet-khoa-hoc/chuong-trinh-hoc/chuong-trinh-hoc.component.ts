@@ -9,11 +9,13 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./chuong-trinh-hoc.component.css'],
 })
 export class ChuongTrinhHocComponent implements OnInit {
-  // courseSchedule: any[] = [];
+  items: any[] = [];
   files: any[] = [];
   id: string | null = null;
   expandedRows: any = {};
   isExpanded: boolean = false;
+  sidebarForEdit: boolean = false;
+  selectedFile: any = null;
 
   constructor(
     private courseSrv: CourseService,
@@ -27,8 +29,36 @@ export class ChuongTrinhHocComponent implements OnInit {
     if (this.id) {
       this.getCourseSchedule(this.id);
     }
+
+    this.items = [
+      {
+        label: 'Options',
+        items: [
+          {
+            label: 'Sửa',
+            icon: 'pi pi-pencil',
+            command: () => this.openSidebar(event), // Open sidebar on click
+          },
+          {
+            label: 'Xóa',
+            icon: 'pi pi-trash',
+            command: () => this.deleteItem(), // Delete functionality (if needed)
+          },
+        ],
+      },
+    ];
   }
 
+  // Method to open the sidebar
+  openSidebar(file: any) {
+    this.selectedFile = file;
+    this.sidebarForEdit = true;
+  }
+
+  // Method to handle delete action (if needed)
+  deleteItem() {
+    console.log('Item deleted');
+  }
   getCourseSchedule(
     id: string,
     page: number = 0,
@@ -91,5 +121,10 @@ export class ChuongTrinhHocComponent implements OnInit {
 
   get expandAllIcon() {
     return this.isExpanded ? 'pi pi-minus' : 'pi pi-plus';
+  }
+
+  setSelectedFile(file: any) {
+    this.selectedFile = file; // Lưu file vào biến selectedFile
+    console.log('File:', this.selectedFile);
   }
 }
