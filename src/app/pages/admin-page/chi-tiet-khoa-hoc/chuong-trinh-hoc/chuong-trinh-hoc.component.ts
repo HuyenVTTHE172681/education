@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
 import { CourseService } from '../../../../services/course.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TestAbilityService } from '../../../../services/test-ability.service';
 
 @Component({
   selector: 'app-chuong-trinh-hoc',
@@ -19,8 +19,9 @@ export class ChuongTrinhHocComponent implements OnInit {
 
   constructor(
     private courseSrv: CourseService,
+    private testSrv: TestAbilityService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router // private messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -77,6 +78,7 @@ export class ChuongTrinhHocComponent implements OnInit {
             children: courseData.tests.map((testData: any) => ({
               data: {
                 id: testData.id,
+                name: testData.name,
                 testCategoryName: testData.testCategoryName,
                 order: testData.order,
                 time: testData.time,
@@ -84,6 +86,10 @@ export class ChuongTrinhHocComponent implements OnInit {
                 isFree: testData.isFree,
                 isSpecial: testData.isSpecial,
                 isAutoSendMail: testData.isAutoSendMail,
+                avgRating: testData.avgRating,
+                totalViewed: testData.totalViewed,
+                status: testData.status,
+                isShowInAbilityTest: testData.isShowInAbilityTest,
               },
             })),
           };
@@ -132,12 +138,110 @@ export class ChuongTrinhHocComponent implements OnInit {
     return status === 1 ? 'pi pi-check' : 'pi pi-times';
   }
 
+  getStatusLabel(status: number) {
+    return status === 1 ? 'isFree' : 'notFree';
+  }
+
   getStyle(status: number) {
     switch (status) {
-      case 1: 
-      return 'success';
+      case 1:
+        return 'primary';
       default:
         return 'danger';
     }
+  }
+
+  changeTestStatus(testId: string, isFree: number, newStatus: number): void {
+    const payload = {
+      id: testId,
+      isFree: isFree, 
+      status: newStatus, 
+    };
+
+    console.log('Payload gửi đi:', payload);
+
+    this.testSrv.setTestChangeStatus(payload).subscribe(
+      (response) => {
+        console.log('Response:', response);
+
+        if (response.statusCode === 200 && response.data.valid) {
+          alert(response.data.messages || 'Cập nhật trạng thái thành công!');
+          if (this.id) {
+            this.getCourseSchedule(this.id);
+          }
+        } else {
+          alert('Cập nhật trạng thái thất bại. Vui lòng thử lại.');
+        }
+      },
+      (error) => {
+        console.error('Error updating status:', error);
+        alert('Có lỗi xảy ra khi cập nhật trạng thái.');
+      }
+    );
+  }
+
+  changeTestFree(testId: string, newIsFree: number, status: number): void {
+    const payload = {
+      id: testId,
+      isFree: newIsFree, 
+      status: status, 
+    };
+
+    console.log('Payload gửi đi:', payload);
+
+    this.testSrv.setTestChangeFree(payload).subscribe(
+      (response) => {
+        console.log('Response:', response);
+
+        if (response.statusCode === 200 && response.data.valid) {
+          alert(response.data.messages || 'Cập nhật trạng thái thành công!');
+          if (this.id) {
+            this.getCourseSchedule(this.id);
+          }
+        } else {
+          alert('Cập nhật trạng thái thất bại. Vui lòng thử lại.');
+        }
+      },
+      (error) => {
+        console.error('Error updating status:', error);
+        alert('Có lỗi xảy ra khi cập nhật trạng thái.');
+      }
+    );
+  }
+
+    changeTestStatusForAll(testId: string,
+    newIsAutoSendMail: number,
+    isFree: number,
+    isShowInAbilityTest: number,
+    isSpecial: number,
+    status: number,): void {
+    const payload = {
+      id: testId,
+      isAutoSendMail: newIsAutoSendMail,
+      isFree: isFree,
+      isShowInAbilityTest: isShowInAbilityTest,
+      isSpecial: isSpecial,
+      status: status
+    };
+    console.log('Payload gửi đi:', payload);
+
+    this.testSrv.setTestChangeAutoSendMail(payload).subscribe(
+      (response) => {
+        console.log('Response:', response);
+
+        if (response.statusCode === 200 && response.data.valid) {
+          alert(response.data.messages || 'Cập nhật trạng thái thành công!');
+          if (this.id) {
+            this.getCourseSchedule(this.id);
+          }
+        } else {
+          alert('Cập nhật trạng thái thất bại. Vui lòng thử lại.');
+        }
+      },
+      (error) => {
+        console.error('Error updating status:', error);
+        alert('Có lỗi xảy ra khi cập nhật trạng thái.');
+      }
+    );
   }
 }

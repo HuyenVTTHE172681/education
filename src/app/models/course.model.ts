@@ -31,7 +31,7 @@ export class Course {
   classRoomName: string | null = null; // Tên lớp học
 
   // Thông tin giáo viên
-  teacher: Teacher[] = []; // Danh sách giáo viên
+  teachers: Teacher[] = []; // Danh sách giáo viên
   teacherId: string | null = null; // ID giáo viên chính (nếu có)
   teacherName: string | null = null; // Tên giáo viên chính (nếu có)
 

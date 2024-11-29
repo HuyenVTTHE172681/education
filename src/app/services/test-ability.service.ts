@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { API_URL } from '../environments/constants';
@@ -88,6 +92,85 @@ export class TestAbilityService {
         })
       );
   }
+
+  setTestChangeStatus(payload: {
+    id: string;
+    isFree: number;
+    status: number;
+  }): Observable<{
+    statusCode: number;
+    data: { valid: boolean; messages: string };
+  }> {
+    const apiUrl = `${this.apiBaseUrl}/test/SetTestChangeStatus`;
+    console.log('Set Status API URL:', apiUrl);
+
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+
+    return this.http
+      .post<{ statusCode: number; data: { valid: boolean; messages: string } }>(
+        apiUrl,
+        payload, 
+        { headers }
+      )
+      .pipe(catchError(this.handleError));
+  }
+
+  setTestChangeFree(payload: {
+    id: string;
+    isFree: number;
+    status: number;
+  }): Observable<{
+    statusCode: number;
+    data: { valid: boolean; messages: string };
+  }> {
+    const apiUrl = `${this.apiBaseUrl}/test/SetTestChangeFree`;
+    console.log('Set Status API URL:', apiUrl);
+
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+
+    return this.http
+      .post<{ statusCode: number; data: { valid: boolean; messages: string } }>(
+        apiUrl,
+        payload, 
+        { headers }
+      )
+      .pipe(catchError(this.handleError));
+  }
+
+  setTestChangeAutoSendMail(payload: {
+    id: string;
+    isAutoSendMail: number;
+    isFree: number;
+    isShowInAbilityTest: number;
+    isSpecial: number;
+    status: number;
+  }): Observable<{
+    statusCode: number;
+    data: { valid: boolean; messages: string };
+  }> {
+    const apiUrl = `${this.apiBaseUrl}/test/SetTestChangeStatusValue`;
+    console.log('Set Status API URL:', apiUrl);
+
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+
+    return this.http
+      .post<{ statusCode: number; data: { valid: boolean; messages: string } }>(
+        apiUrl,
+        payload, 
+        { headers }
+      )
+      .pipe(catchError(this.handleError));
+  }
+
 
   // Hàm xử lý lỗi
   private handleError(error: HttpErrorResponse) {

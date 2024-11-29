@@ -1,3 +1,4 @@
+p
 <div class="chuong-trinh-hoc mt-2">
   <div class="grid">
     <div class="col-12 flex justify-content-end gap-3">
@@ -10,7 +11,7 @@
     </div>
   </div>
 
-  <div class="card" *ngIf="files.length > 0">
+  <div class="card">
     <p-table
       [value]="files"
       dataKey="id"
@@ -19,7 +20,7 @@
       (onRowExpand)="expandedRows[$event.data.id] = true"
       (onRowCollapse)="expandedRows[$event.data.id] = false"
     >
-      <!-- Parent Table Header -->
+      <!-- Header -->
       <ng-template pTemplate="header">
         <tr>
           <th style="width: 3rem"></th>
@@ -34,7 +35,7 @@
         </tr>
       </ng-template>
 
-      <!-- Parent Table Rows -->
+      <!-- Body -->
       <ng-template pTemplate="body" let-file let-expanded="expanded">
         <tr>
           <td>
@@ -62,63 +63,168 @@
           <td>{{ file.data.name }}</td>
           <td>{{ file.data.order }}</td>
           <td>
-            <p-button [icon]="getStatus(file.data.status)" [text]="true" />
-            {{ file.data.status }}</td>
+            <p-button
+              [icon]="getStatus(file.data.status)"
+              [text]="true"
+              [severity]="getStyle(file.data.status)"
+            />
+          </td>
         </tr>
       </ng-template>
 
-      <!-- Child Table for Expanded Rows -->
+      <!-- Empty Message -->
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5">Not results found.</td>
+        </tr>
+      </ng-template>
+
+      <!-- Expanded Row -->
       <ng-template pTemplate="rowexpansion" let-file>
         <tr>
-          <td colspan="4">
+          <td colspan="5">
             <div class="p-3">
               <p-table [value]="file.children" dataKey="id">
-                <!-- Child Table Header -->
                 <ng-template pTemplate="header">
                   <tr>
-                    <th pSortableColumn="testCategoryName">
-                      Loại bài <p-sortIcon field="testCategoryName" />
-                    </th>
-                    <th pSortableColumn="order">
-                      Sắp xếp <p-sortIcon field="order" />
-                    </th>
-                    <th pSortableColumn="time">
-                      Thời gian <p-sortIcon field="time" />
-                    </th>
-                    <th pSortableColumn="deadlineDate">
-                      Hạn nộp <p-sortIcon field="deadlineDate" />
-                    </th>
-                    <th pSortableColumn="isFree">
-                      Miễn phí <p-sortIcon field="isFree" />
-                    </th>
-                    <th pSortableColumn="isSpecial">
-                      Đặc biệt <p-sortIcon field="isSpecial" />
-                    </th>
-                    <th pSortableColumn="isAutoSendMail">
-                      Tự gửi mail <p-sortIcon field="isAutoSendMail" />
-                    </th>
+                    <th>Tên</th>
+                    <th>Loại bài</th>
+                    <th>Sắp xếp</th>
+                    <th>Thời gian</th>
+                    <th>Hạn nộp</th>
+                    <th>Đánh giá</th>
+                    <th>Lượt xem</th>
+                    <th>Trạng thái</th>
+                    <th>Miễn phí</th>
+                    <th>Tự gửi mail</th>
+                    <th>Đặc biệt</th>
+                    <th>Kiểm tra năng lực</th>
                   </tr>
                 </ng-template>
-
-                <!-- Child Table Rows -->
                 <ng-template pTemplate="body" let-test>
                   <tr>
+                    <td>{{ test.data.name }}</td>
                     <td>{{ test.data.testCategoryName }}</td>
                     <td>{{ test.data.order }}</td>
                     <td>{{ test.data.time }} phút</td>
-                    <td>{{ test.data.deadlineDate || 'Không có hạn nộp' }}</td>
-                    <td>{{ test.data.isFree }}</td>
-                    <td>{{ test.data.isSpecial }}</td>
-                    <td>{{ test.data.isAutoSendMail }}</td>
+                    <td>{{ test.data.deadlineDate }}</td>
+                    <td>{{ test.data.avgRating }}</td>
+                    <td>{{ test.data.totalViewed }}</td>
+                    <td>
+                      <!-- <p-button
+                        [icon]="getStatus(test.data.status)"
+                        [text]="true"
+                        [severity]="getStyle(test.data.status)"
+                        (onClick)="
+                          changeTestStatus(
+                            test.data.id,
+                            test.data.isFree ,
+                            test.data.status === 1 ? 0 : 1
+                          )
+                        "
+                      /> -->
+                      <p-button
+                        [icon]="getStatus(test.data.status)"
+                        [text]="true"
+                        [severity]="getStyle(test.data.status)"
+                        (onClick)="
+                          changeTestStatusForAll(
+                            test.data.id,
+                            test.data.isAutoSendMail,
+                            test.data.isFree,
+                            test.data.isShowInAbilityTest,
+                            test.data.isSpecial,
+                            test.data.status === 1 ? 0 : 1
+                          )
+                        "
+                      >
+                      </p-button>
+                    </td>
+                    <td>
+                      <!-- <p-button
+                        [label]="getStatusLabel(test.data.isFree)"
+                        [severity]="getStyle(test.data.isFree)"
+                        (onClick)="
+                          changeTestFree(
+                            test.data.id,
+                            test.data.isFree === 1 ? 0 : 1,
+                            test.data.status
+                          )
+                        "
+                      >
+                      </p-button> -->
+                      <p-button
+                        [label]="getStatusLabel(test.data.isFree)"
+                        [severity]="getStyle(test.data.isFree)"
+                        (onClick)="
+                          changeTestStatusForAll(
+                            test.data.id,
+                            test.data.isAutoSendMail,
+                            test.data.isFree === 1 ? 0 : 1,
+                            test.data.isShowInAbilityTest,
+                            test.data.isSpecial,
+                            test.data.status
+                          )
+                        "
+                      >
+                      </p-button>
+                    </td>
+                    <td>
+                      <p-button
+                        [icon]="getStatus(test.data.isAutoSendMail)"
+                        [text]="true"
+                        [severity]="getStyle(test.data.isAutoSendMail)"
+                        (onClick)="
+                          changeTestStatusForAll(
+                            test.data.id,
+                            test.data.isAutoSendMail === 1 ? 0 : 1,
+                            test.data.isFree,
+                            test.data.isShowInAbilityTest,
+                            test.data.isSpecial,
+                            test.data.status
+                          )
+                        "
+                      />
+                    </td>
+                    <td>
+                      <p-button
+                        [icon]="getStatus(test.data.isSpecial)"
+                        [text]="true"
+                        [severity]="getStyle(test.data.isSpecial)"
+                        (onClick)="
+                          changeTestStatusForAll(
+                            test.data.id,
+                            test.data.isAutoSendMail,
+                            test.data.isFree,
+                            test.data.isShowInAbilityTest,
+                            test.data.isSpecial === 1 ? 0 : 1,
+                            test.data.status
+                          )
+                        "
+                      />
+                    </td>
+                    <td>
+                      <p-button
+                        [icon]="getStatus(test.data.isShowInAbilityTest)"
+                        [text]="true"
+                        [severity]="getStyle(test.data.isShowInAbilityTest)"
+                        (onClick)="
+                          changeTestStatusForAll(
+                            test.data.id,
+                            test.data.isAutoSendMail,
+                            test.data.isFree,
+                            test.data.isShowInAbilityTest === 1 ? 0 : 1,
+                            test.data.isSpecial,
+                            test.data.status
+                          )
+                        "
+                      />
+                    </td>
                   </tr>
                 </ng-template>
-
-                <!-- Empty Message for Child Table -->
                 <ng-template pTemplate="emptymessage">
                   <tr>
-                    <td colspan="7">
-                      Không có bài kiểm tra nào trong khoá học này.
-                    </td>
+                    <td colspan="7">Not results found.</td>
                   </tr>
                 </ng-template>
               </p-table>
@@ -141,5 +247,7 @@
   [showCloseIcon]="true"
   class="custom-sidebar"
 >
-   <app-edit-chuong-trinh-hoc [file]="selectedFile || {}"></app-edit-chuong-trinh-hoc>
+  <app-edit-chuong-trinh-hoc
+    [file]="selectedFile || {}"
+  ></app-edit-chuong-trinh-hoc>
 </p-sidebar>
