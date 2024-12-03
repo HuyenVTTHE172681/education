@@ -43,7 +43,6 @@ export class EditChuongTrinhHocComponent implements OnInit {
     if (this.file) {
       this.updateFormValues();
     }
-    console.log('ngOnInit - File: ', this.file);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

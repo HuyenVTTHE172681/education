@@ -17,6 +17,7 @@ export class ChuongTrinhHocComponent implements OnInit {
   sidebarForEdit: boolean = false;
   dialogDelete: boolean = false;
   selectedFile: any = null;
+  showExam: boolean = false;
 
   constructor(
     private courseSrv: CourseService,
@@ -51,6 +52,9 @@ export class ChuongTrinhHocComponent implements OnInit {
     ];
   }
 
+  showDetailExam() {
+    this.showExam = true;
+  }
   onMenuShow(menu: any) {
     if (this.selectedFile) {
       console.log('Selected File ID:', this.selectedFile.data.id);
@@ -85,6 +89,9 @@ export class ChuongTrinhHocComponent implements OnInit {
               order: courseData.order,
               status: courseData.status,
               id: courseData.id,
+              courseId: courseData.courseId,
+              createdDate: courseData.createdDate,
+              requiredCourseId: courseData.requiredCourseId,
             },
             children: courseData.tests.map((testData: any) => ({
               data: {
@@ -263,34 +270,33 @@ export class ChuongTrinhHocComponent implements OnInit {
   }
 
   refreshData() {
-    // if (this.selectedFile) {
-    //   const courseId = this.selectedFile.data.id;
-    //   this.courseSrv.getCourseSchedule(courseId, '', 0, 10000).subscribe({
-    //     next: (data) => {
-    //       this.files = [
-    //         console.log('Dữ liệu sau khi refresh:', data),
-    //         ...data.map((courseData: any) => ({
-    //           data: {
-    //             id: courseData.id,
-    //             name: courseData.name,
-    //             order: courseData.order,
-    //             status: courseData.status,
-    //           },
-    //           children: courseData.tests.map((testData: any) => ({
-    //             data: {
-    //               id: testData.id,
-    //               name: testData.name,
-    //               status: testData.status,
-    //             },
-    //           })),
-    //         })),
-    //       ];
-    //       console.log('Dữ liệu mới sau khi refresh:', this.files);
-    //     },
-    //     error: (err) => console.error('Lỗi khi gọi API:', err),
-    //   });
-    // }
-    this.getCourseSchedule(this.selectedFile.data.id);
+    if (this.selectedFile) {
+      const courseId = this.selectedFile.data.id;
+      this.courseSrv.getCourseSchedule(courseId, '', 0, 10000).subscribe({
+        next: (data) => {
+          this.files = [
+            console.log('Dữ liệu sau khi refresh:', data),
+            ...data.map((courseData: any) => ({
+              data: {
+                id: courseData.id,
+                name: courseData.name,
+                order: courseData.order,
+                status: courseData.status,
+              },
+              children: courseData.tests.map((testData: any) => ({
+                data: {
+                  id: testData.id,
+                  name: testData.name,
+                  status: testData.status,
+                },
+              })),
+            })),
+          ];
+          console.log('Dữ liệu mới sau khi refresh:', this.files);
+        },
+        error: (err) => console.error('Lỗi khi gọi API:', err),
+      });
+    }
   }
 
   trackByFn(index: number, item: any): string {
