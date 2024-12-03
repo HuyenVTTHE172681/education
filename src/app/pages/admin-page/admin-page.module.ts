@@ -31,6 +31,7 @@ import { TreeTableModule } from 'primeng/treetable';
 import { MenuModule } from 'primeng/menu';
 import { SidebarModule } from 'primeng/sidebar';
 import { EditChuongTrinhHocComponent } from './chi-tiet-khoa-hoc/chuong-trinh-hoc/edit-chuong-trinh-hoc/edit-chuong-trinh-hoc.component';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { EditChuongTrinhHocComponent } from './chi-tiet-khoa-hoc/chuong-trinh-ho
     TreeTableModule,
     MenuModule,
     SidebarModule,
+    DialogModule
   ],
 })
 export class AdminPageModule {}

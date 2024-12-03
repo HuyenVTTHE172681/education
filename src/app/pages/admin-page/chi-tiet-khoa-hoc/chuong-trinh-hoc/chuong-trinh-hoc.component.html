@@ -235,10 +235,12 @@
   </div>
 </div>
 
+<!-- Popup view to edit/deleted -->
 <div class="card flex justify-content-center">
-  <p-menu #menu [model]="items" [popup]="true" />
+  <p-menu #menu [model]="items" [popup]="true" (onShow)="onMenuShow(menu)" />
 </div>
 
+<!-- Sidebar to edit -->
 <p-sidebar
   [(visible)]="sidebarForEdit"
   [position]="'right'"
@@ -251,3 +253,26 @@
     (dataUpdated)="refreshData()"
   ></app-edit-chuong-trinh-hoc>
 </p-sidebar>
+
+<!-- Dialog delete -->
+<p-dialog
+  header="Xác nhận"
+  [modal]="true"
+  [(visible)]="dialogDelete"
+  [style]="{ width: '25rem' }"
+>
+  <div class="flex align-items-center gap-3 mb-3">
+    <i class="pi pi-exclamation-triangle" style="font-size: 2rem"></i>
+    <span style="font-weight: 100; font-size: 1.5rem"
+      >Bạn có chắc chắn muốn xóa chương trình học không ?</span
+    >
+  </div>
+  <div class="flex justify-content-end gap-2">
+    <p-button
+      label="Từ chối"
+      severity="secondary"
+      (click)="dialogDelete = false"
+    />
+    <p-button label="Đồng ý" (click)="deleteChuongTrinhHoc()" />
+  </div>
+</p-dialog>

@@ -15,6 +15,7 @@ export class ChuongTrinhHocComponent implements OnInit {
   expandedRows: any = {};
   isExpanded: boolean = false;
   sidebarForEdit: boolean = false;
+  dialogDelete: boolean = false;
   selectedFile: any = null;
 
   constructor(
@@ -38,28 +39,37 @@ export class ChuongTrinhHocComponent implements OnInit {
           {
             label: 'Sửa',
             icon: 'pi pi-pencil',
-            command: () => this.openSidebar(event), // Open sidebar on click
+            command: () => this.editFile(), // Open sidebar on click
           },
           {
             label: 'Xóa',
             icon: 'pi pi-trash',
-            command: () => this.deleteItem(), // Delete functionality (if needed)
+            command: () => this.deleteFile(), // Delete functionality (if needed)
           },
         ],
       },
     ];
   }
 
-  // Method to open the sidebar
-  openSidebar(file: any) {
-    this.selectedFile = file;
-    this.sidebarForEdit = true;
+  onMenuShow(menu: any) {
+    if (this.selectedFile) {
+      console.log('Selected File ID:', this.selectedFile.data.id);
+    }
   }
 
-  // Method to handle delete action (if needed)
-  deleteItem() {
-    console.log('Item deleted');
+  editFile() {
+    if (this.selectedFile) {
+      this.sidebarForEdit = true;
+      console.log('Editing file with ID:', this.selectedFile.data.id);
+    }
   }
+  deleteFile() {
+    if (this.selectedFile) {
+      this.dialogDelete = true;
+      console.log('Deleting file with ID:', this.selectedFile.data.id);
+    }
+  }
+
   getCourseSchedule(
     id: string,
     page: number = 0,
@@ -74,6 +84,7 @@ export class ChuongTrinhHocComponent implements OnInit {
               name: courseData.name,
               order: courseData.order,
               status: courseData.status,
+              id: courseData.id,
             },
             children: courseData.tests.map((testData: any) => ({
               data: {
@@ -95,6 +106,10 @@ export class ChuongTrinhHocComponent implements OnInit {
           };
         });
         console.log('Final Files Array:', this.files);
+        console.log(
+          'Final ID Files Array:',
+          this.files.map((file) => file.data.id)
+        );
       },
     });
   }
@@ -248,35 +263,56 @@ export class ChuongTrinhHocComponent implements OnInit {
   }
 
   refreshData() {
-    if (this.id) {
-      this.courseSrv.getCourseSchedule(this.id, '', 0, 10000).subscribe({
-        next: (data) => {
-          this.files = [
-            console.log('Dữ liệu sau khi refresh:', data),
-            ...data.map((courseData: any) => ({
-              data: {
-                id: courseData.id,
-                name: courseData.name,
-                order: courseData.order,
-                status: courseData.status,
-              },
-              children: courseData.tests.map((testData: any) => ({
-                data: {
-                  id: testData.id,
-                  name: testData.name,
-                  status: testData.status,
-                },
-              })),
-            })),
-          ];
-          console.log('Dữ liệu mới sau khi refresh:', this.files);
-        },
-        error: (err) => console.error('Lỗi khi gọi API:', err),
-      });
-    }
+    // if (this.selectedFile) {
+    //   const courseId = this.selectedFile.data.id;
+    //   this.courseSrv.getCourseSchedule(courseId, '', 0, 10000).subscribe({
+    //     next: (data) => {
+    //       this.files = [
+    //         console.log('Dữ liệu sau khi refresh:', data),
+    //         ...data.map((courseData: any) => ({
+    //           data: {
+    //             id: courseData.id,
+    //             name: courseData.name,
+    //             order: courseData.order,
+    //             status: courseData.status,
+    //           },
+    //           children: courseData.tests.map((testData: any) => ({
+    //             data: {
+    //               id: testData.id,
+    //               name: testData.name,
+    //               status: testData.status,
+    //             },
+    //           })),
+    //         })),
+    //       ];
+    //       console.log('Dữ liệu mới sau khi refresh:', this.files);
+    //     },
+    //     error: (err) => console.error('Lỗi khi gọi API:', err),
+    //   });
+    // }
+    this.getCourseSchedule(this.selectedFile.data.id);
   }
 
   trackByFn(index: number, item: any): string {
     return item.data.id;
+  }
+
+  // Phương thức để xóa file
+  deleteChuongTrinhHoc() {
+    if (this.selectedFile) {
+      const courseId = this.selectedFile.data.id;
+
+      this.courseSrv.deletedCourse(courseId).subscribe({
+        next: () => {
+          this.dialogDelete = false; // Đóng dialog sau khi xóa
+          this.refreshData(); // Làm mới dữ liệu
+          alert('Xóa chương trình học thành công!');
+        },
+        error: (err) => {
+          console.error('Lỗi khi xóa:', err);
+          alert('Có lỗi xảy ra khi xóa. Vui lòng thử lại!');
+        },
+      });
+    }
   }
 }

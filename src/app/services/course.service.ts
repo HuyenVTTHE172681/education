@@ -149,6 +149,22 @@ export class CourseService {
     );
   }
 
+  deletedCourse(id: string): Observable<any> {
+    const apiUrl = `${this.apiBaseUrl}/CourseSchedule/${id}`;
+
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+
+    return this.http.delete<any>(apiUrl, { headers }).pipe(
+      catchError((err: HttpErrorResponse) => {
+        console.error('API EditCourse Error: ', err);
+        return throwError(() => new Error(err.message || 'API call failed'));
+      })
+    );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error('Client-side error:', error.error.message);
