@@ -93,7 +93,7 @@ export class CourseService {
   ): Observable<any[]> {
     const apiUrl = `${this.apiBaseUrl}/CourseYear?filter=${filter}&offSet=${offSet}&pageSize=${pageSize}&status=${status}`;
 
-    console.log('Course Year API URL:', apiUrl);
+    https: console.log('Course Year API URL:', apiUrl);
 
     const token = localStorage.getItem('token');
     const headers = token
@@ -131,6 +131,22 @@ export class CourseService {
     return this.http
       .get<any>(apiUrl)
       .pipe(map((response) => response?.data?.data || []));
+  }
+
+  editCourse(data: any): Observable<any> {
+    const apiUrl = `${this.apiBaseUrl}/CourseSchedule`;
+
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+
+    return this.http.post<any>(apiUrl, data, { headers }).pipe(
+      catchError((err: HttpErrorResponse) => {
+        console.error('API EditCourse Error: ', err);
+        return throwError(() => new Error(err.message || 'API call failed'));
+      })
+    );
   }
 
   private handleError(error: HttpErrorResponse) {

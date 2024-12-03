@@ -1,5 +1,13 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CourseService } from '../../../../../services/course.service';
 
 @Component({
   selector: 'app-edit-chuong-trinh-hoc',
@@ -8,24 +16,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class EditChuongTrinhHocComponent implements OnInit {
   @Input() file: any;
-
+  @Output() dataUpdated = new EventEmitter<boolean>();
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private courseSrv: CourseService) {
     this.form = this.fb.group({
       name: ['', Validators.required],
       order: ['', Validators.required],
       status: [], // default to false
     });
   }
-
-  // updateFormValues(): void {
-  //   this.form.patchValue({
-  //     name: this.file.data.name,
-  //     order: this.file.data.order,
-  //     status: this.file.data.status || false,
-  //   });
-  // }
 
   private updateFormValues(): void {
     if (this.file && this.file.data) {
@@ -55,9 +55,31 @@ export class EditChuongTrinhHocComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.valid) {
-      console.log('Form submitted with values:', this.form.value);
+      const updateData = {
+        ...this.file.data,
+        ...this.form.value,
+        status: this.form.value.status ? 1 : 0,
+      };
+
+      this.courseSrv.editCourse(updateData).subscribe({
+        next: (data) => {
+          if (data.statusCode === 200) {
+            alert('Edit course successfully!');
+            this.dataUpdated.emit(true);
+            console.log('Edit course successfully!', updateData);
+          } else {
+            console.error('Error editing course. Data: ', data);
+            alert('Error editing course.');
+          }
+        },
+        error: (err) => {
+          console.error('Error editing course. Error: ', err);
+          alert('Error editing course.');
+        },
+      });
     } else {
       console.error('Form is invalid!');
+      alert('Form is invalid!');
     }
   }
 }

@@ -154,8 +154,8 @@ export class ChuongTrinhHocComponent implements OnInit {
   changeTestStatus(testId: string, isFree: number, newStatus: number): void {
     const payload = {
       id: testId,
-      isFree: isFree, 
-      status: newStatus, 
+      isFree: isFree,
+      status: newStatus,
     };
 
     console.log('Payload gửi đi:', payload);
@@ -183,8 +183,8 @@ export class ChuongTrinhHocComponent implements OnInit {
   changeTestFree(testId: string, newIsFree: number, status: number): void {
     const payload = {
       id: testId,
-      isFree: newIsFree, 
-      status: status, 
+      isFree: newIsFree,
+      status: status,
     };
 
     console.log('Payload gửi đi:', payload);
@@ -209,19 +209,21 @@ export class ChuongTrinhHocComponent implements OnInit {
     );
   }
 
-    changeTestStatusForAll(testId: string,
+  changeTestStatusForAll(
+    testId: string,
     newIsAutoSendMail: number,
     isFree: number,
     isShowInAbilityTest: number,
     isSpecial: number,
-    status: number,): void {
+    status: number
+  ): void {
     const payload = {
       id: testId,
       isAutoSendMail: newIsAutoSendMail,
       isFree: isFree,
       isShowInAbilityTest: isShowInAbilityTest,
       isSpecial: isSpecial,
-      status: status
+      status: status,
     };
     console.log('Payload gửi đi:', payload);
 
@@ -243,5 +245,38 @@ export class ChuongTrinhHocComponent implements OnInit {
         alert('Có lỗi xảy ra khi cập nhật trạng thái.');
       }
     );
+  }
+
+  refreshData() {
+    if (this.id) {
+      this.courseSrv.getCourseSchedule(this.id, '', 0, 10000).subscribe({
+        next: (data) => {
+          this.files = [
+            console.log('Dữ liệu sau khi refresh:', data),
+            ...data.map((courseData: any) => ({
+              data: {
+                id: courseData.id,
+                name: courseData.name,
+                order: courseData.order,
+                status: courseData.status,
+              },
+              children: courseData.tests.map((testData: any) => ({
+                data: {
+                  id: testData.id,
+                  name: testData.name,
+                  status: testData.status,
+                },
+              })),
+            })),
+          ];
+          console.log('Dữ liệu mới sau khi refresh:', this.files);
+        },
+        error: (err) => console.error('Lỗi khi gọi API:', err),
+      });
+    }
+  }
+
+  trackByFn(index: number, item: any): string {
+    return item.data.id;
   }
 }
