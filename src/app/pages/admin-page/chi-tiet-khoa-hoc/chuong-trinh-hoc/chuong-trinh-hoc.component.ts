@@ -67,6 +67,14 @@ export class ChuongTrinhHocComponent implements OnInit {
       console.log('Editing file with ID:', this.selectedFile.data.id);
     }
   }
+
+  handleDataUpdated(success: boolean): void {
+    if (success) {
+      this.sidebarForEdit = false; // Close the dialog
+      this.refreshData(); // Refresh data if needed
+    }
+  }
+
   deleteFile() {
     if (this.selectedFile) {
       this.dialogDelete = true;

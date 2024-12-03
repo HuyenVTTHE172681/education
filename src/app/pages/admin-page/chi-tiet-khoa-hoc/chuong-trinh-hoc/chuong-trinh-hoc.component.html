@@ -255,7 +255,7 @@
 >
   <app-edit-chuong-trinh-hoc
     [file]="selectedFile || {}"
-    (dataUpdated)="refreshData()"
+    (dataUpdated)="handleDataUpdated($event)"
   ></app-edit-chuong-trinh-hoc>
 </p-sidebar>
 
