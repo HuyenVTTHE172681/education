@@ -32,6 +32,7 @@ import { MenuModule } from 'primeng/menu';
 import { SidebarModule } from 'primeng/sidebar';
 import { EditChuongTrinhHocComponent } from './chi-tiet-khoa-hoc/chuong-trinh-hoc/edit-chuong-trinh-hoc/edit-chuong-trinh-hoc.component';
 import { DialogModule } from 'primeng/dialog';
+import { ChiTietBaiKiemTraComponent } from './chi-tiet-khoa-hoc/chuong-trinh-hoc/chi-tiet-bai-kiem-tra/chi-tiet-bai-kiem-tra.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { DialogModule } from 'primeng/dialog';
     ScoresComponent,
     FeedbackComponent,
     EditChuongTrinhHocComponent,
+    ChiTietBaiKiemTraComponent,
   ],
   imports: [
     CommonModule,

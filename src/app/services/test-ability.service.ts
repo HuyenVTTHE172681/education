@@ -112,7 +112,7 @@ export class TestAbilityService {
     return this.http
       .post<{ statusCode: number; data: { valid: boolean; messages: string } }>(
         apiUrl,
-        payload, 
+        payload,
         { headers }
       )
       .pipe(catchError(this.handleError));
@@ -137,7 +137,7 @@ export class TestAbilityService {
     return this.http
       .post<{ statusCode: number; data: { valid: boolean; messages: string } }>(
         apiUrl,
-        payload, 
+        payload,
         { headers }
       )
       .pipe(catchError(this.handleError));
@@ -165,12 +165,40 @@ export class TestAbilityService {
     return this.http
       .post<{ statusCode: number; data: { valid: boolean; messages: string } }>(
         apiUrl,
-        payload, 
+        payload,
         { headers }
       )
       .pipe(catchError(this.handleError));
   }
 
+  getTestType(
+    filter: string,
+    offSet: number,
+    pageSize: number
+  ): Observable<any[]> {
+    const apiUrl = `${this.apiBaseUrl}/TestCategory?filter=${filter}&offSet=${offSet}&pageSize=${pageSize}&status=1`;
+
+    console.log('Course Year API URL:', apiUrl);
+
+    // const token = localStorage.getItem('token');
+    // const headers = token
+    //   ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+    //   : new HttpHeaders();
+
+    return this.http.get<any>(apiUrl).pipe(
+      map((response) => response?.data?.data || []) // Trích xuất mảng `data.data` từ phản hồi
+    );
+  }
+
+
+  addUser(test: Test): Observable<Test> {
+    return this.http
+      .post<Test>(`${this.apiBaseUrl}/Test/SetTestNew`, test)
+      .pipe(
+        tap((test: Test) => console.log(`added user witth id=${test.id}`)),
+        catchError(this.handleError)
+      );
+  }
 
   // Hàm xử lý lỗi
   private handleError(error: HttpErrorResponse) {

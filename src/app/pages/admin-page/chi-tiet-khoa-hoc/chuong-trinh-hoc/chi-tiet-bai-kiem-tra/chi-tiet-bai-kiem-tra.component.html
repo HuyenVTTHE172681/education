@@ -1,0 +1,401 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="chuong-trinh-chi-tiet common-content">
+      <div>
+        <div class="detail-breadcumb">
+          <div class="header-title">Chi tiết bài kiểm tra</div>
+        </div>
+        <p-tabView class="mt-2 pb-7">
+          <p-tabPanel>
+            <ng-template pTemplate="header">
+              <div class="flex align-items-center gap-2">
+                <span>
+                  <i class="pi pi-map-marker" style="font-size: 12px"></i>
+                </span>
+                <span class="font-bold white-space-nowrap m-0">Chi tiết</span>
+              </div>
+            </ng-template>
+            <form [formGroup]="validationForm">
+              <div class="a">
+                <div class="col-12 md:col-3">
+                  <div class="field">
+                    <p-floatLabel>
+                      <p-dropdown
+                        [options]="testType"
+                        optionLabel="testCategoryName"
+                        formControlName="name"
+                        placeholder="Loại bài kiểm tra"
+                      ></p-dropdown>
+                      <label for="">Loại bài kiểm tra </label>
+                    </p-floatLabel>
+                  </div>
+                </div>
+                <div class="col-12 md:col-9">
+                  <div class="field">
+                    <p-floatLabel>
+                      <p-iconField iconPosition="right">
+                        <input
+                          pInputText
+                          formControlName="name"
+                          class="input-field"
+                          placeholder="Tiêu đề"
+                        />
+                      </p-iconField>
+                      <label for="name">Tiêu đề </label>
+                    </p-floatLabel>
+                  </div>
+                </div>
+                <!-- If test type is Bài giảng -->
+                <div class="col-12">
+                  <div class="field">
+                    <p-floatLabel>
+                      <p-iconField iconPosition="right">
+                        <p-inputIcon styleClass="pi pi-at" />
+                        <input
+                          pInputText
+                          formControlName=""
+                          class="input-field"
+                          placeholder="Nhập đường dẫn video trực tiếp"
+                          style="width: 100%"
+                        />
+                      </p-iconField>
+                      <label for="name">Nhập đường dẫn video trực tiếp </label>
+                    </p-floatLabel>
+                  </div>
+                </div>
+                <!-- If test type is Livestream -->
+                <div class="col-12 livestream">
+                  <div class="col-3">
+                    <div class="avatar">
+                      <img
+                        src="https://hochieuqua7.web.app/images/admin/setting/slide/empty-image.png"
+                        alt="img"
+                      />
+                      <label for="upload-image">
+                        <i class="pi pi-upload"></i> Ảnh livestream
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-9">
+                    <div class="grid">
+                      <div class="col-6">
+                        <div class="field">
+                          <p-floatLabel>
+                            <p-iconField iconPosition="right">
+                              <p-inputIcon styleClass="pi pi-at" />
+                              <input
+                                pInputText
+                                formControlName=""
+                                class="input-field"
+                                placeholder="Nhập tên tiêu đề"
+                              />
+                            </p-iconField>
+                            <label for="name">Đường dẫn livestream</label>
+                          </p-floatLabel>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="field">
+                          <p-floatLabel>
+                            <p-iconField iconPosition="right">
+                              <p-inputIcon styleClass="pi pi-at" />
+                              <input
+                                pInputText
+                                formControlName=""
+                                class="input-field"
+                                placeholder="Nhập tên tiêu đề"
+                              />
+                            </p-iconField>
+                            <label for="name">Tên giáo viên livestream</label>
+                          </p-floatLabel>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="field">
+                          <p-floatLabel>
+                            <p-iconField iconPosition="right">
+                              <p-inputIcon styleClass="pi pi-at" />
+                              <input
+                                pInputText
+                                formControlName=""
+                                class="input-field"
+                                placeholder="Nhập tên tiêu đề"
+                              />
+                            </p-iconField>
+                            <label for="name">Mã livestream</label>
+                          </p-floatLabel>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="field">
+                          <p-floatLabel>
+                            <p-iconField iconPosition="right">
+                              <p-inputIcon styleClass="pi pi-at" />
+                              <input
+                                pInputText
+                                formControlName=""
+                                class="input-field"
+                                placeholder="Nhập tên tiêu đề"
+                              />
+                            </p-iconField>
+                            <label for="name">Nhóm livestream</label>
+                          </p-floatLabel>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="field">
+                          <p-floatLabel>
+                            <p-iconField iconPosition="right">
+                              <p-inputIcon styleClass="pi pi-at" />
+                              <input
+                                pInputText
+                                formControlName=""
+                                class="input-field"
+                                placeholder="Nhập tên tiêu đề"
+                              />
+                            </p-iconField>
+                            <label for="name">Ngày livestream</label>
+                          </p-floatLabel>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12" hidden></div>
+                <div class="col-12">
+                  <div class="field">
+                    <label for="" class="font-size-13">Thông tin</label>
+                    <p-editor
+                      [style]="{ height: '320px' }"
+                      formControlName="description"
+                    />
+                  </div>
+                </div>
+                <div class="col-12 sm:col-6 md:col-3">
+                  <div class="field">
+                    <p-floatLabel>
+                      <p-iconField iconPosition="right">
+                        <p-inputIcon styleClass="pi pi-at" />
+                        <input
+                          id="promotionTime"
+                          type="number"
+                          pInputText
+                          formControlName="order"
+                          placeholder="Nhập thứ tự hiển thị"
+                        />
+                      </p-iconField>
+                      <label for="promotionTime">Thứ tự </label>
+                    </p-floatLabel>
+                  </div>
+                </div>
+                <div class="col-12 sm:col-6 md:col-3">
+                  <div class="field">
+                    <p-floatLabel>
+                      <p-iconField iconPosition="right">
+                        <p-inputIcon styleClass="pi pi-at" />
+                        <input
+                          id="time"
+                          type="number"
+                          pInputText
+                          formControlName="time"
+                          placeholder="Nhập thời gian giới hạn (phút)"
+                        />
+                      </p-iconField>
+                      <label for="time">Thời gian (phút) </label>
+                    </p-floatLabel>
+                  </div>
+                </div>
+                <div class="col-12 sm:col-6 md:col-3">
+                  <div class="field">
+                    <p-floatLabel>
+                      <p-iconField iconPosition="right">
+                        <p-inputIcon styleClass="pi pi-at" />
+                        <input
+                          id="totalPointPass"
+                          type="number"
+                          pInputText
+                          formControlName="totalPointPass"
+                          placeholder="Số câu cần đạt"
+                        />
+                      </p-iconField>
+                      <label for="totalPointPass"
+                        >Số điểm qua bài kiểm tra
+                      </label>
+                    </p-floatLabel>
+                  </div>
+                </div>
+                <div class="col-12 sm:col-6 md:col-3">
+                  <div class="field">
+                    <p-floatLabel>
+                      <p-iconField iconPosition="right">
+                        <p-inputIcon styleClass="pi pi-at" />
+                        <input
+                          id="numberOfTest"
+                          type="number"
+                          pInputText
+                          formControlName="numberOfTest"
+                          placeholder="Số câu cần đạt"
+                        />
+                      </p-iconField>
+                      <label for="numberOfTest">Số lần được kiểm tra </label>
+                    </p-floatLabel>
+                  </div>
+                </div>
+                <div class="col-12 sm:col-6 md:col-3">
+                  <div class="field">
+                    <p-floatLabel>
+                      <p-iconField iconPosition="right">
+                        <p-inputIcon styleClass="pi pi-at" />
+                        <input
+                          id="deadlineDate"
+                          type="number"
+                          pInputText
+                          formControlName="deadlineDate"
+                          placeholder="Chọn hạn nộp bài"
+                        />
+                      </p-iconField>
+                      <label for="deadlineDate">Hạn nộp bài</label>
+                    </p-floatLabel>
+                  </div>
+                </div>
+                <div class="col-12 sm:col-6 md:col-3">
+                  <div class="field">
+                    <p-floatLabel>
+                      <p-iconField iconPosition="right">
+                        <p-inputIcon styleClass="pi pi-at" />
+                        <input
+                          id="pointShowLessonLink"
+                          type="number"
+                          pInputText
+                          formControlName="pointShowLessonLink"
+                          placeholder="Nhập thứ tự hiển thị"
+                        />
+                      </p-iconField>
+                      <label for="pointShowLessonLink">Liên kết bài học</label>
+                    </p-floatLabel>
+                  </div>
+                </div>
+                <div
+                  class="col-12 sm:col-6 md:col-3"
+                  title="Hạn nộp bài kiểm tra, nếu quá hạn không nộp thì bài kiểm tra coi như thất bại"
+                ></div>
+                <div class="col-12 md:col-3"></div>
+                <div
+                  class="col-12 sm:col-6 md:col-3"
+                  title="Ở trang người dùng có menu kiểm tra năng lực, bật thì mới xuất hiện bài kiểm tra ở menu này"
+                >
+                  <div class="field">
+                    <p-floatLabel>
+                      <p-inputSwitch formControlName="status"></p-inputSwitch>
+                      <label for="status" class="manual-active"
+                        >Hiển thị <span class="text-red-500">*</span></label
+                      >
+                    </p-floatLabel>
+                  </div>
+                </div>
+                <div
+                  class="col-12 sm:col-6 md:col-3"
+                  title="Nếu bật thì sau khi nộp bài thi, email kết quả sẽ gửi đến cho người dùng đăng ký tài khoản"
+                >
+                  <div class="field">
+                    <p-floatLabel>
+                      <p-inputSwitch formControlName="status"></p-inputSwitch>
+                      <label for="status" class="manual-active"
+                        >Hiển thị <span class="text-red-500">*</span></label
+                      >
+                    </p-floatLabel>
+                  </div>
+                </div>
+                <div
+                  class="col-12 sm:col-6 md:col-3"
+                  title="Có hiển thị cho người dùng xem hay không"
+                >
+                  <div class="field">
+                    <p-floatLabel>
+                      <p-inputSwitch formControlName="status"></p-inputSwitch>
+                      <label for="status" class="manual-active"
+                        >Hiển thị <span class="text-red-500">*</span></label
+                      >
+                    </p-floatLabel>
+                  </div>
+                </div>
+                <div
+                  class="col-12 sm:col-6 md:col-3"
+                  title="Khi bật, thì mọi người đều có thể xem bài. Ngược lại chỉ ai mua khóa học mới xem được"
+                >
+                  <div class="field">
+                    <p-floatLabel>
+                      <p-inputSwitch formControlName="status"></p-inputSwitch>
+                      <label for="status" class="manual-active"
+                        >Hiển thị <span class="text-red-500">*</span></label
+                      >
+                    </p-floatLabel>
+                  </div>
+                </div>
+                <div
+                  class="col-12 sm:col-6 md:col-3"
+                  title="Khi chọn thì chỉ những học sinh nào được cài đặt ở tab Học sinh mới xem được bài kiểm tra này."
+                >
+                  <div class="field">
+                    <p-floatLabel>
+                      <p-inputSwitch formControlName="status"></p-inputSwitch>
+                      <label for="status" class="manual-active"
+                        >Hiển thị <span class="text-red-500">*</span></label
+                      >
+                    </p-floatLabel>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </p-tabPanel>
+
+          <p-tabPanel>
+            <ng-template pTemplate="header">
+              <div class="flex align-items-center gap-2">
+                <span>
+                  <i class="pi pi-map-marker" style="font-size: 12px"></i>
+                </span>
+                <span class="font-bold white-space-nowrap m-0">Câu hỏi</span>
+              </div>
+            </ng-template>
+            
+          </p-tabPanel>
+
+          <p-tabPanel>
+            <ng-template pTemplate="header">
+              <div class="flex align-items-center gap-2">
+                <span>
+                  <i class="pi pi-map-marker" style="font-size: 12px"></i>
+                </span>
+                <span class="font-bold white-space-nowrap m-0">Nhận xét</span>
+              </div>
+            </ng-template>
+            
+          </p-tabPanel>
+        </p-tabView>
+        <div class="grid mt-2">
+          <div class="col-12 fixed-action">
+            <div class="grid">
+              <div class="col-9 flex justify-content-start">
+                <p-button
+                  label="Xem trước"
+                  icon="pi pi-check"
+                  severity="success"
+                />
+                <p-button label="Hủy bỏ" icon="pi pi-check" severity="danger" />
+                <p-button
+                  label="Lưu lại"
+                  icon="pi pi-check"
+                  severity="primary"
+                />
+              </div>
+              <div class="col-3 flex justify-content-end">
+                <span class="bg-white"> Tổng điểm: <b>10</b> </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
