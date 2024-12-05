@@ -40,33 +40,45 @@ export class CourseService {
       );
   }
 
-  getKhoaHoc(): Observable<any[]> {
-    return this.http
-      .get<any>(
-        `${this.apiBaseUrl}/Course?accountId&callFromAdmin=1&classId=&filter=&isPayment=-1&offSet=0&pageSize=10&status=-1&subjectId=&teacherId=`
-      )
-      .pipe(
-        map((response) => {
-          return response.data.data.map((item: any) => ({
-            id: item.id,
-            classRoomName: item.classRoomName,
-            classRoomId: item.classRoomId,
-            courseAvatar: item.courseAvatar,
-            courseBanner: item.courseBanner,
-            isShowHome: item.isShowHome,
-            name: item.name,
-            price: item.price,
-            priceDiscount: item.priceDiscount,
-            status: item.status,
-            subjectName: item.subjectName,
-            totalStudent: item.totalStudent,
-            userRating: item.userRating,
-            code: item.code,
-            teacherName: item.teacherName,
-          }));
-        })
-      );
+  getKhoaHoc(
+    accountId: string = '',
+    callFromAdmin: number = 1,
+    classId: string = '',
+    filter: string = '',
+    isPayment: number = -1,
+    page: number = 1,
+    size: number = 10,
+    status: number = -1,
+    subjectId: string = '',
+    teacherId: string = ''
+  ): Observable<IResponeList<Course>> {
+    const offset = (page - 1) * size;
+    const query = `?accountId=${accountId}&callFromAdmin=${callFromAdmin}&classId=${classId}&filter=${filter}&isPayment=${isPayment}&offSet=${offset}&pageSize=${size}&status=${status}&subjectId=${subjectId}&teacherId=${teacherId}`;
+
+    const apiUrl = `${this.apiBaseUrl}/Course${query}`;
+    console.log("Api to all course:", apiUrl);
+
+    return this.http.get<IResponeList<Course>>(apiUrl).pipe(
+      catchError(this.handleError)
+    );
   }
+
+  deletedCourseList(id: string) {
+    const apiUrl = `${this.apiBaseUrl}/Course/${id}`;
+
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+
+    return this.http.delete<any>(apiUrl, { headers }).pipe(
+      catchError((err: HttpErrorResponse) => {
+        console.error('API EditCourse Error: ', err);
+        return throwError(() => new Error(err.message || 'API call failed'));
+      })
+    );
+  }
+
 
   getCourseById(
     id: string,
@@ -188,7 +200,7 @@ export class CourseService {
     } else {
       console.error(
         `Server returned code ${error.status}, ` +
-          `body was: ${JSON.stringify(error.error)}`
+        `body was: ${JSON.stringify(error.error)}`
       );
     }
     return throwError(

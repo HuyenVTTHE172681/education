@@ -33,6 +33,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { EditChuongTrinhHocComponent } from './chi-tiet-khoa-hoc/chuong-trinh-hoc/edit-chuong-trinh-hoc/edit-chuong-trinh-hoc.component';
 import { DialogModule } from 'primeng/dialog';
 import { ChiTietBaiKiemTraComponent } from './chi-tiet-khoa-hoc/chuong-trinh-hoc/chi-tiet-bai-kiem-tra/chi-tiet-bai-kiem-tra.component';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { ChiTietBaiKiemTraComponent } from './chi-tiet-khoa-hoc/chuong-trinh-hoc
     TreeTableModule,
     MenuModule,
     SidebarModule,
-    DialogModule
+    DialogModule,
+    PaginatorModule
   ],
 })
 export class AdminPageModule {}
