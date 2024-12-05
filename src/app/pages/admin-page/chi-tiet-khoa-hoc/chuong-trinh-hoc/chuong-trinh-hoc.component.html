@@ -62,6 +62,8 @@
               <p-table [value]="file.children" dataKey="id">
                 <ng-template pTemplate="header">
         <tr>
+          <th></th>
+          <th></th>
           <th>Tên</th>
           <th>Loại bài</th>
           <th>Sắp xếp</th>
@@ -78,6 +80,13 @@
       </ng-template>
       <ng-template pTemplate="body" let-test>
         <tr>
+          <th>
+            <p-button icon="pi pi-align-justify" [text]="true" severity="secondary" />
+          </th>
+          <th>
+            <p-button icon="pi pi-ellipsis-v" [text]="true" severity="secondary"
+              (onClick)="setSelectedTest(test); menuTest.toggle($event)" />
+          </th>
           <td>{{ test.data.name }}</td>
           <td>{{ test.data.testCategoryName }}</td>
           <td>{{ test.data.order }}</td>
@@ -194,6 +203,10 @@
 <!-- Popup view to edit/deleted -->
 <div class="card flex justify-content-center">
   <p-menu #menu [model]="items" [popup]="true" (onShow)="onMenuShow(menu)" />
+</div>
+
+<div class="card flex justify-content-center">
+  <p-menu #menuTest [model]="itemsChild" [popup]="true" (onShow)="onMenuChildShow(menu)" />
 </div>
 
 <!-- Sidebar to edit/ add-->

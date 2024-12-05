@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../../../services/course.service';
+import { Course } from '../../../models/course.model';
 
 @Component({
   selector: 'app-khoa-hoc',
@@ -7,11 +8,11 @@ import { CourseService } from '../../../services/course.service';
   styleUrl: './khoa-hoc.component.css',
 })
 export class KhoaHocComponent implements OnInit {
-  course: any[] = [];
+  course: Course[] = [];
   items: any[] = [];
   home: any = [];
 
-  constructor(private courseSrv: CourseService) {}
+  constructor(private courseSrv: CourseService) { }
 
   ngOnInit(): void {
     this.getKhoaHoc();
@@ -31,5 +32,22 @@ export class KhoaHocComponent implements OnInit {
     this.courseSrv.getKhoaHoc().subscribe((data) => {
       this.course = data;
     });
+  }
+
+  getStatus(status: number) {
+    switch (status) {
+      case 1:
+        return 'primary';
+
+      case 0:
+        return 'danger';
+
+      default:
+        return 'warning';
+    }
+  }
+
+  getStatusLabel(status: number) {
+    return status === 1 ? 'Hiển thị' : 'Ẩn';
   }
 }

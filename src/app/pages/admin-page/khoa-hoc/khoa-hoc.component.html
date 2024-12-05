@@ -1,24 +1,19 @@
 <div class="khoa-hoc customer-table common-content">
-  <p-table [value]="course" [tableStyle]="{ 'min-width': '60rem' }">
+  <p-table [value]="course" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
+    [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+    [tableStyle]="{ 'min-width': '75rem' }">
     <ng-template pTemplate="caption">
       <div class="grid align-items-end">
         <div class="col-12 md:col-4">
           <p-breadcrumb class="max-w-full" [model]="items" [home]="home" />
           <div class="header-title hidden-mobile">Khóa học</div>
         </div>
-        <div
-          class="col-12 md:col-8 text-right flex justify-content-end align-items-end"
-        >
+        <div class="col-12 md:col-8 text-right flex justify-content-end align-items-end">
           <div class="mr-2 text-left search">
             <label for="search">Tìm kiếm: </label>
             <p-inputGroup>
               <input type="text" pInputText placeholder="Keyword" />
-              <button
-                type="button"
-                pButton
-                icon="pi pi-search"
-                class="p-button-warning"
-              ></button>
+              <button type="button" pButton icon="pi pi-search" class="p-button-warning"></button>
             </p-inputGroup>
           </div>
           <p-button label="Bộ lọc" icon="pi pi-check" />
@@ -27,63 +22,61 @@
       </div>
     </ng-template>
     <ng-template pTemplate="header">
-      <tr>
-        <th pSortableColumn="code" style="width: 20%">
+      <tr style="font-size: 14px;">
+        <th pSortableColumn="code" style="min-width: 53px; left: 0px">
           <p-checkbox [binary]="true" inputId="binary" />
         </th>
-        <th pSortableColumn="code" style="width: 20%"></th>
-        <th pSortableColumn="code" style="width: 20%">
+        <th pSortableColumn="code" style="min-width: 60px; left: 53px;"></th>
+        <th pSortableColumn="code" style="min-width: 70px; left: 125px;">
           Ảnh <p-sortIcon field="code" />
         </th>
-        <th pSortableColumn="code" style="width: 20%">
+        <th pSortableColumn="code" style="min-width: 350px; left: 350px;">
           Tên <p-sortIcon field="code" />
         </th>
-        <th pSortableColumn="code" style="width: 20%">
+        <th pSortableColumn="code" style="min-width: 150px;">
           Hiển thị <p-sortIcon field="code" />
         </th>
-        <th pSortableColumn="code" style="width: 20%">
+        <th pSortableColumn="code" style="min-width: 120px;">
           HT Trang chủ<p-sortIcon field="code" />
         </th>
-        <th pSortableColumn="code" style="width: 20%">
+        <th pSortableColumn="code" style="min-width: 120px;">
           Giá<p-sortIcon field="code" />
         </th>
-        <th pSortableColumn="code" style="width: 20%">
+        <th pSortableColumn="code" style="min-width: 150px;">
           Giá giảm<p-sortIcon field="code" />
         </th>
-        <th pSortableColumn="code" style="width: 20%">
+        <th pSortableColumn="code" style="min-width: 200px;">
           Giáo viên<p-sortIcon field="code" />
         </th>
-        <th pSortableColumn="code" style="width: 20%">
+        <th pSortableColumn="code" style="min-width: 150px;">
           Lớp học<p-sortIcon field="code" />
         </th>
-        <th pSortableColumn="code" style="width: 20%">
+        <th pSortableColumn="code" style="min-width: 150px;">
           Môn học<p-sortIcon field="code" />
         </th>
-        <th pSortableColumn="code" style="width: 20%">
+        <th pSortableColumn="code" style="min-width: 150px;">
           Mã<p-sortIcon field="code" />
         </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product>
-      <tr>
+      <tr style="font-size: 14px;">
         <td><p-checkbox [binary]="true" inputId="binary" /></td>
-        <td><i class="pi pi-ellipsis-v"></i></td>
+        <td><i class="pi pi-ellipsis-v" style="color: blue;"></i></td>
         <td>
-          <img
-            [src]="product?.courseAvatar"
-            width="50"
-            height="50"
-            class="shadow-4"
-            style="border-radius: 6px"
-          />
+          <img [src]="product?.courseAvatar" width="50" height="50" class="shadow-4" style="border-radius: 6px" />
         </td>
-        <td>
-          <a [routerLink]="['/quan-tri/chi-tiet-khoa-hoc', product?.id]">
+        <td class="text-blue-700 pointer">
+          <a [routerLink]="['/quan-tri/chi-tiet-khoa-hoc', product?.id]" style="text-decoration: none;">
             {{ product?.name }}
           </a>
         </td>
-        <td>{{ product?.status }}</td>
-        <td>{{ product?.isShowHome }}</td>
+        <td>
+          <p-button [label]="getStatusLabel(product?.status)" [raised]="true" [severity]="getStatus(product?.status)" />
+        </td>
+        <td>
+          <p-button [label]="getStatusLabel(product?.isShowHome)" [raised]="true" [severity]="getStatus(product?.isShowHome)" />
+        </td>
         <td>{{ product?.price }}</td>
         <td>{{ product?.priceDiscount }}</td>
         <td>{{ product?.teacherName }}</td>
