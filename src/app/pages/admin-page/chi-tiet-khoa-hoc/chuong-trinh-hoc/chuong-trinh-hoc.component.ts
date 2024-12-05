@@ -24,7 +24,7 @@ export class ChuongTrinhHocComponent implements OnInit {
     private testSrv: TestAbilityService,
     private route: ActivatedRoute,
     private router: Router // private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -61,16 +61,21 @@ export class ChuongTrinhHocComponent implements OnInit {
     }
   }
 
-  editFile() {
+  editFile(): void {
     if (this.selectedFile) {
-      this.sidebarForEdit = true;
-      console.log('Editing file with ID:', this.selectedFile.data.id);
+      console.log('Editing file:', this.selectedFile.data.id);
+    } else {
+      this.selectedFile = { data: { courseId: this.id } }; // Thêm mới với courseID
+      console.log('Adding new file');
     }
+    this.sidebarForEdit = true;
   }
+
+
 
   handleDataUpdated(success: boolean): void {
     if (success) {
-      this.sidebarForEdit = false; // Close the dialog
+      this.sidebarForEdit = false;
       this.refreshData(); // Refresh data if needed
     }
   }
@@ -83,12 +88,12 @@ export class ChuongTrinhHocComponent implements OnInit {
   }
 
   getCourseSchedule(
-    id: string,
+    courseId: string,
     page: number = 0,
     size: number = 10000,
     searchText: string = ''
   ) {
-    this.courseSrv.getCourseSchedule(id, searchText, page, size).subscribe({
+    this.courseSrv.getCourseSchedule(courseId, searchText, page, size).subscribe({
       next: (data) => {
         this.files = data.map((courseData: any) => {
           return {
@@ -277,35 +282,71 @@ export class ChuongTrinhHocComponent implements OnInit {
     );
   }
 
+  // refreshData() {
+  //   if (this.selectedFile) {
+  //     const courseId = this.selectedFile.data.id;
+  //     this.courseSrv.getCourseSchedule(courseId, '', 0, 10000).subscribe({
+  //       next: (data) => {
+  //         this.files = [
+  //           console.log('Dữ liệu sau khi refresh:', data),
+  //           ...data.map((courseData: any) => ({
+  //             data: {
+  //               id: courseData.id,
+  //               name: courseData.name,
+  //               order: courseData.order,
+  //               status: courseData.status,
+  //             },
+  //             children: courseData.tests.map((testData: any) => ({
+  //               data: {
+  //                 id: testData.id,
+  //                 name: testData.name,
+  //                 status: testData.status,
+  //               },
+  //             })),
+  //           })),
+  //         ];
+  //         console.log('Dữ liệu mới sau khi refresh:', this.files);
+  //       },
+  //       error: (err) => console.error('Lỗi khi gọi API:', err),
+  //     });
+  //   } else {
+  //     const courseId = this.selectedFile.data.id;
+  //           this.courseSrv.getCourseSchedule(courseId, '', 0, 10000).subscribe({
+  //       next: (data) => {
+  //         this.files = [
+  //           console.log('Dữ liệu sau khi refresh:', data),
+  //           ...data.map((courseData: any) => ({
+  //             data: {
+  //               id: courseData.id,
+  //               name: courseData.name,
+  //               order: courseData.order,
+  //               status: courseData.status,
+  //             },
+  //             children: courseData.tests.map((testData: any) => ({
+  //               data: {
+  //                 id: testData.id,
+  //                 name: testData.name,
+  //                 status: testData.status,
+  //               },
+  //             })),
+  //           })),
+  //         ];
+  //         console.log('Dữ liệu mới sau khi refresh:', this.files);
+  //       },
+  //       error: (err) => console.error('Lỗi khi gọi API:', err),
+  //     });
+  //   }
+  // }
+
   refreshData() {
-    if (this.selectedFile) {
-      const courseId = this.selectedFile.data.id;
-      this.courseSrv.getCourseSchedule(courseId, '', 0, 10000).subscribe({
-        next: (data) => {
-          this.files = [
-            console.log('Dữ liệu sau khi refresh:', data),
-            ...data.map((courseData: any) => ({
-              data: {
-                id: courseData.id,
-                name: courseData.name,
-                order: courseData.order,
-                status: courseData.status,
-              },
-              children: courseData.tests.map((testData: any) => ({
-                data: {
-                  id: testData.id,
-                  name: testData.name,
-                  status: testData.status,
-                },
-              })),
-            })),
-          ];
-          console.log('Dữ liệu mới sau khi refresh:', this.files);
-        },
-        error: (err) => console.error('Lỗi khi gọi API:', err),
-      });
+    if (this.id) {
+      console.log('Refreshing data for courseId:', this.id);
+      this.getCourseSchedule(this.id);
+    } else {
+      console.error('Không tìm thấy courseId từ URL!');
     }
   }
+
 
   trackByFn(index: number, item: any): string {
     return item.data.id;

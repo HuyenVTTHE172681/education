@@ -21,9 +21,9 @@ export class EditChuongTrinhHocComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private courseSrv: CourseService) {
     this.form = this.fb.group({
-      name: ['', Validators.required],
-      order: ['', Validators.required],
-      status: [], // default to false
+      name: ['', [Validators.required, Validators.minLength(10)]],
+      order: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      status: [false],
     });
   }
 
@@ -54,31 +54,56 @@ export class EditChuongTrinhHocComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.valid) {
+
       const updateData = {
-        ...this.file.data,
-        ...this.form.value,
-        status: this.form.value.status ? 1 : 0,
+        ...this.file?.data, // Dữ liệu từ file hiện tại (nếu có)
+        ...this.form.value, // Dữ liệu từ form
+        id: this.file?.data?.id || '', // Nếu không có ID thì để rỗng (thêm mới)
+        courseId: this.file?.data?.courseId || '', // Lấy courseId từ cha
+        status: this.form.value.status ? 1 : 0, // Convert boolean sang 1/0
+        tests: [], // Mảng tests mặc định
       };
 
-      this.courseSrv.editCourse(updateData).subscribe({
-        next: (data) => {
-          if (data.statusCode === 200) {
-            alert('Edit course successfully!');
-            this.dataUpdated.emit(true);
-            console.log('Edit course successfully!', updateData);
-          } else {
-            console.error('Error editing course. Data: ', data);
+      if (this.file?.data?.id) {
+        // Edit logic
+        this.courseSrv.editCourse(updateData).subscribe({
+          next: (data) => {
+            if (data.statusCode === 200) {
+              alert('Edit course successfully!');
+              this.dataUpdated.emit(true); // Emit event để thông báo cha
+            } else {
+              console.error('Error editing course:', data);
+              alert('Error editing course.');
+            }
+          },
+          error: (err) => {
+            console.error('Error editing course:', err);
             alert('Error editing course.');
-          }
-        },
-        error: (err) => {
-          console.error('Error editing course. Error: ', err);
-          alert('Error editing course.');
-        },
-      });
+          },
+        });
+      } else {
+        // Add logic
+        this.courseSrv.addCourse(updateData).subscribe({
+          next: (data) => {
+            if (data.statusCode === 200) {
+              alert('Add course successfully!');
+              this.dataUpdated.emit(true); // Emit event để thông báo cha
+              this.form.reset();
+            } else {
+              console.error('Error adding course:', data);
+              alert('Error adding course.');
+            }
+          },
+          error: (err) => {
+            console.error('Error adding course:', err);
+            alert('Error adding course.');
+          },
+        });
+      }
     } else {
       console.error('Form is invalid!');
       alert('Form is invalid!');
     }
   }
+
 }

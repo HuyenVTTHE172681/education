@@ -1,24 +1,14 @@
 <div class="chuong-trinh-hoc mt-2">
   <div class="grid">
     <div class="col-12 flex justify-content-end gap-3">
-      <p-button
-        label="{{ expandAllText }}"
-        icon="{{ expandAllIcon }}"
-        (onClick)="toggleExpandCollapse()"
-      />
-      <p-button label="Submit" icon="pi pi-check" />
+      <p-button label="{{ expandAllText }}" icon="{{ expandAllIcon }}" (onClick)="toggleExpandCollapse()" />
+      <p-button label="Thêm mới" icon="pi pi-plus" (onClick)="editFile()" />
     </div>
   </div>
 
   <div class="card">
-    <p-table
-      [value]="files"
-      dataKey="id"
-      [tableStyle]="{ 'min-width': '60rem' }"
-      [expandedRowKeys]="expandedRows"
-      (onRowExpand)="expandedRows[$event.data.id] = true"
-      (onRowCollapse)="expandedRows[$event.data.id] = false"
-    >
+    <p-table [value]="files" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows"
+      (onRowExpand)="expandedRows[$event.data.id] = true" (onRowCollapse)="expandedRows[$event.data.id] = false">
       <!-- Header -->
       <ng-template pTemplate="header">
         <tr>
@@ -38,40 +28,21 @@
       <ng-template pTemplate="body" let-file let-expanded="expanded">
         <tr>
           <td>
-            <p-button
-              type="button"
-              pRipple
-              [pRowToggler]="file"
-              [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
-              [text]="true"
-              [rounded]="true"
-              [plain]="true"
-            />
+            <p-button type="button" pRipple [pRowToggler]="file"
+              [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" [text]="true" [rounded]="true"
+              [plain]="true" />
           </td>
           <td>
             <div class="main-action" style="display: flex; gap: 2px">
-              <p-button
-                icon="pi pi-plus"
-                [text]="true"
-                severity="secondary"
-                (onClick)="showDetailExam()"
-              />
-              <p-button
-                icon="pi pi-ellipsis-v"
-                [text]="true"
-                severity="secondary"
-                (onClick)="setSelectedFile(file); menu.toggle($event)"
-              />
+              <p-button icon="pi pi-plus" [text]="true" severity="secondary" (onClick)="showDetailExam()" />
+              <p-button icon="pi pi-ellipsis-v" [text]="true" severity="secondary"
+                (onClick)="setSelectedFile(file); menu.toggle($event)" />
             </div>
           </td>
           <td>{{ file.data.name }}</td>
           <td>{{ file.data.order }}</td>
           <td>
-            <p-button
-              [icon]="getStatus(file.data.status)"
-              [text]="true"
-              [severity]="getStyle(file.data.status)"
-            />
+            <p-button [icon]="getStatus(file.data.status)" [text]="true" [severity]="getStyle(file.data.status)" />
           </td>
         </tr>
       </ng-template>
@@ -90,32 +61,32 @@
             <div class="p-3">
               <p-table [value]="file.children" dataKey="id">
                 <ng-template pTemplate="header">
-                  <tr>
-                    <th>Tên</th>
-                    <th>Loại bài</th>
-                    <th>Sắp xếp</th>
-                    <th>Thời gian</th>
-                    <th>Hạn nộp</th>
-                    <th>Đánh giá</th>
-                    <th>Lượt xem</th>
-                    <th>Trạng thái</th>
-                    <th>Miễn phí</th>
-                    <th>Tự gửi mail</th>
-                    <th>Đặc biệt</th>
-                    <th>Kiểm tra năng lực</th>
-                  </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-test>
-                  <tr>
-                    <td>{{ test.data.name }}</td>
-                    <td>{{ test.data.testCategoryName }}</td>
-                    <td>{{ test.data.order }}</td>
-                    <td>{{ test.data.time }} phút</td>
-                    <td>{{ test.data.deadlineDate }}</td>
-                    <td>{{ test.data.avgRating }}</td>
-                    <td>{{ test.data.totalViewed }}</td>
-                    <td>
-                      <!-- <p-button
+        <tr>
+          <th>Tên</th>
+          <th>Loại bài</th>
+          <th>Sắp xếp</th>
+          <th>Thời gian</th>
+          <th>Hạn nộp</th>
+          <th>Đánh giá</th>
+          <th>Lượt xem</th>
+          <th>Trạng thái</th>
+          <th>Miễn phí</th>
+          <th>Tự gửi mail</th>
+          <th>Đặc biệt</th>
+          <th>Kiểm tra năng lực</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-test>
+        <tr>
+          <td>{{ test.data.name }}</td>
+          <td>{{ test.data.testCategoryName }}</td>
+          <td>{{ test.data.order }}</td>
+          <td>{{ test.data.time }} phút</td>
+          <td>{{ test.data.deadlineDate }}</td>
+          <td>{{ test.data.avgRating }}</td>
+          <td>{{ test.data.totalViewed }}</td>
+          <td>
+            <!-- <p-button
                         [icon]="getStatus(test.data.status)"
                         [text]="true"
                         [severity]="getStyle(test.data.status)"
@@ -127,11 +98,8 @@
                           )
                         "
                       /> -->
-                      <p-button
-                        [icon]="getStatus(test.data.status)"
-                        [text]="true"
-                        [severity]="getStyle(test.data.status)"
-                        (onClick)="
+            <p-button [icon]="getStatus(test.data.status)" [text]="true" [severity]="getStyle(test.data.status)"
+              (onClick)="
                           changeTestStatusForAll(
                             test.data.id,
                             test.data.isAutoSendMail,
@@ -140,12 +108,11 @@
                             test.data.isSpecial,
                             test.data.status === 1 ? 0 : 1
                           )
-                        "
-                      >
-                      </p-button>
-                    </td>
-                    <td>
-                      <!-- <p-button
+                        ">
+            </p-button>
+          </td>
+          <td>
+            <!-- <p-button
                         [label]="getStatusLabel(test.data.isFree)"
                         [severity]="getStyle(test.data.isFree)"
                         (onClick)="
@@ -157,10 +124,7 @@
                         "
                       >
                       </p-button> -->
-                      <p-button
-                        [label]="getStatusLabel(test.data.isFree)"
-                        [severity]="getStyle(test.data.isFree)"
-                        (onClick)="
+            <p-button [label]="getStatusLabel(test.data.isFree)" [severity]="getStyle(test.data.isFree)" (onClick)="
                           changeTestStatusForAll(
                             test.data.id,
                             test.data.isAutoSendMail,
@@ -169,16 +133,12 @@
                             test.data.isSpecial,
                             test.data.status
                           )
-                        "
-                      >
-                      </p-button>
-                    </td>
-                    <td>
-                      <p-button
-                        [icon]="getStatus(test.data.isAutoSendMail)"
-                        [text]="true"
-                        [severity]="getStyle(test.data.isAutoSendMail)"
-                        (onClick)="
+                        ">
+            </p-button>
+          </td>
+          <td>
+            <p-button [icon]="getStatus(test.data.isAutoSendMail)" [text]="true"
+              [severity]="getStyle(test.data.isAutoSendMail)" (onClick)="
                           changeTestStatusForAll(
                             test.data.id,
                             test.data.isAutoSendMail === 1 ? 0 : 1,
@@ -187,15 +147,11 @@
                             test.data.isSpecial,
                             test.data.status
                           )
-                        "
-                      />
-                    </td>
-                    <td>
-                      <p-button
-                        [icon]="getStatus(test.data.isSpecial)"
-                        [text]="true"
-                        [severity]="getStyle(test.data.isSpecial)"
-                        (onClick)="
+                        " />
+          </td>
+          <td>
+            <p-button [icon]="getStatus(test.data.isSpecial)" [text]="true" [severity]="getStyle(test.data.isSpecial)"
+              (onClick)="
                           changeTestStatusForAll(
                             test.data.id,
                             test.data.isAutoSendMail,
@@ -204,15 +160,11 @@
                             test.data.isSpecial === 1 ? 0 : 1,
                             test.data.status
                           )
-                        "
-                      />
-                    </td>
-                    <td>
-                      <p-button
-                        [icon]="getStatus(test.data.isShowInAbilityTest)"
-                        [text]="true"
-                        [severity]="getStyle(test.data.isShowInAbilityTest)"
-                        (onClick)="
+                        " />
+          </td>
+          <td>
+            <p-button [icon]="getStatus(test.data.isShowInAbilityTest)" [text]="true"
+              [severity]="getStyle(test.data.isShowInAbilityTest)" (onClick)="
                           changeTestStatusForAll(
                             test.data.id,
                             test.data.isAutoSendMail,
@@ -221,23 +173,22 @@
                             test.data.isSpecial,
                             test.data.status
                           )
-                        "
-                      />
-                    </td>
-                  </tr>
-                </ng-template>
-                <ng-template pTemplate="emptymessage">
-                  <tr>
-                    <td colspan="7">Not results found.</td>
-                  </tr>
-                </ng-template>
-              </p-table>
-            </div>
+                        " />
           </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="7">Not results found.</td>
         </tr>
       </ng-template>
     </p-table>
   </div>
+  </td>
+  </tr>
+  </ng-template>
+  </p-table>
+</div>
 </div>
 
 <!-- Popup view to edit/deleted -->
@@ -245,49 +196,27 @@
   <p-menu #menu [model]="items" [popup]="true" (onShow)="onMenuShow(menu)" />
 </div>
 
-<!-- Sidebar to edit -->
-<p-sidebar
-  [(visible)]="sidebarForEdit"
-  [position]="'right'"
-  [modal]="true"
-  [showCloseIcon]="true"
-  class="custom-sidebar"
->
-  <app-edit-chuong-trinh-hoc
-    [file]="selectedFile || {}"
-    (dataUpdated)="handleDataUpdated($event)"
-  ></app-edit-chuong-trinh-hoc>
+<!-- Sidebar to edit/ add-->
+<p-sidebar [(visible)]="sidebarForEdit" [position]="'right'" [modal]="true" [showCloseIcon]="true"
+  class="custom-sidebar">
+  <app-edit-chuong-trinh-hoc [file]="selectedFile"
+    (dataUpdated)="handleDataUpdated($event)"></app-edit-chuong-trinh-hoc>
 </p-sidebar>
 
+
 <!-- Dialog delete -->
-<p-dialog
-  header="Xác nhận"
-  [modal]="true"
-  [(visible)]="dialogDelete"
-  [style]="{ width: '25rem' }"
->
+<p-dialog header="Xác nhận" [modal]="true" [(visible)]="dialogDelete" [style]="{ width: '25rem' }">
   <div class="flex align-items-center gap-3 mb-3">
     <i class="pi pi-exclamation-triangle" style="font-size: 2rem"></i>
-    <span style="font-weight: 100; font-size: 1.5rem"
-      >Bạn có chắc chắn muốn xóa chương trình học không ?</span
-    >
+    <span style="font-weight: 100; font-size: 1.5rem">Bạn có chắc chắn muốn xóa chương trình học không ?</span>
   </div>
   <div class="flex justify-content-end gap-2">
-    <p-button
-      label="Từ chối"
-      severity="secondary"
-      (click)="dialogDelete = false"
-    />
+    <p-button label="Từ chối" severity="secondary" (click)="dialogDelete = false" />
     <p-button label="Đồng ý" (click)="deleteChuongTrinhHoc()" />
   </div>
 </p-dialog>
 
-<p-dialog
-  header="Edit Profile"
-  [modal]="true"
-  [(visible)]="showExam"
-  [style]="{ width: '25rem' }"
->
+<p-dialog header="Edit Profile" [modal]="true" [(visible)]="showExam" [style]="{ width: '25rem' }">
   <span class="p-text-secondary block mb-5">Update your information.</span>
   <div class="flex align-items-center gap-3 mb-3">
     <label for="username" class="font-semibold w-6rem">Username</label>
