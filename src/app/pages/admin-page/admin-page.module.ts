@@ -36,7 +36,8 @@ import { ChiTietBaiKiemTraComponent } from './chi-tiet-khoa-hoc/chuong-trinh-hoc
 import { PaginatorModule } from 'primeng/paginator';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ChipsModule } from 'primeng/chips';
-
+import { CardModule } from 'primeng/card';
+import { TimelineModule } from 'primeng/timeline';
 @NgModule({
   declarations: [
     TongQuanComponent,
@@ -78,7 +79,10 @@ import { ChipsModule } from 'primeng/chips';
     DialogModule,
     PaginatorModule,
     OverlayPanelModule,
-    ChipsModule
+    ChipsModule,
+    CardModule,
+    TabViewModule,
+    TimelineModule
   ],
 })
 export class AdminPageModule {}

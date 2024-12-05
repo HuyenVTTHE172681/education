@@ -145,7 +145,18 @@ export class KhoaHocComponent implements OnInit {
   }
 
   getAllKhoaHoc(): void {
-    this.courseSrv.getKhoaHoc(this.accountId, this.callFromAdmin, this.classId, this.filter, this.isPayment, this.page, this.size, this.status, this.subjectId, this.teacherId).subscribe({
+    this.courseSrv.getKhoaHoc(
+      this.accountId,
+      this.callFromAdmin,
+      this.selectedClassroom || '',
+      this.filter,
+      this.isPayment,
+      this.page,
+      this.size,
+      this.status,
+      this.selectedSubject || '',
+      this.selectedTeacher || ''
+    ).subscribe({
       next: (data: IResponeList<Course>) => {
         this.course = data.data.data;
         this.totalItems = data.data.recordsTotal;
@@ -161,6 +172,15 @@ export class KhoaHocComponent implements OnInit {
   searchCourse() {
     this.page = 1;
     this.getAllKhoaHoc();
+  }
+
+  resetFilters(): void {
+    this.selectedClassroom = undefined;
+    this.selectedTeacher = undefined;
+    this.selectedSubject = undefined;
+    this.filter = '';
+    this.page = 1; // Reset về trang đầu tiên
+    this.getAllKhoaHoc(); // Gọi API để lấy lại dữ liệu ban đầu
   }
 
   setSelectedCourse(course: any) {

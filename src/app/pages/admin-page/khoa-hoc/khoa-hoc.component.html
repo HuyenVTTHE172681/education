@@ -135,50 +135,23 @@
     <div>
       <ul class="list-none p-0 m-0 flex flex-column gap-3">
         <li class="align-items-center ">
-          <p-dropdown [options]="teacher" [(ngModel)]="selectedTeacher" optionLabel="name" [filter]="true"
-            filterBy="name" [showClear]="true" placeholder="Giáo viên">
-            <ng-template pTemplate="selectedItem" let-selectedOption>
-              <div class="flex align-items-center gap-2">
-                <div>{{ selectedOption.name }}</div>
-              </div>
-            </ng-template>
-            <ng-template let-country pTemplate="item">
-              <div class="flex align-items-center gap-2">
-                <div>{{ country.name }}</div>
-              </div>
-            </ng-template>
+          <p-dropdown [options]="teacher" [(ngModel)]="selectedTeacher" (ngModelChange)="searchCourse()"
+            optionLabel="name" optionValue="id" [filter]="true" filterBy="name" [showClear]="true"
+            placeholder="Giáo viên">
           </p-dropdown>
         </li>
 
         <li class="align-items-center mt-2">
-          <p-dropdown [options]="classRoom" [(ngModel)]="selectedClassroom" optionLabel="name" [filter]="true"
-            filterBy="name" [showClear]="true" placeholder="Lớp học">
-            <ng-template pTemplate="selectedItem" let-selectedOption>
-              <div class="flex align-items-center gap-2">
-                <div>{{ selectedOption.name }}</div>
-              </div>
-            </ng-template>
-            <ng-template let-country pTemplate="item">
-              <div class="flex align-items-center gap-2">
-                <div>{{ country.name }}</div>
-              </div>
-            </ng-template>
+          <p-dropdown [options]="classRoom" [(ngModel)]="selectedClassroom" (ngModelChange)="searchCourse()"
+            optionLabel="name" optionValue="id" [filter]="true" filterBy="name" [showClear]="true"
+            placeholder="Lớp học">
           </p-dropdown>
         </li>
 
         <li class="align-items-center mt-2">
-          <p-dropdown [options]="subject" [(ngModel)]="selectedSubject" optionLabel="name" [filter]="true"
-            filterBy="name" [showClear]="true" placeholder="Môn học" class="mt-3">
-            <ng-template pTemplate="selectedItem" let-selectedOption>
-              <div class="flex align-items-center gap-2">
-                <div>{{ selectedOption.name }}</div>
-              </div>
-            </ng-template>
-            <ng-template let-country pTemplate="item">
-              <div class="flex align-items-center gap-2">
-                <div>{{ country.name }}</div>
-              </div>
-            </ng-template>
+          <p-dropdown [options]="subject" [(ngModel)]="selectedSubject" (ngModelChange)="searchCourse()"
+            optionLabel="name" optionValue="id" [filter]="true" filterBy="name" [showClear]="true"
+            placeholder="Môn học">
           </p-dropdown>
         </li>
       </ul>
@@ -186,8 +159,8 @@
 
     <div class="text-right" style="margin-top: 30px;">
       <p-button class="mr-2" label="Xuất excel" icon="pi pi-file-excel" severity="success" />
-      <p-button class="mr-2" label="Làm mới" icon="pi pi-sync" severity="secondary" />
-      <p-button label="Tìm kiếm" icon="pi pi-search" />
+      <p-button class="mr-2" label="Làm mới" icon="pi pi-sync" severity="secondary" (onClick)="resetFilters()" />
+      <p-button label="Tìm kiếm" icon="pi pi-search" (onClick)="searchCourse()" />
     </div>
   </div>
 </p-overlayPanel>

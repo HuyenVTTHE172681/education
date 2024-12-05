@@ -10,14 +10,196 @@
                     </div>
                 </div>
                 <div>
-                    
+                    <div class="tab-view">
+                        <p-tabView>
+                            <p-tabPanel>
+                                <ng-template pTemplate="header">
+                                    <div class="flex align-items-center gap-2">
+                                        <span>
+                                            <i class="pi pi-map-marker" style="font-size: 12px"></i>
+                                        </span>
+                                        <span class="font-bold white-space-nowrap m-0">Tổng quan</span>
+                                    </div>
+                                </ng-template>
+                                <div>
+                                    <div class="card">
+                                        <p-table [value]="products" sortField="price" [sortOrder]="-1"
+                                            [tableStyle]="{ 'min-width': '60rem' }">
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th pSortableColumn="code" style="width: 20%">
+                                                        Code <p-sortIcon field="code" />
+                                                    </th>
+                                                    <th pSortableColumn="name" style="width: 20%">
+                                                        Name <p-sortIcon field="name" />
+                                                    </th>
+                                                    <th pSortableColumn="price" style="width: 20%">
+                                                        Price <p-sortIcon field="price" />
+                                                    </th>
+                                                    <th pSortableColumn="category" style="width: 20%">
+                                                        Category <p-sortIcon field="category" />
+                                                    </th>
+                                                    <th pSortableColumn="quantity" style="width: 20%">
+                                                        Quantity <p-sortIcon field="quantity" />
+                                                    </th>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-product>
+                                                <tr>
+                                                    <td>{{ product.code }}</td>
+                                                    <td>{{ product.name }}</td>
+                                                    <td>{{ product.price | currency : 'USD' }}</td>
+                                                    <td>{{ product.category }}</td>
+                                                    <td>{{ product.quantity }}</td>
+                                                </tr>
+                                            </ng-template>
+                                        </p-table>
+                                    </div>
+                                </div>
+                            </p-tabPanel>
+
+                            <p-tabPanel>
+                                <ng-template pTemplate="header">
+                                    <div class="flex align-items-center gap-2">
+                                        <span>
+                                            <i class="pi pi-list" style="font-size: 12px"></i>
+                                        </span>
+                                        <span class="font-bold white-space-nowrap m-0">Điểm thi</span>
+                                    </div>
+                                </ng-template>
+                                <app-chuong-trinh-hoc></app-chuong-trinh-hoc>
+                            </p-tabPanel>
+
+                            <p-tabPanel>
+                                <ng-template pTemplate="header">
+                                    <div class="flex align-items-center gap-2">
+                                        <span>
+                                            <i class="pi pi-sort-numeric-down-alt" style="font-size: 12px"></i>
+                                        </span>
+                                        <span class="font-bold white-space-nowrap m-0">Khóa học</span>
+                                    </div>
+                                </ng-template>
+                                <app-scores></app-scores>
+                            </p-tabPanel>
+
+                            <p-tabPanel>
+                                <ng-template pTemplate="header">
+                                    <div class="flex align-items-center gap-2">
+                                        <span>
+                                            <i class="pi pi-star" style="font-size: 12px"></i>
+                                        </span>
+                                        <span class="font-bold white-space-nowrap m-0">Chi tiết khóa học</span>
+                                    </div>
+                                </ng-template>
+                                <app-feedback></app-feedback>
+                            </p-tabPanel>
+                        </p-tabView>
+                    </div>
+                </div>
+                <div>
+
                 </div>
             </div>
-            <div class="common-content"></div>
+            <div class="common-content">
+                <div class="table-header grid align-items-end">
+                    <div class="col-12 md:col-6">
+                        <div class="header-title hidden-mobile">
+                            Tổng quan giáo viên
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 text-right flex justify-content-end align-items-end">
+                        <p-button label="Xuất Excel" icon="pi pi-file-excel" severity="success" />
+                    </div>
+                </div>
+                <div class="card">
+                    <p-table [value]="products" [scrollable]="true" scrollHeight="400px">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="min-width:100px">Id</th>
+                                <th style="min-width:200px">Name</th>
+                                <th style="min-width:200px">Country</th>
+                                <th style="min-width:200px">Date</th>
+                                <th style="min-width:200px">Balance</th>
+                                <th style="min-width:200px">Company</th>
+                                <th style="min-width:200px">Status</th>
+                                <th style="min-width:200px">Activity</th>
+                                <th style="min-width:200px">Representative</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-customer>
+                            <tr>
+                                <td>{{customer.id}}</td>
+                                <td>{{customer.name}}</td>
+                                <td>{{customer.country.name}}</td>
+                                <td>{{customer.date}}</td>
+                                <td>{{(customer.balance)}}</td>
+                                <td>{{customer.company}}</td>
+                                <td>{{customer.status}}</td>
+                                <td>{{customer.activity}}</td>
+                                <td>{{customer.representative.name}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
         </div>
-        <div class="col-12 sm:col-8"></div>
-        <div class="col-12 sm:col-4 field text-right"></div>
-        <div class="col-12 sm:col-8"></div>
-        <div class="col-12 sm:col-4"></div>
+        <div class="col-12 sm:col-8">
+            <h4>Tổng quan</h4>
+        </div>
+        <div class="col-12 sm:col-4 field text-right">
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" />
+        </div>
+        <div class="col-12 sm:col-8">
+            <div class="dashboard_overview">
+                <p-card>
+                    <div class="dashboard_overview-item">
+                        <div class="dashboard_overview-item-image">
+                            <img src="https://hochieuqua7.web.app/images/common/icons/blue/rating/4852528.png" alt="">
+                        </div>
+                        <div class="dashboard_overview-item-content">
+                            <h4>Thông tin chung</h4>
+                            <div>Giáo viên mới: <b>0</b></div>
+                            <div>Học viên mới: <b>0</b></div>
+                        </div>
+                    </div>
+                </p-card>
+                <p-card>
+                    <div class="dashboard_overview-item">
+                        <div class="dashboard_overview-item-image">
+                            <img src="	https://hochieuqua7.web.app/images/common/icons/blue/rating/5198153.png" alt="">
+                        </div>
+                        <div class="dashboard_overview-item-content">
+                            <h4>Thông tin chung</h4>
+                            <div>Giáo viên mới: <b>0</b></div>
+                            <div>Học viên mới: <b>0</b></div>
+                        </div>
+                    </div>
+                </p-card>
+            </div>
+            <div class="col-12">
+                <p-card>
+                    <h4>Tổng quan câu hỏi</h4>
+                    <div class="flex justify-content-center"></div>
+                </p-card>
+            </div>
+        </div>
+        <div class="col-12 sm:col-4">
+            <div class="grid">
+                <div class="col-12 dashboard_request">
+                    <p-card>
+                        <h4>Yêu cầu tư vấn</h4>
+                        <p-timeline [value]="events">
+                            <ng-template pTemplate="content" let-event>
+                                <div class="dashboard_item">
+                                    <div class="dashboard_item-title">{{ event.status }}</div>
+                                    <div class="dashboard_item-content"></div>
+                                    <div class="dashboard_item-time">{{ event.date }}</div>
+                                </div>
+                            </ng-template>
+                        </p-timeline>
+                    </p-card>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

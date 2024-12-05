@@ -19,6 +19,10 @@ const routes: Routes = [
         component: TongQuanComponent,
       },
       {
+        path: 'tong-quan',
+        component: TongQuanComponent
+      },
+      {
         path: 'khoa-hoc',
         component: KhoaHocComponent,
       },
