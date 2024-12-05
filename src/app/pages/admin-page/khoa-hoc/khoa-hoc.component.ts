@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../../../services/course.service';
 import { Course } from '../../../models/course.model';
-import { Subject } from '../../../models/subject.model';
+import { Subject as SubjectModel } from '../../../models/subject.model';
 import { IResponeList } from '../../../models/common.model';
 import { Router } from '@angular/router';
+import { ClassRoom } from '../../../models/classRoom.model';
+import { Teacher } from '../../../models/teacher.model';
+import { TeacherService } from '../../../services/teacher.service';
+import { ClassRoomService } from '../../../services/classRoom.service';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-khoa-hoc',
@@ -14,6 +20,7 @@ export class KhoaHocComponent implements OnInit {
   course: Course[] = [];
   items: any[] = [];
   breadcrum: any[] = [];
+  members: any[] = [];
   home: any = [];
   accountId: string = '';
   callFromAdmin: number = 1;
@@ -26,14 +33,34 @@ export class KhoaHocComponent implements OnInit {
   subjectId: string = '';
   teacherId: string = '';
   totalItems: number = 0;
+  searchText: string = '';
+
 
   selectedCourse: any = null;
   dialogDelete: boolean = false;
+  classRoom: ClassRoom[] = [];
+  teacher: Teacher[] = [];
+  subject: SubjectModel[] = [];
 
-  constructor(private courseSrv: CourseService, private router: Router) { }
+  selectedClassroom: string | undefined;
+  selectedTeacher: string | undefined;
+  selectedSubject: string | undefined;
+
+  private searchSubject: Subject<string> = new Subject(); // Subject for search
+  constructor(private courseSrv: CourseService, private router: Router, private classRoomSrv: ClassRoomService,
+    private teacherSrv: TeacherService,) { }
 
   ngOnInit(): void {
     this.getAllKhoaHoc();
+    this.getClassRoom();
+    this.getTeachers();
+
+    this.members = [
+      { name: 'Amy Elsner', image: 'amyelsner.png', email: 'amy@email.com', role: 'Owner' },
+      { name: 'Bernardo Dominic', image: 'bernardodominic.png', email: 'bernardo@email.com', role: 'Editor' },
+      { name: 'Ioni Bowcher', image: 'ionibowcher.png', email: 'ioni@email.com', role: 'Viewer' }
+    ];
+
 
     this.breadcrum = [
       { label: 'Quản trị' },
@@ -59,8 +86,53 @@ export class KhoaHocComponent implements OnInit {
         ],
       },
     ];
+
+    // Subscribe to the search subject with debounce
+    this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
+      this.filter = searchValue;
+      this.page = 1; // Reset to the first page for new search
+      this.getAllKhoaHoc();
+    });
   }
 
+  getSubjectsByClassRoomId(classRoomId: string): void {
+    this.courseSrv
+      .getSubject(classRoomId, this.searchText, this.page, this.size)
+      .subscribe({
+        next: (response) => {
+          // console.log('API Response of Subject:', response);
+          this.subject = response;
+        },
+        error: () => {
+          console.error('Error fetching subjects.');
+        },
+      });
+  }
+
+  getTeachers() {
+    this.teacherSrv
+      .getTeachers(this.page, this.size, this.searchText)
+      .subscribe({
+        next: (data: IResponeList<Teacher>) => {
+          this.teacher = data.data.data;
+          console.log('Teacher: ', this.teacher);
+
+        },
+        error: (err) => {
+          console.log('Error loading teachers: ', err);
+        },
+      });
+  }
+
+  getClassRoom() {
+    this.classRoomSrv
+      .getClassRooms(this.page, this.size, this.searchText)
+      .subscribe({
+        next: (data: IResponeList<ClassRoom>) => {
+          this.classRoom = data.data.data;
+        },
+      });
+  }
   editCourse() {
     this.router.navigate(['/quan-tri/chi-tiet-khoa-hoc', this.selectedCourse?.id]);
   }
@@ -80,6 +152,15 @@ export class KhoaHocComponent implements OnInit {
         console.log("Course: ", this.course)
       }
     })
+  }
+
+  // Trigger search with debounce
+  onSearchChange(searchValue: string): void {
+    this.searchSubject.next(searchValue); // Emit search value
+  }
+  searchCourse() {
+    this.page = 1;
+    this.getAllKhoaHoc();
   }
 
   setSelectedCourse(course: any) {

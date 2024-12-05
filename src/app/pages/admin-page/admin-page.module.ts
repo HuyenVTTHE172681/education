@@ -34,6 +34,8 @@ import { EditChuongTrinhHocComponent } from './chi-tiet-khoa-hoc/chuong-trinh-ho
 import { DialogModule } from 'primeng/dialog';
 import { ChiTietBaiKiemTraComponent } from './chi-tiet-khoa-hoc/chuong-trinh-hoc/chi-tiet-bai-kiem-tra/chi-tiet-bai-kiem-tra.component';
 import { PaginatorModule } from 'primeng/paginator';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ChipsModule } from 'primeng/chips';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,9 @@ import { PaginatorModule } from 'primeng/paginator';
     MenuModule,
     SidebarModule,
     DialogModule,
-    PaginatorModule
+    PaginatorModule,
+    OverlayPanelModule,
+    ChipsModule
   ],
 })
 export class AdminPageModule {}

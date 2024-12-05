@@ -20,3 +20,40 @@
 .mt-2 {
   margin-top: .5rem !important;
 }
+
+.p-breadcrumb {
+  font-size: 12px;
+}
+
+.header-title {
+  color: #041c47;
+  font-size: 18px;
+  font-weight: bolder;
+  padding: 5px 0;
+  position: relative;
+  width: fit-content;
+}
+
+.header-title::after {
+  background-color: #0a3b85;
+  bottom: 0;
+  content: "";
+  height: 4px;
+  left: 0;
+  min-width: 60px;
+  position: absolute;
+  transform: translateY(0);
+}
+
+.mr-2 {
+  margin-right: .5rem !important;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 400;
+}
