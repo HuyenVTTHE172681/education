@@ -113,6 +113,10 @@ label {
   gap: 10px;
 }
 
+.col-12 .fixed-action {
+  display: block;
+}
+
 .mr-2 {
   margin-right: 0.5rem !important;
 }

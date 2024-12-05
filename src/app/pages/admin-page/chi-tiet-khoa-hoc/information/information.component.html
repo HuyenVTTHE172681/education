@@ -4,18 +4,24 @@
       <div class="col-12 md:col-2">
         <div class="grid mt-3">
           <div class="col-12 avatar">
-            <img
+            <img *ngIf="courseForm.get('courseAvatar')?.value, else elseBlock"
               [src]="
                 courseForm.get('courseAvatar')?.value || 'default-avatar.jpg'
               "
               alt=""
             />
+            <ng-template #elseBlock>
+              <img
+                src="https://hochieuqua7.web.app/images/admin/setting/slide/empty-image.png"
+                alt=""
+              />
+            </ng-template>
             <label for="upload-image">
               <i class="pi pi-upload"></i> Avatar
             </label>
           </div>
           <div class="col-12 avatar mt-2">
-            <img
+            <img *ngIf="courseForm.get('courseBanner')?.value, else elseBlock"
               [src]="
                 courseForm.get('courseBanner')?.value || 'default-avatar.jpg'
               "
