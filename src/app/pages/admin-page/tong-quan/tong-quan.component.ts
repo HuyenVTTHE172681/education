@@ -27,8 +27,11 @@ export class TongQuanComponent implements OnInit {
   selectedSubject: string | undefined;
 
   dashboard: Dashboard[] = [];
+  dashboardFilter: any = {};
   filter: string = '';
   accountId: string = '';
+  fromDate: string = '2024-12-01%2000:00:00';
+  toDate: string = '2024-12-07%2023:59:59';
 
   constructor(private classRoomSrv: ClassRoomService, private courseSrv: CourseService, private dashboardSrv: DashboardService) {
 
@@ -87,6 +90,15 @@ export class TongQuanComponent implements OnInit {
         console.log("Dashboad: ", this.dashboard);
       },
     });
+  }
+
+  getDashboardFilter() {
+    this.dashboardSrv.getDashboardFilterByDate(this.fromDate, this.toDate).subscribe({
+      next: (data: any) => {
+        this.dashboard = data;
+        console.log("Dashboad: ", this.dashboard);
+      },
+    })
   }
   getClassRoom() {
     this.classRoomSrv
