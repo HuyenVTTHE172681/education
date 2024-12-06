@@ -23,7 +23,8 @@
                                 </ng-template>
                                 <div>
                                     <div class="card">
-                                        <p-table [value]="products" sortField="price" [sortOrder]="-1"
+                                        <p-table [value]="dashboard" [scrollable]="true" scrollHeight="333px"
+                                            [scrollable]="true" sortField="price" [sortOrder]="-1"
                                             [tableStyle]="{ 'min-width': '60rem' }">
                                             <ng-template pTemplate="caption">
                                                 <div class="grid align-items-end">
@@ -63,12 +64,12 @@
                                                     </th>
                                                 </tr>
                                             </ng-template>
-                                            <ng-template pTemplate="body" let-product>
+                                            <ng-template pTemplate="body" let-dashboard>
                                                 <tr>
-                                                    <td>{{ product.code }}</td>
-                                                    <td>{{ product.name }}</td>
-                                                    <td>{{ product.category }}</td>
-                                                    <td>{{ product.quantity }}</td>
+                                                    <td>{{ dashboard?.classRoomName }}</td>
+                                                    <td>{{ dashboard?.subjectName }}</td>
+                                                    <td>{{ dashboard?.totalStudentStudy }}</td>
+                                                    <td>{{ dashboard?.totalStudentPass }}</td>
                                                 </tr>
                                             </ng-template>
                                         </p-table>
@@ -190,7 +191,9 @@
             <h4>Tổng quan</h4>
         </div>
         <div class="col-12 sm:col-4 field text-right">
-            <p-dropdown [options]="cities" name="city" [(ngModel)]="selectedCity" optionLabel="name" optionValue="id"
+            <p-dropdown
+                [style]="{'width':'100%', 'background':'rgba(104, 164, 251, .12)', 'border':'1px solid #d0d9ef'}"
+                [options]="cities" name="city" [(ngModel)]="selectedCity" optionLabel="name" optionValue="id"
                 [filter]="true" filterBy="name" [showClear]="true" placeholder="Lớp học">
             </p-dropdown>
 
@@ -215,9 +218,12 @@
                             <img src="	https://hochieuqua7.web.app/images/common/icons/blue/rating/5198153.png" alt="">
                         </div>
                         <div class="dashboard_overview-item-content">
-                            <h4>Thông tin chung</h4>
-                            <div>Giáo viên mới: <b>0</b></div>
-                            <div>Học viên mới: <b>0</b></div>
+                            <h4>Khóa học</h4>
+                            <div>Số lớp học: <b>0</b></div>
+                            <div>Số môn học: <b>0</b></div>
+                            <div>Số khóa học: <b>0</b></div>
+                            <div>Số bài học: <b>0</b></div>
+                            <div>Số câu hỏi: <b>0</b></div>
                         </div>
                     </div>
                 </p-card>
@@ -258,15 +264,16 @@
         <div>
             <ul class="list-none p-0 m-0 flex flex-column gap-3">
                 <li class="align-items-center mt-2">
-                    <p-dropdown [style]="{'width':'100%'}" [options]="classRoom" name="classRoom" [(ngModel)]="selectedClassroom"
-                        optionLabel="name" optionValue="id" [filter]="true" filterBy="name" [showClear]="true"
-                        placeholder="Lớp học"> 
+                    <p-dropdown [style]="{'width':'100%'}" [options]="classRoom" name="classRoom"
+                        [(ngModel)]="selectedClassroom" optionLabel="name" optionValue="id" [filter]="true"
+                        filterBy="name" [showClear]="true" placeholder="Lớp học">
                     </p-dropdown>
                 </li>
 
                 <li class="align-items-center mt-2">
-                    <p-dropdown [style]="{'width':'100%'}" [options]="subject" name="subject" [(ngModel)]="selectedSubject" optionLabel="name"
-                        optionValue="id" [filter]="true" filterBy="name" [showClear]="true" placeholder="Môn học"> 
+                    <p-dropdown [style]="{'width':'100%'}" [options]="subject" name="subject"
+                        [(ngModel)]="selectedSubject" optionLabel="name" optionValue="id" [filter]="true"
+                        filterBy="name" [showClear]="true" placeholder="Môn học">
                     </p-dropdown>
 
                 </li>

@@ -4,6 +4,8 @@ import { IResponeList } from '../../../models/common.model';
 import { ClassRoom } from '../../../models/classRoom.model';
 import { CourseService } from '../../../services/course.service';
 import { Subject as SubjectModel } from '../../../models/subject.model';
+import { DashboardService } from '../../../services/dashboard.service';
+import { Dashboard } from '../../../models/dashboard.model';
 
 @Component({
   selector: 'app-tong-quan',
@@ -24,12 +26,17 @@ export class TongQuanComponent implements OnInit {
   subject: SubjectModel[] = [];
   selectedSubject: string | undefined;
 
-  constructor(private classRoomSrv: ClassRoomService, private courseSrv: CourseService) {
+  dashboard: Dashboard[] = [];
+  filter: string = '';
+  accountId: string = '';
+
+  constructor(private classRoomSrv: ClassRoomService, private courseSrv: CourseService, private dashboardSrv: DashboardService) {
 
   }
 
   ngOnInit(): void {
     this.getClassRoom();
+    this.getDashboard();
 
     this.events = [
       { status: 'Ordered', date: '15/10/2020 10:30', icon: 'pi pi-shopping-cart', color: '#9C27B0', image: 'game-controller.jpg' },
@@ -37,7 +44,7 @@ export class TongQuanComponent implements OnInit {
       { status: 'Shipped', date: '15/10/2020 16:15', icon: 'pi pi-shopping-cart', color: '#FF9800' },
       { status: 'Delivered', date: '16/10/2020 10:00', icon: 'pi pi-check', color: '#607D8B' }
     ];
-    
+
     this.cities = [
       { name: 'New York', code: 'NY' },
       { name: 'Rome', code: 'RM' },
@@ -73,6 +80,14 @@ export class TongQuanComponent implements OnInit {
     ];
   }
 
+  getDashboard() {
+    this.dashboardSrv.getDashboardAdminOverview(this.page, this.size, this.filter, this.selectedClassroom, this.selectedSubject, this.accountId).subscribe({
+      next: (data: IResponeList<Dashboard>) => {
+        this.dashboard = data.data.data;
+        console.log("Dashboad: ", this.dashboard);
+      },
+    });
+  }
   getClassRoom() {
     this.classRoomSrv
       .getClassRooms(this.page, this.size, this.searchText)
