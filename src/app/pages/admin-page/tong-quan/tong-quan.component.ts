@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ClassRoomService } from '../../../services/classRoom.service';
+import { IResponeList } from '../../../models/common.model';
+import { ClassRoom } from '../../../models/classRoom.model';
+import { CourseService } from '../../../services/course.service';
+import { Subject as SubjectModel } from '../../../models/subject.model';
 
 @Component({
   selector: 'app-tong-quan',
@@ -11,11 +16,21 @@ export class TongQuanComponent implements OnInit {
   events: any;
   selectedCity: any | undefined;
 
-  constructor() {
+  page: number = 1;
+  size: number = 1000;
+  searchText: string = '';
+  classRoom: ClassRoom[] = [];
+  selectedClassroom: string | undefined;
+  subject: SubjectModel[] = [];
+  selectedSubject: string | undefined;
+
+  constructor(private classRoomSrv: ClassRoomService, private courseSrv: CourseService) {
 
   }
 
   ngOnInit(): void {
+    this.getClassRoom();
+
     this.events = [
       { status: 'Ordered', date: '15/10/2020 10:30', icon: 'pi pi-shopping-cart', color: '#9C27B0', image: 'game-controller.jpg' },
       { status: 'Processing', date: '15/10/2020 14:00', icon: 'pi pi-cog', color: '#673AB7' },
@@ -56,5 +71,29 @@ export class TongQuanComponent implements OnInit {
         rating: 5,
       },
     ];
+  }
+
+  getClassRoom() {
+    this.classRoomSrv
+      .getClassRooms(this.page, this.size, this.searchText)
+      .subscribe({
+        next: (data: IResponeList<ClassRoom>) => {
+          this.classRoom = data.data.data;
+        },
+      });
+  }
+
+  getSubjectsByClassRoomId(classRoomId: string): void {
+    this.courseSrv
+      .getSubject(classRoomId, this.searchText, this.page, this.size)
+      .subscribe({
+        next: (response) => {
+          // console.log('API Response of Subject:', response);
+          this.subject = response;
+        },
+        error: () => {
+          console.error('Error fetching subjects.');
+        },
+      });
   }
 }

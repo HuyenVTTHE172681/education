@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TongQuanComponent } from './tong-quan/tong-quan.component';
 import { KhoaHocComponent } from './khoa-hoc/khoa-hoc.component';
@@ -38,6 +38,10 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ChipsModule } from 'primeng/chips';
 import { CardModule } from 'primeng/card';
 import { TimelineModule } from 'primeng/timeline';
+import { ConfirmationService } from 'primeng/api';
+import { register } from 'swiper/element';
+
+register(); // Register Swiper
 @NgModule({
   declarations: [
     TongQuanComponent,
@@ -82,7 +86,11 @@ import { TimelineModule } from 'primeng/timeline';
     ChipsModule,
     CardModule,
     TabViewModule,
-    TimelineModule
+    TimelineModule,
   ],
+  providers: [ConfirmationService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AdminPageModule {}
+
+
+export class AdminPageModule { }

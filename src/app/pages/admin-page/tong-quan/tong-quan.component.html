@@ -25,22 +25,41 @@
                                     <div class="card">
                                         <p-table [value]="products" sortField="price" [sortOrder]="-1"
                                             [tableStyle]="{ 'min-width': '60rem' }">
+                                            <ng-template pTemplate="caption">
+                                                <div class="grid align-items-end">
+                                                    <div class="col-12 md:col-4"></div>
+                                                    <div
+                                                        class="col-12 md:col-8 text-right flex justify-content-end align-items-end">
+                                                        <div class="mr-2 text-left search">
+                                                            <label for="search">Tìm kiếm: </label>
+                                                            <p-inputGroup [style.height.px]="32">
+                                                                <input type="text" pInputText
+                                                                    placeholder="Nhập nội dung tìm kiếm"
+                                                                    severity="secondary" />
+                                                                <button type="button" pButton icon="pi pi-search"
+                                                                    [outlined]="true" severity="secondary"></button>
+                                                            </p-inputGroup>
+                                                        </div>
+                                                        <!-- <p-button class="mr-2" label="Bộ lọc" icon="pi pi-sliders-h" menu.toggle($event)/> -->
+                                                        <p-button class="mr-2" label="Bộ lọc"
+                                                            (onClick)="op.toggle($event)" icon="pi pi-sliders-h" />
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+
                                             <ng-template pTemplate="header">
                                                 <tr>
                                                     <th pSortableColumn="code" style="width: 20%">
-                                                        Code <p-sortIcon field="code" />
+                                                        Lớp <p-sortIcon field="code" />
                                                     </th>
                                                     <th pSortableColumn="name" style="width: 20%">
-                                                        Name <p-sortIcon field="name" />
+                                                        Môn <p-sortIcon field="name" />
                                                     </th>
                                                     <th pSortableColumn="price" style="width: 20%">
-                                                        Price <p-sortIcon field="price" />
+                                                        Số học sinh tham gia <p-sortIcon field="price" />
                                                     </th>
                                                     <th pSortableColumn="category" style="width: 20%">
-                                                        Category <p-sortIcon field="category" />
-                                                    </th>
-                                                    <th pSortableColumn="quantity" style="width: 20%">
-                                                        Quantity <p-sortIcon field="quantity" />
+                                                        Số học sinh hoàn thành <p-sortIcon field="category" />
                                                     </th>
                                                 </tr>
                                             </ng-template>
@@ -48,7 +67,6 @@
                                                 <tr>
                                                     <td>{{ product.code }}</td>
                                                     <td>{{ product.name }}</td>
-                                                    <td>{{ product.price | currency : 'USD' }}</td>
                                                     <td>{{ product.category }}</td>
                                                     <td>{{ product.quantity }}</td>
                                                 </tr>
@@ -115,28 +133,53 @@
                     <p-table [value]="products" [scrollable]="true" scrollHeight="400px">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th style="min-width:100px">Id</th>
-                                <th style="min-width:200px">Name</th>
-                                <th style="min-width:200px">Country</th>
-                                <th style="min-width:200px">Date</th>
-                                <th style="min-width:200px">Balance</th>
-                                <th style="min-width:200px">Company</th>
-                                <th style="min-width:200px">Status</th>
-                                <th style="min-width:200px">Activity</th>
-                                <th style="min-width:200px">Representative</th>
+                                <th style="width: 53px; left: 0;"></th>
+                                <th style="width: 18px; left: 54px;">Tên học sinh</th>
+                                <th style="width: 18px; left: 54px;">Angular 100 Day</th>
+                                <th style="width: 18px; left: 54px;">Angular JS</th>
+                                <th style="width: 18px; left: 54px;">Dũng test</th>
+                                <th style="width: 18px; left: 54px;">Học Angular 15</th>
+                                <th style="width: 18px; left: 54px;">Học Node Express</th>
+                                <th style="width: 18px; left: 54px;">Khóa học Angular 4</th>
+                                <th style="width: 18px; left: 54px;">Làm dự án với ASP.NET Core MVC</th>
+                                <th style="width: 18px; left: 54px;">Lập trình Blazor căn bản</th>
+                                <th style="width: 18px; left: 54px;">Luyện thi xe máy</th>
+                                <th style="width: 18px; left: 54px;">React Hook cơ bản</th>
+                                <th style="width: 18px; left: 54px;">React Query</th>
+                                <th style="width: 18px; left: 54px;">Redux Saga</th>
+                                <th style="width: 18px; left: 54px;">Redux Toolkit</th>
+                                <th style="width: 18px; left: 54px;">Rest API với NodeJS Express & MongoDB</th>
+                                <th style="width: 18px; left: 54px;">Test Khóa học</th>
+                                <th style="width: 18px; left: 54px;">Test EST 2022</th>
+                                <th style="width: 18px; left: 54px;">Toeic Part 5</th>
+                                <th style="width: 18px; left: 54px;">Unlocking B1 with English Language Pathfinders</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-customer>
                             <tr>
-                                <td>{{customer.id}}</td>
-                                <td>{{customer.name}}</td>
-                                <td>{{customer.country.name}}</td>
-                                <td>{{customer.date}}</td>
-                                <td>{{(customer.balance)}}</td>
-                                <td>{{customer.company}}</td>
-                                <td>{{customer.status}}</td>
-                                <td>{{customer.activity}}</td>
-                                <td>{{customer.representative.name}}</td>
+                                <td>
+                                    <p-tableCheckbox [value]="customer"></p-tableCheckbox>
+                                </td>
+                                <td>{{customer?.id}}</td>
+                                <td>{{customer?.name}}</td>
+                                <td>{{customer?.country?.name}}</td>
+                                <td>{{customer?.date}}</td>
+                                <td>{{(customer?.balance)}}</td>
+                                <td>{{customer?.company}}</td>
+                                <td>{{customer?.status}}</td>
+                                <td>{{customer?.activity}}</td>
+                                <td>{{customer?.representative?.name}}</td>
+                                <td>{{customer?.representative?.name}}</td>
+                                <td>{{customer?.representative?.name}}</td>
+                                <td>{{customer?.representative?.name}}</td>
+                                <td>{{customer?.representative?.name}}</td>
+                                <td>{{customer?.representative?.name}}</td>
+                                <td>{{customer?.representative?.name}}</td>
+                                <td>{{customer?.representative?.name}}</td>
+                                <td>{{customer?.representative?.name}}</td>
+                                <td>{{customer?.representative?.name}}</td>
+                                <td>{{customer?.representative?.name}}</td>
+                                <td>{{customer?.representative?.name}}</td>
                             </tr>
                         </ng-template>
                     </p-table>
@@ -147,7 +190,10 @@
             <h4>Tổng quan</h4>
         </div>
         <div class="col-12 sm:col-4 field text-right">
-            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" />
+            <p-dropdown [options]="cities" name="city" [(ngModel)]="selectedCity" optionLabel="name" optionValue="id"
+                [filter]="true" filterBy="name" [showClear]="true" placeholder="Lớp học">
+            </p-dropdown>
+
         </div>
         <div class="col-12 sm:col-8">
             <div class="dashboard_overview">
@@ -203,3 +249,34 @@
         </div>
     </div>
 </div>
+
+<p-overlayPanel #op>
+    <div class="flex flex-column gap-3 w-25rem">
+        <div>
+            <span class="font-medium text-900 block mb-2">Tìm kiếm nâng cao</span>
+        </div>
+        <div>
+            <ul class="list-none p-0 m-0 flex flex-column gap-3">
+                <li class="align-items-center mt-2">
+                    <p-dropdown [style]="{'width':'100%'}" [options]="classRoom" name="classRoom" [(ngModel)]="selectedClassroom"
+                        optionLabel="name" optionValue="id" [filter]="true" filterBy="name" [showClear]="true"
+                        placeholder="Lớp học"> 
+                    </p-dropdown>
+                </li>
+
+                <li class="align-items-center mt-2">
+                    <p-dropdown [style]="{'width':'100%'}" [options]="subject" name="subject" [(ngModel)]="selectedSubject" optionLabel="name"
+                        optionValue="id" [filter]="true" filterBy="name" [showClear]="true" placeholder="Môn học"> 
+                    </p-dropdown>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="text-right" style="margin-top: 30px;">
+            <p-button class="mr-2" label="Xuất excel" icon="pi pi-file-excel" severity="success" />
+            <p-button class="mr-2" label="Làm mới" icon="pi pi-sync" severity="secondary" />
+            <p-button label="Tìm kiếm" icon="pi pi-search" />
+        </div>
+    </div>
+</p-overlayPanel>
