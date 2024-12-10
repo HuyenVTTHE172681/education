@@ -41,6 +41,10 @@ import { TimelineModule } from 'primeng/timeline';
 import { ConfirmationService } from 'primeng/api';
 import { register } from 'swiper/element';
 import { ChartModule } from 'primeng/chart';
+import { DashboardScoreComponent } from './tong-quan/dashboard-score/dashboard-score.component';
+import { DashboardCourseComponent } from './tong-quan/dashboard-course/dashboard-course.component';
+import { DashboardCourseDetailComponent } from './tong-quan/dashboard-course-detail/dashboard-course-detail.component';
+import { DashboardOverviewComponent } from './tong-quan/dashboard-overview/dashboard-overview.component';
 
 register(); // Register Swiper
 @NgModule({
@@ -54,6 +58,10 @@ register(); // Register Swiper
     FeedbackComponent,
     EditChuongTrinhHocComponent,
     ChiTietBaiKiemTraComponent,
+    DashboardScoreComponent,
+    DashboardCourseComponent,
+    DashboardCourseDetailComponent,
+    DashboardOverviewComponent,
   ],
   imports: [
     CommonModule,

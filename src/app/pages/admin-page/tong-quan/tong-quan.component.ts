@@ -6,10 +6,11 @@ import { CourseService } from '../../../services/course.service';
 import { Subject as SubjectModel } from '../../../models/subject.model';
 import { DashboardService } from '../../../services/dashboard.service';
 import { Dashboard } from '../../../models/dashboard.model';
-import { map } from 'rxjs/operators';
+import { debounceTime, map } from 'rxjs/operators';
 import { Teacher } from '../../../models/teacher.model';
 import { TeacherService } from '../../../services/teacher.service';
 import { Course, CourseYear } from '../../../models/course.model';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-tong-quan',
@@ -32,6 +33,7 @@ export class TongQuanComponent implements OnInit {
   dashboard: Dashboard[] = [];
   dashboardFilterByDate: any = {};
   dashboardAdminCourseDetail: any = {};
+  dashboardAdminScore: any = {};
   adviceRequest: any = {};
   filter: string = '';
   accountId: string = '';
@@ -49,6 +51,8 @@ export class TongQuanComponent implements OnInit {
   course: Course[] = [];
   callFromAdmin: number = 1;
   isPayment: number = -1;
+
+  private searchSubject: Subject<string> = new Subject(); // Subject for search
   constructor(private classRoomSrv: ClassRoomService, private courseSrv: CourseService, private dashboardSrv: DashboardService, private teacherSrv: TeacherService) {
 
   }
@@ -63,6 +67,7 @@ export class TongQuanComponent implements OnInit {
     this.getDashboardFilterByDate();
     this.getDashboardAdminCourse();
     this.getDashboardAdminCourseDetail();
+    this.getDashboardAdminScore();
 
     this.dateFilter = [
       { name: 'Hôm nay', code: 'day' },
@@ -147,6 +152,7 @@ export class TongQuanComponent implements OnInit {
       },
     ];
 
+    // Chart
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
 
@@ -172,10 +178,28 @@ export class TongQuanComponent implements OnInit {
       }
     };
 
+    // Subscribe to the search subject with debounce
+    this.searchSubject.pipe(
+      debounceTime(300) // Chờ 300ms sau khi gõ
+    ).subscribe((searchValue: string) => {
+      console.log('Search triggered with:', searchValue); // Kiểm tra giá trị
+      this.filter = searchValue;
+      this.getDashboard(); // Gọi lại API với bộ lọc mới
+    });
+
+
   }
 
+  getDashboardAdminScore() {
+    this.dashboardSrv.getDashboardAdminScore(this.selectedClassroom, this.selectedSubject || '', this.accountId, this.filter, this.page, this.size).subscribe({
+      next: (data: IResponeList<any>) => {
+        this.dashboardAdminScore = data.data.data;
+        console.log("Admin course: ", this.dashboardAdminScore)
+      }
+    })
+  }
   getDashboardAdminCourseDetail() {
-    this.dashboardSrv.getDashboardAdminCourseDetail(this.classRoomId, this.selectedCourse, this.selectedCourseYear, this.selectedSubject, this.selectedTeacher).subscribe({
+    this.dashboardSrv.getDashboardAdminCourseDetail(this.selectedClassroom || '', this.selectedCourse || '', this.selectedCourseYear || '', this.selectedSubject || '', this.selectedTeacher || '').subscribe({
       next: (data: IResponeList<any>) => {
         this.dashboardAdminCourseDetail = data.data.data;
         console.log("Admin course: ", this.dashboardAdminCourseDetail)
@@ -184,7 +208,7 @@ export class TongQuanComponent implements OnInit {
   }
 
   getDashboardAdminCourse() {
-    this.dashboardSrv.getDashboardAdminCourse(this.page, this.size, this.filter, this.selectedClassroom, this.selectedSubject, this.accountId).subscribe({
+    this.dashboardSrv.getDashboardAdminCourse(this.page, this.size, this.filter, this.selectedClassroom || '', this.selectedSubject || '', this.accountId).subscribe({
       next: (data: IResponeList<any>) => {
         this.adminCourse = data.data.data;
         console.log("Admin course: ", this.adminCourse)
@@ -193,10 +217,14 @@ export class TongQuanComponent implements OnInit {
   }
 
   getDashboard() {
-    this.dashboardSrv.getDashboardAdminOverview(this.page, this.size, this.filter, this.selectedClassroom, this.selectedSubject, this.accountId).subscribe({
+    this.dashboardSrv.getDashboardAdminOverview(this.page, this.size, this.filter, this.selectedClassroom || '', this.selectedSubject || '', this.accountId).subscribe({
       next: (data: IResponeList<Dashboard>) => {
         this.dashboard = data.data.data;
-        console.log("Dashboad: ", this.dashboard);
+        console.log("Filter: ", this.filter);
+        console.log("Selected classrôm: ", this.selectedClassroom);
+        console.log("Subject: ", this.selectedSubject)
+        console.log("Dashboad Admin Overview: ", this.dashboard);
+
       },
     });
   }
@@ -286,5 +314,45 @@ export class TongQuanComponent implements OnInit {
         console.log("Course: ", this.course)
       }
     })
+  }
+
+
+  // onSearchChange(searchValue: string): void {
+  //   this.searchSubject.next(searchValue); // Emit search value
+  // }
+
+  // searchCourse() {
+  //   this.page = 1;
+  //   this.getDashboard(); //
+  //   // this.getDashboardAdminCourse(); //
+  //   // this.getDashboardAdminCourseDetail(); //
+  // }
+
+  onSearchChange(searchValue: string): void {
+    this.filter = searchValue.trim(); // Loại bỏ khoảng trắng dư thừa
+    this.searchSubject.next(this.filter); // Đẩy giá trị tìm kiếm vào Subject
+  }
+
+  searchCourse(): void {
+    console.log('Searching with filter:', this.filter);
+    this.page = 1; // Reset trang
+    this.getDashboard(); // Gọi lại API tìm kiếm
+  }
+
+
+  resetFilters(): void {
+    this.selectedClassroom = undefined;
+    this.selectedSubject = undefined;
+    this.selectedCourse = undefined;
+    this.selectedCourseYear = undefined;
+    this.selectedTeacher = undefined;
+
+    this.filter = '';
+    this.page = 1; // Reset về trang đầu tiên
+
+
+    this.getDashboard(); //
+    // this.getDashboardAdminCourse(); //
+    // this.getDashboardAdminCourseDetail(); //
   }
 }

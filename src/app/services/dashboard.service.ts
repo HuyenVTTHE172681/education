@@ -29,7 +29,7 @@ export class DashboardService {
 
         // https://hhq.runasp.net/api/Dashboard/GetDashboardAdminOverview?ClassRoomId=&SubjectIds=&accountId=&filter=&offSet=0&pageSize=10
         const searchValue = filter ? `&filter=${filter}` : '';
-        const query = `/Dashboard/GetDashboardAdminOverview?ClassRoomId=${classRoomId}&SubjectIds=${subjectIds}&accountId=${accountId}${searchValue}&offSet=${(page - 1) * size}&pageSize=${size}`;
+        const query = `/Dashboard/GetDashboardAdminOverview?ClassRoomId=${classRoomId}&SubjectIds=${subjectIds}&accountId=${accountId}&filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
 
         const apiURL = `${this.apiBaseUrl}${query}`;
         console.log('Generated dashboard API URL:', apiURL);
@@ -68,8 +68,7 @@ export class DashboardService {
     ): Observable<IResponeList<any>> {
 
         // https://hhq.runasp.net/api/Dashboard/GetDashboardAdminCourse?ClassRoomId=&SubjectIds=&accountId=&filter=&offSet=0&pageSize=10
-        const searchValue = filter ? `&filter=${filter}` : '';
-        const query = `/Dashboard/GetDashboardAdminCourse?ClassRoomId=${classRoomId}&SubjectIds=${subjectIds}&accountId=${accountId}${searchValue}&offSet=${(page - 1) * size}&pageSize=${size}`;
+        const query = `/Dashboard/GetDashboardAdminCourse?ClassRoomId=${classRoomId}&SubjectIds=${subjectIds}&accountId=${accountId}&filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
 
         const apiURL = `${this.apiBaseUrl}${query}`;
         console.log('Generated dashboard API URL:', apiURL);
@@ -93,7 +92,6 @@ export class DashboardService {
     ): Observable<IResponeList<any>> {
 
         //https://hhq.runasp.net/api/Dashboard/GetDashboardAdminCourseDetail?classRoomId=&courseId=&courseYearId=&subjectId=&teacherId=
-        const searchValue = filter ? `&filter=${filter}` : '';
         const query = `/Dashboard/GetDashboardAdminCourseDetail?classRoomId=${classRoomId}&courseId=${courseId}&courseYearId=${courseYearId}&subjectId=${subjectId}&teacherId=${teacherId}`;
 
         const apiURL = `${this.apiBaseUrl}${query}`;
@@ -106,6 +104,31 @@ export class DashboardService {
 
         return this.http
             .get<IResponeList<any>>(apiURL, { headers })
+            .pipe(catchError(this.handleError));
+    }
+
+    getDashboardAdminScore(
+        classRoomId: string = '',
+        subjectIds: string = '',
+        accountId: string = '',
+        filter: string = '',
+        page: number,
+        size: number,
+    ): Observable<IResponeList<any>> {
+
+        // https://hhq.runasp.net/api/Dashboard/GetDashboardAdminScore?ClassRoomId=&SubjectIds=&accountId=&filter=&offSet=0&pageSize=10
+        const query = `/Dashboard/GetDashboardAdminScore?ClassRoomId=${classRoomId}&SubjectIds=${subjectIds}&accountId=${accountId}&filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
+
+        const apiURL = `${this.apiBaseUrl}${query}`;
+        console.log('Generated dashboard API URL:', apiURL);
+
+        const token = localStorage.getItem('token');
+        const headers = token
+            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+            : new HttpHeaders();
+
+        return this.http
+            .get<IResponeList<Dashboard>>(apiURL, { headers })
             .pipe(catchError(this.handleError));
     }
 

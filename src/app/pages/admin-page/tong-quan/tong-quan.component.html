@@ -17,65 +17,12 @@
                                 <ng-template pTemplate="header">
                                     <div class="flex align-items-center gap-2">
                                         <span>
-                                            <i class="pi pi-map-marker" style="font-size: 12px"></i>
+                                            <i class="pi pi-desktop" style="font-size: 12px"></i>
                                         </span>
                                         <span class="font-bold white-space-nowrap m-0">Tổng quan</span>
                                     </div>
                                 </ng-template>
-                                <div>
-                                    <div class="card">
-                                        <p-table [value]="dashboard" [scrollable]="true" scrollHeight="699px"
-                                            [scrollable]="true" sortField="price" [sortOrder]="-1"
-                                            [tableStyle]="{ 'min-width': '60rem' }">
-                                            <ng-template pTemplate="caption">
-                                                <div class="grid align-items-end">
-                                                    <div class="col-12 md:col-4"></div>
-                                                    <div
-                                                        class="col-12 md:col-8 text-right flex justify-content-end align-items-end">
-                                                        <div class="mr-2 text-left search">
-                                                            <label for="search">Tìm kiếm: </label>
-                                                            <p-inputGroup [style.height.px]="32">
-                                                                <input type="text" pInputText
-                                                                    placeholder="Nhập nội dung tìm kiếm"
-                                                                    severity="secondary" />
-                                                                <button type="button" pButton icon="pi pi-search"
-                                                                    [outlined]="true" severity="secondary"></button>
-                                                            </p-inputGroup>
-                                                        </div>
-                                                        <!-- <p-button class="mr-2" label="Bộ lọc" icon="pi pi-sliders-h" menu.toggle($event)/> -->
-                                                        <p-button class="mr-2" label="Bộ lọc"
-                                                            (onClick)="op.toggle($event)" icon="pi pi-sliders-h" />
-                                                    </div>
-                                                </div>
-                                            </ng-template>
-
-                                            <ng-template pTemplate="header">
-                                                <tr>
-                                                    <th pSortableColumn="code" style="width: 20%">
-                                                        Lớp <p-sortIcon field="code" />
-                                                    </th>
-                                                    <th pSortableColumn="name" style="width: 20%">
-                                                        Môn <p-sortIcon field="name" />
-                                                    </th>
-                                                    <th pSortableColumn="price" style="width: 20%">
-                                                        Số học sinh tham gia <p-sortIcon field="price" />
-                                                    </th>
-                                                    <th pSortableColumn="category" style="width: 20%">
-                                                        Số học sinh hoàn thành <p-sortIcon field="category" />
-                                                    </th>
-                                                </tr>
-                                            </ng-template>
-                                            <ng-template pTemplate="body" let-dashboard>
-                                                <tr>
-                                                    <td>{{ dashboard?.classRoomName }}</td>
-                                                    <td>{{ dashboard?.subjectName }}</td>
-                                                    <td>{{ dashboard?.totalStudentStudy }}</td>
-                                                    <td>{{ dashboard?.totalStudentPass }}</td>
-                                                </tr>
-                                            </ng-template>
-                                        </p-table>
-                                    </div>
-                                </div>
+                                <app-dashboard-overview></app-dashboard-overview>
                             </p-tabPanel>
 
                             <!-- ĐIỂM THI -->
@@ -83,65 +30,12 @@
                                 <ng-template pTemplate="header">
                                     <div class="flex align-items-center gap-2">
                                         <span>
-                                            <i class="pi pi-list" style="font-size: 12px"></i>
+                                            <i class="pi pi-sort-numeric-down-alt" style="font-size: 12px"></i>
                                         </span>
                                         <span class="font-bold white-space-nowrap m-0">Điểm thi</span>
                                     </div>
                                 </ng-template>
-                                <div>
-                                    <div class="card">
-                                        <p-table [value]="dashboard" [scrollable]="true" scrollHeight="699px"
-                                            [scrollable]="true" sortField="price" [sortOrder]="-1"
-                                            [tableStyle]="{ 'min-width': '60rem' }">
-                                            <ng-template pTemplate="caption">
-                                                <div class="grid align-items-end">
-                                                    <div class="col-12 md:col-4"></div>
-                                                    <div
-                                                        class="col-12 md:col-8 text-right flex justify-content-end align-items-end">
-                                                        <div class="mr-2 text-left search">
-                                                            <label for="search">Tìm kiếm: </label>
-                                                            <p-inputGroup [style.height.px]="32">
-                                                                <input type="text" pInputText
-                                                                    placeholder="Nhập nội dung tìm kiếm"
-                                                                    severity="secondary" />
-                                                                <button type="button" pButton icon="pi pi-search"
-                                                                    [outlined]="true" severity="secondary"></button>
-                                                            </p-inputGroup>
-                                                        </div>
-                                                        <!-- <p-button class="mr-2" label="Bộ lọc" icon="pi pi-sliders-h" menu.toggle($event)/> -->
-                                                        <p-button class="mr-2" label="Bộ lọc"
-                                                            (onClick)="op.toggle($event)" icon="pi pi-sliders-h" />
-                                                    </div>
-                                                </div>
-                                            </ng-template>
-
-                                            <ng-template pTemplate="header">
-                                                <tr>
-                                                    <th pSortableColumn="code" style="width: 20%">
-                                                        Lớp <p-sortIcon field="code" />
-                                                    </th>
-                                                    <th pSortableColumn="name" style="width: 20%">
-                                                        Môn <p-sortIcon field="name" />
-                                                    </th>
-                                                    <th pSortableColumn="price" style="width: 20%">
-                                                        Số học sinh tham gia <p-sortIcon field="price" />
-                                                    </th>
-                                                    <th pSortableColumn="category" style="width: 20%">
-                                                        Số học sinh hoàn thành <p-sortIcon field="category" />
-                                                    </th>
-                                                </tr>
-                                            </ng-template>
-                                            <ng-template pTemplate="body" let-dashboard>
-                                                <tr>
-                                                    <td>{{ dashboard?.classRoomName }}</td>
-                                                    <td>{{ dashboard?.subjectName }}</td>
-                                                    <td>{{ dashboard?.totalStudentStudy }}</td>
-                                                    <td>{{ dashboard?.totalStudentPass }}</td>
-                                                </tr>
-                                            </ng-template>
-                                        </p-table>
-                                    </div>
-                                </div>
+                                <app-dashboard-score></app-dashboard-score>
                             </p-tabPanel>
 
                             <!-- KHÓA HỌC -->
@@ -149,7 +43,7 @@
                                 <ng-template pTemplate="header">
                                     <div class="flex align-items-center gap-2">
                                         <span>
-                                            <i class="pi pi-sort-numeric-down-alt" style="font-size: 12px"></i>
+                                            <i class="pi pi-th-large" style="font-size: 12px"></i>
                                         </span>
                                         <span class="font-bold white-space-nowrap m-0">Khóa học</span>
                                     </div>
@@ -169,9 +63,11 @@
                                                             <p-inputGroup [style.height.px]="32">
                                                                 <input type="text" pInputText
                                                                     placeholder="Nhập nội dung tìm kiếm"
-                                                                    severity="secondary" />
+                                                                    severity="secondary" [(ngModel)]="filter"
+                                                                    (ngModelChange)="onSearchChange($event)" />
                                                                 <button type="button" pButton icon="pi pi-search"
-                                                                    [outlined]="true" severity="secondary"></button>
+                                                                    severity="secondary"
+                                                                    (click)="searchCourse()"></button>
                                                             </p-inputGroup>
                                                         </div>
                                                         <!-- <p-button class="mr-2" label="Bộ lọc" icon="pi pi-sliders-h" menu.toggle($event)/> -->
@@ -223,6 +119,13 @@
                                                     <td>{{ dashboard?.averageRating }}</td>
                                                 </tr>
                                             </ng-template>
+
+                                            <!-- Template hiển thị khi không có dữ liệu -->
+                                            <ng-template pTemplate="emptymessage">
+                                                <tr>
+                                                    <td colspan="4">Không có bản ghi nào</td>
+                                                </tr>
+                                            </ng-template>
                                         </p-table>
                                     </div>
                                 </div>
@@ -233,7 +136,7 @@
                                 <ng-template pTemplate="header">
                                     <div class="flex align-items-center gap-2">
                                         <span>
-                                            <i class="pi pi-star" style="font-size: 12px"></i>
+                                            <i class="pi pi-wallet" style="font-size: 12px"></i>
                                         </span>
                                         <span class="font-bold white-space-nowrap m-0">Chi tiết khóa học</span>
                                     </div>
@@ -317,6 +220,13 @@
                                                     <td>{{ dashboard?.totalStudentNotCompleted }}</td>
                                                 </tr>
                                             </ng-template>
+
+                                            <!-- Template hiển thị khi không có dữ liệu -->
+                                            <ng-template pTemplate="emptymessage">
+                                                <tr>
+                                                    <td colspan="4">Không có bản ghi nào</td>
+                                                </tr>
+                                            </ng-template>
                                         </p-table>
                                     </div>
                                 </div>
@@ -390,6 +300,12 @@
                                 <td>{{customer?.representative?.name}}</td>
                                 <td>{{customer?.representative?.name}}</td>
                                 <td>{{customer?.representative?.name}}</td>
+                            </tr>
+                        </ng-template>
+                        <!-- Template hiển thị khi không có dữ liệu -->
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="4">Không có bản ghi nào</td>
                             </tr>
                         </ng-template>
                     </p-table>
@@ -485,15 +401,15 @@
             <ul class="list-none p-0 m-0 flex flex-column gap-3">
                 <li class="align-items-center mt-2">
                     <p-dropdown [style]="{'width':'100%'}" [options]="classRoom" name="classRoom"
-                        [(ngModel)]="selectedClassroom" optionLabel="name" optionValue="id" [filter]="true"
-                        filterBy="name" [showClear]="true" placeholder="Lớp học">
+                        (onChange)="searchCourse()" [(ngModel)]="selectedClassroom" optionLabel="name" optionValue="id"
+                        [filter]="true" filterBy="name" [showClear]="true" placeholder="Lớp học">
                     </p-dropdown>
                 </li>
 
                 <li class="align-items-center mt-2">
                     <p-dropdown [style]="{'width':'100%'}" [options]="subject" name="subject"
-                        [(ngModel)]="selectedSubject" optionLabel="name" optionValue="id" [filter]="true"
-                        filterBy="name" [showClear]="true" placeholder="Môn học">
+                        (onChange)="searchCourse()" [(ngModel)]="selectedSubject" optionLabel="name" optionValue="id"
+                        [filter]="true" filterBy="name" [showClear]="true" placeholder="Môn học">
                     </p-dropdown>
 
                 </li>
@@ -502,8 +418,8 @@
 
         <div class="text-right" style="margin-top: 30px;">
             <p-button class="mr-2" label="Xuất excel" icon="pi pi-file-excel" severity="success" />
-            <p-button class="mr-2" label="Làm mới" icon="pi pi-sync" severity="secondary" />
-            <p-button label="Tìm kiếm" icon="pi pi-search" />
+            <p-button class="mr-2" label="Làm mới" icon="pi pi-sync" severity="secondary" (onClick)="resetFilters()" />
+            <p-button label="Tìm kiếm" icon="pi pi-search" (onClick)="searchCourse()" />
         </div>
     </div>
 </p-overlayPanel>
@@ -517,21 +433,21 @@
             <ul class="list-none p-0 m-0 flex flex-column gap-3">
                 <li class="align-items-center mt-2">
                     <p-dropdown [style]="{'width':'100%'}" [options]="classRoom" name="classRoom"
-                        [(ngModel)]="selectedClassroom" optionLabel="name" optionValue="id" [filter]="true"
-                        filterBy="name" [showClear]="true" placeholder="Lớp học">
+                        (onChange)="searchCourse()" [(ngModel)]="selectedClassroom" optionLabel="name" optionValue="id"
+                        [filter]="true" filterBy="name" [showClear]="true" placeholder="Lớp học">
                     </p-dropdown>
                 </li>
 
                 <li class="align-items-center mt-2">
                     <p-dropdown [style]="{'width':'100%'}" [options]="subject" name="subject"
-                        [(ngModel)]="selectedSubject" optionLabel="name" optionValue="id" [filter]="true"
-                        filterBy="name" [showClear]="true" placeholder="Môn học">
+                        (onChange)="searchCourse()" [(ngModel)]="selectedSubject" optionLabel="name" optionValue="id"
+                        [filter]="true" filterBy="name" [showClear]="true" placeholder="Môn học">
                     </p-dropdown>
 
                 </li>
 
                 <li class="align-items-center mt-2">
-                    <p-dropdown [style]="{'width':'100%'}" [options]="course" name="subject"
+                    <p-dropdown [style]="{'width':'100%'}" [options]="course" name="subject" (onChange)="searchCourse()"
                         [(ngModel)]="selectedCourse" optionLabel="name" optionValue="id" [filter]="true" filterBy="name"
                         [showClear]="true" placeholder="Khóa học">
                     </p-dropdown>
@@ -540,16 +456,16 @@
 
                 <li class="align-items-center mt-2">
                     <p-dropdown [style]="{'width':'100%'}" [options]="courseYears" name="subject"
-                        [(ngModel)]="selectedCourseYear" optionLabel="name" optionValue="id" [filter]="true"
-                        filterBy="name" [showClear]="true" placeholder="Năm học">
+                        (onChange)="searchCourse()" [(ngModel)]="selectedCourseYear" optionLabel="name" optionValue="id"
+                        [filter]="true" filterBy="name" [showClear]="true" placeholder="Năm học">
                     </p-dropdown>
 
                 </li>
 
                 <li class="align-items-center mt-2">
                     <p-dropdown [style]="{'width':'100%'}" [options]="teacher" name="subject"
-                        [(ngModel)]="selectedTeacher" optionLabel="name" optionValue="id" [filter]="true"
-                        filterBy="name" [showClear]="true" placeholder="Giáo viên">
+                        (onChange)="searchCourse()" [(ngModel)]="selectedTeacher" optionLabel="name" optionValue="id"
+                        [filter]="true" filterBy="name" [showClear]="true" placeholder="Giáo viên">
                     </p-dropdown>
 
                 </li>
@@ -558,8 +474,8 @@
 
         <div class="text-right" style="margin-top: 30px;">
             <p-button class="mr-2" label="Xuất excel" icon="pi pi-file-excel" severity="success" />
-            <p-button class="mr-2" label="Làm mới" icon="pi pi-sync" severity="secondary" />
-            <p-button label="Tìm kiếm" icon="pi pi-search" />
+            <p-button class="mr-2" label="Làm mới" icon="pi pi-sync" severity="secondary" (onClick)="resetFilters()" />
+            <p-button label="Tìm kiếm" icon="pi pi-search" (onClick)="searchCourse()" />
         </div>
     </div>
 </p-overlayPanel>

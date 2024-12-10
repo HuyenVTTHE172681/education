@@ -6,12 +6,7 @@
 @import '../node_modules/quill/dist/quill.snow.css';
 @import 'ngx-toastr/toastr';
 
-.p-menubar
-  .p-menubar-root-list
-  > .p-menuitem
-  > .p-menuitem-content
-  .p-menuitem-link
-  .p-menuitem-text {
+.p-menubar .p-menubar-root-list>.p-menuitem>.p-menuitem-content .p-menuitem-link .p-menuitem-text {
   color: white !important;
   font-weight: 500;
   background: none;
@@ -112,8 +107,7 @@ svg.p-icon {
   width: 100%;
 }
 
-.field
-  span.p-element.p-dropdown-label.p-inputtext.p-placeholder.ng-star-inserted {
+.field span.p-element.p-dropdown-label.p-inputtext.p-placeholder.ng-star-inserted {
   background: none;
   border: none;
   font-size: 14px;
@@ -146,7 +140,15 @@ svg.p-icon {
   width: 1000px;
 }
 
-div#pn_id_5, div#pn_id_7, div#pn_id_9 {
+div#pn_id_5,
+div#pn_id_7,
+div#pn_id_9 {
   width: 100%;
 }
 
+
+ul.p-tabview-nav {
+  background: transparent;
+  border: solid #dee2e6;
+  border-width: 0 0 1px;
+}

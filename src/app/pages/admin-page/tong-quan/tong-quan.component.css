@@ -60,3 +60,9 @@
     gap: 10px;
     line-height: 25px;
 }
+
+ul.p-tabview-nav {
+    background: transparent;
+    border: solid #dee2e6;
+    border-width: 0 0 1px;
+}
