@@ -40,6 +40,7 @@ import { CardModule } from 'primeng/card';
 import { TimelineModule } from 'primeng/timeline';
 import { ConfirmationService } from 'primeng/api';
 import { register } from 'swiper/element';
+import { ChartModule } from 'primeng/chart';
 
 register(); // Register Swiper
 @NgModule({
@@ -87,6 +88,7 @@ register(); // Register Swiper
     CardModule,
     TabViewModule,
     TimelineModule,
+    ChartModule
   ],
   providers: [ConfirmationService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

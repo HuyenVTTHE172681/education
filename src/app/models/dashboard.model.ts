@@ -10,3 +10,5 @@ export class Dashboard {
     modifiedBy = '';
     modifiedDate: any = null;
 }
+
+

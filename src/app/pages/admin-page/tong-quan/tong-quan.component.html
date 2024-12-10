@@ -12,6 +12,7 @@
                 <div>
                     <div class="tab-view">
                         <p-tabView>
+                            <!-- TỔNG QUAN -->
                             <p-tabPanel>
                                 <ng-template pTemplate="header">
                                     <div class="flex align-items-center gap-2">
@@ -23,7 +24,7 @@
                                 </ng-template>
                                 <div>
                                     <div class="card">
-                                        <p-table [value]="dashboard" [scrollable]="true" scrollHeight="333px"
+                                        <p-table [value]="dashboard" [scrollable]="true" scrollHeight="699px"
                                             [scrollable]="true" sortField="price" [sortOrder]="-1"
                                             [tableStyle]="{ 'min-width': '60rem' }">
                                             <ng-template pTemplate="caption">
@@ -77,6 +78,7 @@
                                 </div>
                             </p-tabPanel>
 
+                            <!-- ĐIỂM THI -->
                             <p-tabPanel>
                                 <ng-template pTemplate="header">
                                     <div class="flex align-items-center gap-2">
@@ -86,9 +88,63 @@
                                         <span class="font-bold white-space-nowrap m-0">Điểm thi</span>
                                     </div>
                                 </ng-template>
-                                <app-chuong-trinh-hoc></app-chuong-trinh-hoc>
+                                <div>
+                                    <div class="card">
+                                        <p-table [value]="dashboard" [scrollable]="true" scrollHeight="699px"
+                                            [scrollable]="true" sortField="price" [sortOrder]="-1"
+                                            [tableStyle]="{ 'min-width': '60rem' }">
+                                            <ng-template pTemplate="caption">
+                                                <div class="grid align-items-end">
+                                                    <div class="col-12 md:col-4"></div>
+                                                    <div
+                                                        class="col-12 md:col-8 text-right flex justify-content-end align-items-end">
+                                                        <div class="mr-2 text-left search">
+                                                            <label for="search">Tìm kiếm: </label>
+                                                            <p-inputGroup [style.height.px]="32">
+                                                                <input type="text" pInputText
+                                                                    placeholder="Nhập nội dung tìm kiếm"
+                                                                    severity="secondary" />
+                                                                <button type="button" pButton icon="pi pi-search"
+                                                                    [outlined]="true" severity="secondary"></button>
+                                                            </p-inputGroup>
+                                                        </div>
+                                                        <!-- <p-button class="mr-2" label="Bộ lọc" icon="pi pi-sliders-h" menu.toggle($event)/> -->
+                                                        <p-button class="mr-2" label="Bộ lọc"
+                                                            (onClick)="op.toggle($event)" icon="pi pi-sliders-h" />
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th pSortableColumn="code" style="width: 20%">
+                                                        Lớp <p-sortIcon field="code" />
+                                                    </th>
+                                                    <th pSortableColumn="name" style="width: 20%">
+                                                        Môn <p-sortIcon field="name" />
+                                                    </th>
+                                                    <th pSortableColumn="price" style="width: 20%">
+                                                        Số học sinh tham gia <p-sortIcon field="price" />
+                                                    </th>
+                                                    <th pSortableColumn="category" style="width: 20%">
+                                                        Số học sinh hoàn thành <p-sortIcon field="category" />
+                                                    </th>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-dashboard>
+                                                <tr>
+                                                    <td>{{ dashboard?.classRoomName }}</td>
+                                                    <td>{{ dashboard?.subjectName }}</td>
+                                                    <td>{{ dashboard?.totalStudentStudy }}</td>
+                                                    <td>{{ dashboard?.totalStudentPass }}</td>
+                                                </tr>
+                                            </ng-template>
+                                        </p-table>
+                                    </div>
+                                </div>
                             </p-tabPanel>
 
+                            <!-- KHÓA HỌC -->
                             <p-tabPanel>
                                 <ng-template pTemplate="header">
                                     <div class="flex align-items-center gap-2">
@@ -98,9 +154,81 @@
                                         <span class="font-bold white-space-nowrap m-0">Khóa học</span>
                                     </div>
                                 </ng-template>
-                                <app-scores></app-scores>
+                                <div>
+                                    <div class="card">
+                                        <p-table [value]="adminCourse" [scrollable]="true" scrollHeight="699px"
+                                            [scrollable]="true" sortField="price" [sortOrder]="-1"
+                                            [tableStyle]="{ 'min-width': '60rem' }">
+                                            <ng-template pTemplate="caption">
+                                                <div class="grid align-items-end">
+                                                    <div class="col-12 md:col-4"></div>
+                                                    <div
+                                                        class="col-12 md:col-8 text-right flex justify-content-end align-items-end">
+                                                        <div class="mr-2 text-left search">
+                                                            <label for="search">Tìm kiếm: </label>
+                                                            <p-inputGroup [style.height.px]="32">
+                                                                <input type="text" pInputText
+                                                                    placeholder="Nhập nội dung tìm kiếm"
+                                                                    severity="secondary" />
+                                                                <button type="button" pButton icon="pi pi-search"
+                                                                    [outlined]="true" severity="secondary"></button>
+                                                            </p-inputGroup>
+                                                        </div>
+                                                        <!-- <p-button class="mr-2" label="Bộ lọc" icon="pi pi-sliders-h" menu.toggle($event)/> -->
+                                                        <p-button class="mr-2" label="Bộ lọc"
+                                                            (onClick)="op.toggle($event)" icon="pi pi-sliders-h" />
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th>
+                                                        <p-tableCheckbox [value]=""></p-tableCheckbox>
+                                                    </th>
+                                                    <th pSortableColumn="code" style="width: 250px">
+                                                        Lớp <p-sortIcon field="code" />
+                                                    </th>
+                                                    <th pSortableColumn="name" style="width: 250px">
+                                                        Môn <p-sortIcon field="name" />
+                                                    </th>
+                                                    <th pSortableColumn="price" style="width: 150px">
+                                                        Tổng số khóa học <p-sortIcon field="price" />
+                                                    </th>
+                                                    <th pSortableColumn="category" style="width: 150px">
+                                                        Đã xuất bản <p-sortIcon field="category" />
+                                                    </th>
+                                                    <th pSortableColumn="category" style="width: 150px">
+                                                        Chưa xuất bản <p-sortIcon field="category" />
+                                                    </th>
+                                                    <th pSortableColumn="category" style="width: 150px">
+                                                        Tạo mới trong tháng <p-sortIcon field="category" />
+                                                    </th>
+                                                    <th pSortableColumn="category" style="width: 150px">
+                                                        Đánh giá trung bình <p-sortIcon field="category" />
+                                                    </th>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-dashboard>
+                                                <tr>
+                                                    <td>
+                                                        <p-tableCheckbox [value]=""></p-tableCheckbox>
+                                                    </td>
+                                                    <td>{{ dashboard?.classRoomName }}</td>
+                                                    <td>{{ dashboard?.subjectName }}</td>
+                                                    <td>{{ dashboard?.totalCourse }}</td>
+                                                    <td>{{ dashboard?.totalCoursePublic }}</td>
+                                                    <td>{{ dashboard?.totalCourseNotPublic }}</td>
+                                                    <td>{{ dashboard?.totalCourseCreateInMonth }}</td>
+                                                    <td>{{ dashboard?.averageRating }}</td>
+                                                </tr>
+                                            </ng-template>
+                                        </p-table>
+                                    </div>
+                                </div>
                             </p-tabPanel>
 
+                            <!-- CHI TIẾT KHÓA HỌC -->
                             <p-tabPanel>
                                 <ng-template pTemplate="header">
                                     <div class="flex align-items-center gap-2">
@@ -110,7 +238,88 @@
                                         <span class="font-bold white-space-nowrap m-0">Chi tiết khóa học</span>
                                     </div>
                                 </ng-template>
-                                <app-feedback></app-feedback>
+                                <div>
+                                    <div class="card">
+                                        <p-table [value]="dashboardAdminCourseDetail" [scrollable]="true"
+                                            scrollHeight="699px" [scrollable]="true" sortField="price" [sortOrder]="-1"
+                                            [tableStyle]="{ 'min-width': '60rem' }">
+                                            <ng-template pTemplate="caption">
+                                                <div class="grid align-items-end">
+                                                    <div class="col-12 md:col-4"></div>
+                                                    <div
+                                                        class="col-12 md:col-8 text-right flex justify-content-end align-items-end">
+                                                        <!-- <div class="mr-2 text-left search">
+                                                            <label for="search">Tìm kiếm: </label>
+                                                            <p-inputGroup [style.height.px]="32">
+                                                                <input type="text" pInputText
+                                                                    placeholder="Nhập nội dung tìm kiếm"
+                                                                    severity="secondary" />
+                                                                <button type="button" pButton icon="pi pi-search"
+                                                                    [outlined]="true" severity="secondary"></button>
+                                                            </p-inputGroup>
+                                                        </div> -->
+                                                        <!-- <p-button class="mr-2" label="Bộ lọc" icon="pi pi-sliders-h" menu.toggle($event)/> -->
+                                                        <p-button class="mr-2" label="Bộ lọc"
+                                                            (onClick)="detail.toggle($event)" icon="pi pi-sliders-h" />
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th style="width: 53px; left: 0;">
+                                                        <p-tableCheckbox
+                                                            [value]="dashboardAdminCourseDetail"></p-tableCheckbox>
+                                                    </th>
+                                                    <th pSortableColumn="code" style="width: 350px">
+                                                        Khóa học <p-sortIcon field="code" />
+                                                    </th>
+                                                    <th pSortableColumn="name" style="width: 200px">
+                                                        Số học sinh học <p-sortIcon field="name" />
+                                                    </th>
+                                                    <th pSortableColumn="price" style="width: 200px">
+                                                        Số bài giảng <p-sortIcon field="price" />
+                                                    </th>
+                                                    <th pSortableColumn="category" style="width: 150px">
+                                                        Số bài kiểm tra <p-sortIcon field="category" />
+                                                    </th>
+                                                    <th pSortableColumn="category" style="width: 150px">
+                                                        Số bài kiểm tra đặc biệt <p-sortIcon field="category" />
+                                                    </th>
+                                                    <th pSortableColumn="category" style="width: 150px">
+                                                        Số bài tập <p-sortIcon field="category" />
+                                                    </th>
+                                                    <th pSortableColumn="category" style="width: 150px">
+                                                        Mức độ yêu thích <p-sortIcon field="category" />
+                                                    </th>
+                                                    <th pSortableColumn="category" style="width: 150px">
+                                                        Số học sinh hoàn thành <p-sortIcon field="category" />
+                                                    </th>
+                                                    <th pSortableColumn="category" style="width: 150px">
+                                                        Số học sinh chưa hoàn thành <p-sortIcon field="category" />
+                                                    </th>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-dashboard>
+                                                <tr>
+                                                    <td>
+                                                        <p-tableCheckbox
+                                                            [value]="dashboardAdminCourseDetail"></p-tableCheckbox>
+                                                    </td>
+                                                    <td>{{ dashboard?.courseName }}</td>
+                                                    <td>{{ dashboard?.totalStudentsEnrolled }}</td>
+                                                    <td>{{ dashboard?.totalLectures }}</td>
+                                                    <td>{{ dashboard?.totalTests }}</td>
+                                                    <td>{{ dashboard?.totalTestsSpecial }}</td>
+                                                    <td>{{ dashboard?.totalExercises }}</td>
+                                                    <td>{{ dashboard?.averageRating }}</td>
+                                                    <td>{{ dashboard?.totalStudentCompleted }}</td>
+                                                    <td>{{ dashboard?.totalStudentNotCompleted }}</td>
+                                                </tr>
+                                            </ng-template>
+                                        </p-table>
+                                    </div>
+                                </div>
                             </p-tabPanel>
                         </p-tabView>
                     </div>
@@ -131,7 +340,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <p-table [value]="products" [scrollable]="true" scrollHeight="400px">
+                    <p-table [value]="products" [scrollable]="true" scrollHeight="699px">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th style="width: 53px; left: 0;"></th>
@@ -193,7 +402,7 @@
         <div class="col-12 sm:col-4 field text-right">
             <p-dropdown
                 [style]="{'width':'100%', 'background':'rgba(104, 164, 251, .12)', 'border':'1px solid #d0d9ef'}"
-                [options]="cities" name="city" [(ngModel)]="selectedCity" optionLabel="name" optionValue="id"
+                [options]="dateFilter" name="date" [(ngModel)]="selectedDateFilter" optionLabel="name" optionValue="id"
                 [filter]="true" filterBy="name" [showClear]="true" placeholder="Lớp học">
             </p-dropdown>
 
@@ -207,8 +416,8 @@
                         </div>
                         <div class="dashboard_overview-item-content">
                             <h4>Thông tin chung</h4>
-                            <div>Giáo viên mới: <b>0</b></div>
-                            <div>Học viên mới: <b>0</b></div>
+                            <div>Giáo viên mới: <b>{{dashboardFilterByDate?.numNewTeachers}}</b></div>
+                            <div>Học viên mới: <b>{{dashboardFilterByDate?.numNewUsers}}</b></div>
                         </div>
                     </div>
                 </p-card>
@@ -219,11 +428,11 @@
                         </div>
                         <div class="dashboard_overview-item-content">
                             <h4>Khóa học</h4>
-                            <div>Số lớp học: <b>0</b></div>
-                            <div>Số môn học: <b>0</b></div>
-                            <div>Số khóa học: <b>0</b></div>
-                            <div>Số bài học: <b>0</b></div>
-                            <div>Số câu hỏi: <b>0</b></div>
+                            <div>Số lớp học: <b>{{dashboardFilterByDate?.numClassRooms}}</b></div>
+                            <div>Số môn học: <b>{{dashboardFilterByDate?.numSubjects}}</b></div>
+                            <div>Số khóa học: <b>{{dashboardFilterByDate?.numCourses}}</b></div>
+                            <div>Số bài học: <b>{{dashboardFilterByDate?.numTests}}</b></div>
+                            <div>Số câu hỏi: <b>{{dashboardFilterByDate?.numQuestions}}</b></div>
                         </div>
                     </div>
                 </p-card>
@@ -231,7 +440,9 @@
             <div class="col-12">
                 <p-card>
                     <h4>Tổng quan câu hỏi</h4>
-                    <div class="flex justify-content-center"></div>
+                    <div class="flex justify-content-center">
+                        <p-chart type="pie" [data]="dataChart" [options]="options" />
+                    </div>
                 </p-card>
             </div>
         </div>
@@ -240,13 +451,22 @@
                 <div class="col-12 dashboard_request">
                     <p-card>
                         <h4>Yêu cầu tư vấn</h4>
-                        <p-timeline [value]="events">
-                            <ng-template pTemplate="content" let-event>
+                        <!-- <p-timeline [value]="adviceRequest">
+                            <ng-template pTemplate="opposite" let-event>
                                 <div class="dashboard_item">
-                                    <div class="dashboard_item-title">{{ event.status }}</div>
+                                    <div class="dashboard_item-title"><b>{{event?.name}}</b></div>
                                     <div class="dashboard_item-content"></div>
-                                    <div class="dashboard_item-time">{{ event.date }}</div>
+                                    <div class="dashboard_item-time">{{ event?.createdDate | date: 'dd-MM-yyyy HH:mm:ss'}}</div>
                                 </div>
+                            </ng-template>
+                        </p-timeline> -->
+
+                        <p-timeline [value]="adviceRequest">
+                            <ng-template pTemplate="content" let-event>
+                                <div class="dashboard_item-title"><b>{{event?.name}}</b></div>
+                            </ng-template>
+                            <ng-template pTemplate="opposite" let-event>
+                                {{ event.createdDate | date: 'dd-MM-yyyy HH:mm:ss' }}
                             </ng-template>
                         </p-timeline>
                     </p-card>
@@ -274,6 +494,62 @@
                     <p-dropdown [style]="{'width':'100%'}" [options]="subject" name="subject"
                         [(ngModel)]="selectedSubject" optionLabel="name" optionValue="id" [filter]="true"
                         filterBy="name" [showClear]="true" placeholder="Môn học">
+                    </p-dropdown>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="text-right" style="margin-top: 30px;">
+            <p-button class="mr-2" label="Xuất excel" icon="pi pi-file-excel" severity="success" />
+            <p-button class="mr-2" label="Làm mới" icon="pi pi-sync" severity="secondary" />
+            <p-button label="Tìm kiếm" icon="pi pi-search" />
+        </div>
+    </div>
+</p-overlayPanel>
+
+<p-overlayPanel #detail>
+    <div class="flex flex-column gap-3 w-25rem">
+        <div>
+            <span class="font-medium text-900 block mb-2">Tìm kiếm nâng cao</span>
+        </div>
+        <div>
+            <ul class="list-none p-0 m-0 flex flex-column gap-3">
+                <li class="align-items-center mt-2">
+                    <p-dropdown [style]="{'width':'100%'}" [options]="classRoom" name="classRoom"
+                        [(ngModel)]="selectedClassroom" optionLabel="name" optionValue="id" [filter]="true"
+                        filterBy="name" [showClear]="true" placeholder="Lớp học">
+                    </p-dropdown>
+                </li>
+
+                <li class="align-items-center mt-2">
+                    <p-dropdown [style]="{'width':'100%'}" [options]="subject" name="subject"
+                        [(ngModel)]="selectedSubject" optionLabel="name" optionValue="id" [filter]="true"
+                        filterBy="name" [showClear]="true" placeholder="Môn học">
+                    </p-dropdown>
+
+                </li>
+
+                <li class="align-items-center mt-2">
+                    <p-dropdown [style]="{'width':'100%'}" [options]="course" name="subject"
+                        [(ngModel)]="selectedCourse" optionLabel="name" optionValue="id" [filter]="true" filterBy="name"
+                        [showClear]="true" placeholder="Khóa học">
+                    </p-dropdown>
+
+                </li>
+
+                <li class="align-items-center mt-2">
+                    <p-dropdown [style]="{'width':'100%'}" [options]="courseYears" name="subject"
+                        [(ngModel)]="selectedCourseYear" optionLabel="name" optionValue="id" [filter]="true"
+                        filterBy="name" [showClear]="true" placeholder="Năm học">
+                    </p-dropdown>
+
+                </li>
+
+                <li class="align-items-center mt-2">
+                    <p-dropdown [style]="{'width':'100%'}" [options]="teacher" name="subject"
+                        [(ngModel)]="selectedTeacher" optionLabel="name" optionValue="id" [filter]="true"
+                        filterBy="name" [showClear]="true" placeholder="Giáo viên">
                     </p-dropdown>
 
                 </li>
