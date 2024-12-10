@@ -84,14 +84,14 @@ export class DashboardService {
     }
 
     getDashboardAdminCourseDetail(
+        classRoomId: string = '',
         courseId: string = '',
         courseYearId: string = '',
         subjectId: string = '',
         teacherId: string = '',
-        classRoomId: string = '',
     ): Observable<IResponeList<any>> {
 
-        //https://hhq.runasp.net/api/Dashboard/GetDashboardAdminCourseDetail?classRoomId=&courseId=&courseYearId=&subjectId=&teacherId=
+        //https://hhq.runasp.net/api/Dashboard/GetDashboardAdminCourseDetail?classRoomId=&courseYearId=&subjectId=&teacherId=
         const query = `/Dashboard/GetDashboardAdminCourseDetail?classRoomId=${classRoomId}&courseId=${courseId}&courseYearId=${courseYearId}&subjectId=${subjectId}&teacherId=${teacherId}`;
 
         const apiURL = `${this.apiBaseUrl}${query}`;
