@@ -22,7 +22,13 @@
   background: none;
 }
 
-.pi-home:before {
+.pi-home:before,
+.pi-users:before,
+.pi-comments:before,
+.pi-money-bill:before,
+.pi-question-circle:before,
+.pi-book:before,
+.pi-cog:before {
   color: white;
 }
 
@@ -151,4 +157,10 @@ ul.p-tabview-nav {
   background: transparent;
   border: solid #dee2e6;
   border-width: 0 0 1px;
+}
+
+span.ml-2 {
+  color: #fffffff5;
+  font-size: 16px;
+  font-weight: 500;
 }
