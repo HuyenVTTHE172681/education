@@ -45,6 +45,7 @@ import { DashboardScoreComponent } from './tong-quan/dashboard-score/dashboard-s
 import { DashboardCourseComponent } from './tong-quan/dashboard-course/dashboard-course.component';
 import { DashboardCourseDetailComponent } from './tong-quan/dashboard-course-detail/dashboard-course-detail.component';
 import { DashboardOverviewComponent } from './tong-quan/dashboard-overview/dashboard-overview.component';
+import { DashboardTeacherComponent } from './tong-quan/dashboard-teacher/dashboard-teacher.component';
 
 register(); // Register Swiper
 @NgModule({
@@ -62,6 +63,7 @@ register(); // Register Swiper
     DashboardCourseComponent,
     DashboardCourseDetailComponent,
     DashboardOverviewComponent,
+    DashboardTeacherComponent,
   ],
   imports: [
     CommonModule,
