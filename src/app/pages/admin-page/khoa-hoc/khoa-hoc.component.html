@@ -137,21 +137,21 @@
         <li class="align-items-center ">
           <p-dropdown [options]="teacher" [(ngModel)]="selectedTeacher" (ngModelChange)="searchCourse()"
             optionLabel="name" optionValue="id" [filter]="true" filterBy="name" [showClear]="true"
-            placeholder="Giáo viên">
+            [style]="{'width':'100%'}" placeholder="Giáo viên">
           </p-dropdown>
         </li>
 
         <li class="align-items-center mt-2">
           <p-dropdown [options]="classRoom" [(ngModel)]="selectedClassroom" (ngModelChange)="searchCourse()"
             optionLabel="name" optionValue="id" [filter]="true" filterBy="name" [showClear]="true"
-            placeholder="Lớp học">
+            [style]="{'width':'100%'}" placeholder="Lớp học">
           </p-dropdown>
         </li>
 
         <li class="align-items-center mt-2">
           <p-dropdown [options]="subject" [(ngModel)]="selectedSubject" (ngModelChange)="searchCourse()"
             optionLabel="name" optionValue="id" [filter]="true" filterBy="name" [showClear]="true"
-            placeholder="Môn học">
+            [style]="{'width':'100%'}" placeholder="Môn học">
           </p-dropdown>
         </li>
       </ul>
