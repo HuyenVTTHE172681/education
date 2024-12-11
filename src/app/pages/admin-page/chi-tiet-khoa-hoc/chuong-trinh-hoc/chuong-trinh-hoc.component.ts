@@ -352,3 +352,58 @@ export class ChuongTrinhHocComponent implements OnInit {
     }
   }
 }
+
+
+// handleAcceptPayment(comment: string) {
+//   if (this.selectedPayment) {
+//     // Tạo payload gửi API
+//     const payload = {
+//       id: this.selectedPayment.id,
+//       isPayment: 1, // Xác nhận thanh toán
+//       comment: comment,
+//     };
+
+//     // Gọi API để cập nhật trạng thái
+//     this.dashboardSrv.updatePayment(payload).subscribe({
+//       next: (response) => {
+//         if (response.data.valid) {
+//           alert('Xác nhận thanh toán thành công!');
+//           this.dialogAccept = false; // Đóng dialog
+//           this.getDashboardPayment(); // Làm mới danh sách thanh toán
+//         } else {
+//           alert(response.data.messages || 'Có lỗi xảy ra!');
+//         }
+//       },
+//       error: (err) => {
+//         console.error('Lỗi khi gọi API:', err);
+//         alert('Không thể xác nhận thanh toán. Vui lòng thử lại!');
+//       },
+//     });
+//   }
+// }
+
+// handleCancelAcceptPayment(comment: string) {
+//   if (this.selectedPayment) {
+//     const payload = {
+//       id: this.selectedPayment.id,
+//       isPayment: 0, // Hủy xác nhận thanh toán
+//       comment: comment,
+//     };
+
+//     this.dashboardSrv.updatePayment(payload).subscribe({
+//       next: (response) => {
+//         if (response.data.valid) {
+//           alert('Hủy xác nhận thanh toán thành công!');
+//           this.dialogCancelAccept = false; // Đóng dialog
+//           this.getDashboardPayment(); // Làm mới danh sách thanh toán
+//         } else {
+//           alert(response.data.messages || 'Có lỗi xảy ra!');
+//         }
+//       },
+//       error: (err) => {
+//         console.error('Lỗi khi gọi API:', err);
+//         alert('Không thể hủy xác nhận thanh toán. Vui lòng thử lại!');
+//       },
+//     });
+//   }
+// }

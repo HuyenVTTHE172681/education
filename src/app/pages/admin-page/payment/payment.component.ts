@@ -29,7 +29,10 @@ export class PaymentComponent implements OnInit {
   ];
   selectedStatus: any = this.statusList[0];
   dialogDelete: boolean = false;
-  dialogAccept: boolean = false;  
+  dialogAccept: boolean = false;
+  dialogCancelAccept: boolean = false;
+  note: string = '';
+
   ngOnInit(): void {
     this.getDashboardPayment();
 
@@ -52,7 +55,7 @@ export class PaymentComponent implements OnInit {
           {
             label: 'Hủy duyệt',
             icon: 'pi pi-times',
-            // command: () => this.deletedCourse(), // Delete functionality (if needed)
+            command: () => this.cancelAcceptPayment(), // Delete functionality (if needed)
           },
           {
             label: 'Xóa thanh toán',
@@ -75,11 +78,25 @@ export class PaymentComponent implements OnInit {
   }
 
   acceptPayment() {
-    if (this.selectedPayment) {
+    if (this.selectedPayment.isPayment === 1) {
+      alert("Thanh toán đã được duyệt, không thể xác nhận lại!");
+    } else if (this.selectedPayment.isPayment === 0) {
       this.dialogAccept = true;
-      console.log("Accpet payement: ", this.selectedPayment?.id);
+      console.log("Accept payment: ", this.selectedPayment?.id);
     }
   }
+
+  cancelAcceptPayment() {
+    if (!this.selectedPayment) return;
+
+    if (this.selectedPayment.isPayment === 0) {
+      alert("Thanh toán chưa được duyệt, không thể hủy!");
+    } else if (this.selectedPayment.isPayment === 1) {
+      this.dialogCancelAccept = true;
+      console.log("Cancel accept payment: ", this.selectedPayment?.id);
+    }
+  }
+
   deletedPayment() {
     if (this.selectedPayment) {
       this.dialogDelete = true;
@@ -165,12 +182,74 @@ export class PaymentComponent implements OnInit {
             this.getDashboardPayment(); // Làm mới dữ liệu
             alert('Xóa thanh toán thành công!');
           },
+
           error: (err) => {
             console.error('Lỗi khi xóa:', err);
             alert('Có lỗi xảy ra khi xóa. Vui lòng thử lại!');
           },
+          complete: () => {
+            this.note = ''; // Reset note sau khi xử lý xong
+          }
         })
       }
+
+    }
+  }
+
+  handleAcceptPayment(comment: string) {
+    if (this.selectedPayment) {
+      const payload = {
+        id: this.selectedPayment.id,
+        isPayment: 1,
+        comment: comment
+      }
+
+      this.dashboardSrv.updatePayment(payload).subscribe({
+        next: (response) => {
+          if (response.data.valid) {
+            alert("Xác nhận thanh toán rồi!");
+            this.dialogAccept = false;
+            this.getDashboardPayment();
+          } else {
+            alert("Có lỗi xảy ra");
+          }
+        },
+        error: (err) => {
+          console.error('Lỗi khi xóa:', err);
+          alert('Có lỗi xảy ra khi xóa. Vui lòng thử lại!');
+        },
+        complete: () => {
+          this.note = ''; // Reset note sau khi xử lý xong
+        }
+      })
+    }
+
+  }
+
+  handleCancelAcceptPayment(comment: string) {
+    if (this.selectedPayment) {
+      const payload = {
+        id: this.selectedPayment.id,
+        isPayment: 0,
+        comment: comment
+      }
+
+
+      this.dashboardSrv.updatePayment(payload).subscribe({
+        next: (respone) => {
+          if (respone.data.valid) {
+            alert("Hủy xác nhận thanh toán rồi!");
+            this.dialogCancelAccept = false;
+            this.getDashboardPayment();
+          } else {
+            alert("Có lỗi xảy ra");
+          }
+        },
+        error: (err) => {
+          console.error('Lỗi khi xóa:', err);
+          alert('Có lỗi xảy ra khi xóa. Vui lòng thử lại!');
+        },
+      })
 
     }
   }

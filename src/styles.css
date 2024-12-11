@@ -146,13 +146,6 @@ svg.p-icon {
   width: 1000px;
 }
 
-div#pn_id_5,
-div#pn_id_7,
-div#pn_id_9 {
-  width: 100%;
-}
-
-
 ul.p-tabview-nav {
   background: transparent;
   border: solid #dee2e6;
@@ -163,4 +156,13 @@ span.ml-2 {
   color: #fffffff5;
   font-size: 16px;
   font-weight: 500;
+}
+
+.p-dialog-header.ng-tns-c1946505645-3.ng-star-inserted {
+  background: #ffffffec;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  font-size: 1.5rem;
+  padding: 1rem 1.5rem;
+  text-align: center !important;
 }

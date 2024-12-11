@@ -171,6 +171,32 @@ export class DashboardService {
         );
     }
 
+    updatePayment(payload: {
+        id: string;
+        isPayment: number;
+        comment: string;
+    }): Observable<{
+        statusCode: number;
+        data: { valid: boolean; messages: string };
+    }> {
+        // https://hhq.runasp.net/api/Payment/ChangePaymentStatus
+        const apiUrl = `${this.apiBaseUrl}/Payment/ChangePaymentStatus`;
+        console.log('Set Status API URL:', apiUrl);
+
+        const token = localStorage.getItem('token');
+        const headers = token
+            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+            : new HttpHeaders();
+
+        return this.http
+            .put<{ statusCode: number; data: { valid: boolean; messages: string } }>(
+                apiUrl,
+                payload,
+                { headers }
+            )
+            .pipe(catchError(this.handleError));
+    }
+
 
     // Hàm xử lý lỗi
     private handleError(error: HttpErrorResponse) {
