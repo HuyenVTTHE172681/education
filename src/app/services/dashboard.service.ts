@@ -155,6 +155,23 @@ export class DashboardService {
             .pipe(catchError(this.handleError));
     }
 
+    deletedPaymentList(id: string) {
+        const apiUrl = `${this.apiBaseUrl}/Payment/${id}`;
+
+        const token = localStorage.getItem('token');
+        const headers = token
+            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+            : new HttpHeaders();
+
+        return this.http.delete<any>(apiUrl, { headers }).pipe(
+            catchError((err: HttpErrorResponse) => {
+                console.error('API EditCourse Error: ', err);
+                return throwError(() => new Error(err.message || 'API call failed'));
+            })
+        );
+    }
+
+
     // Hàm xử lý lỗi
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {

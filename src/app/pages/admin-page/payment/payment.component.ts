@@ -28,6 +28,8 @@ export class PaymentComponent implements OnInit {
     { name: 'Chưa thanh toán', value: 0 },
   ];
   selectedStatus: any = this.statusList[0];
+  dialogDelete: boolean = false;
+  dialogAccept: boolean = false;  
   ngOnInit(): void {
     this.getDashboardPayment();
 
@@ -45,7 +47,7 @@ export class PaymentComponent implements OnInit {
           {
             label: 'Duyệt',
             icon: 'pi pi-check',
-            // command: () => this.editCourse(), // Open sidebar on click
+            command: () => this.acceptPayment(), // Open sidebar on click
           },
           {
             label: 'Hủy duyệt',
@@ -55,7 +57,7 @@ export class PaymentComponent implements OnInit {
           {
             label: 'Xóa thanh toán',
             icon: 'pi pi-trash',
-            // command: () => this.deletedCourse(), // Delete functionality (if needed)
+            command: () => this.deletedPayment(), // Delete functionality (if needed)
           },
         ],
       },
@@ -70,6 +72,19 @@ export class PaymentComponent implements OnInit {
   }
 
   constructor(private dashboardSrv: DashboardService) {
+  }
+
+  acceptPayment() {
+    if (this.selectedPayment) {
+      this.dialogAccept = true;
+      console.log("Accpet payement: ", this.selectedPayment?.id);
+    }
+  }
+  deletedPayment() {
+    if (this.selectedPayment) {
+      this.dialogDelete = true;
+      console.log("Delete payement: ", this.selectedPayment?.id);
+    }
   }
 
   onStatusChange(event: any) {
@@ -136,23 +151,28 @@ export class PaymentComponent implements OnInit {
     }
   }
 
-  // handleDeletePayment() {
-  //   if (this.selectedPayment) {
-  //     const paymentID = this.selectedPayment.id;
+  handleDeletePayment() {
+    if (this.selectedPayment) {
+      const paymentID = this.selectedPayment.id;
 
-  //     this.courseSrv.deletedCourseList(paymentID).subscribe({
-  //       next: () => {
-  //         this.dialogDelete = false;
-  //         this.getDashboardPayment(); // Làm mới dữ liệu
-  //         alert('Xóa chương trình học thành công!');
-  //       },
-  //       error: (err) => {
-  //         console.error('Lỗi khi xóa:', err);
-  //         alert('Có lỗi xảy ra khi xóa. Vui lòng thử lại!');
-  //       },
-  //     })
+      if (this.selectedPayment.isPayment === 1) {
+        alert("Thanh toán đã được duyệt, không xóa được!");
+        this.dialogDelete = false;
+      } else {
+        this.dashboardSrv.deletedPaymentList(paymentID).subscribe({
+          next: () => {
+            this.dialogDelete = false;
+            this.getDashboardPayment(); // Làm mới dữ liệu
+            alert('Xóa thanh toán thành công!');
+          },
+          error: (err) => {
+            console.error('Lỗi khi xóa:', err);
+            alert('Có lỗi xảy ra khi xóa. Vui lòng thử lại!');
+          },
+        })
+      }
 
-  //   }
-  // }
+    }
+  }
 
 }
