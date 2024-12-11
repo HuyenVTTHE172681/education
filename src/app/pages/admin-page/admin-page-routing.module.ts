@@ -8,6 +8,7 @@ import { ChuongTrinhHocComponent } from './chi-tiet-khoa-hoc/chuong-trinh-hoc/ch
 import { ScoresComponent } from './chi-tiet-khoa-hoc/scores/scores.component';
 import { FeedbackComponent } from './chi-tiet-khoa-hoc/feedback/feedback.component';
 import { PaymentComponent } from './payment/payment.component';
+import { GuideSupportComponent } from './guide-support/guide-support.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
       {
         path: 'thanh-toan',
         component: PaymentComponent
+      },
+      {
+        path: 'giup-do',
+        component: GuideSupportComponent
       }
     ],
   },
