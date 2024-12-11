@@ -10,15 +10,31 @@
 <div id="responsive-overlay" (click)="clearToggle()"></div> -->
 
 <div class="app-body">
-  <div class="header">
+  <div class="header-wrapper">
     <app-header></app-header>
   </div>
-  <div class="content">
+  <div class="menu">
     <app-menu></app-menu>
-    <!-- <app-slide></app-slide> -->
-    <router-outlet>
-      
-    </router-outlet>
+  </div>
+  <div class="content">
+    <!-- <app-menu></app-menu> -->
+    <router-outlet></router-outlet>
   </div>
   <app-footer></app-footer>
 </div>
+
+
+<!-- <div id="root">
+  <div class="user-layout admin">
+    <div class="header-wrapper">
+      <app-header></app-header>
+    </div>
+    <div class="menu">
+      <app-menu></app-menu>
+    </div>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div> -->
