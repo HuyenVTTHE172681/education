@@ -4,7 +4,7 @@ import { Observable, filter, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { MenuItem } from 'primeng/api';
 import { API_URL } from '../environments/constants';
-import { IResponeList } from '../models/common.model';
+import { IResponeList, IResponeListData } from '../models/common.model';
 import { ClassRoom } from '../models/classRoom.model';
 import { Dashboard, Guide, Payment } from '../models/dashboard.model';
 import { User } from '../models/user.model';
@@ -244,6 +244,71 @@ export class DashboardService {
             .get<IResponeList<User>>(apiURL, { headers })
             .pipe(catchError(this.handleError));
     }
+
+    getRole(
+        filter: string = '',
+        page: number,
+        size: number,
+    ): Observable<IResponeList<any>> {
+
+        //https://hhq.runasp.net/api/Role?filter=&offSet=0&pageSize=1000
+        const query = `/Role?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
+
+        const apiURL = `${this.apiBaseUrl}${query}`;
+        console.log('Generated dashboard API URL:', apiURL);
+
+        const token = localStorage.getItem('token');
+        const headers = token
+            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+            : new HttpHeaders();
+
+        return this.http
+            .get<IResponeList<any>>(apiURL, { headers })
+            .pipe(catchError(this.handleError));
+    }
+
+    getRoleDataType(
+        filter: string = '',
+        page: number,
+        size: number,
+    ): Observable<IResponeList<any>> {
+
+        //https://hhq.runasp.net/api/RoleDataType?filter=&offSet=0&pageSize=1000
+        const query = `/RoleDataType?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
+
+        const apiURL = `${this.apiBaseUrl}${query}`;
+        console.log('Generated dashboard API URL:', apiURL);
+
+        const token = localStorage.getItem('token');
+        const headers = token
+            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+            : new HttpHeaders();
+
+        return this.http
+            .get<IResponeList<any>>(apiURL, { headers })
+            .pipe(catchError(this.handleError));
+    }
+
+    getAccountDetail(
+        id: string
+    ): Observable<IResponeListData<User>> {
+
+        // https://hhq.runasp.net/api/Account/021CBE66-81A3-4F43-A7F3-00D31823D08C
+        const query = `/Account/${id}`;
+
+        const apiURL = `${this.apiBaseUrl}${query}`;
+        console.log('Generated dashboard API URL:', apiURL);
+
+        const token = localStorage.getItem('token');
+        const headers = token
+            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+            : new HttpHeaders();
+
+        return this.http
+            .get<IResponeListData<User>>(apiURL, { headers })
+            .pipe(catchError(this.handleError));
+    }
+
 
 
     // Hàm xử lý lỗi

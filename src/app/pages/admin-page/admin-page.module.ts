@@ -50,6 +50,7 @@ import { PaymentComponent } from './payment/payment.component';
 import { GuideSupportComponent } from './guide-support/guide-support.component';
 import { TaiKhoanComponent } from './tai-khoan/tai-khoan.component';
 import { ChiTietTaiKhoanComponent } from './tai-khoan/chi-tiet-tai-khoan/chi-tiet-tai-khoan.component';
+import { CalendarModule } from 'primeng/calendar';
 
 register(); // Register Swiper
 @NgModule({
@@ -106,7 +107,8 @@ register(); // Register Swiper
     CardModule,
     TabViewModule,
     TimelineModule,
-    ChartModule
+    ChartModule,
+    CalendarModule
   ],
   providers: [ConfirmationService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

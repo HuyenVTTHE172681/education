@@ -12,9 +12,9 @@
                 <div class="col-12 md:col-2">
                     <div class="grid mt-3">
                         <div class="col-12 avatar">
-                            <!-- <img *ngIf="courseForm.get('courseAvatar')?.value, else elseBlock" [src]="
-                    courseForm.get('courseAvatar')?.value || 'default-avatar.jpg'
-                  " alt="" /> -->
+                            <img *ngIf="accountForm.get('avatar')?.value, else elseBlock" [src]="
+                    accountForm.get('avatar')?.value || 'default-avatar.jpg'
+                  " alt="" />
                             <ng-template #elseBlock>
                                 <img src="https://hochieuqua7.web.app/images/admin/setting/slide/empty-image.png"
                                     alt="" />
@@ -26,16 +26,16 @@
                     </div>
                 </div>
                 <div class="col-12 md:col-10">
-                    <form class="p-fluid mt-3">
+                    <form class="p-fluid mt-3" [formGroup]="accountForm">
                         <div class="grid">
                             <div class="col-12 md:col-6">
                                 <div class="field">
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-user" />
-                                            <input pInputText formControlName="name" class="input-field" />
+                                            <input pInputText class="input-field" formControlName="userName" />
                                         </p-iconField>
-                                        <label for="name">Tài khoản đăng nhập <span
+                                        <label for="name" formControlName="username">Tài khoản đăng nhập <span
                                                 class="text-red-500">*</span></label>
                                     </p-floatLabel>
                                 </div>
@@ -45,7 +45,7 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-ellipsis-h" />
-                                            <input pInputText formControlName="name" class="input-field" />
+                                            <input pInputText class="input-field" formControlName="password" />
                                         </p-iconField>
                                         <label for="name">Mật khẩu <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
@@ -56,7 +56,7 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-sort-alpha-down" />
-                                            <input pInputText formControlName="name" class="input-field" />
+                                            <input pInputText class="input-field" formControlName="name" />
                                         </p-iconField>
                                         <label for="name">Tên <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
@@ -67,7 +67,7 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-at" />
-                                            <input pInputText formControlName="name" class="input-field" />
+                                            <input pInputText class="input-field" formControlName="email" />
                                         </p-iconField>
                                         <label for="name">Email <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
@@ -78,7 +78,7 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-at" />
-                                            <input pInputText formControlName="name" class="input-field" />
+                                            <input pInputText class="input-field" formControlName="phone" />
                                         </p-iconField>
                                         <label for="name">Số điện thoại<span class="text-red-500">*</span></label>
                                     </p-floatLabel>
@@ -89,7 +89,7 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-at" />
-                                            <input pInputText formControlName="name" class="input-field" />
+                                            <input pInputText class="input-field" formControlName="address" />
                                         </p-iconField>
                                         <label for="name">CMND/CCCD<span class="text-red-500">*</span></label>
                                     </p-floatLabel>
@@ -100,7 +100,7 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-at" />
-                                            <input pInputText formControlName="name" class="input-field" />
+                                            <input pInputText class="input-field" formControlName="className" />
                                         </p-iconField>
                                         <label for="name">Lớp <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
@@ -111,8 +111,8 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-calendar placeholder="DD/MM/YYYY" appendTo="body" [monthNavigator]="true"
-                                                [yearNavigator]="true" inputId="navigators" [showTime]="false"
-                                                dateFormat="dd/mm/yy" name="expireDate"></p-calendar>
+                                                formControlName="birthday" [yearNavigator]="true" inputId="navigators"
+                                                [showTime]="false" dateFormat="dd/mm/yy" name="expireDate"></p-calendar>
                                         </p-iconField>
                                         <label for="name">Ngày sinh <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
@@ -121,8 +121,9 @@
                             <div class="col-12 md:col-6">
                                 <div class="field">
                                     <p-floatLabel>
-                                        <p-multiSelect placeholder="Giáo viên" optionLabel="name" display="chip"
-                                            [showClear]="true"></p-multiSelect>
+                                        <p-multiSelect [options]="role" optionLabel="label" formControlName="roleId"
+                                            display="chip" [showClear]="true">
+                                        </p-multiSelect>
                                         <label for="name">Quyền menu <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
                                 </div>
@@ -130,8 +131,9 @@
                             <div class="col-12 md:col-6">
                                 <div class="field">
                                     <p-floatLabel>
-                                        <p-multiSelect placeholder="Giáo viên" optionLabel="name" display="chip"
-                                            [showClear]="true"></p-multiSelect>
+                                        <p-multiSelect [options]="roleData" optionLabel="label"
+                                            formControlName="roleTypeDataName" display="chip" [showClear]="true">
+                                        </p-multiSelect>
                                         <label for="name">Quyền data <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
                                 </div>
@@ -139,7 +141,7 @@
                             <div class="col-12 md:col-6">
                                 <div class="field">
                                     <p-floatLabel>
-                                        <p-inputSwitch></p-inputSwitch>
+                                        <p-inputSwitch formControlName="status"></p-inputSwitch>
                                         <label for="content" class="manual-active">Hiển thị <span
                                                 class="text-red-500">*</span></label>
                                     </p-floatLabel>
