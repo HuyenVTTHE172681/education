@@ -7,101 +7,71 @@
           <div class="test-right--action">
             <div class="field">
               <span class="p-float-label">
-                <input
-                  type="text"
-                  pInputText
-                  style="
+                <input type="text" pInputText style="
                     background: #e3e7f2;
                     border: 1px solid #d0d9ef;
                     font-size: 14px;
                     height: 35px;
                     width: 100%;
-                  "
-                />
+                  " />
                 <label for="dropdown">Tìm kiếm</label>
               </span>
             </div>
             <div class="field">
               <span class="p-float-label">
-                <p-dropdown
-                  [options]="classRoom"
-                  [(ngModel)]="selectedClassRoom"
-                  optionLabel="name"
-                  placeholder="Tất cả"
-                  [style]="{
+                <p-dropdown [options]="classRoom" [(ngModel)]="selectedClassRoom" optionLabel="name"
+                  placeholder="Tất cả" [style]="{
                     background: '#e3e7f2',
                     border: '1px solid #d0d9ef',
                     fontSize: '14px',
                     height: '35px',
                     width: '100%'
-                  }"
-                ></p-dropdown>
-                <label
-                  for="dropdown"
-                  style="color: #000; left: 0; top: -0.65rem; font-size: 13px"
-                  >Lớp học</label
-                >
+                  }"></p-dropdown>
+                <label for="dropdown" style="color: #000; left: 0; top: -0.65rem; font-size: 13px">Lớp học</label>
               </span>
             </div>
             <div class="field">
               <span class="p-float-label">
-                <p-dropdown
-                  [options]="subject"
-                  [(ngModel)]="selectedSubject"
-                  optionLabel="name"
-                  placeholder="Tất cả"
+                <p-dropdown [options]="subject" [(ngModel)]="selectedSubject" optionLabel="name" placeholder="Tất cả"
                   [style]="{
                     background: '#e3e7f2',
                     border: '1px solid #d0d9ef',
                     fontSize: '14px',
                     height: '35px',
                     width: '100%'
-                  }"
-                ></p-dropdown>
-                <label
-                  for="dropdown"
-                  style="color: #000; left: 0; top: -0.65rem; font-size: 13px"
-                  >Môn học</label
-                >
+                  }"></p-dropdown>
+                <label for="dropdown" style="color: #000; left: 0; top: -0.65rem; font-size: 13px">Môn học</label>
               </span>
             </div>
           </div>
 
           <div class="course-list">
             <div class="course-item" *ngFor="let course of courses">
-                <img [src]="course?.courseAvatar" alt="avatar" class="course-item--avatar"/>
-                <p class="course-item--name">{{course?.name}}</p>
-                <p class="course-item--teacher">{{course?.teacherName}}</p>
-                <div class="course-item--description">
-                    <div class="rate">
-                        <p-rating  [(ngModel)]="course.averageRating" [cancel]="false" />
-                    </div>
-                    <div class="price">
-                        <div class="price-discount">{{course?.priceDiscount}}</div>
-                        <div class="price-total">{{course?.price}}</div>
-                    </div>
+              <img [src]="course?.courseAvatar" alt="avatar" class="course-item--avatar" />
+              <p class="course-item--name">{{course?.name}}</p>
+              <p class="course-item--teacher">{{course?.teacherName}}</p>
+              <div class="course-item--description">
+                <div class="rate">
+                  <p-rating [(ngModel)]="course.averageRating" [cancel]="false" />
                 </div>
+                <div class="price">
+                  <div class="price-discount">{{course?.priceDiscount}}</div>
+                  <div class="price-total">{{course?.price}}</div>
+                </div>
+              </div>
             </div>
           </div>
 
         </div>
       </div>
       <!-- Paginator -->
-      <div
-        class="flex align-items-center justify-content-start"
-        style="
+      <div class="flex align-items-center justify-content-start" style="
           display: flex;
           align-items: center;
           justify-content: flex-end;
           gap: 10px;
-        "
-      >
-        <p-paginator
-          [first]="first"
-          [rows]="rows"
-          [totalRecords]="120"
-          [rowsPerPageOptions]="[10, 20, 30]"
-        />
+        ">
+        <p-paginator [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
 
         <div class="flex justify-content-center align-items-center gap-3">
           <span>Từ 1 đến 10</span>
@@ -110,5 +80,3 @@
     </div>
   </div>
 </div>
-
-

@@ -35,3 +35,16 @@ export class Payment {
     paymentTypeName = '';
     totalFiltered = 0;
 }
+
+export class Guide {
+    content = '';
+    createdBy = '';
+    createdDate = '';
+    id = '';
+    modifiedBy = '';
+    modifiedDate: any = null;
+    order = 0;
+    status = true;
+    title = '';
+    totalFiltered = 0;
+}

@@ -6,7 +6,7 @@ import { MenuItem } from 'primeng/api';
 import { API_URL } from '../environments/constants';
 import { IResponeList } from '../models/common.model';
 import { ClassRoom } from '../models/classRoom.model';
-import { Dashboard, Payment } from '../models/dashboard.model';
+import { Dashboard, Guide, Payment } from '../models/dashboard.model';
 
 @Injectable({
     providedIn: 'root',
@@ -194,6 +194,29 @@ export class DashboardService {
                 payload,
                 { headers }
             )
+            .pipe(catchError(this.handleError));
+    }
+
+    getDashboardGuide(
+        filter: string = '',
+        page: number,
+        size: number,
+        screen: string = 'admin',
+    ): Observable<IResponeList<Guide>> {
+
+        // https://hhq.runasp.net/api/Guide?filter=&offSet=0&pageSize=1000&screen=admin
+        const query = `/Guide?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}&screen=${screen}`;
+
+        const apiURL = `${this.apiBaseUrl}${query}`;
+        console.log('Generated dashboard API URL:', apiURL);
+
+        const token = localStorage.getItem('token');
+        const headers = token
+            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+            : new HttpHeaders();
+
+        return this.http
+            .get<IResponeList<Guide>>(apiURL, { headers })
             .pipe(catchError(this.handleError));
     }
 

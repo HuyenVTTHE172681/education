@@ -1,12 +1,24 @@
+
 <div class="common-content giup-do">
     <!-- HEADER Guide -->
     <div class="table-header grid align-items-end">
-
+        <div class="col-12">
+            <p-breadcrumb class="max-w-full" [model]="breadcrum" [home]="home"></p-breadcrumb>
+            <div class="header-title hidden-mobile">Hướng dẫn sử dụng Website</div>
+        </div>
     </div>
 
     <!-- CONTENT Guide -->
     <div class="giup-so-content mt-2">
-        <div class="giup-do-menu"></div>
-        <div class="giup-do-noi-dung"></div>
+        <div class="giup-do-menu">
+            <div class="giup-do-menu-item" [class.active]="listGuide === selectedGuide"
+                *ngFor="let listGuide of listGuide" (click)="selectGuide(listGuide)">
+                {{ listGuide?.title }}
+            </div>
+        </div>
+        <div class="giup-do-noi-dung">
+            <h4>{{ selectedGuide?.title }}</h4>
+            <div [innerHTML]="getSanitizedContent(selectedGuide?.content)"></div>
+        </div>
     </div>
 </div>
