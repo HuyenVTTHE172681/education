@@ -122,7 +122,9 @@
                 <p-card>
                     <h4>Tổng quan câu hỏi</h4>
                     <div class="flex justify-content-center">
-                        <p-chart type="pie" [data]="dataChart" [options]="options" />
+                        <p-chart type="polarArea" [data]="dataChart" [options]="options" class="w-full md:w-[30rem]"
+                            [style]="{'max-width':'500px'}" />
+
                     </div>
                 </p-card>
             </div>
@@ -132,16 +134,6 @@
                 <div class="col-12 dashboard_request">
                     <p-card>
                         <h4>Yêu cầu tư vấn</h4>
-                        <!-- <p-timeline [value]="adviceRequest">
-                            <ng-template pTemplate="opposite" let-event>
-                                <div class="dashboard_item">
-                                    <div class="dashboard_item-title"><b>{{event?.name}}</b></div>
-                                    <div class="dashboard_item-content"></div>
-                                    <div class="dashboard_item-time">{{ event?.createdDate | date: 'dd-MM-yyyy HH:mm:ss'}}</div>
-                                </div>
-                            </ng-template>
-                        </p-timeline> -->
-
                         <p-timeline [value]="adviceRequest">
                             <ng-template pTemplate="content" let-event>
                                 <div class="dashboard_item-title"><b>{{event?.name}}</b></div>

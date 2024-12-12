@@ -11,6 +11,7 @@ export class TongQuanComponent implements OnInit {
   selectedDateFilter: any | undefined;
   dashboardFilterByDate: any = {};// 
   adviceRequest: any = {}; //
+  testQuestion: any = {};
   fromDate: string = '2024-12-01%2000:00:00';
   toDate: string = '2024-12-07%2023:59:59';
   dataChart: any;
@@ -24,40 +25,22 @@ export class TongQuanComponent implements OnInit {
     this.updateDateRange('day');
     this.getDashboardFilterByDate(this.fromDate, this.toDate);
 
+    // Chart setup 
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+    this.options = {
+      plugins: {
+        legend:
+          { labels: { usePointStyle: true, color: textColor } }
+      }
+    };
+
     this.dateFilter = [
       { name: 'Hôm nay', code: 'day' },
       { name: 'Tuần nay', code: 'week' },
       { name: 'Tháng nay', code: 'month' },
       { name: 'Năm nay', code: 'year' },
     ];
-
-
-    // Chart
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-
-    this.dataChart = {
-      labels: ['A', 'B', 'C'],
-      datasets: [
-        {
-          data: [540, 325, 702],
-          backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
-          hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
-        }
-      ]
-    };
-
-    this.options = {
-      plugins: {
-        legend: {
-          labels: {
-            usePointStyle: true,
-            color: textColor
-          }
-        }
-      }
-    };
-
 
   }
 
@@ -66,27 +49,16 @@ export class TongQuanComponent implements OnInit {
       next: (data: any) => {
         this.dashboardFilterByDate = data.data.dashboardOverview;
         this.adviceRequest = data.data.adviceRequest;
-        console.log("Dashboad: ", this.dashboardFilterByDate);
-        console.log("Dashboad: ", this.adviceRequest);
+        this.testQuestion = data.data.testQuestions;
+        this.updateChartData();
+
+        // console.log("Dashboad: ", this.dashboardFilterByDate);
+        // console.log("Dashboad: ", this.adviceRequest);
+        console.log("Dashboad Chart data: ", this.testQuestion?.data);
+        console.log("Dashboad Chart data: ", this.testQuestion?.labels);
       },
     })
   }
-
-  // updateDateRange(filter: string) {
-  //   const now = new Date();
-  //   switch (filter) {
-  //     case 'day':
-  //       this.fromDate = now.toISOString().split('T')[0] + '%2000:00:00';
-  //       this.toDate = now.toISOString().split('T')[0] + '%2023:59:59';
-  //       break;
-  //     case 'week':
-  //       const firstDayOfWeek = new Date(now.getFullYear(), now.getMonth(), now.getDate() - now.getDay());
-  //       this.fromDate = firstDayOfWeek.toISOString().split('T')[0] + '%2000:00:00';
-  //       this.toDate = now.toISOString().split('T')[0] + '%2023:59:59';
-  //   }
-
-  // }
-
   onDateFilterChange() {
     if (this.selectedDateFilter) {
       this.updateDateRange(this.selectedDateFilter);
@@ -131,4 +103,67 @@ export class TongQuanComponent implements OnInit {
   }
 
 
+  //Chart 
+  updateChartData() {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+    this.dataChart = {
+      labels: this.testQuestion?.labels,
+      datasets: [{
+        data: this.testQuestion?.data,
+        backgroundColor: [
+          documentStyle.getPropertyValue('--blue-500'),
+          documentStyle.getPropertyValue('--yellow-500'),
+          documentStyle.getPropertyValue('--green-500'),
+          documentStyle.getPropertyValue('--red-500'),
+          documentStyle.getPropertyValue('--purple-500'),
+          documentStyle.getPropertyValue('--orange-500'),
+          documentStyle.getPropertyValue('--cyan-500'),
+          documentStyle.getPropertyValue('--pink-500')],
+        hoverBackgroundColor: [
+          documentStyle.getPropertyValue('--blue-400'),
+          documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400'), documentStyle.getPropertyValue('--red-400'), documentStyle.getPropertyValue('--purple-400'), documentStyle.getPropertyValue('--orange-400'), documentStyle.getPropertyValue('--cyan-400'), documentStyle.getPropertyValue('--pink-400')]
+      }]
+    };
+  }
+
+  // initChart() {
+  //   const documentStyle = getComputedStyle(document.documentElement);
+  //   const textColor = documentStyle.getPropertyValue('--p-text-color');
+  //   const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
+
+  //   this.dataChart = {
+  //     datasets: [
+  //       {
+  //         data: this.testQuestion?.data,
+  //         backgroundColor: [
+  //           documentStyle.getPropertyValue('--p-pink-500'),
+  //           documentStyle.getPropertyValue('--p-gray-500'),
+  //           documentStyle.getPropertyValue('--p-orange-500'),
+  //           documentStyle.getPropertyValue('--p-purple-500'),
+  //           documentStyle.getPropertyValue('--p-cyan-500')
+  //         ],
+  //         label: 'My dataset'
+  //       }
+  //     ],
+  //     labels: this.testQuestion?.labels
+  //   };
+
+  //   this.options = {
+  //     plugins: {
+  //       legend: {
+  //         labels: {
+  //           color: textColor
+  //         }
+  //       }
+  //     },
+  //     scales: {
+  //       r: {
+  //         grid: {
+  //           color: surfaceBorder
+  //         }
+  //       }
+  //     }
+  //   };
+  // }
 }
