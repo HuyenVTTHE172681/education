@@ -82,8 +82,9 @@
         <div class="col-12 sm:col-4 field text-right">
             <p-dropdown
                 [style]="{'width':'100%', 'background':'rgba(104, 164, 251, .12)', 'border':'1px solid #d0d9ef'}"
-                [options]="dateFilter" name="date" [(ngModel)]="selectedDateFilter" optionLabel="name" optionValue="id"
-                [filter]="true" filterBy="name" [showClear]="true" placeholder="Lớp học">
+                [options]="dateFilter" name="date" [(ngModel)]="selectedDateFilter" (onChange)="onDateFilterChange()"
+                optionLabel="name" optionValue="code" [filter]="true" filterBy="name" [showClear]="true"
+                placeholder="Lớp học">
             </p-dropdown>
 
         </div>
