@@ -7,6 +7,7 @@ import { API_URL } from '../environments/constants';
 import { IResponeList } from '../models/common.model';
 import { ClassRoom } from '../models/classRoom.model';
 import { Dashboard, Guide, Payment } from '../models/dashboard.model';
+import { User } from '../models/user.model';
 
 @Injectable({
     providedIn: 'root',
@@ -217,6 +218,30 @@ export class DashboardService {
 
         return this.http
             .get<IResponeList<Guide>>(apiURL, { headers })
+            .pipe(catchError(this.handleError));
+    }
+
+    getDashboardAccount(
+        filter: string = '',
+        page: number,
+        size: number,
+        roleId: string = '',
+        roleTypeDataId: string = '',
+    ): Observable<IResponeList<User>> {
+
+        //https://hhq.runasp.net/api/Account?filter=&offSet=0&pageSize=100000&roleId&roleTypeDataId
+        const query = `/Account?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}&roleId=${roleId}&roleTypeDataId=${roleTypeDataId}`;
+
+        const apiURL = `${this.apiBaseUrl}${query}`;
+        console.log('Generated dashboard API URL:', apiURL);
+
+        const token = localStorage.getItem('token');
+        const headers = token
+            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+            : new HttpHeaders();
+
+        return this.http
+            .get<IResponeList<User>>(apiURL, { headers })
             .pipe(catchError(this.handleError));
     }
 

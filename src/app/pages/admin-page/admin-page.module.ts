@@ -48,6 +48,8 @@ import { DashboardOverviewComponent } from './tong-quan/dashboard-overview/dashb
 import { DashboardTeacherComponent } from './tong-quan/dashboard-teacher/dashboard-teacher.component';
 import { PaymentComponent } from './payment/payment.component';
 import { GuideSupportComponent } from './guide-support/guide-support.component';
+import { TaiKhoanComponent } from './tai-khoan/tai-khoan.component';
+import { ChiTietTaiKhoanComponent } from './tai-khoan/chi-tiet-tai-khoan/chi-tiet-tai-khoan.component';
 
 register(); // Register Swiper
 @NgModule({
@@ -68,6 +70,8 @@ register(); // Register Swiper
     DashboardTeacherComponent,
     PaymentComponent,
     GuideSupportComponent,
+    TaiKhoanComponent,
+    ChiTietTaiKhoanComponent,
   ],
   imports: [
     CommonModule,

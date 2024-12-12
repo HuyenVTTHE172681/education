@@ -9,6 +9,7 @@ import { ScoresComponent } from './chi-tiet-khoa-hoc/scores/scores.component';
 import { FeedbackComponent } from './chi-tiet-khoa-hoc/feedback/feedback.component';
 import { PaymentComponent } from './payment/payment.component';
 import { GuideSupportComponent } from './guide-support/guide-support.component';
+import { TaiKhoanComponent } from './tai-khoan/tai-khoan.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
       {
         path: 'giup-do',
         component: GuideSupportComponent
+      },
+      {
+        path: 'tai-khoan',
+        component: TaiKhoanComponent
       }
     ],
   },
