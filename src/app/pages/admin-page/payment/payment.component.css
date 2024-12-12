@@ -45,14 +45,6 @@
     transform: translateY(0);
 }
 
-.mr-2 {
-    margin-right: .5rem !important;
-}
-
-.text-left {
-    text-align: left !important;
-}
-
 label {
     font-size: 14px;
     font-weight: 400;

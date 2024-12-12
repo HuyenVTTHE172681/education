@@ -10,6 +10,7 @@ import { FeedbackComponent } from './chi-tiet-khoa-hoc/feedback/feedback.compone
 import { PaymentComponent } from './payment/payment.component';
 import { GuideSupportComponent } from './guide-support/guide-support.component';
 import { TaiKhoanComponent } from './tai-khoan/tai-khoan.component';
+import { ChiTietTaiKhoanComponent } from './tai-khoan/chi-tiet-tai-khoan/chi-tiet-tai-khoan.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,10 @@ const routes: Routes = [
       {
         path: 'tai-khoan',
         component: TaiKhoanComponent
+      },
+      {
+        path: 'tai-khoan/:id',
+        component: ChiTietTaiKhoanComponent
       }
     ],
   },

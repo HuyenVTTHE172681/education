@@ -1,1 +1,158 @@
-<p>chi-tiet-tai-khoan works!</p>
+<div class="mon-hoc-chi-tiet common-content">
+    <div class="detail-breadcumb">
+        <div class="col-12 md:col-4">
+            <p-breadcrumb class="max-w-full" [model]="breadcrum" [home]="home" />
+            <div class="header-title hidden-mobile">Khóa học</div>
+        </div>
+    </div>
+
+    <div>
+        <div class="quan-tri-chi-tiet-mon-hoc common-content">
+            <div class="grid mt-3">
+                <div class="col-12 md:col-2">
+                    <div class="grid mt-3">
+                        <div class="col-12 avatar">
+                            <!-- <img *ngIf="courseForm.get('courseAvatar')?.value, else elseBlock" [src]="
+                    courseForm.get('courseAvatar')?.value || 'default-avatar.jpg'
+                  " alt="" /> -->
+                            <ng-template #elseBlock>
+                                <img src="https://hochieuqua7.web.app/images/admin/setting/slide/empty-image.png"
+                                    alt="" />
+                            </ng-template>
+                            <label for="upload-image">
+                                <i class="pi pi-upload"></i> Avatar
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 md:col-10">
+                    <form class="p-fluid mt-3">
+                        <div class="grid">
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-user" />
+                                            <input pInputText formControlName="name" class="input-field" />
+                                        </p-iconField>
+                                        <label for="name">Tài khoản đăng nhập <span
+                                                class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-ellipsis-h" />
+                                            <input pInputText formControlName="name" class="input-field" />
+                                        </p-iconField>
+                                        <label for="name">Mật khẩu <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-sort-alpha-down" />
+                                            <input pInputText formControlName="name" class="input-field" />
+                                        </p-iconField>
+                                        <label for="name">Tên <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-at" />
+                                            <input pInputText formControlName="name" class="input-field" />
+                                        </p-iconField>
+                                        <label for="name">Email <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-at" />
+                                            <input pInputText formControlName="name" class="input-field" />
+                                        </p-iconField>
+                                        <label for="name">Số điện thoại<span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-at" />
+                                            <input pInputText formControlName="name" class="input-field" />
+                                        </p-iconField>
+                                        <label for="name">CMND/CCCD<span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-at" />
+                                            <input pInputText formControlName="name" class="input-field" />
+                                        </p-iconField>
+                                        <label for="name">Lớp <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-calendar placeholder="DD/MM/YYYY" appendTo="body" [monthNavigator]="true"
+                                                [yearNavigator]="true" inputId="navigators" [showTime]="false"
+                                                dateFormat="dd/mm/yy" name="expireDate"></p-calendar>
+                                        </p-iconField>
+                                        <label for="name">Ngày sinh <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-multiSelect placeholder="Giáo viên" optionLabel="name" display="chip"
+                                            [showClear]="true"></p-multiSelect>
+                                        <label for="name">Quyền menu <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-multiSelect placeholder="Giáo viên" optionLabel="name" display="chip"
+                                            [showClear]="true"></p-multiSelect>
+                                        <label for="name">Quyền data <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-inputSwitch></p-inputSwitch>
+                                        <label for="content" class="manual-active">Hiển thị <span
+                                                class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 fixed-action">
+                                <p-button label="Hủy bỏ" [outlined]="true" icon="pi pi-times" />
+                                <p-button label="Lưu lại" icon="pi pi-save" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
