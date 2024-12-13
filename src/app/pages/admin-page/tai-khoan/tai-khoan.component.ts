@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../../../services/dashboard.service';
 import { User } from '../../../models/user.model';
 import { debounceTime, Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tai-khoan',
@@ -30,7 +31,7 @@ export class TaiKhoanComponent implements OnInit {
   dialogDelete: boolean = false;
 
   private searchSubject: Subject<string> = new Subject();
-  constructor(private dashboardSrv: DashboardService) { }
+  constructor(private dashboardSrv: DashboardService, private router: Router) { }
 
   ngOnInit(): void {
     this.getDashboardAccount();
@@ -47,9 +48,9 @@ export class TaiKhoanComponent implements OnInit {
         label: 'Options',
         items: [
           {
-            label: 'Thay đổi trạng thái',
+            label: 'Edit',
             icon: 'pi pi-check',
-            command: () => this.changeStatus(), // Open sidebar on click
+            command: () => this.editAccount(), // Open sidebar on click
           },
           {
             label: 'Xóa tài khoản',
@@ -67,10 +68,8 @@ export class TaiKhoanComponent implements OnInit {
     });
   }
 
-  changeStatus() {
-    if (this.selectedAccount) {
-      alert("Change status: " + this.selectedAccount?.id + "but i don hav api");
-    }
+  editAccount() {
+    this.router.navigate(['/quan-tri/tai-khoan/', this.selectedAccount?.id]);
   }
   deletedAccount() {
     if (this.selectedAccount) {
