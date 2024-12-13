@@ -309,7 +309,21 @@ export class DashboardService {
             .pipe(catchError(this.handleError));
     }
 
+    updateAccount(account: any): Observable<IResponeListData<User>> {
+        // https://hhq.runasp.net/api/account/SetAccountUser
+        const query = `/account/SetAccountUser`;
 
+        const apiURL = `${this.apiBaseUrl}${query}`;
+        console.log('Generated dashboard API URL:', apiURL);
+
+        const token = localStorage.getItem('token');
+        const headers = token
+            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+            : new HttpHeaders();
+        return this.http
+            .post<IResponeListData<User>>(apiURL, account, { headers })
+            .pipe(catchError(this.handleError));
+    }
 
     // Hàm xử lý lỗi
     private handleError(error: HttpErrorResponse) {

@@ -28,4 +28,5 @@ export class User {
     password: string | null = null;
     memberIds: any | null = null;
     totalFiltered: number = 0;
+    isActive: boolean = false;
 }

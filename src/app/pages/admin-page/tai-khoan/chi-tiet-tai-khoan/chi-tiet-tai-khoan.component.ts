@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { DashboardService } from '../../../../services/dashboard.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../../models/user.model';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-chi-tiet-tai-khoan',
@@ -28,19 +29,31 @@ export class ChiTietTaiKhoanComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.accountForm = this.formBuilder.group({
-      id: [''],
-      avatar: [''],
-      userName: [''],
-      password: [''],
-      name: [''],
-      email: [''],
-      phone: [''],
       address: [''],
-      className: [''],
+      avatar: [''],
       birthday: [''],
+      className: [''],
+      createBy: [''],
+      createDate: [''],
+      email: ['', [Validators.required, Validators.email]],
+      id: [''],
+      identityNo: [''],
+      isActive: [false],
+      memberIds: [''],
+      modifiedBy: [''],
+      modifiedDate: [''],
+      name: ['', [Validators.required]],
+      oldPassword: [''],
+      password: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
+      roleDescription: [''],
       roleId: [''],
+      roleName: [''],
+      roleTypeDataId: [''],
       roleTypeDataName: [''],
-      status: [false] // Mặc định là `false`
+      status: [0],
+      userId: [''],
+      userName: ['', [Validators.required]],
     });
   }
 
@@ -66,31 +79,39 @@ export class ChiTietTaiKhoanComponent implements OnInit {
 
   // Lấy danh sách vai trò
   getRole() {
-    this.dashboardSrv.getRole(this.filter, this.page, this.size).subscribe((data) => {
-      this.role = data.data.data.map((item: any) => ({
-        label: item.name, // Hiển thị tên role
-        value: item.id
-      }));
-      console.log("Role list: ", this.role);
+    this.dashboardSrv.getRole(this.filter, this.page, this.size).pipe(
+      map((data) => data.data.data.map((role: any) => ({
+        label: role.name,
+        value: role.id
+      })))
+    ).subscribe((roles) => {
+      this.role = roles;
+      console.log("Mapped Roles: ", this.role);
     });
   }
 
   // Lấy danh sách kiểu vai trò
   getRoleDataType() {
-    this.dashboardSrv.getRoleDataType(this.filter, this.page, this.size).subscribe((data) => {
-      this.roleData = data.data.data.map((item: any) => ({
-        label: item.name, // Hiển thị tên roleData
-        value: item.id
-      }));
-      console.log("Role Data list: ", this.roleData);
+    this.dashboardSrv.getRoleDataType(this.filter, this.page, this.size).pipe(
+      map((data) => data.data.data.map((roleData: any) => ({
+        label: roleData.name,
+        value: roleData.id
+      })))
+    ).subscribe((roleDataTypes) => {
+      this.roleData = roleDataTypes;
+      console.log("Mapped Role Data Types: ", this.roleData);
     });
   }
+
 
   // Lấy chi tiết tài khoản
   getAccountDetail(id: string) {
     this.dashboardSrv.getAccountDetail(id).subscribe((data) => {
       if (data.statusCode === 200) {
         const accountDetail = data.data;
+
+        console.log("Account detail 1: ", accountDetail);
+        console.log("Account detail test mapping: ", this.role.find((role: any) => role.id === accountDetail.roleId)?.name);
         this.patchAccountForm(accountDetail);
         console.log("Form value: ", this.accountForm.value);
       }
@@ -100,19 +121,72 @@ export class ChiTietTaiKhoanComponent implements OnInit {
   // Tách logic patch form
   patchAccountForm(account: any) {
     this.accountForm.patchValue({
-      id: account.id,
-      avatar: account.avatar,
-      userName: account.userName,
-      password: account.password,
-      name: account.name,
-      email: account.email,
-      phone: account.phone,
-      address: account.address,
-      className: account.className,
-      birthday: account.birthday ? new Date(account.birthday) : null, // Chuyển đổi ngày
-      roleId: account.roleId,
-      roleTypeDataName: account.roleTypeDataName,
-      status: account.status === 1 // Bật switch nếu status = 1
+      address: account.address || '',
+      avatar: account.avatar || '',
+      birthday: account.birthday ? new Date(account.birthday) : null,
+      className: account.className || '',
+      createBy: account.createBy || '',
+      createDate: account.createDate || '',
+      email: account.email || '',
+      id: account.id || '',
+      identityNo: account.identityNo || '',
+      isActive: account.isActive || false,
+      memberIds: account.memberIds || '',
+      modifiedBy: account.modifiedBy || '',
+      modifiedDate: account.modifiedDate ? new Date(account.modifiedDate) : null,
+      name: account.name || '',
+      oldPassword: account.oldPassword || '',
+      password: account.password || '',
+      phone: account.phone || '',
+      roleDescription: account.roleDescription || '',
+      roleId: account.roleId || '',
+      roleName: account.roleName || '',
+      roleTypeDataId: account.roleTypeDataId || '',
+      roleTypeDataName: account.roleTypeDataName || '',
+      status: account.status === 1,
+      userId: account.userId || '',
+      userName: account.userName || '',
     });
   }
+
+  updateAccount() {
+    if (this.accountForm.valid) {
+      const formValue = { ...this.accountForm.value };
+
+      // Ensure `roleId` is sent as a simple string (e.g., "admin")
+      if (formValue.roleId && typeof formValue.roleId === 'object') {
+        formValue.roleId = formValue.roleId.value;
+      }
+
+      //roleTypeDataName 
+      if (formValue.roleTypeDataName && typeof formValue.roleTypeDataName === 'object') {
+        formValue.roleTypeDataName = formValue.roleTypeDataName.value;
+      }
+
+      // Convert `status` to number
+      formValue.status = formValue.status ? 1 : 0;
+
+      this.dashboardSrv.updateAccount(formValue).subscribe({
+        next: (data) => {
+          if (data.statusCode === 200) {
+            alert('Cập nhật tài khoản thành công!');
+            this.router.navigate(['/quan-tri/tai-khoan']);
+          } else if (data.statusCode === 500) {
+            alert(data.message);
+          }
+        },
+        error: (err) => {
+          console.error('Error updating account:', err);
+          alert('Có lỗi xảy ra. Vui lòng thử lại!');
+        },
+      });
+    } else {
+      alert('Vui lòng kiểm tra thông tin đầu vào!');
+    }
+  }
+
+  goBack() {
+    this.router.navigate(['/quan-tri/tai-khoan']);
+  }
+
 }

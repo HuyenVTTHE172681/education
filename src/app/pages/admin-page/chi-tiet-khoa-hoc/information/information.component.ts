@@ -185,14 +185,4 @@ export class InformationComponent implements OnInit {
     }
   }
 
-  // onTeacherChange(event: any): void {
-  //   console.log('Selected Teachers:', event.value);
-  // }
-  convertToBoolean(value: number): boolean {
-    return value === 1;
-  }
-
-  convertToNumber(value: boolean): number {
-    return value ? 1 : 0;
-  }
 }
