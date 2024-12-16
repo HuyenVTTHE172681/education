@@ -72,6 +72,23 @@ export class TeacherService {
       .pipe(catchError(this.handleError));
   }
 
+  deleteTeacher(id: string) {
+    // https://hhq.runasp.net/api/Teacher/16BA72F7-2737-48C5-872D-CCAE38E084B1
+    const apiUrl = `${this.apiBaseUrl}/Teacher/${id}`;
+
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+
+    return this.http.delete<any>(apiUrl, { headers }).pipe(
+      catchError((err: HttpErrorResponse) => {
+        console.error('API EditCourse Error: ', err);
+        return throwError(() => new Error(err.message || 'API call failed'));
+      })
+    );
+  }
+
   // Hàm xử lý lỗi
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

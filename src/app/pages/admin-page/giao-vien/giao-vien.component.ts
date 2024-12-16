@@ -145,11 +145,20 @@ export class GiaoVienComponent implements OnInit {
     return status === 1 ? 'Hiển thị' : 'Ẩn';
   }
 
-  handleDeleteAccount() {
+  handleDeleteTeacher() {
     if (this.selectedTeacher) {
       const accID = this.selectedTeacher?.id;
-      alert("Delete account but i don't have API delete" + accID);
-      this.dialogDelete = false;
+      console.log("Teacher id: ", accID)
+      this.teacherSrv.deleteTeacher(accID).subscribe({
+        next: () => {
+          this.dialogDelete = false;
+          alert("Xóa giáo viên thành công");
+          this.getTeacher();
+        },
+        error: (err) => {
+          alert("Lỗi xảy ra khi xóa. Vui lòng thử lại!")
+        }
+      })
     }
   }
 
