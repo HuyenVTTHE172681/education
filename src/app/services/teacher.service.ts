@@ -23,11 +23,9 @@ export class TeacherService {
     size: number,
     filter: string = ''
   ): Observable<IResponeList<Teacher>> {
-    const searchValue = filter ? `&filter=${filter}` : '';
 
-    const query = `/Teacher?filter=${searchValue}&offSet=${
-      (page - 1) * size
-    }&pageSize=${size}`;
+    // https://hhq.runasp.net/api/Teacher?filter=&offSet=0&pageSize=10
+    const query = `/Teacher?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
 
     const apiURL = `${this.apiBaseUrl}${query}`;
     console.log('Generated API URL:', apiURL);
@@ -44,7 +42,7 @@ export class TeacherService {
     } else {
       console.error(
         `Backend returned code ${error.status}, ` +
-          `body was: ${JSON.stringify(error.error)}`
+        `body was: ${JSON.stringify(error.error)}`
       );
     }
     return throwError(

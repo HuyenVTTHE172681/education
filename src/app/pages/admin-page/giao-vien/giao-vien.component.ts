@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../../models/user.model';
 import { debounceTime, Subject } from 'rxjs';
 import { DashboardService } from '../../../services/dashboard.service';
 import { Router } from '@angular/router';
+import { TeacherService } from '../../../services/teacher.service';
+import { Teacher } from '../../../models/teacher.model';
 
 @Component({
   selector: 'app-giao-vien',
@@ -19,7 +20,7 @@ export class GiaoVienComponent implements OnInit {
   totalItems: number = 0;
   roleId: string = '';
   roleTypeDataId: string = '';
-  account: User[] = [];
+  teacher: Teacher[] = [];
   selectedAccount: any;
   roleList = [
     { name: 'Tất cả', value: '' },
@@ -31,10 +32,10 @@ export class GiaoVienComponent implements OnInit {
   dialogDelete: boolean = false;
 
   private searchSubject: Subject<string> = new Subject();
-  constructor(private dashboardSrv: DashboardService, private router: Router) { }
+  constructor(private teacherSrv: TeacherService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getDashboardAccount();
+    this.getTeacher();
 
     this.breadcrum = [
       { label: 'Quản trị' },
@@ -48,12 +49,12 @@ export class GiaoVienComponent implements OnInit {
         label: 'Options',
         items: [
           {
-            label: 'Edit',
+            label: 'Sửa',
             icon: 'pi pi-check',
             command: () => this.editAccount(), // Open sidebar on click
           },
           {
-            label: 'Xóa tài khoản',
+            label: 'Xóa',
             icon: 'pi pi-trash',
             command: () => this.deletedAccount(), // Delete functionality (if needed)
           },
@@ -64,7 +65,7 @@ export class GiaoVienComponent implements OnInit {
     this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
       this.filter = searchValue;
       this.page = 1; // Reset to the first page for new search
-      this.getDashboardAccount();
+      this.getTeacher();
     });
   }
 
@@ -77,18 +78,18 @@ export class GiaoVienComponent implements OnInit {
       console.log("Delete payement: ", this.selectedAccount?.id);
     }
   }
-  getDashboardAccount() {
-    this.dashboardSrv.getDashboardAccount(this.filter, this.page, this.size, this.selectedRole.value || '', this.selectedRole.value || '').subscribe((data) => {
-      this.account = data.data.data;
+  getTeacher() {
+    this.teacherSrv.getTeachers(this.page, this.size, this.filter).subscribe((data) => {
+      this.teacher = data.data.data;
       this.totalItems = data.data.recordsTotal;
-      console.log("Payment: ", this.account);
+      console.log("Teacher: ", this.teacher);
     })
   }
 
   onPageChange(event: any): void {
     this.page = event.page + 1;
     this.size = event.rows;
-    this.getDashboardAccount();
+    this.getTeacher();
     console.log("Page: ", this.page);
   }
 
@@ -97,14 +98,14 @@ export class GiaoVienComponent implements OnInit {
   }
   searchPayment() {
     this.page = 1;
-    this.getDashboardAccount();
+    this.getTeacher();
   }
 
   resetFilters(): void {
     this.selectedRole = '';
     this.filter = '';
     this.page = 1;
-    this.getDashboardAccount();
+    this.getTeacher();
   }
 
   setSelectedAccount(account: any) {
@@ -121,7 +122,7 @@ export class GiaoVienComponent implements OnInit {
   onStatusChange(event: any) {
     this.page = 1;
     console.log('Trạng thái đã được chọn: ', this.selectedRole);
-    this.getDashboardAccount();
+    this.getTeacher();
   }
 
   getStatus(status: number) {
@@ -138,7 +139,7 @@ export class GiaoVienComponent implements OnInit {
   }
 
   getStatusLabel(status: number) {
-    return status === 1 ? 'Đang hoạt động' : 'Dừng hoạt động';
+    return status === 1 ? 'Hiển thị' : 'Ẩn';
   }
 
   handleDeleteAccount() {
