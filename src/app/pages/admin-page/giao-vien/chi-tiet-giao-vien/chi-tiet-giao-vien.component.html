@@ -2,7 +2,7 @@
     <div class="detail-breadcumb">
         <div class="col-12 md:col-4">
             <p-breadcrumb class="max-w-full" [model]="breadcrum" [home]="home" />
-            <div class="header-title hidden-mobile">Tài khoản</div>
+            <div class="header-title hidden-mobile">Chi tiết giáo viên</div>
         </div>
     </div>
 
@@ -12,21 +12,21 @@
                 <div class="col-12 md:col-2">
                     <div class="grid mt-3">
                         <div class="col-12 avatar">
-                            <img *ngIf="accountForm.get('avatar')?.value, else elseBlock" [src]="
-                    accountForm.get('avatar')?.value || 'default-avatar.jpg'
+                            <img *ngIf="teacherForm.get('avatar')?.value, else elseBlock" [src]="
+                    teacherForm.get('avatar')?.value || 'default-avatar.jpg'
                   " alt="" />
                             <ng-template #elseBlock>
                                 <img src="https://hochieuqua7.web.app/images/admin/setting/slide/empty-image.png"
                                     alt="" />
                             </ng-template>
                             <label for="upload-image">
-                                <i class="pi pi-upload"></i> Avatar
+                                <i class="pi pi-upload"></i> Ảnh đại diện
                             </label>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 md:col-10">
-                    <form class="p-fluid mt-3" [formGroup]="accountForm">
+                    <form class="p-fluid mt-3" [formGroup]="teacherForm">
                         <div class="grid">
                             <div class="col-12 md:col-6">
                                 <div class="field">
@@ -35,11 +35,10 @@
                                             <p-inputIcon styleClass="pi pi-user" />
                                             <input pInputText class="input-field" formControlName="userName" />
                                         </p-iconField>
-                                        <label for="name">Tài khoản đăng nhập <span
-                                                class="text-red-500">*</span></label>
+                                        <label for="name">Tài khoản <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
                                     <small class="text-red-500"
-                                        *ngIf="accountForm.get('userName')?.hasError('required')">Tên tài khoản là bắt
+                                        *ngIf="teacherForm.get('userName')?.hasError('required')">Tên tài khoản là bắt
                                         buộc.</small>
                                 </div>
                             </div>
@@ -48,14 +47,12 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-ellipsis-h" />
-                                            <input pInputText class="input-field" formControlName="password" />
+                                            <input pInputText class="input-field" formControlName="name" />
                                         </p-iconField>
-                                        <label for="name">Mật khẩu <span class="text-red-500">*</span></label>
+                                        <label for="name">Họ tên <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
-                                    <small class="text-red-500"
-                                        *ngIf="accountForm.get('password')?.hasError('required')">Mật khẩu là
-                                        bắt
-                                        buộc.</small>
+                                    <small class="text-red-500" *ngIf="teacherForm.get('name')?.hasError('required')">Họ
+                                        và tên là bắt buộc</small>
                                 </div>
                             </div>
                             <div class="col-12 md:col-6">
@@ -63,9 +60,9 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-sort-alpha-down" />
-                                            <input pInputText class="input-field" formControlName="name" />
+                                            <input pInputText class="input-field" formControlName="email" />
                                         </p-iconField>
-                                        <label for="name">Tên <span class="text-red-500">*</span></label>
+                                        <label for="name">Email <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
                                 </div>
                             </div>
@@ -76,10 +73,11 @@
                                             <p-inputIcon styleClass="pi pi-at" />
                                             <input pInputText class="input-field" formControlName="email" />
                                         </p-iconField>
-                                        <label for="name">Email <span class="text-red-500">*</span></label>
+                                        <label for="phone">Điện thoại <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
-                                    <small class="text-red-500" *ngIf="accountForm.get('email')?.hasError('required')">Email là bắt
-                                        buộc.</small>
+                                    <small class="text-red-500"
+                                        *ngIf="teacherForm.get('phone')?.hasError('required')">Điện thoại là bắt
+                                        buộc</small>
                                 </div>
                             </div>
                             <div class="col-12 md:col-6">
@@ -87,11 +85,10 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-at" />
-                                            <input pInputText class="input-field" formControlName="phone" />
+                                            <input pInputText class="input-field" formControlName="address" />
                                         </p-iconField>
-                                        <label for="name">Số điện thoại<span class="text-red-500">*</span></label>
+                                        <label for="address">Địa chỉ<span class="text-red-500">*</span></label>
                                     </p-floatLabel>
-                                    <small class="text-red-500" *ngIf="accountForm.get('phone')?.hasError('required')">Phone là bắt buộc.</small>
                                 </div>
                             </div>
                             <div class="col-12 md:col-6">
@@ -101,7 +98,7 @@
                                             <p-inputIcon styleClass="pi pi-at" />
                                             <input pInputText class="input-field" formControlName="identityNo" />
                                         </p-iconField>
-                                        <label for="name">CMND/CCCD<span class="text-red-500">*</span></label>
+                                        <label for="identityNo">CMND/CCCD<span class="text-red-500">*</span></label>
                                     </p-floatLabel>
                                 </div>
                             </div>
@@ -110,42 +107,9 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-at" />
-                                            <input pInputText class="input-field" formControlName="className" />
+                                            <input pInputText class="input-field" formControlName="order" />
                                         </p-iconField>
-                                        <label for="name">Lớp <span class="text-red-500">*</span></label>
-                                    </p-floatLabel>
-                                </div>
-                            </div>
-                            <div class="col-12 md:col-6">
-                                <div class="field">
-                                    <p-floatLabel>
-                                        <p-iconField iconPosition="right">
-                                            <p-calendar placeholder="DD/MM/YYYY" appendTo="body" [monthNavigator]="true"
-                                                formControlName="birthday" [yearNavigator]="true" inputId="navigators"
-                                                [showTime]="false" dateFormat="dd/mm/yy" name="expireDate"></p-calendar>
-                                        </p-iconField>
-                                        <label for="name">Ngày sinh <span class="text-red-500">*</span></label>
-                                    </p-floatLabel>
-                                </div>
-                            </div>
-                            <div class="col-12 md:col-6">
-                                <div class="field">
-                                    <p-floatLabel>
-                                        <p-dropdown [options]="role" optionLabel="label" formControlName="roleId"
-                                            display="chip" [showClear]="true">
-                                        </p-dropdown>
-                                        <label for="roleId">Quyền menu <span class="text-red-500">*</span></label>
-                                    </p-floatLabel>
-                                </div>
-                            </div>
-                            <div class="col-12 md:col-6">
-                                <div class="field">
-                                    <p-floatLabel>
-                                        <p-dropdown [options]="roleData" optionLabel="label"
-                                            formControlName="roleTypeDataName" display="chip" [showClear]="true">
-                                        </p-dropdown>
-                                        <label for="roleTypeDataName">Quyền data <span
-                                                class="text-red-500">*</span></label>
+                                        <label for="order">Sắp xếp <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
                                 </div>
                             </div>
@@ -153,9 +117,21 @@
                                 <div class="field">
                                     <p-floatLabel>
                                         <p-inputSwitch formControlName="status"></p-inputSwitch>
-                                        <label for="content" class="manual-active">Hiển thị <span
+                                        <label for="status" class="manual-active">Hiển thị <span
                                                 class="text-red-500">*</span></label>
                                     </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 pt-0">
+                                <div class="field">
+                                    <label for="" class="font-size-14">Mô tả ngắn</label>
+                                    <p-editor [style]="{ height: '320px' }" formControlName="descriptionShort" />
+                                </div>
+                            </div>
+                            <div class="col-12 pt-0">
+                                <div class="field">
+                                    <label for="" class="font-size-14">Mô tả chi tiết</label>
+                                    <p-editor [style]="{ height: '320px' }" formControlName="description" />
                                 </div>
                             </div>
                             <div class="col-12 fixed-action">

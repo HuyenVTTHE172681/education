@@ -52,6 +52,7 @@ import { TaiKhoanComponent } from './tai-khoan/tai-khoan.component';
 import { ChiTietTaiKhoanComponent } from './tai-khoan/chi-tiet-tai-khoan/chi-tiet-tai-khoan.component';
 import { CalendarModule } from 'primeng/calendar';
 import { GiaoVienComponent } from './giao-vien/giao-vien.component';
+import { ChiTietGiaoVienComponent } from './giao-vien/chi-tiet-giao-vien/chi-tiet-giao-vien.component';
 
 register(); // Register Swiper
 @NgModule({
@@ -75,6 +76,7 @@ register(); // Register Swiper
     TaiKhoanComponent,
     ChiTietTaiKhoanComponent,
     GiaoVienComponent,
+    ChiTietGiaoVienComponent,
   ],
   imports: [
     CommonModule,
