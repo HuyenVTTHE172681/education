@@ -4,7 +4,7 @@ import { Observable, filter, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { MenuItem } from 'primeng/api';
 import { API_URL } from '../environments/constants';
-import { IResponeList } from '../models/common.model';
+import { IResponeList, IResponeListData } from '../models/common.model';
 import { ClassRoom } from '../models/classRoom.model';
 
 @Injectable({
@@ -22,17 +22,35 @@ export class ClassRoomService {
     size: number,
     filter: string = ''
   ): Observable<IResponeList<ClassRoom>> {
-    const searchValue = filter ? `&filter=${filter}` : '';
 
-    const query = `/ClassRoom?filter=${searchValue}&offSet=${
-      (page - 1) * size
-    }&pageSize=${size}`;
+    const query = `/ClassRoom?filter=${filter}&offSet=${(page - 1) * size
+      }&pageSize=${size}`;
 
     const apiURL = `${this.apiBaseUrl}${query}`;
     console.log('Generated API URL:', apiURL);
 
     return this.http
       .get<IResponeList<ClassRoom>>(apiURL)
+      .pipe(catchError(this.handleError));
+  }
+
+  getClassRoomWithId(
+    id: string
+  ): Observable<IResponeListData<ClassRoom>> {
+
+    // https://hhq.runasp.net/api/ClassRoom/09EC54D6-A668-4D86-BF42-C2AAD3C00343
+    const query = `/ClassRoom/${id}`;
+
+    const apiURL = `${this.apiBaseUrl}${query}`;
+    console.log('Generated dashboard API URL:', apiURL);
+
+    // const token = localStorage.getItem('token');
+    // const headers = token
+    //   ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+    //   : new HttpHeaders();
+
+    return this.http
+      .get<IResponeListData<ClassRoom>>(apiURL)
       .pipe(catchError(this.handleError));
   }
 
@@ -43,7 +61,7 @@ export class ClassRoomService {
     } else {
       console.error(
         `Backend returned code ${error.status}, ` +
-          `body was: ${JSON.stringify(error.error)}`
+        `body was: ${JSON.stringify(error.error)}`
       );
     }
     return throwError(

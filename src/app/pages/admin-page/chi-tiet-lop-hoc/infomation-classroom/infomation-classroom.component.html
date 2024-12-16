@@ -1,0 +1,71 @@
+<div class="mon-hoc-chi-tiet common-content">
+    <div>
+        <div class="quan-tri-chi-tiet-mon-hoc common-content">
+            <div class="grid mt-3">
+                <div class="col-12 md:col-2">
+                    <div class="grid mt-3">
+                        <div class="col-12 avatar">
+                            <img *ngIf="classRoomForm.get('avatar')?.value, else elseBlock" [src]="
+                    classRoomForm.get('avatar')?.value || 'default-avatar.jpg'
+                  " alt="" />
+                            <ng-template #elseBlock>
+                                <img src="https://hochieuqua7.web.app/images/admin/setting/slide/empty-image.png"
+                                    alt="" />
+                            </ng-template>
+                            <label for="upload-image">
+                                <i class="pi pi-upload"></i> Ảnh đại diện
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 md:col-10">
+                    <form class="p-fluid mt-3" [formGroup]="classRoomForm">
+                        <div class="grid">
+                            <div class="col-12">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-user" />
+                                            <input pInputText class="input-field" formControlName="name" />
+                                        </p-iconField>
+                                        <label for="name">Tài lớp học <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                    <small class="text-red-500"
+                                        *ngIf="classRoomForm.get('name')?.hasError('required')">Tên là bắt
+                                        buộc.</small>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-ellipsis-h" />
+                                            <input pInputText class="input-field" formControlName="order" />
+                                        </p-iconField>
+                                        <label for="name">Thứ tự <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                    <small class="text-red-500"
+                                        *ngIf="classRoomForm.get('order')?.hasError('required')">Thứ tự là bắt
+                                        buộc</small>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-inputSwitch formControlName="status"></p-inputSwitch>
+                                        <label for="status" class="manual-active">Hiển thị <span
+                                                class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 fixed-action">
+                                <p-button label="Hủy bỏ" [outlined]="true" icon="pi pi-times" (click)="goBack()" />
+                                <p-button label="Lưu lại" icon="pi pi-save" (onClick)="updateAccount()" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
