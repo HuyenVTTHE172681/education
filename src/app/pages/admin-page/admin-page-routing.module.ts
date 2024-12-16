@@ -66,7 +66,7 @@ const routes: Routes = [
       {
         path: 'giao-vien/:id',
         component: ChiTietGiaoVienComponent
-      }
+      },
     ],
   },
 ];

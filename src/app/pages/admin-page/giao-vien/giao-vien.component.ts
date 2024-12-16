@@ -21,7 +21,7 @@ export class GiaoVienComponent implements OnInit {
   roleId: string = '';
   roleTypeDataId: string = '';
   teacher: Teacher[] = [];
-  selectedAccount: any;
+  selectedTeacher: any;
   roleList = [
     { name: 'Tất cả', value: '' },
     { name: 'Người dùng', value: 'user' },
@@ -69,13 +69,16 @@ export class GiaoVienComponent implements OnInit {
     });
   }
 
+  addNewTeacher() {
+    this.router.navigate(['/']);
+  }
   editAccount() {
-    this.router.navigate(['/quan-tri/tai-khoan/', this.selectedAccount?.id]);
+    this.router.navigate(['/quan-tri/giao-vien/', this.selectedTeacher?.id]);
   }
   deletedAccount() {
-    if (this.selectedAccount) {
+    if (this.selectedTeacher) {
       this.dialogDelete = true;
-      console.log("Delete payement: ", this.selectedAccount?.id);
+      console.log("Delete payement: ", this.selectedTeacher?.id);
     }
   }
   getTeacher() {
@@ -109,13 +112,13 @@ export class GiaoVienComponent implements OnInit {
   }
 
   setSelectedAccount(account: any) {
-    this.selectedAccount = account;
-    console.log("Course: ", this.selectedAccount);
+    this.selectedTeacher = account;
+    console.log("Course: ", this.selectedTeacher);
   }
 
   onMenuShow(menu: any) {
-    if (this.selectedAccount) {
-      console.log('Selected File ID:', this.selectedAccount.id);
+    if (this.selectedTeacher) {
+      console.log('Selected File ID:', this.selectedTeacher.id);
     }
   }
 
@@ -143,8 +146,8 @@ export class GiaoVienComponent implements OnInit {
   }
 
   handleDeleteAccount() {
-    if (this.selectedAccount) {
-      const accID = this.selectedAccount?.id;
+    if (this.selectedTeacher) {
+      const accID = this.selectedTeacher?.id;
       alert("Delete account but i don't have API delete" + accID);
       this.dialogDelete = false;
     }

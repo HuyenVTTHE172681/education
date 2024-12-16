@@ -53,7 +53,6 @@ import { ChiTietTaiKhoanComponent } from './tai-khoan/chi-tiet-tai-khoan/chi-tie
 import { CalendarModule } from 'primeng/calendar';
 import { GiaoVienComponent } from './giao-vien/giao-vien.component';
 import { ChiTietGiaoVienComponent } from './giao-vien/chi-tiet-giao-vien/chi-tiet-giao-vien.component';
-
 register(); // Register Swiper
 @NgModule({
   declarations: [
@@ -112,7 +111,8 @@ register(); // Register Swiper
     TabViewModule,
     TimelineModule,
     ChartModule,
-    CalendarModule
+    CalendarModule,
+    MultiSelectModule
   ],
   providers: [ConfirmationService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

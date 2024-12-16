@@ -325,6 +325,28 @@ export class DashboardService {
             .pipe(catchError(this.handleError));
     }
 
+    getAccountsNotTeacher(
+        filter: string = '',
+        page: number,
+        size: number,
+    ): Observable<IResponeList<User>> {
+
+        // https://hhq.runasp.net/api/Account/GetAccountsNotTeacher?filter=&offSet=0&pageSize=100000
+        const query = `/GetAccountsNotTeacher?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
+
+        const apiURL = `${this.apiBaseUrl}${query}`;
+        console.log('Generated dashboard API URL:', apiURL);
+
+        const token = localStorage.getItem('token');
+        const headers = token
+            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+            : new HttpHeaders();
+
+        return this.http
+            .get<IResponeList<User>>(apiURL, { headers })
+            .pipe(catchError(this.handleError));
+    }
+
     // Hàm xử lý lỗi
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
