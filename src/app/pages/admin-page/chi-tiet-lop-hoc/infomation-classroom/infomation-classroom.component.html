@@ -60,7 +60,8 @@
                             </div>
                             <div class="col-12 fixed-action">
                                 <p-button label="Hủy bỏ" [outlined]="true" icon="pi pi-times" (click)="goBack()" />
-                                <p-button label="Lưu lại" icon="pi pi-save" (onClick)="updateAccount()" />
+                                <p-button label="{{ isEditMode ? 'Cập nhật' : 'Thêm mới' }}" icon="pi pi-save"
+                                    (onClick)="updateClassRoom()" />
                             </div>
                         </div>
                     </form>

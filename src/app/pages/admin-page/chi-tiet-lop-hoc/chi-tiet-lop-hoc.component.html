@@ -16,7 +16,7 @@
                 <app-infomation-classroom></app-infomation-classroom>
             </p-tabPanel>
 
-            <p-tabPanel>
+            <p-tabPanel *ngIf="isEditMode">
                 <ng-template pTemplate="header">
                     <div class="flex align-items-center gap-2">
                         <span>

@@ -80,6 +80,10 @@ const routes: Routes = [
         component: LopHocComponent
       },
       {
+        path: 'lop-hoc/them-moi',
+        component: ChiTietLopHocComponent
+      },
+      {
         path: 'lop-hoc/:id',
         component: ChiTietLopHocComponent
       }

@@ -13,12 +13,15 @@ export class ChiTietLopHocComponent {
   checked: boolean = false;
   activeTabIndex: number = 0;
   id: string | null = null;
+  isEditMode: boolean = false;
 
   constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
+    this.isEditMode = !!this.id;
     console.log('ID course: ', this.id);
+    
     this.menuBreachCrumbs = [
       { label: 'Quản trị', routerLink: '/quan-tri' },
       { label: 'lớp học', routerLink: '/quan-tri/lop-hoc' },
@@ -35,9 +38,12 @@ export class ChiTietLopHocComponent {
 
   onTabChange(event: any): void {
     if (this.id) {
+      this.isEditMode = true;
       this.router.navigate([
-        `quan-tri/lop-hoc/${this.id}`,
-      ]); // Điều hướng đến tab mới
+        `quan-tri/lop-hoc/${this.id}`,]);
+    } else {
+      this.isEditMode = false;
+      this.router.navigate(['quan-tri/lop-hoc/them-moi']);
     }
   }
 }

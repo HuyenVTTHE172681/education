@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, filter, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { MenuItem } from 'primeng/api';
@@ -51,6 +51,40 @@ export class ClassRoomService {
 
     return this.http
       .get<IResponeListData<ClassRoom>>(apiURL)
+      .pipe(catchError(this.handleError));
+  }
+
+  addClassRoom(classroom: any): Observable<IResponeListData<ClassRoom>> {
+    // https://hhq.runasp.net/api/ClassRoom
+    const query = `/ClassRoom`;
+
+    const apiURL = `${this.apiBaseUrl}${query}`;
+    console.log('Generated dashboard API URL:', apiURL);
+
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+
+    return this.http
+      .post<IResponeListData<ClassRoom>>(apiURL, classroom, { headers })
+      .pipe(catchError(this.handleError));
+  }
+
+  updateClassRoom(classroom: any): Observable<IResponeListData<ClassRoom>> {
+    // https://hhq.runasp.net/api/ClassRoom
+    const query = `/ClassRoom`;
+
+    const apiURL = `${this.apiBaseUrl}${query}`;
+    console.log('Generated dashboard API URL:', apiURL);
+
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+
+    return this.http
+      .post<IResponeListData<ClassRoom>>(apiURL, classroom, { headers })
       .pipe(catchError(this.handleError));
   }
 
