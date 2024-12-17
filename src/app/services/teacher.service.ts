@@ -5,7 +5,6 @@ import { catchError, map } from 'rxjs/operators';
 import { MenuItem } from 'primeng/api';
 import { API_URL } from '../environments/constants';
 import { IResponeList, IResponeListData } from '../models/common.model';
-import { ClassRoom } from '../models/classRoom.model';
 import { Teacher } from '../models/teacher.model';
 
 @Injectable({
@@ -56,6 +55,23 @@ export class TeacherService {
   }
 
   updateTeacher(teacher: any): Observable<IResponeListData<Teacher>> {
+    // https://hhq.runasp.net/api/Teacher
+    const query = `/Teacher`;
+
+    const apiURL = `${this.apiBaseUrl}${query}`;
+    console.log('Generated dashboard API URL:', apiURL);
+
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+
+    return this.http
+      .post<IResponeListData<Teacher>>(apiURL, teacher, { headers })
+      .pipe(catchError(this.handleError));
+  }
+
+  addTeacher(teacher: any): Observable<IResponeListData<Teacher>> {
     // https://hhq.runasp.net/api/Teacher
     const query = `/Teacher`;
 

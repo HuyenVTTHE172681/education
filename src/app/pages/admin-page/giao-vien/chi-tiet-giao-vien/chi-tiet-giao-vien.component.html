@@ -2,7 +2,9 @@
     <div class="detail-breadcumb">
         <div class="col-12 md:col-4">
             <p-breadcrumb class="max-w-full" [model]="breadcrum" [home]="home" />
-            <div class="header-title hidden-mobile">Chi tiết giáo viên</div>
+            <div class="header-title hidden-mobile">
+                {{ isEditMode ? 'Chi tiết Giáo viên' : 'Thêm Giáo viên' }}
+            </div>
         </div>
     </div>
 
@@ -33,12 +35,34 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-user" />
-                                            <input pInputText class="input-field" formControlName="userName" />
+                                            <!-- <p-multiSelect [options]="accountsNotTeacher" [selectionLimit]="1"
+                                                [(ngModel)]="selectedAccountsNotTeacher" optionLabel="name"
+                                                (onChange)="onAccountSelect($event)" placeholder="Select Username" /> -->
+
+                                            <p-dropdown [options]="accountsNotTeacher"
+                                                [(ngModel)]="selectedAccountsNotTeacher" optionLabel="name"
+                                                [filter]="true" filterBy="name" [showClear]="true"
+                                                placeholder="Select Username" (onChange)="onAccountSelect($event)"
+                                                [disabled]="isEditMode">
+
+                                                <ng-template pTemplate="selectedItem" let-selectedOption>
+                                                    <div class="flex align-items-center gap-2">
+                                                        <div>{{ selectedOption.name }} - {{ selectedOption.userName }}
+                                                        </div>
+                                                    </div>
+                                                </ng-template>
+                                                <ng-template let-country pTemplate="item">
+                                                    <div class="flex align-items-center gap-2">
+                                                        <div>{{ country.name }} - {{ country.userName }}</div>
+                                                    </div>
+                                                </ng-template>
+                                            </p-dropdown>
                                         </p-iconField>
                                         <label for="name">Tài khoản <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
                                     <small class="text-red-500"
-                                        *ngIf="teacherForm.get('userName')?.hasError('required')">Tên tài khoản là bắt
+                                        *ngIf="teacherForm.get('selectedAccountsNotTeacher')?.hasError('required')">Tên
+                                        tài khoản là bắt
                                         buộc.</small>
                                 </div>
                             </div>
@@ -125,7 +149,7 @@
                             <div class="col-12 pt-0">
                                 <div class="field">
                                     <label for="" class="font-size-14">Mô tả ngắn</label>
-                                    <p-editor [style]="{ height: '320px' }" formControlName="shortSummary" />
+                                    <p-editor [style]="{ height: '320px' }" formControlName="descriptionShort" />
                                 </div>
                             </div>
                             <div class="col-12 pt-0">
@@ -136,7 +160,8 @@
                             </div>
                             <div class="col-12 fixed-action">
                                 <p-button label="Hủy bỏ" [outlined]="true" icon="pi pi-times" (click)="goBack()" />
-                                <p-button label="Lưu lại" icon="pi pi-save" (onClick)="updateAccount()" />
+                                <p-button label="{{ isEditMode ? 'Cập nhật' : 'Thêm mới' }}" icon="pi pi-save"
+                                    (onClick)="updateAccount()" />
                             </div>
                         </div>
                     </form>
@@ -144,4 +169,3 @@
             </div>
         </div>
     </div>
-</div>

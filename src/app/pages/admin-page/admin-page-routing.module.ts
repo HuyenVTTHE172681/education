@@ -68,6 +68,10 @@ const routes: Routes = [
         component: GiaoVienComponent
       },
       {
+        path: 'giao-vien/them-moi',
+        component: ChiTietGiaoVienComponent
+      },
+      {
         path: 'giao-vien/:id',
         component: ChiTietGiaoVienComponent
       },

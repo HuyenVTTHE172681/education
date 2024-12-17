@@ -332,7 +332,7 @@ export class DashboardService {
     ): Observable<IResponeList<User>> {
 
         // https://hhq.runasp.net/api/Account/GetAccountsNotTeacher?filter=&offSet=0&pageSize=100000
-        const query = `/GetAccountsNotTeacher?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
+        const query = `/Account/GetAccountsNotTeacher?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
 
         const apiURL = `${this.apiBaseUrl}${query}`;
         console.log('Generated dashboard API URL:', apiURL);

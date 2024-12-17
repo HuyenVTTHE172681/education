@@ -70,8 +70,9 @@ export class GiaoVienComponent implements OnInit {
   }
 
   addNewTeacher() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/quan-tri/giao-vien/them-moi']);
   }
+
   editAccount() {
     this.router.navigate(['/quan-tri/giao-vien/', this.selectedTeacher?.id]);
   }
