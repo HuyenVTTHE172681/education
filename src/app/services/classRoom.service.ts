@@ -88,6 +88,23 @@ export class ClassRoomService {
       .pipe(catchError(this.handleError));
   }
 
+  deleteClassRoom(id: string) {
+    // https://hhq.runasp.net/api/ClassRoom/1436D85E-5D79-4356-A50F-D922401DFB31
+    const apiUrl = `${this.apiBaseUrl}/ClassRoom/${id}`;
+
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+
+    return this.http.delete<any>(apiUrl, { headers }).pipe(
+      catchError((err: HttpErrorResponse) => {
+        console.error('API EditCourse Error: ', err);
+        return throwError(() => new Error(err.message || 'API call failed'));
+      })
+    );
+  }
+
   // Hàm xử lý lỗi
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

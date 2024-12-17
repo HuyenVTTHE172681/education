@@ -21,6 +21,7 @@ export class LopHocComponent implements OnInit {
   roleTypeDataId: string = '';
   classRoom: ClassRoom[] = [];
   selectedTeacher: any;
+
   roleList = [
     { name: 'Tất cả', value: '' },
     { name: 'Người dùng', value: 'user' },
@@ -144,20 +145,20 @@ export class LopHocComponent implements OnInit {
     return status === 1 ? 'Hiển thị' : 'Ẩn';
   }
 
-  handleDeleteTeacher() {
-    // if (this.selectedTeacher) {
-    //   const accID = this.selectedTeacher?.id;
-    //   console.log("Teacher id: ", accID)
-    //   this.teacherSrv.deleteTeacher(accID).subscribe({
-    //     next: () => {
-    //       this.dialogDelete = false;
-    //       alert("Xóa giáo viên thành công");
-    //       this.getTeacher();
-    //     },
-    //     error: (err) => {
-    //       alert("Lỗi xảy ra khi xóa. Vui lòng thử lại!")
-    //     }
-    //   })
-    // }
+  handleDeleteClassroom() {
+    if (this.selectedTeacher) {
+      const accID = this.selectedTeacher?.id;
+      console.log("Teacher id: ", accID)
+      this.classRoomSrv.deleteClassRoom(accID).subscribe({
+        next: () => {
+          this.dialogDelete = false;
+          alert("Xóa lớpb" + this.selectedTeacher?.name + " thanh cong");
+          this.getClassRoom();
+        },
+        error: (err) => {
+          alert("Lỗi xảy ra khi xóa. Vui lòng thử lại!")
+        }
+      })
+    }
   }
 }
