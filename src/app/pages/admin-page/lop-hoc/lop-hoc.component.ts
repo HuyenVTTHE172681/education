@@ -51,12 +51,12 @@ export class LopHocComponent implements OnInit {
           {
             label: 'Sửa',
             icon: 'pi pi-check',
-            command: () => this.editAccount(), // Open sidebar on click
+            command: () => this.editClassRoom(), // Open sidebar on click
           },
           {
             label: 'Xóa',
             icon: 'pi pi-trash',
-            command: () => this.deletedAccount(), // Delete functionality (if needed)
+            command: () => this.deletedClassRoom(), // Delete functionality (if needed)
           },
         ],
       },
@@ -69,13 +69,13 @@ export class LopHocComponent implements OnInit {
     });
   }
 
-  addNewTeacher() {
+  addNewClassRoom() {
     this.router.navigate(['/quan-tri/lop-hoc/them-moi']);
   }
-  editAccount() {
-    this.router.navigate(['/quan-tri/giao-vien/', this.selectedTeacher?.id]);
+  editClassRoom() {
+    this.router.navigate(['/quan-tri/lop-hoc/', this.selectedTeacher?.id]);
   }
-  deletedAccount() {
+  deletedClassRoom() {
     if (this.selectedTeacher) {
       this.dialogDelete = true;
       console.log("Delete payement: ", this.selectedTeacher?.id);
@@ -111,8 +111,8 @@ export class LopHocComponent implements OnInit {
     this.getClassRoom();
   }
 
-  setSelectedAccount(account: any) {
-    this.selectedTeacher = account;
+  setSelectedClassRoom(classRoom: any) {
+    this.selectedTeacher = classRoom;
     console.log("Course: ", this.selectedTeacher);
   }
 

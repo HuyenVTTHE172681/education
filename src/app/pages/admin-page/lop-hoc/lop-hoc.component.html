@@ -19,7 +19,7 @@
                                 (click)="searchPayment()"></button>
                         </p-inputGroup>
                     </div>
-                    <p-button label="Thêm mới" icon="pi pi-plus" class="mr-2" (click)="addNewTeacher()" />
+                    <p-button label="Thêm mới" icon="pi pi-plus" class="mr-2" (click)="addNewClassRoom()" />
                     <p-button icon="pi pi-file-excel" severity="success"></p-button>
                 </div>
             </div>
@@ -49,7 +49,7 @@
             <tr style="font-size: 14px;">
                 <td><p-checkbox [binary]="true" inputId="binary" /></td>
                 <td><p-button icon="pi pi-ellipsis-v" [text]="true" severity="secondary"
-                        (onClick)="setSelectedAccount(classRoom); menu.toggle($event)" /></td>
+                        (onClick)="setSelectedClassRoom(classRoom); menu.toggle($event)" /></td>
                 <td>
                     <img [src]="classRoom?.avatar" width="50" height="50" class="shadow-4" style="border-radius: 6px" />
                 </td>
