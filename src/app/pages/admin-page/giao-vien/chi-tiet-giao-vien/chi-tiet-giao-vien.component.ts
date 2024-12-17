@@ -137,7 +137,7 @@ export class ChiTietGiaoVienComponent implements OnInit {
       formValue.averageRate = formValue.averageRate ?? 0;
       formValue.totalStudent = formValue.totalStudent ?? 0;
 
-      if (this.isEditMode === true) {
+      if (this.isEditMode) {
         this.teacherSrv.updateTeacher(formValue).subscribe({
           next: (data) => {
             if (data.statusCode === 200) {

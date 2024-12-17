@@ -37,7 +37,7 @@ export class InfomationClassroomComponent implements OnInit {
       modifiedDate: [''],
       name: ['', [Validators.required]],
       order: ['', [Validators.required]],
-      status: [0, [Validators.required]],
+      status: [0],
       subjectId: [''],
       totalFiltered: ['']
     });
@@ -47,7 +47,7 @@ export class InfomationClassroomComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     console.log('ID course: ', this.id);
 
-    if (this.id) {
+    if (this.id && this.id !== 'null' && this.id !== 'undefined') {
       this.isEditMode = true;
       this.getClassRoomDetail(this.id);
     } else {
@@ -55,16 +55,6 @@ export class InfomationClassroomComponent implements OnInit {
       this.classRoomForm.reset();
     }
   }
-
-
-  //   if(this.isEditMode) {
-  //     // Sửa lớp học, điều hướng với `id`
-  //     this.router.navigate([`/lop-hoc/${this.id}`]);
-  //   } else {
-  //   // Thêm mới lớp học
-  //   this.router.navigate(['/lop-hoc/them-moi']);
-  // }
-
 
   // Lấy chi tiết tài khoản
   getClassRoomDetail(id: string) {
@@ -102,6 +92,8 @@ export class InfomationClassroomComponent implements OnInit {
     if (this.classRoomForm.valid) {
       const formValue = { ...this.classRoomForm.value };
       formValue.status = formValue.status ? 1 : 0;
+
+      console.log("Is Edit mode: ", this.isEditMode)
 
       if (this.isEditMode) {
         this.classRoomSrv.updateClassRoom(formValue).subscribe({
