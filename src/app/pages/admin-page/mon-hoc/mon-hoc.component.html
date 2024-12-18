@@ -13,8 +13,8 @@
                     <div class="mr-2 text-left search">
                         <label for="search">Tìm kiếm: </label>
                         <p-inputGroup [style.height.px]="32">
-                            <input type="text" pInputText placeholder="Nhập nội dung tìm kiếm" severity="secondary" [(ngModel)]="filter"
-                                (ngModelChange)="onSearchChange($event)" />
+                            <input type="text" pInputText placeholder="Nhập nội dung tìm kiếm" severity="secondary"
+                                [(ngModel)]="filter" (ngModelChange)="onSearchChange($event)" />
                             <button type="button" pButton icon="pi pi-search" [outlined]="true" severity="secondary"
                                 (click)="searchCourse()"></button>
                         </p-inputGroup>
@@ -63,7 +63,7 @@
                 <td>{{ subject?.order }}</td>
                 <td><p-button [label]="getStatusLabel(subject?.status)" [raised]="true"
                         [severity]="getStatus(subject?.status)" /></td>
-                <td>{{ subject?.classRooms }}</td>
+                <td> {{ getClassRoomNames(subject) }}</td>
             </tr>
         </ng-template>
     </p-table>

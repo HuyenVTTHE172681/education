@@ -65,7 +65,7 @@ export class MonHocComponent implements OnInit {
     // Subscribe to the search subject with debounce
     this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
       this.filter = searchValue;
-      this.page = 1; 
+      this.page = 1;
       this.getSubject();
     });
 
@@ -97,10 +97,25 @@ export class MonHocComponent implements OnInit {
     this.subjectSrv.getSubjectByCourse(this.selectedClassroom || '', this.filter, this.page, this.size).subscribe((data) => {
       this.subject = data.data.data;
       this.totalItems = data.data.recordsTotal;
+
+      // this.classRoomName = this.subject
+      //   .flatMap((subject: any) => subject.classRooms || []) // Lấy tất cả classRooms từ các subject
+      //   .map((classRoom: any) => classRoom.name); // Trích xuất name
+
+      // console.log("ClassRoom Name: ", this.classRoomName)
+
       console.log("Subject: ", this.subject);
       console.log("Filter: ", this.filter)
     })
   }
+
+  getClassRoomNames(subject: any): string {
+    if (subject?.classRooms && subject.classRooms.length > 0) {
+      return subject.classRooms.map((classRoom: any) => classRoom.name).join(', ');
+    }
+    return '---';
+  }
+
 
   // Pagination
   onPageChange(event: any): void {
