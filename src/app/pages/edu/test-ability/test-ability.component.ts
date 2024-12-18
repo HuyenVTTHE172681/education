@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TestAbilityService } from '../../../services/test-ability.service';
 import { Test } from '../../../models/test.model';
 import { IResponeList } from '../../../models/common.model';
+import { ClassRoom } from '../../../models/classRoom.model';
 
 @Component({
   selector: 'app-test-ability',

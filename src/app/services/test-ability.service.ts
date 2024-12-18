@@ -7,7 +7,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { API_URL } from '../environments/constants';
-import { Test } from '../models/test.model';
+import { Test, TestCategory } from '../models/test.model';
 import { IResponeList } from '../models/common.model';
 
 @Injectable({
@@ -28,7 +28,7 @@ export class TestAbilityService {
     courseId: string = '',
     isFromCMS: number = 0,
     subjectId: string = '',
-    testCategoryId: string = 'kiem-tra'
+    testCategoryId: string = ''
   ): Observable<IResponeList<Test>> {
     console.log('Page:', page);
     console.log('Size:', size);
@@ -38,6 +38,7 @@ export class TestAbilityService {
     console.log('subjectId:', subjectId);
     console.log('testCategoryId:', testCategoryId);
 
+    // https://hhq.runasp.net/api/test?IsShowInAbilityTest=-1&classId=&courseId&filter=&isFromCMS=1&offSet=0&pageSize=10&subjectId=&testCategoryId=
     let query = `?IsShowInAbilityTest=${isShowInAbilityTest}&classId=${classId}&courseId=${courseId}&filter=&isFromCMS=${isFromCMS}&offSet=${
       (page - 1) * size
     }&pageSize=${size}&subjectId=${subjectId}&testCategoryId=${testCategoryId}`;
@@ -173,22 +174,21 @@ export class TestAbilityService {
 
   getTestType(
     filter: string,
-    offSet: number,
-    pageSize: number
-  ): Observable<any[]> {
-    const apiUrl = `${this.apiBaseUrl}/TestCategory?filter=${filter}&offSet=${offSet}&pageSize=${pageSize}&status=1`;
-
-    console.log('Course Year API URL:', apiUrl);
-
-    // const token = localStorage.getItem('token');
-    // const headers = token
-    //   ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-    //   : new HttpHeaders();
-
-    return this.http.get<any>(apiUrl).pipe(
-      map((response) => response?.data?.data || []) // Trích xuất mảng `data.data` từ phản hồi
-    );
-  }
+    page: number,
+    size: number,
+    status: number = 1
+  ): Observable<IResponeList<TestCategory>> {
+  
+    // https://hhq.runasp.net/api/TestCategory?filter=&offSet=0&pageSize=1000&status=1
+    const query = `/TestCategory?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}&status=${status}`;
+  
+      const apiURL = `${this.apiBaseUrl}${query}`;
+      console.log('Generated API URL:', apiURL);
+  
+      return this.http
+        .get<IResponeList<TestCategory>>(apiURL)
+        .pipe(catchError(this.handleError));
+    }
 
 
   addUser(test: Test): Observable<Test> {

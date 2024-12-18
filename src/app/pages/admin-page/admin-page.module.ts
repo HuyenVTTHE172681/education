@@ -59,6 +59,7 @@ import { InfomationClassroomComponent } from './chi-tiet-lop-hoc/infomation-clas
 import { InformationSubjectComponent } from './chi-tiet-lop-hoc/information-subject/information-subject.component';
 import { MonHocComponent } from './mon-hoc/mon-hoc.component';
 import { ChiTietMonHocComponent } from './mon-hoc/chi-tiet-mon-hoc/chi-tiet-mon-hoc.component';
+import { BaiHocComponent } from './bai-hoc/bai-hoc.component';
 register(); // Register Swiper
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ register(); // Register Swiper
     InformationSubjectComponent,
     MonHocComponent,
     ChiTietMonHocComponent,
+    BaiHocComponent,
   ],
   imports: [
     CommonModule,

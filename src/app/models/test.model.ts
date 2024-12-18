@@ -48,3 +48,17 @@ export class Test {
   videoUrl: string | null = null;
   courseScheduleId: string = '';
 }
+
+export class TestCategory {
+  code: string  = '';
+  createdBy: string = '';
+  createdDate: string = '';
+  description: string = '';
+  id: string = '';
+  modifiedBy: string = '';
+  modifiedDate: string = '';
+  name: string = '';
+  order: number = 1;
+  status: number = 0;
+  totalFiltered: number = 0;
+}
