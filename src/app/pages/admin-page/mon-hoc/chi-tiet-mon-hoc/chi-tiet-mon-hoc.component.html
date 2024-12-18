@@ -1,0 +1,91 @@
+<div class="mon-hoc-chi-tiet common-content">
+    <div class="detail-breadcumb">
+        <div class="col-12 md:col-4">
+            <p-breadcrumb class="max-w-full" [model]="breadcrum" [home]="home" />
+            <div class="header-title hidden-mobile">
+                {{ isEditMode ? 'Chi tiết Môn học' : 'Thêm Môn học' }}
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="quan-tri-chi-tiet-mon-hoc common-content">
+            <div class="grid mt-3">
+                <div class="col-12 md:col-2">
+                    <div class="grid mt-3">
+                        <div class="col-12 avatar">
+                            <img *ngIf="subjectForm.get('avatar')?.value, else elseBlock" [src]="
+                    subjectForm.get('avatar')?.value || 'default-avatar.jpg'
+                  " alt="" />
+                            <ng-template #elseBlock>
+                                <img src="https://hochieuqua7.web.app/images/admin/setting/slide/empty-image.png"
+                                    alt="" />
+                            </ng-template>
+                            <label for="upload-image">
+                                <i class="pi pi-upload"></i> Ảnh đại diện
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 md:col-10">
+                    <form class="p-fluid mt-3" [formGroup]="subjectForm">
+                        <div class="grid">
+                            <div class="col-12">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-ellipsis-h" />
+                                            <input pInputText class="input-field" formControlName="name" />
+                                        </p-iconField>
+                                        <label for="name">Tên môn học <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                    <!-- <small class="text-red-500" *ngIf="teacherForm.get('name')?.hasError('required')">Họ
+                                        và tên là bắt buộc</small> -->
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-sort-alpha-down" />
+                                            <p-multiSelect [options]="classRoom"
+                                                [formControl]="subjectForm.get('classRooms')"
+                                                [(ngModel)]="selectedClassRoom"
+                                                (ngModelChange)="onClassRoomChange($event)" optionLabel="name"
+                                                placeholder="Chọn lớp học"></p-multiSelect>
+                                        </p-iconField>
+                                        <label for="classRooms">Lớp học <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-at" />
+                                            <input pInputText class="input-field" formControlName="order" />
+                                        </p-iconField>
+                                        <label for="order">Thứ tự <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-inputSwitch formControlName="status"></p-inputSwitch>
+                                        <label for="status" class="manual-active">Hiển thị <span
+                                                class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 fixed-action">
+                                <p-button label="Hủy bỏ" [outlined]="true" icon="pi pi-times" (click)="goBack()" />
+                                <p-button label="{{ isEditMode ? 'Cập nhật' : 'Thêm mới' }}" icon="pi pi-save"
+                                    (onClick)="updateSubject()" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

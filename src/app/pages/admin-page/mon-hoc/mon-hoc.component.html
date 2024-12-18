@@ -20,7 +20,7 @@
                         </p-inputGroup>
                     </div>
                     <p-button class="mr-2" label="Bộ lọc" (onClick)="op.toggle($event)" icon="pi pi-sliders-h" />
-                    <p-button label="Thêm mới" icon="pi pi-plus" />
+                    <p-button label="Thêm mới" icon="pi pi-plus" (click)="addSubject()" />
                 </div>
             </div>
         </ng-template>
@@ -56,7 +56,7 @@
                     <img [src]="subject?.avatar" width="50" height="50" class="shadow-4" style="border-radius: 6px" />
                 </td>
                 <td class="text-blue-700 pointer">
-                    <a [routerLink]="['/quan-tri/tai-khoan', subject?.id]" style="text-decoration: none;">
+                    <a [routerLink]="['/quan-tri/mon-hoc', subject?.id]" style="text-decoration: none;">
                         {{ subject?.name }}
                     </a>
                 </td>

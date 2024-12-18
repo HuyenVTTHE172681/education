@@ -16,6 +16,7 @@ import { ChiTietGiaoVienComponent } from './giao-vien/chi-tiet-giao-vien/chi-tie
 import { LopHocComponent } from './lop-hoc/lop-hoc.component';
 import { ChiTietLopHocComponent } from './chi-tiet-lop-hoc/chi-tiet-lop-hoc.component';
 import { MonHocComponent } from './mon-hoc/mon-hoc.component';
+import { ChiTietMonHocComponent } from './mon-hoc/chi-tiet-mon-hoc/chi-tiet-mon-hoc.component';
 
 const routes: Routes = [
   {
@@ -89,7 +90,16 @@ const routes: Routes = [
       {
         path: 'mon-hoc',
         component: MonHocComponent
-      }
+      },
+      {
+        path: 'mon-hoc/them-moi',
+        component: ChiTietMonHocComponent
+      },
+      {
+        path: 'mon-hoc/:id',
+        component: ChiTietMonHocComponent
+      },
+
     ],
   },
 ];

@@ -51,12 +51,12 @@ export class MonHocComponent implements OnInit {
           {
             label: 'Sửa',
             icon: 'pi pi-pencil',
-            command: () => this.editCourse(), // Open sidebar on click
+            command: () => this.editSubject(), // Open sidebar on click
           },
           {
             label: 'Xóa',
             icon: 'pi pi-trash',
-            command: () => this.deletedCourse(), // Delete functionality (if needed)
+            command: () => this.deletedSubject(), // Delete functionality (if needed)
           },
         ],
       },
@@ -71,11 +71,11 @@ export class MonHocComponent implements OnInit {
 
   }
 
-  editCourse() {
-    this.router.navigate(['/quan-tri/chi-tiet-khoa-hoc', this.selectedSubject?.id]);
+  editSubject() {
+    this.router.navigate(['/quan-tri/mon-hoc', this.selectedSubject?.id]);
   }
 
-  deletedCourse() {
+  deletedSubject() {
     if (this.selectedSubject) {
       this.dialogDelete = true;
       console.log("Delete subject: ", this.selectedSubject?.id);
@@ -167,6 +167,10 @@ export class MonHocComponent implements OnInit {
 
   handleDeletedSubject() {
 
+  }
+
+  addSubject() {
+    this.router.navigate(['/quan-tri/mon-hoc/them-moi'])
   }
 
 
