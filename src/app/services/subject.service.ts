@@ -30,7 +30,7 @@ export class SubjectService {
         const query = `/Subject?classId=${classId}&filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
 
         const apiURL = `${this.apiBaseUrl}${query}`;
-        console.log('Generated API URL:', apiURL);
+        console.log('Generated API URL Subject:', apiURL);
 
         return this.http
             .get<IResponeList<Subject>>(apiURL)

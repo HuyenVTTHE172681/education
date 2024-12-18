@@ -15,6 +15,7 @@ import { GiaoVienComponent } from './giao-vien/giao-vien.component';
 import { ChiTietGiaoVienComponent } from './giao-vien/chi-tiet-giao-vien/chi-tiet-giao-vien.component';
 import { LopHocComponent } from './lop-hoc/lop-hoc.component';
 import { ChiTietLopHocComponent } from './chi-tiet-lop-hoc/chi-tiet-lop-hoc.component';
+import { MonHocComponent } from './mon-hoc/mon-hoc.component';
 
 const routes: Routes = [
   {
@@ -84,6 +85,10 @@ const routes: Routes = [
       {
         path: 'lop-hoc/:id',
         component: ChiTietLopHocComponent
+      },
+      {
+        path: 'mon-hoc',
+        component: MonHocComponent
       }
     ],
   },
