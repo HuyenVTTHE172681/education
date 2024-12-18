@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { ClassRoom } from '../../../../models/classRoom.model';
 import { ClassRoomService } from '../../../../services/classRoom.service';
-import { Subject } from 'rxjs';
 import { SubjectService } from '../../../../services/subject.service';
 
 @Component({
@@ -24,11 +23,12 @@ export class ChiTietMonHocComponent implements OnInit {
   page: number = 1;
   size: number = 10;
   searchText: string = '';
+  fallbackFormControl = new FormControl([]); 
 
   constructor(private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, private classRoomSrv: ClassRoomService, private subjectSrv: SubjectService) {
     this.subjectForm = this.formBuilder.group({
       avatar: [''],
-      classRoomIds: [[]],
+      classRoomIds: [],
       classRooms: [[], [Validators.required]], // mảng selected lớp học
       courseId: [''],
       courses: [''],
@@ -117,8 +117,16 @@ export class ChiTietMonHocComponent implements OnInit {
       formValue.classRoomIds = this.selectedClassRoom.map((classRoom) => classRoom.id);
 
       if (this.isEditMode) {
-        // update subject
-        alert('Cập nhật môn học thanh cong!');
+        this.subjectSrv.updateSubject(formValue).subscribe({
+          next: (data) => {
+            if (data.statusCode === 200) {
+              alert("Cập nhật thành công");
+              this.router.navigate(['/quan-tri/mon-hoc']);
+            } else if (data.statusCode === 500) {
+              alert(data.message);
+            }
+          }
+        })
       } else {
         if (this.subjectForm.invalid) {
           console.log("Form errors: ", this.subjectForm.errors);
@@ -156,7 +164,7 @@ export class ChiTietMonHocComponent implements OnInit {
   onClassRoomChange(selected: any[]) {
     this.selectedClassRoom = selected;
     this.subjectForm.patchValue({
-      classRoomIds: selected.map((item) => item.id),
+      classRoomIds: this.selectedClassRoom.map((classRoom) => classRoom.id),
     });
   }
 

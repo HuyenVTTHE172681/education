@@ -49,7 +49,7 @@
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-sort-alpha-down" />
                                             <p-multiSelect [options]="classRoom"
-                                                [formControl]="subjectForm.get('classRooms')"
+                                                formControlName="classRooms"
                                                 [(ngModel)]="selectedClassRoom"
                                                 (ngModelChange)="onClassRoomChange($event)" optionLabel="name"
                                                 placeholder="Chọn lớp học"></p-multiSelect>

@@ -166,7 +166,21 @@ export class MonHocComponent implements OnInit {
   }
 
   handleDeletedSubject() {
+    if (this.selectedSubject) {
+      const subjectID = this.selectedSubject.id;
+      console.log("Subject Selected: ", subjectID);
 
+      this.subjectSrv.deleteSubject(subjectID).subscribe({
+        next: () => {
+          this.dialogDelete = false;
+          this.getSubject();
+        },
+        error: (error) => {
+          alert("Error deleting subject");
+        }
+      })
+
+    }
   }
 
   addSubject() {
