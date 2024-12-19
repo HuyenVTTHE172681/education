@@ -61,6 +61,9 @@ import { MonHocComponent } from './mon-hoc/mon-hoc.component';
 import { ChiTietMonHocComponent } from './mon-hoc/chi-tiet-mon-hoc/chi-tiet-mon-hoc.component';
 import { BaiHocComponent } from './bai-hoc/bai-hoc.component';
 import { ChiTietBaiHocComponent } from './chi-tiet-bai-hoc/chi-tiet-bai-hoc.component';
+import { InformationTestComponent } from './chi-tiet-bai-hoc/information-test/information-test.component';
+import { InformationAccountComponent } from './chi-tiet-bai-hoc/information-account/information-account.component';
+import { InformationCommentComponent } from './chi-tiet-bai-hoc/information-comment/information-comment.component';
 register(); // Register Swiper
 @NgModule({
   declarations: [
@@ -92,6 +95,9 @@ register(); // Register Swiper
     ChiTietMonHocComponent,
     BaiHocComponent,
     ChiTietBaiHocComponent,
+    InformationTestComponent,
+    InformationAccountComponent,
+    InformationCommentComponent,
   ],
   imports: [
     CommonModule,
