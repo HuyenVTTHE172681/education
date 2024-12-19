@@ -35,7 +35,7 @@ export class ChiTietBaiHocComponent implements OnInit {
     if (this.id) {
       this.isEditMode = true;
       this.router.navigate([
-        `quan-tri/bai-kiem-tra/${this.id}`,]);
+        `quan-tri/bai-kiem-tra/${this.id}`]);
     } else {
       this.isEditMode = false;
       this.router.navigate(['quan-tri/bai-kiem-tra/them-moi']);

@@ -1,10 +1,13 @@
-<div class="mon-hoc-chi-tiet common-content">
+<div class="chuong-trinh-chi-tiet common-content">
     <div class="detail-breadcumb">
         <p-breadcrumb class="max-w-full" [model]="menuBreachCrumbs" [home]="home" />
+        <div class="header-title">
+            {{ isEditMode ? 'Chi tiết bài học' : 'Thêm bài học' }}
+        </div>
     </div>
     <div class="tab-view">
         <p-tabView (onChange)="onTabChange($event)">
-            <p-tabPanel [routerLink]="['/lop-hoc', id]">
+            <p-tabPanel [routerLink]="['/bai-kiem-tra', id]">
                 <ng-template pTemplate="header">
                     <div class="flex align-items-center gap-2">
                         <span>

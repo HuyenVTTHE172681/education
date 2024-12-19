@@ -18,7 +18,7 @@ export class ChiTietKhoaHocComponent implements OnInit {
   activeTabIndex: number = 0;
   id: string | null = null;
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');

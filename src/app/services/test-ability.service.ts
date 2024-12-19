@@ -8,7 +8,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { API_URL } from '../environments/constants';
 import { Test, TestCategory } from '../models/test.model';
-import { IResponeList } from '../models/common.model';
+import { IResponeList, IResponeListData } from '../models/common.model';
 
 @Injectable({
   providedIn: 'root',
@@ -39,9 +39,8 @@ export class TestAbilityService {
     console.log('testCategoryId:', testCategoryId);
 
     // https://hhq.runasp.net/api/test?IsShowInAbilityTest=-1&classId=&courseId&filter=&isFromCMS=1&offSet=0&pageSize=10&subjectId=&testCategoryId=
-    let query = `?IsShowInAbilityTest=${isShowInAbilityTest}&classId=${classId}&courseId=${courseId}&filter=&isFromCMS=${isFromCMS}&offSet=${
-      (page - 1) * size
-    }&pageSize=${size}&subjectId=${subjectId}&testCategoryId=${testCategoryId}`;
+    let query = `?IsShowInAbilityTest=${isShowInAbilityTest}&classId=${classId}&courseId=${courseId}&filter=&isFromCMS=${isFromCMS}&offSet=${(page - 1) * size
+      }&pageSize=${size}&subjectId=${subjectId}&testCategoryId=${testCategoryId}`;
 
     const apiUrl = `${this.apiBaseUrl}/test${query}`;
     console.log('Generated API URL:', apiUrl);
@@ -75,6 +74,20 @@ export class TestAbilityService {
       // map((response) => response.data?.data || []), // Đảm bảo trả về danh sách dữ liệu
       catchError(this.handleError)
     );
+  }
+
+  getTestNewById(id: string): Observable<IResponeListData<Test>> {
+    // https://hhq.runasp.net/api/Test/GetTestNewById?id=7869BDEE-081F-4F0A-B7EB-4029D9C1E7A2
+    const apiURL = `${this.apiBaseUrl}/Test/GetTestNewById?id=${id}`;
+
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+
+    return this.http
+      .get<IResponeListData<Test>>(apiURL, { headers })
+      .pipe(catchError(this.handleError));
   }
 
 
@@ -204,17 +217,17 @@ export class TestAbilityService {
     size: number,
     status: number = 1
   ): Observable<IResponeList<TestCategory>> {
-  
+
     // https://hhq.runasp.net/api/TestCategory?filter=&offSet=0&pageSize=1000&status=1
     const query = `/TestCategory?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}&status=${status}`;
-  
-      const apiURL = `${this.apiBaseUrl}${query}`;
-      console.log('Generated API URL:', apiURL);
-  
-      return this.http
-        .get<IResponeList<TestCategory>>(apiURL)
-        .pipe(catchError(this.handleError));
-    }
+
+    const apiURL = `${this.apiBaseUrl}${query}`;
+    console.log('Generated API URL:', apiURL);
+
+    return this.http
+      .get<IResponeList<TestCategory>>(apiURL)
+      .pipe(catchError(this.handleError));
+  }
 
 
   addUser(test: Test): Observable<Test> {
@@ -233,7 +246,7 @@ export class TestAbilityService {
     } else {
       console.error(
         `Backend returned code ${error.status}, ` +
-          `body was: ${JSON.stringify(error.error)}`
+        `body was: ${JSON.stringify(error.error)}`
       );
     }
     return throwError(

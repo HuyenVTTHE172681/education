@@ -8,7 +8,6 @@ import { TeacherService } from '../../../../services/teacher.service';
 import { CourseService } from '../../../../services/course.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Course, CourseYear } from '../../../../models/course.model';
-import { config } from 'rxjs';
 import { Subject } from '../../../../models/subject.model';
 
 @Component({

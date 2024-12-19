@@ -1,1 +1,260 @@
-<p>information-test works!</p>
+<div class="mon-hoc-chi-tiet common-content">
+    <div>
+        <div class="quan-tri-chi-tiet-mon-hoc common-content">
+            <div class="grid mt-3">
+                <div class="col-12">
+                    <form class="p-fluid mt-3" [formGroup]="testForm">
+                        <div class="grid">
+                            <div class="col-12 md:col-3">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-user" />
+                                            <p-dropdown [options]="testCategory" [(ngModel)]="selectedTestCategory"
+                                                formControlName="testCategoryCode" optionLabel="name"
+                                                placeholder="Select a City" />
+                                        </p-iconField>
+                                        <label for="">Loại bài kiểm tra <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                    <!-- <small class="text-red-500"
+                                        *ngIf="classRoomForm.get('name')?.hasError('required')">Tên là bắt
+                                        buộc.</small> -->
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-9">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-ellipsis-h" />
+                                            <input pInputText class="input-field" formControlName="name" />
+                                        </p-iconField>
+                                        <label for="name">Tiêu đề <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12" *ngIf="selectedTestCategory?.code == 'bai-giang'">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <label for="name">Nhập đường dẫn video trực tiếp <span
+                                                class="text-red-500">*</span></label>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-ellipsis-h" />
+                                            <input pInputText class="input-field" formControlName="lessonLink" />
+                                        </p-iconField>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+
+                            <div class="col-12" *ngIf="selectedTestCategory?.code == 'livestream'">
+                                <div class="col-3">
+                                    <div class="avatar">
+                                        <img src="https://hochieuqua7.web.app/images/admin/setting/slide/empty-image.png"
+                                            alt="">
+                                        <label for="upload-image">
+                                            <i class="pi -pi-upload"></i> Ảnh livestream
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-9">
+                                    <div class="grid">
+                                        <div class="col-6">
+                                            <div class="field">
+                                                <p-floatLabel>
+                                                    <p-iconField iconPosition="right">
+                                                        <p-inputIcon styleClass="pi pi-ellipsis-h" />
+                                                        <input pInputText class="input-field" formControlName="name" />
+                                                    </p-iconField>
+                                                    <label for="name">Tiêu đề <span
+                                                            class="text-red-500">*</span></label>
+                                                </p-floatLabel>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="field">
+                                                <p-floatLabel>
+                                                    <p-iconField iconPosition="right">
+                                                        <p-inputIcon styleClass="pi pi-ellipsis-h" />
+                                                        <input pInputText class="input-field" formControlName="name" />
+                                                    </p-iconField>
+                                                    <label for="name">Tiêu đề <span
+                                                            class="text-red-500">*</span></label>
+                                                </p-floatLabel>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="field">
+                                                <p-floatLabel>
+                                                    <p-iconField iconPosition="right">
+                                                        <p-inputIcon styleClass="pi pi-ellipsis-h" />
+                                                        <input pInputText class="input-field" formControlName="name" />
+                                                    </p-iconField>
+                                                    <label for="name">Tiêu đề <span
+                                                            class="text-red-500">*</span></label>
+                                                </p-floatLabel>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="field">
+                                                <p-floatLabel>
+                                                    <p-iconField iconPosition="right">
+                                                        <p-inputIcon styleClass="pi pi-ellipsis-h" />
+                                                        <input pInputText class="input-field" formControlName="name" />
+                                                    </p-iconField>
+                                                    <label for="name">Tiêu đề <span
+                                                            class="text-red-500">*</span></label>
+                                                </p-floatLabel>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="field">
+                                                <p-floatLabel>
+                                                    <p-iconField iconPosition="right">
+                                                        <p-inputIcon styleClass="pi pi-ellipsis-h" />
+                                                        <input pInputText class="input-field" formControlName="name" />
+                                                    </p-iconField>
+                                                    <label for="name">Tiêu đề <span
+                                                            class="text-red-500">*</span></label>
+                                                </p-floatLabel>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 ">
+                                <div class="field">
+                                    <label for="description" class="font-size-14">Thông tin</label>
+                                    <p-editor [style]="{ height: '320px' }" formControlName="description" />
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-3">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <input pInputText class="input-field" formControlName="order" />
+                                        <label for="order" class="manual-active">Thứ tự <span
+                                                class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-3"
+                                *ngIf="selectedTestCategory?.code === 'bai-giang' || selectedTestCategory?.code === 'kiem-tra' || selectedTestCategory?.code==='livestream' || selectedTestCategory?.code==='offline'">
+                                <div class=" field">
+                                    <p-floatLabel>
+                                        <input pInputText class="input-field" formControlName="time" />
+                                        <label for="time" class="manual-active">Thời gian (phút) <span
+                                                class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-3"
+                                *ngIf="selectedTestCategory?.code === 'kiem-tra' || selectedTestCategory?.code === 'bai-tap'">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <input pInputText class="input-field" formControlName="totalPointPass" />
+                                        <label for="totalPointPass" class="manual-active">Số điểm qua bài kiểm tra <span
+                                                class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-3"
+                                *ngIf="selectedTestCategory?.code === 'kiem-tra' || selectedTestCategory?.code === 'bai-tap'">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <input pInputText class="input-field" formControlName="numberOfTest" />
+                                        <label for="numberOfTest" class="manual-active">Số lần được kiểm tra <span
+                                                class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-3"
+                                *ngIf="selectedTestCategory?.code === 'kiem-tra' || selectedTestCategory?.code === 'bai-tap'">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <input pInputText class="input-field" formControlName="deadlineDate" />
+                                        <label for="deadlineDate" class="manual-active">Hạn nộp bài <span
+                                                class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-3"
+                                *ngIf="selectedTestCategory?.code === 'kiem-tra' || selectedTestCategory?.code === 'bai-tap'">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <input pInputText class="input-field" formControlName="lessonLink" />
+                                        <label for="lessonLink" class="manual-active">Liên kết bài học <span
+                                                class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-3" *ngIf="selectedTestCategory?.code === 'kiem-tra'">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-inputSwitch formControlName="isShowInAbilityTest"></p-inputSwitch>
+                                        <label for="isShowInAbilityTest" class="manual-active">Hiển thị ở kiểm tra năng
+                                            lực <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-3" *ngIf="selectedTestCategory?.code === 'kiem-tra'">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-inputSwitch formControlName="isAutoSendMail"></p-inputSwitch>
+                                        <label for="isAutoSendMail" class="manual-active">Gửi mail nộp bài <span
+                                                class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-3"
+                                *ngIf="selectedTestCategory?.code === 'bai-giang' || selectedTestCategory?.code === 'kiem-tra' || selectedTestCategory?.code==='bai-tap' || selectedTestCategory?.code==='livestream' || selectedTestCategory?.code==='offline'">
+                                <div class=" field">
+                                    <p-floatLabel>
+                                        <p-inputSwitch formControlName="status"></p-inputSwitch>
+                                        <label for="status" class="manual-active">Trạng thái <span
+                                                class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-3"
+                                *ngIf="selectedTestCategory?.code === 'bai-giang' || selectedTestCategory?.code === 'kiem-tra' || selectedTestCategory?.code==='bai-tap' || selectedTestCategory?.code==='livestream'">
+                                <div class=" field">
+                                    <p-floatLabel>
+                                        <p-inputSwitch formControlName="isFree"></p-inputSwitch>
+                                        <label for="isFree" class="manual-active">Miễn phí <span
+                                                class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-3"
+                                *ngIf="selectedTestCategory?.code === 'bai-giang' || selectedTestCategory?.code === 'kiem-tra' || selectedTestCategory?.code==='bai-tap' || selectedTestCategory?.code==='livestream'">
+                                <div class=" field">
+                                    <p-floatLabel>
+                                        <p-inputSwitch formControlName="isSpecial"></p-inputSwitch>
+                                        <label for="isSpecial" class="manual-active">Kiểm tra đặc biệt <span
+                                                class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="grid mt-2">
+                                <div class="col-12 fixed-action">
+                                    <div class="grid">
+                                        <div class="col-9 flex justify-content-start">
+                                            <p-button class="mr-2" label="Xem trước" [outlined]="true"
+                                                icon="pi pi-times" />
+                                            <p-button class="mr-2" label="Hủy bỏ" [outlined]="true"
+                                                icon="pi pi-times" />
+                                            <p-button class="mr-2" label="{{ isEditMode ? 'Cập nhật' : 'Thêm mới' }}"
+                                                icon="pi pi-save" />
+                                        </div>
+                                        <div class="col-3 flex justify-content-end">
+                                            <span>Tổng điểm: <b>{{ 0 }}</b></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -134,7 +134,7 @@ register(); // Register Swiper
     TimelineModule,
     ChartModule,
     CalendarModule,
-    MultiSelectModule
+    MultiSelectModule,
   ],
   providers: [ConfirmationService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
