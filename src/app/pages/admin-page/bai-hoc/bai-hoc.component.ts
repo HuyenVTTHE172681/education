@@ -205,7 +205,9 @@ export class BaiHocComponent implements OnInit {
     return status === 1 ? 'Gửi' : 'Không';
   }
 
-
+  addNew() {
+    this.router.navigate(['/quan-tri/bai-kiem-tra/them-moi']);
+  }
 
   handleDelete() {
 

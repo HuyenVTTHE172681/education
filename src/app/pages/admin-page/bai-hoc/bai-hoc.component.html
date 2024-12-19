@@ -21,7 +21,7 @@
                     </div>
                     <!-- <p-button class="mr-2" label="Bộ lọc" icon="pi pi-sliders-h" menu.toggle($event)/> -->
                     <p-button class="mr-2" label="Bộ lọc" (onClick)="op.toggle($event)" icon="pi pi-sliders-h" />
-                    <p-button label="Thêm mới" icon="pi pi-plus" />
+                    <p-button label="Thêm mới" icon="pi pi-plus" (click)="addNew()" />
                 </div>
             </div>
         </ng-template>
@@ -61,7 +61,7 @@
                 <td><p-button icon="pi pi-ellipsis-v" [text]="true" severity="secondary"
                         (onClick)="setSelected(test); menu.toggle($event)" /></td>
                 <td class="text-blue-700 pointer">
-                    <a [routerLink]="['/quan-tri/bài-kiem-tra', test?.id]" style="text-decoration: none;">
+                    <a [routerLink]="['/quan-tri/bai-kiem-tra', test?.id]" style="text-decoration: none;">
                         {{ test?.name }}
                     </a>
                 </td>
