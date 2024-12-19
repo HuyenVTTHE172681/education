@@ -1,5 +1,5 @@
 <div class="khoa-hoc customer-table common-content">
-    <p-table [value]="course" dataKey="id" [scrollable]="true" scrollHeight="600px"
+    <p-table [value]="test" dataKey="id" [scrollable]="true" scrollHeight="600px"
         [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
         [tableStyle]="{ 'min-width': '75rem' }">
 
@@ -7,7 +7,7 @@
             <div class="grid align-items-end">
                 <div class="col-12 md:col-4">
                     <p-breadcrumb class="max-w-full" [model]="breadcrum" [home]="home" />
-                    <div class="header-title hidden-mobile">Khóa học</div>
+                    <div class="header-title hidden-mobile">Bài học</div>
                 </div>
                 <div class="col-12 md:col-8 text-right flex justify-content-end align-items-end">
                     <div class="mr-2 text-left search">
@@ -16,7 +16,7 @@
                             <input type="text" pInputText placeholder="Nhập nội dung tìm kiếm" severity="secondary"
                                 [(ngModel)]="filter" (ngModelChange)="onSearchChange($event)" />
                             <button type="button" pButton icon="pi pi-search" [outlined]="true" severity="secondary"
-                                (click)="searchCourse()"></button>
+                                (click)="search()"></button>
                         </p-inputGroup>
                     </div>
                     <!-- <p-button class="mr-2" label="Bộ lọc" icon="pi pi-sliders-h" menu.toggle($event)/> -->
@@ -55,34 +55,34 @@
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template pTemplate="body" let-test>
             <tr style="font-size: 14px;">
                 <td><p-checkbox [binary]="true" inputId="binary" /></td>
                 <td><p-button icon="pi pi-ellipsis-v" [text]="true" severity="secondary"
-                        (onClick)="setSelectedCourse(product); menu.toggle($event)" /></td>
-                <td>
-                    <img [src]="product?.courseAvatar" width="50" height="50" class="shadow-4"
-                        style="border-radius: 6px" />
-                </td>
+                        (onClick)="setSelected(test); menu.toggle($event)" /></td>
                 <td class="text-blue-700 pointer">
-                    <a [routerLink]="['/quan-tri/chi-tiet-khoa-hoc', product?.id]" style="text-decoration: none;">
-                        {{ product?.name }}
+                    <a [routerLink]="['/quan-tri/bài-kiem-tra', test?.id]" style="text-decoration: none;">
+                        {{ test?.name }}
                     </a>
                 </td>
+                <td>{{ test?.deadlineDate }}</td>
+                <td>{{ test?.testCategoryName }}</td>
                 <td>
-                    <p-button [label]="getStatusLabel(product?.status)" [raised]="true"
-                        [severity]="getStatus(product?.status)" />
+                    <p-button [label]="getFree(test?.isFree)" [raised]="true"
+                        [severity]="getStatusFree(test?.isFree)" [rounded]="true"/>
                 </td>
                 <td>
-                    <p-button [label]="getStatusLabel(product?.isShowHome)" [raised]="true"
-                        [severity]="getStatus(product?.isShowHome)" />
+                    <p-button [label]="getEmail(test?.isAutoSendMail)" [raised]="true"
+                        [severity]="getStatus(test?.isAutoSendMail)" [rounded]="true"/>
                 </td>
-                <td>{{ product?.price }}</td>
-                <td>{{ product?.priceDiscount }}</td>
-                <td>{{ product?.teacherName }}</td>
-                <td>{{ product?.classRoomName }}</td>
-                <td>{{ product?.subjectName }}</td>
-                <td>{{ product?.code }}</td>
+                <td>
+                    <p-button [label]="getStatusLabel(test?.status)" [raised]="true"
+                        [severity]="getStatus(test?.status)" [rounded]="true"/>
+                </td>
+                <td>
+                    <p-button [label]="getStatusLabel(test?.isShowInAbilityTest)" [raised]="true"
+                        [severity]="getStatus(test?.isShowInAbilityTest)" [rounded]="true"/>
+                </td>
             </tr>
         </ng-template>
     </p-table>
@@ -116,7 +116,7 @@
     </div>
     <div class="flex justify-content-end gap-2">
         <p-button label="Từ chối" severity="secondary" (click)="dialogDelete = false" />
-        <p-button label="Đồng ý" (click)="handleDeleteCourse()" />
+        <p-button label="Đồng ý" (click)="handleDelete()" />
     </div>
 </p-dialog>
 
@@ -128,24 +128,32 @@
         <div>
             <ul class="list-none p-0 m-0 flex flex-column gap-3">
                 <li class="align-items-center ">
-                    <p-dropdown [options]="testCategory" [(ngModel)]="selectedTestCategory" (ngModelChange)="searchCourse()"
+                    <p-dropdown [options]="testCategory" [(ngModel)]="selectedTestCategory" (ngModelChange)="search()"
                         optionLabel="name" optionValue="id" [filter]="true" filterBy="name" [showClear]="true"
                         [style]="{'width':'100%'}" placeholder="Loại bài">
                     </p-dropdown>
                 </li>
 
                 <li class="align-items-center mt-2">
-                    <p-dropdown [options]="classRoom" [(ngModel)]="selectedClassroom" (ngModelChange)="searchCourse()"
+                    <p-dropdown [options]="classRoom" [(ngModel)]="selectedClassroom" (ngModelChange)="search()"
                         optionLabel="name" optionValue="id" [filter]="true" filterBy="name" [showClear]="true"
                         [style]="{'width':'100%'}" placeholder="Lớp học">
                     </p-dropdown>
                 </li>
 
                 <li class="align-items-center mt-2">
-                    <p-dropdown [options]="subject" [(ngModel)]="selectedSubject" (ngModelChange)="searchCourse()"
+                    <p-dropdown [options]="subject" [(ngModel)]="selectedSubject" (ngModelChange)="search()"
                         optionLabel="name" optionValue="id" [filter]="true" filterBy="name" [showClear]="true"
                         [style]="{'width':'100%'}" placeholder="Môn học">
                     </p-dropdown>
+                </li>
+
+                <li class="align-items-center mt-2">
+                <li class="align-items-center ">
+                    <label>Hiển thị kiểm tra năng lực</label>
+                    <p-dropdown [options]="statusList" [(ngModel)]="selectedStatus" optionLabel="name" [filter]="true"
+                        filterBy="name" [showClear]="true" placeholder="Tất cả" (ngModelChange)="search()"
+                        [style]="{'width':'100%'}"></p-dropdown>
                 </li>
             </ul>
         </div>
@@ -153,7 +161,7 @@
         <div class="text-right" style="margin-top: 30px;">
             <p-button class="mr-2" label="Xuất excel" icon="pi pi-file-excel" severity="success" />
             <p-button class="mr-2" label="Làm mới" icon="pi pi-sync" severity="secondary" (onClick)="resetFilters()" />
-            <p-button label="Tìm kiếm" icon="pi pi-search" (onClick)="searchCourse()" />
+            <p-button label="Tìm kiếm" icon="pi pi-search" (onClick)="search()" />
         </div>
     </div>
 </p-overlayPanel>

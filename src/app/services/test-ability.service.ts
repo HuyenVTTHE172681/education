@@ -52,6 +52,32 @@ export class TestAbilityService {
     );
   }
 
+  getTest(
+    isShowInAbilityTest: number,
+    classId: string,
+    courseId: string,
+    filter: string,
+    isFromCMS: number = 1,
+    page: number,
+    size: number,
+    subjectId: string,
+    testCategoryId: string
+  ): Observable<IResponeList<Test>> {
+
+    // https://hhq.runasp.net/api/test?IsShowInAbilityTest=-1&classId=&courseId&filter=&isFromCMS=1&offSet=0&pageSize=10&subjectId=&testCategoryId=
+    let query = `?IsShowInAbilityTest=${isShowInAbilityTest}&classId=${classId}&courseId=${courseId}&filter=${filter}&isFromCMS=${isFromCMS}&offSet=${(page - 1) * size
+      }&pageSize=${size}&subjectId=${subjectId}&testCategoryId=${testCategoryId}`;
+
+    const apiUrl = `${this.apiBaseUrl}/test${query}`;
+    console.log('Generated API URL:', apiUrl);
+
+    return this.http.get<IResponeList<Test>>(apiUrl).pipe(
+      // map((response) => response.data?.data || []), // Đảm bảo trả về danh sách dữ liệu
+      catchError(this.handleError)
+    );
+  }
+
+
   getClassrooms(): Observable<any[]> {
     return this.http
       .get<any>(`${this.apiBaseUrl}/ClassRoom?filter=&offSet=0&pageSize=1000`)
