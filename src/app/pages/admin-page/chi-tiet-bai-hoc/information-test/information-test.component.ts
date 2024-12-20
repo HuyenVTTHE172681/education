@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Test, TestCategory } from '../../../../models/test.model';
 import { TestAbilityComponent } from '../../../edu/test-ability/test-ability.component';
 import { TestAbilityService } from '../../../../services/test-ability.service';
+import { Subject } from '../../../../models/subject.model';
 
 @Component({
   selector: 'app-information-test',
@@ -24,8 +25,7 @@ export class InformationTestComponent implements OnInit {
   searchText: string = '';
 
   testCategory: TestCategory[] = [];
-  selectedTestCategory: { name: string; code: string } | null = null;
-
+  selectedTestCategory: { id: string, name: string; code: string } | null = null;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -53,7 +53,7 @@ export class InformationTestComponent implements OnInit {
       isTestAttacked: [0],
       isTestPass: [0],
       isTestViewed: [0],
-      lessonLink: [''],
+      lessonLink: ['',  [Validators.required]],
       livestreamAvatar: [''],
       livestreamCode: [''],
       livestreamDate: [''],
@@ -62,7 +62,7 @@ export class InformationTestComponent implements OnInit {
       livestreamTeacher: [''],
       modifiedBy: [''],
       modifiedDate: [''],
-      name: [''],
+      name: ['', [Validators.required]],
       numberOfTest: [0],
       numberQuestionPass: [0],
       order: [0],
@@ -73,7 +73,7 @@ export class InformationTestComponent implements OnInit {
       status: [0],
       testCategoryCode: [''],
       testCategoryId: [''],
-      testCategoryName: [''],
+      testCategoryName: ['', [Validators.required]],
       testComment: [''],
       testQuestionGroupId: [0],
       testUsers: [],
@@ -120,9 +120,6 @@ export class InformationTestComponent implements OnInit {
       console.log('testCategory:', this.testCategory);
     });
   }
-
-
-
 
   getTestDetail(id: string) {
     this.testSrv.getTestNewById(id).subscribe((data) => {
@@ -191,5 +188,42 @@ export class InformationTestComponent implements OnInit {
       videoUrl: test.videoUrl
     })
 
+  }
+
+  updateSubject() {
+    if (this.testForm.valid) {
+      const formValue = { ...this.testForm.value };
+      formValue.status = formValue.status ? 1 : 0;
+      formValue.isAutoSendMail = formValue.isAutoSendMail ? 1 : 0;
+      formValue.isFree = formValue.isFree ? 1 : 0
+      formValue.isShowInAbilityTest = formValue.isShowInAbilityTest ? 1 : 0
+      formValue.isSpecial = formValue.isSpecial ? 1 : 0
+      formValue.isTestAttacked = formValue.isTestAttacked ? 1 : 0
+      // formValue.testCategoryCode = formValue.testCategoryCode ? '' : ''
+
+      // Gán giá trị testCategoryCode từ selectedTestCategory
+      if (this.selectedTestCategory && this.selectedTestCategory.id) {
+        formValue.testCategoryCode = this.selectedTestCategory.code;
+        formValue.testCategoryId = this.selectedTestCategory.id;
+        formValue.testCategoryName = this.selectedTestCategory.name;
+      }
+
+      if (this.isEditMode) {
+        this.testSrv.updateTest(formValue).subscribe({
+          next: (data) => {
+            if (data.statusCode === 200) {
+              alert('Cập nhật bài thành công!');
+              this.router.navigate(['/quan-tri/bai-kiem-tra']);
+            } else if (data.statusCode === 500) {
+              alert(data.message);
+            }
+          },
+          error: (err) => {
+            console.error('Error updating account:', err);
+            alert('Có lỗi xảy ra. Vui lòng thử lại!');
+          },
+        });
+      }
+    }
   }
 }

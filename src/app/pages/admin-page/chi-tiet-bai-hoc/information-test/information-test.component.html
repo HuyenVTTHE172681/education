@@ -11,14 +11,15 @@
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-user" />
                                             <p-dropdown [options]="testCategory" [(ngModel)]="selectedTestCategory"
-                                                formControlName="testCategoryCode" optionLabel="name"
+                                                formControlName="testCategoryName" optionLabel="name"
                                                 placeholder="Select a City" />
                                         </p-iconField>
                                         <label for="">Loại bài kiểm tra <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
-                                    <!-- <small class="text-red-500"
-                                        *ngIf="classRoomForm.get('name')?.hasError('required')">Tên là bắt
-                                        buộc.</small> -->
+                                    <small class="text-red-500"
+                                        *ngIf="testForm.get('testCategoryName')?.hasError('required')">
+                                        Chọn test category đi
+                                    </small>
                                 </div>
                             </div>
                             <div class="col-12 md:col-9">
@@ -30,6 +31,9 @@
                                         </p-iconField>
                                         <label for="name">Tiêu đề <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
+                                    <small class="text-red-500" *ngIf="testForm.get('name')?.hasError('required')">
+                                        Tên là bắt buộc
+                                    </small>
                                 </div>
                             </div>
                             <div class="col-12" *ngIf="selectedTestCategory?.code == 'bai-giang'">
@@ -42,9 +46,12 @@
                                             <input pInputText class="input-field" formControlName="lessonLink" />
                                         </p-iconField>
                                     </p-floatLabel>
+                                    <small class="text-red-500"
+                                        *ngIf="testForm.get('lessonLink')?.hasError('required')">
+                                        Tên là bắt buộc
+                                    </small>
                                 </div>
                             </div>
-
                             <div class="col-12" *ngIf="selectedTestCategory?.code == 'livestream'">
                                 <div class="col-3">
                                     <div class="avatar">
@@ -236,18 +243,14 @@
                             </div>
                             <div class="grid mt-2">
                                 <div class="col-12 fixed-action">
-                                    <div class="grid">
-                                        <div class="col-9 flex justify-content-start">
-                                            <p-button class="mr-2" label="Xem trước" [outlined]="true"
-                                                icon="pi pi-times" />
-                                            <p-button class="mr-2" label="Hủy bỏ" [outlined]="true"
-                                                icon="pi pi-times" />
-                                            <p-button class="mr-2" label="{{ isEditMode ? 'Cập nhật' : 'Thêm mới' }}"
-                                                icon="pi pi-save" />
-                                        </div>
-                                        <div class="col-3 flex justify-content-end">
-                                            <span>Tổng điểm: <b>{{ 0 }}</b></span>
-                                        </div>
+                                    <div class="col-9 flex justify-content-start">
+                                        <p-button class="mr-2" label="Xem trước" [outlined]="true" icon="pi pi-times" />
+                                        <p-button class="mr-2" label="Hủy bỏ" [outlined]="true" icon="pi pi-times" />
+                                        <p-button class="mr-2" label="{{ isEditMode ? 'Cập nhật' : 'Thêm mới' }}"
+                                            icon="pi pi-save" (click)="updateSubject()" />
+                                    </div>
+                                    <div class="col-3 flex justify-content-end">
+                                        <span>Tổng điểm: <b>{{ 0 }}</b></span>
                                     </div>
                                 </div>
                             </div>

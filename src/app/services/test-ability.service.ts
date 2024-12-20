@@ -228,16 +228,22 @@ export class TestAbilityService {
       .get<IResponeList<TestCategory>>(apiURL)
       .pipe(catchError(this.handleError));
   }
-
-
-  addUser(test: Test): Observable<Test> {
-    return this.http
-      .post<Test>(`${this.apiBaseUrl}/Test/SetTestNew`, test)
-      .pipe(
-        tap((test: Test) => console.log(`added user witth id=${test.id}`)),
-        catchError(this.handleError)
-      );
-  }
+  updateTest(test: any): Observable<IResponeListData<Test>> {
+      // https://hhq.runasp.net/api/Teacher
+    const query = `/Test/SetTestNew`;
+  
+      const apiURL = `${this.apiBaseUrl}${query}`;
+      console.log('Generated dashboard API URL:', apiURL);
+  
+      const token = localStorage.getItem('token');
+      const headers = token
+        ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+        : new HttpHeaders();
+  
+      return this.http
+        .post<IResponeListData<Test>>(apiURL, test, { headers })
+        .pipe(catchError(this.handleError));
+    }
 
   // Hàm xử lý lỗi
   private handleError(error: HttpErrorResponse) {
