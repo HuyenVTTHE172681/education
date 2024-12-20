@@ -6,7 +6,6 @@ import { ContentLayoutComponent } from './layouts/content-layout/content-layout.
 import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
-import { MenuComponent } from './components/menu/menu.component';
 import { MenubarModule } from 'primeng/menubar';
 import { CarouselModule } from 'primeng/carousel';
 import { SlideComponent } from './components/slide/slide.component';
@@ -24,7 +23,6 @@ register(); // Register Swiper
     HeaderComponent,
     FooterComponent,
     ContentLayoutComponent,
-    MenuComponent,
     SlideComponent,
   ],
   imports: [
@@ -42,4 +40,4 @@ register(); // Register Swiper
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class SharedModule {}
+export class SharedModule { }

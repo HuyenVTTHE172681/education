@@ -22,7 +22,7 @@
   background: none;
 }
 
-.pi-home:before,
+/* .pi-home:before,
 .pi-users:before,
 .pi-comments:before,
 .pi-money-bill:before,
@@ -30,6 +30,71 @@
 .pi-book:before,
 .pi-cog:before {
   color: white;
+} */
+
+.p-menubar.p-component {
+  height: 100%;
+  background: transparent;
+  border: none;
+  border-radius: 3px;
+  color: #495057;
+  margin: 0 auto;
+  max-width: 1600px;
+  padding: .3rem;
+}
+
+a.p-menuitem-link.ng-star-inserted {
+  color: #fffffff5;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+a.p-menuitem-link.ng-star-inserted:hover {
+  box-shadow: none;
+  background-color: rgba(37, 132, 234, 0.5);
+  outline: 0 none;
+  outline-offset: 0;
+}
+
+span.p-menuitem-link.ng-star-inserted {
+  color: #fffffff5;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+span.p-menuitem-link.ng-star-inserted:hover {
+  box-shadow: none;
+  background-color: rgba(37, 132, 234, 0.5);
+  outline: 0 none;
+  outline-offset: 0;
+}
+
+ul.p-submenu-list {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, .15);
+  box-shadow: none;
+  padding: .5rem 0;
+  width: 12.5rem;
+}
+
+/* .p-menuitem-link.ng-star-inserted::before {
+  color: #fff !important;
+  font-size: 16px;
+}
+
+a.p-menuitem-link.ng-star-inserted ::before {
+  color: #fff !important;
+  font-size: 16px;
+} */
+
+span.ml-2 {
+  color: #000;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+span.ml-2:hover {
+  background: #e9ecef;
 }
 
 * {

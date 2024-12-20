@@ -53,7 +53,7 @@ export class InformationTestComponent implements OnInit {
       isTestAttacked: [0],
       isTestPass: [0],
       isTestViewed: [0],
-      lessonLink: ['',  [Validators.required]],
+      lessonLink: ['', [Validators.required]],
       livestreamAvatar: [''],
       livestreamCode: [''],
       livestreamDate: [''],

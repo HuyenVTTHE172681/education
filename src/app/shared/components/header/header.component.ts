@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/authen.service';
+import { MenuService } from '../../../services/menu.service';
 
 @Component({
   selector: 'app-header',
@@ -11,8 +12,11 @@ export class HeaderComponent implements OnInit {
   user: any = null;
   items: any[] = [];
   isDropdownOpen = false;
+  menu: any[] = [];
+  menuAdmin: any[] = [];
+  isAdmin: boolean = false;
 
-  constructor(private router: Router, private authenSrv: AuthService) {
+  constructor(private router: Router, private authenSrv: AuthService, private menuService: MenuService) {
     this.items = [
       {
         label: 'Trang quản trị',
@@ -68,6 +72,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUserInfo();
+    this.getMenuItems();
+    this.getMenuAdmin();
   }
 
   getUser() {
@@ -95,14 +101,6 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/register']);
   }
 
-  // logout(): void {
-  //   localStorage.removeItem('token');
-  //   localStorage.removeItem('refresh_token');
-  //   localStorage.removeItem('userInfo');
-  //   this.user = null;
-  //   this.router.navigate(['/edu']);
-  // }
-
   logout() {
     console.log('Đăng xuất, xóa dữ liệu localStorage.');
     localStorage.clear();
@@ -129,6 +127,11 @@ export class HeaderComponent implements OnInit {
     if (savedUser) {
       this.user = JSON.parse(savedUser);
       console.log('Người dùng hiện tại:', this.user);
+
+      // Kiểm tra role
+      this.isAdmin = this.user?.roleTypeDataId === 'admin';
+      console.log('Is Admin:', this.isAdmin);
+
     } else {
       const token = localStorage.getItem('token');
       console.log('Không tìm thấy thông tin user, token hiện tại:', token);
@@ -149,5 +152,20 @@ export class HeaderComponent implements OnInit {
         });
       }
     }
+  }
+
+  getMenuItems() {
+    this.menuService.getMenuItems().subscribe((items: any) => {
+      this.menu = items;
+
+      console.log("Menu: ", this.menu)
+    });
+  }
+
+  getMenuAdmin(): void {
+    this.menuService.getMenuAdmin().subscribe((items: any) => {
+      this.menuAdmin = items;
+      console.log('Menu admin: ', this.menuAdmin);
+    });
   }
 }

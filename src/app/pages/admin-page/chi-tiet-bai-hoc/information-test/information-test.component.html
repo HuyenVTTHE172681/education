@@ -4,20 +4,22 @@
             <div class="grid mt-3">
                 <div class="col-12">
                     <form class="p-fluid mt-3" [formGroup]="testForm">
+                        aaaaaa
                         <div class="grid">
                             <div class="col-12 md:col-3">
                                 <div class="field">
                                     <p-floatLabel>
+                                        <!-- Get value selected -->
+                                        <!-- {{testForm.get('testCategoryId')?.value | json}} -->
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-user" />
-                                            <p-dropdown [options]="testCategory" [(ngModel)]="selectedTestCategory"
-                                                formControlName="testCategoryName" optionLabel="name"
-                                                placeholder="Select a City" />
+                                            <p-dropdown [options]="testCategory" formControlName="testCategoryId"
+                                                optionLabel="name" op placeholder="Select a City" optionValue="id" />
                                         </p-iconField>
                                         <label for="">Loại bài kiểm tra <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
                                     <small class="text-red-500"
-                                        *ngIf="testForm.get('testCategoryName')?.hasError('required')">
+                                        *ngIf="testForm.get('testCategoryId')?.hasError('required')">
                                         Chọn test category đi
                                     </small>
                                 </div>

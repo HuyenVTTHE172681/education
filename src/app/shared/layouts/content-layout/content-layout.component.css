@@ -2,3 +2,19 @@
   background-color: hsla(0, 8%, 95%, 0.425);
   margin-bottom: 20px;
 }
+
+
+.user-layout {
+  background: #fff;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+
+
+.content {
+  background-color: hsla(0, 8%, 95%, .425);
+  margin-bottom: 20px;
+  margin-top: 105px;
+}

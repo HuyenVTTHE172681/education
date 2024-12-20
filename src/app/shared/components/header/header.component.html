@@ -1,11 +1,11 @@
-<p-toolbar class="header">
+<!-- <p-toolbar class="header">
   <div class="p-toolbar-group-left">
     <a (click)="goToHome()" class="go-to-home">
-      <!-- <img
+      <img
         src="https://hochieuqua7.web.app/images/logo.png"
         alt="logo"
         [style]="{ width: '65px' }"
-      /> -->
+      />
     </a>
   </div>
   <div class="flex gap12 end col-6 middle p-0 justify-content-end">
@@ -19,19 +19,11 @@
             <img [src]="user?.avatar" alt="User Avatar" class="userlogo" />
           </ng-container>
           <ng-template #defaultAvatar>
-            <p-avatar
-              icon="pi pi-user"
-              styleClass="mr-2"
-              size="xlarge"
-              shape="circle"
-            >
+            <p-avatar icon="pi pi-user" styleClass="mr-2" size="xlarge" shape="circle">
             </p-avatar>
           </ng-template>
           <span class="username">{{ user?.userName }}</span>
-          <i
-            class="pi pi-angle-down"
-            style="font-size: 1.5rem; color: black"
-          ></i>
+          <i class="pi pi-angle-down" style="font-size: 1.5rem; color: black"></i>
         </div>
 
       </div>
@@ -40,35 +32,119 @@
     <ng-template #noLogin>
       <div class="p-toolbar-group-right profile">
         <div class="card flex align-items-center">
-          <p-button
-            class="p-button-text d-flex middle gap6"
-            label="Đăng ký"
-            icon="pi pi-user"
-            (onClick)="register()"
-            [ngStyle]="{ marginRight: '10px' }"
-          />
-          <p-button
-            class="p-button-text d-flex middle gap6"
-            label="Đăng nhập"
-            icon="pi pi-sign-in"
-            [outlined]="true"
-            (onClick)="login()"
-          />
+          <p-button class="p-button-text d-flex middle gap6" label="Đăng ký" icon="pi pi-user" (onClick)="register()"
+            [ngStyle]="{ marginRight: '10px' }" />
+          <p-button class="p-button-text d-flex middle gap6" label="Đăng nhập" icon="pi pi-sign-in" [outlined]="true"
+            (onClick)="login()" />
         </div>
       </div>
     </ng-template>
   </div>
-</p-toolbar>
+</p-toolbar> -->
 
 <p-overlayPanel #optionTopbar styleClass="option-topbar">
   <div *ngFor="let item of items">
-    <div
-      class="flex flex-wrap p-2 align-items-center gap-3 option-header"
-      (click)="executeCommand(item.command, optionTopbar)"
-      style="cursor: pointer"
-    >
+    <div class="flex flex-wrap p-2 align-items-center gap-3 option-header"
+      (click)="executeCommand(item.command, optionTopbar)" style="cursor: pointer">
       <i class="{{ item?.icon }}"></i>
       <span class="font-bold">{{ item?.label }}</span>
     </div>
   </div>
 </p-overlayPanel>
+
+<div class="header-wrapper">
+  <div class="header-content">
+    <!-- LOGO -->
+    <div class="logo">
+      <img src="	https://hochieuqua7.web.app/images/logo.png" alt="logo" />
+    </div>
+
+    <!-- AUTHEN -->
+    <div class="authen">
+      <!-- Icon notification -->
+      <span class="notification">
+        <i class="pi pi-bell text-1xl" pBadge value="2"></i>
+      </span>
+      <!-- Authen info -->
+      <!-- === login === -->
+      <div class="authen">
+        <div *ngIf="user; else noLogin">
+          <div class="card flex align-items-center">
+            <!-- OverlayPanel in header -->
+            <div class="user-info" (click)="optionTopbar.toggle($event)">
+              <ng-container *ngIf="user?.avatar; else defaultAvatar">
+                <img [src]="user?.avatar" alt="User Avatar" class="userlogo" />
+              </ng-container>
+              <ng-template #defaultAvatar>
+                <p-avatar icon="pi pi-user" styleClass="mr-2" size="xlarge" shape="circle">
+                </p-avatar>
+              </ng-template>
+              <span class="username">{{ user?.userName }}</span>
+              <i class="pi pi-angle-down" style="font-size: 1.5rem; color: black"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- === no login === -->
+        <ng-template #noLogin>
+          <div class="p-toolbar-group-right profile">
+            <div class="card flex align-items-center">
+              <p-button class="p-button-text d-flex middle gap6" label="Đăng ký" icon="pi pi-user"
+                (onClick)="register()" [ngStyle]="{ marginRight: '10px' }" />
+              <p-button class="p-button-text d-flex middle gap6" label="Đăng nhập" icon="pi pi-sign-in"
+                [outlined]="true" (onClick)="login()" />
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="menu">
+  <!-- MENU USER -->
+  <div *ngIf="!isAdmin">
+    <p-menubar [model]="menu" class="custom-menubar" [style]="{ height: '100%', 'background-color': '#0a3b85' }">
+      <ng-template pTemplate="item" let-item>
+        <!-- Điều hướng với routerLink nếu có route -->
+        <a [routerLink]="item.routerLink" class="p-menuitem-link">
+          <span [class]="item.icon"></span>
+          <span class="ml-2">{{ item.name }}</span>
+        </a>
+      </ng-template>
+    </p-menubar>
+  </div>
+
+  <!-- MENU ADMIN -->
+  <div *ngIf="isAdmin">
+    <p-menubar [model]="menuAdmin" class="custom-menubar" [style]="{ height: '100%', 'background-color': '#0a3b85' }">
+      <ng-template pTemplate="item" let-item>
+        <ng-container *ngIf="!item.items; else dropdown">
+          <a [routerLink]="'/' + item.routerLink" class="p-menuitem-link">
+            <span [class]="item.icon"></span>
+            <span class="ml-2">{{ item.name }}</span>
+          </a>
+        </ng-container>
+
+        <ng-template #dropdown>
+
+          <span class="p-menuitem-link">
+            <span [class]="item.icon"></span>
+            <span class="ml-2">{{ item.name }}</span>
+
+            <p-menubar [model]="item.items.childs">
+              <ng-template pTemplate="item" let-item>
+                <ng-container *ngIf="!item.items; else dropdown">
+                  <a [routerLink]="'/' + item.routerLink" class="p-menuitem-link">
+                    <span [class]="item.icon"></span>
+                    <span class="ml-2">{{ item.name }}</span>
+                  </a>
+                </ng-container>
+              </ng-template>
+            </p-menubar>
+          </span>
+        </ng-template>
+      </ng-template>
+    </p-menubar>
+  </div>
+</div>

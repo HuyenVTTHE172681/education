@@ -13,6 +13,7 @@
   justify-content: flex-end;
   text-align: right;
 }
+
 .notification {
   cursor: pointer;
   font-size: 1.5rem;
@@ -59,7 +60,8 @@ p-splitButton .p-button {
 }
 
 p-splitButton .p-button-text {
-  color: inherit !important; /* Ensures text color matches the parent */
+  color: inherit !important;
+  /* Ensures text color matches the parent */
 }
 
 /* Optionally, remove the hover effect as well */
@@ -69,16 +71,83 @@ p-splitButton .p-button:hover {
 }
 
 p-splitButton .p-button {
-  padding: 0 !important; /* Adjust padding if needed */
+  padding: 0 !important;
+  /* Adjust padding if needed */
   background: none !important;
   border: none !important;
 }
 
 p-splitButton .p-button-icon {
-  font-size: 16px; /* Change icon size if necessary */
+  font-size: 16px;
+  /* Change icon size if necessary */
 }
 
 .option-header:hover {
   background-color: #f0f0f0;
   border-radius: 5px;
+}
+
+.header-wrapper {
+  background: #fff;
+  box-shadow: 0 0 3px gray;
+  height: 60px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 888;
+}
+
+.header-content {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1600px;
+  padding: 0 20px;
+}
+
+img {
+  width: 65px;
+}
+
+.authen {
+  align-items: center;
+  display: flex;
+  gap: 25px;
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.notification {
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin-right: 20px;
+}
+
+.authen {
+  align-items: center;
+  display: flex;
+  gap: 25px;
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.menu {
+  background: #0a3b85;
+  margin-top: 53px;
+  position: fixed;
+  width: 100%;
+  z-index: 888;
+}
+
+.p-menubar.p-component {
+  height: 100%;
+  background: transparent;
+  border: none;
+  border-radius: 3px;
+  color: #495057;
+  margin: 0 auto;
+  max-width: 1600px;
+  padding: .3rem;
 }
