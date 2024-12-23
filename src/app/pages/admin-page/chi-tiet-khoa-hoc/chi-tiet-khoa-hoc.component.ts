@@ -15,7 +15,6 @@ export class ChiTietKhoaHocComponent implements OnInit {
   menuBreachCrumbs: any[] = [];
   home: MenuItem | undefined;
   checked: boolean = false;
-  activeTabIndex: number = 0;
   id: string | null = null;
 
   constructor(private router: Router, private route: ActivatedRoute) { }
@@ -31,10 +30,6 @@ export class ChiTietKhoaHocComponent implements OnInit {
 
     this.home = { icon: 'pi pi-shop', routerLink: '/' };
 
-    this.route.paramMap.subscribe((params) => {
-      const tabIndex = +params.get('tabIndex')!;
-      this.activeTabIndex = tabIndex;
-    });
   }
 
   onTabChange(event: any): void {

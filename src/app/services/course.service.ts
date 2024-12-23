@@ -117,19 +117,6 @@ export class CourseService {
     );
   }
 
-  getSubject(
-    classId: string,
-    filter: string = '',
-    offSet: number = 0,
-    pageSize: number = 10000
-  ): Observable<any[]> {
-    const apiUrl = `${this.apiBaseUrl}/Subject?classId=${classId}&filter=${filter}&offSet=${offSet}&pageSize=${pageSize}`;
-
-    console.log('Subject with ClassId API url : ', apiUrl);
-    return this.http.get<any>(apiUrl).pipe(
-      map((response) => response?.data?.data || []) // Trích xuất mảng `data.data` từ phản hồi
-    );
-  }
 
   getCourseSchedule(
     courseId: string,

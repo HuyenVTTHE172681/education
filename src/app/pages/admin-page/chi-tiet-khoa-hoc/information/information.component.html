@@ -4,29 +4,20 @@
       <div class="col-12 md:col-2">
         <div class="grid mt-3">
           <div class="col-12 avatar">
-            <img *ngIf="courseForm.get('courseAvatar')?.value, else elseBlock"
-              [src]="
+            <img *ngIf="courseForm.get('courseAvatar')?.value, else elseBlock" [src]="
                 courseForm.get('courseAvatar')?.value || 'default-avatar.jpg'
-              "
-              alt=""
-            />
+              " alt="" />
             <ng-template #elseBlock>
-              <img
-                src="https://hochieuqua7.web.app/images/admin/setting/slide/empty-image.png"
-                alt=""
-              />
+              <img src="https://hochieuqua7.web.app/images/admin/setting/slide/empty-image.png" alt="" />
             </ng-template>
             <label for="upload-image">
               <i class="pi pi-upload"></i> Avatar
             </label>
           </div>
           <div class="col-12 avatar mt-2">
-            <img *ngIf="courseForm.get('courseBanner')?.value, else elseBlock"
-              [src]="
+            <img *ngIf="courseForm.get('courseBanner')?.value, else elseBlock" [src]="
                 courseForm.get('courseBanner')?.value || 'default-avatar.jpg'
-              "
-              alt=""
-            />
+              " alt="" />
             <label for="upload-image2">
               <i class="pi pi-upload"></i> Banner
             </label>
@@ -41,60 +32,37 @@
                 <p-floatLabel>
                   <p-iconField iconPosition="right">
                     <p-inputIcon styleClass="pi pi-at" />
-                    <input
-                      pInputText
-                      formControlName="name"
-                      class="input-field"
-                    />
+                    <input pInputText formControlName="name" class="input-field" />
                   </p-iconField>
-                  <label for="name"
-                    >Tên khóa học <span class="text-red-500">*</span></label
-                  >
+                  <label for="name">Tên khóa học <span class="text-red-500">*</span></label>
                 </p-floatLabel>
               </div>
             </div>
             <div class="col-12 md:col-4">
               <div class="field">
                 <p-floatLabel>
-                  <p-dropdown
-                    [options]="classRoom"
-                    optionLabel="name"
-                    formControlName="classRoom"
-                    placeholder="Select a Classroom"
-                  ></p-dropdown>
-                  <label for=""
-                    >Lớp học <span class="text-red-500">*</span></label
-                  >
+                  <p-dropdown [options]="classRoom" optionLabel="name" optionValue="id" formControlName="classRoomId"
+                    placeholder="Select a Classroom"></p-dropdown>
+                  <label for="">Lớp học <span class="text-red-500">*</span></label>
                 </p-floatLabel>
               </div>
             </div>
             <div class="col-12 md:col-4">
               <div class="field">
                 <p-floatLabel>
-                  <p-dropdown
-                    [options]="subject"
-                    optionLabel="name"
-                    formControlName="subject"
-                    placeholder="Select a Subject"
-                  ></p-dropdown>
-                  <label for=""
-                    >Môn học <span class="text-red-500">*</span></label
-                  >
+                  <p-dropdown [options]="subject" optionLabel="name" optionValue="id" formControlName="subjectId"
+                    placeholder="Select a Subject"></p-dropdown>
+                  <label for="">Môn học <span class="text-red-500">*</span></label>
                 </p-floatLabel>
               </div>
             </div>
             <div class="col-12 md:col-4">
               <div class="field">
                 <p-floatLabel>
-                  <p-dropdown
-                    [options]="courseYears"
-                    optionLabel="name"
-                    formControlName="courseYears"
-                    placeholder="Select a Course Year"
-                  ></p-dropdown>
-                  <label for=""
-                    >Năm học <span class="text-red-500">*</span></label
-                  >
+                  <!-- {{ courseForm.get('courseYearId')?.value }} -->
+                  <p-dropdown [options]="courseYears" optionLabel="name" optionValue="id" formControlName="courseYearId"
+                    placeholder="Select a Course Year"></p-dropdown>
+                  <label for="">Năm học <span class="text-red-500">*</span></label>
                 </p-floatLabel>
               </div>
             </div>
@@ -103,15 +71,9 @@
                 <p-floatLabel>
                   <p-iconField iconPosition="right">
                     <p-inputIcon styleClass="pi pi-shopping-cart" />
-                    <input
-                      pInputText
-                      formControlName="price"
-                      class="input-field"
-                    />
+                    <input pInputText formControlName="price" class="input-field" />
                   </p-iconField>
-                  <label for="price"
-                    >Giá <span class="text-red-500">*</span></label
-                  >
+                  <label for="price">Giá <span class="text-red-500">*</span></label>
                 </p-floatLabel>
               </div>
             </div>
@@ -120,15 +82,9 @@
                 <p-floatLabel>
                   <p-iconField iconPosition="right">
                     <p-inputIcon styleClass="pi pi-money-bill" />
-                    <input
-                      pInputText
-                      formControlName="priceDiscount"
-                      class="input-field"
-                    />
+                    <input pInputText formControlName="priceDiscount" class="input-field" />
                   </p-iconField>
-                  <label for="priceDiscount"
-                    >Giá giảm <span class="text-red-500">*</span></label
-                  >
+                  <label for="priceDiscount">Giá giảm <span class="text-red-500">*</span></label>
                 </p-floatLabel>
               </div>
             </div>
@@ -137,17 +93,10 @@
                 <p-floatLabel>
                   <p-iconField iconPosition="right">
                     <p-inputIcon styleClass="pi pi-at" />
-                    <input
-                      id="promotionTime"
-                      type="text"
-                      pInputText
-                      formControlName="promotionTime"
-                      placeholder="Khuyến mãi đến"
-                    />
+                    <input id="promotionTime" type="text" pInputText formControlName="promotionTime"
+                      placeholder="Khuyến mãi đến" />
                   </p-iconField>
-                  <label for="promotionTime"
-                    >Khuyến mãi đến<span class="text-red-500">*</span></label
-                  >
+                  <label for="promotionTime">Khuyến mãi đến<span class="text-red-500">*</span></label>
                 </p-floatLabel>
               </div>
             </div>
@@ -155,9 +104,7 @@
               <div class="field">
                 <p-floatLabel>
                   <p-inputSwitch formControlName="status"></p-inputSwitch>
-                  <label for="content" class="manual-active"
-                    >Hiển thị <span class="text-red-500">*</span></label
-                  >
+                  <label for="content" class="manual-active">Hiển thị <span class="text-red-500">*</span></label>
                 </p-floatLabel>
               </div>
             </div>
@@ -165,71 +112,32 @@
               <div class="field">
                 <p-floatLabel>
                   <p-inputSwitch formControlName="isShowHome"></p-inputSwitch>
-                  <label for="content" class="manual-active"
-                    >Hiển thị trang chủ
-                    <span class="text-red-500">*</span></label
-                  >
+                  <label for="content" class="manual-active">Hiển thị trang chủ
+                    <span class="text-red-500">*</span></label>
                 </p-floatLabel>
               </div>
             </div>
             <div class="col-12 pt-0 pb-0">
               <div class="field">
                 <p-floatLabel>
-                  <!-- <p-dropdown
-                    [options]="teacher"
-                    optionLabel="name"
-                    placeholder="Select teacher"
-                    formControlName="teacher"
-                  ></p-dropdown> -->
-                  <!-- <p-multiSelect
-                    [options]="teacher"
-                    formControlName="teachers"
-                    placeholder="Giáo viên"
-                    optionLabel="name"
-                    display="chip"
-                    [showClear]="true"
-                  ></p-multiSelect> -->
-                  <p-multiSelect
-                    [options]="teacher"
-                    formControlName="teachers"
-                    placeholder="Giáo viên"
-                    optionLabel="name"
-                    display="chip"
-                    [showClear]="true"
-                    (onChange)="onTeacherChange($event)"
-                  ></p-multiSelect>
-
-                  <div>
-                    <p>
-                      Selected Teachers:
-                      {{ courseForm.get('teacher')?.value | json }}
-                    </p>
-                    <!-- Hiển thị danh sách giáo viên đã chọn -->
-                  </div>
-                  <label for="username"
-                    >Giáo viên <span class="text-red-500">*</span></label
-                  >
+                  <!-- {{ courseForm.get('teachers')?.value | json }} -->
+                  <p-multiSelect [options]="teacher" formControlName="teachers" placeholder="Giáo viên"
+                    optionLabel="name" optionValue="id" display="chip" [showClear]="true"
+                    (onChange)="onTeacherChange($event)"></p-multiSelect>
+                  <label for="username">Giáo viên <span class="text-red-500">*</span></label>
                 </p-floatLabel>
               </div>
             </div>
             <div class="col-12 pt-0">
               <div class="field">
                 <label for="" class="font-size-14">Thông tin khóa học</label>
-                <p-editor
-                  [style]="{ height: '320px' }"
-                  formControlName="shortSummary"
-                />
+                <p-editor [style]="{ height: '320px' }" formControlName="shortSummary" />
               </div>
             </div>
             <div class="col-12 pt-0">
               <div class="field">
-                <label for="" class="font-size-14"
-                  >Thông tin thêm khóa học</label
-                >
-                <p-editor
-                  [style]="{ height: '320px' }"
-                  formControlName="courseInfo1"
-                />
+                <label for="" class="font-size-14">Thông tin thêm khóa học</label>
+                <p-editor [style]="{ height: '320px' }" formControlName="courseInfo1" />
               </div>
             </div>
             <div class="col-12 pt-0">

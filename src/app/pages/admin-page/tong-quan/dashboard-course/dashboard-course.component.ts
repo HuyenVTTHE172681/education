@@ -7,6 +7,7 @@ import { IResponeList } from '../../../../models/common.model';
 import { ClassRoom } from '../../../../models/classRoom.model';
 import { Subject as SubjectModel } from '../../../../models/subject.model';
 import { Subject } from 'rxjs';
+import { SubjectService } from '../../../../services/subject.service';
 
 @Component({
   selector: 'app-dashboard-course',
@@ -26,7 +27,7 @@ export class DashboardCourseComponent implements OnInit {
   searchText: string = '';
 
   private searchSubject: Subject<string> = new Subject(); // Subject for search
-  constructor(private classRoomSrv: ClassRoomService, private courseSrv: CourseService, private dashboardSrv: DashboardService, private teacherSrv: TeacherService) {
+  constructor(private classRoomSrv: ClassRoomService, private courseSrv: CourseService, private dashboardSrv: DashboardService, private teacherSrv: TeacherService, private subjectSrv: SubjectService) {
   }
 
   ngOnInit(): void {
@@ -57,12 +58,12 @@ export class DashboardCourseComponent implements OnInit {
 
   // Get subject
   getSubjectsByClassRoomId(classRoomId: string): void {
-    this.courseSrv
-      .getSubject(classRoomId, this.searchText, this.page, this.size)
+    this.subjectSrv
+      .getSubjectByCourse(classRoomId, this.searchText, this.page, this.size)
       .subscribe({
 
         next: (response) => {
-          this.subject = response;
+          this.subject = response.data.data;
         },
         error: () => {
           console.error('Error fetching subjects.');

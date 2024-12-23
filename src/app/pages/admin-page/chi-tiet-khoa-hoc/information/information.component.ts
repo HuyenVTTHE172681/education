@@ -9,6 +9,9 @@ import { CourseService } from '../../../../services/course.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Course, CourseYear } from '../../../../models/course.model';
 import { Subject } from '../../../../models/subject.model';
+import { TRISTATECHECKBOX_VALUE_ACCESSOR } from 'primeng/tristatecheckbox';
+import { map } from 'rxjs/operators';
+import { SubjectService } from '../../../../services/subject.service';
 
 @Component({
   selector: 'app-information',
@@ -21,10 +24,11 @@ export class InformationComponent implements OnInit {
   page: number = 0;
   size: number = 10000;
   searchText: string = '';
-  classRoomId: string | null = null;
+  classRoomId: string = '';
 
   classRoom: ClassRoom[] = [];
   teacher: Teacher[] = [];
+  selectedTeachers: Teacher[] = [];
   courseYears: CourseYear[] = [];
   subject: Subject[] = [];
   status: number = -1;
@@ -36,25 +40,56 @@ export class InformationComponent implements OnInit {
     private classRoomSrv: ClassRoomService,
     private teacherSrv: TeacherService,
     private courseSrv: CourseService,
+    private subjectSrv: SubjectService,
     private formBuilder: FormBuilder
   ) {
     this.courseForm = this.formBuilder.group({
-      id: [],
-      name: [],
-      price: [],
-      priceDiscount: [],
+      accountId: [],
+      accountName: [],
+      accounts: [],
+      averageRating: [],
+      classRoom: [],
+      classRoomId: [],
+      classRoomName: [],
+      code: [],
       courseAvatar: [],
       courseBanner: [],
-      isShowHome: [],
-      status: [],
-      classRoom: [],
-      courseYears: [],
-      teachers: [],
       courseInfo1: [],
       courseInfo2: [],
+      courseRatingSummary: [],
+      courseRatings: [],
+      courseRelevants: [],
+      courseSchedules: [],
+      courseThumbnail: [],
+      courseYearId: [],
+      createdBy: [],
+      createdDate: [],
+      currentRate: [],
+      id: [],
+      isPassCourse: ['false'],
+      isShowHome: [0],
+      modifiedBy: [],
+      modifiedDate: [],
+      name: [],
+      order: [0],
+      price: [0],
+      priceDiscount: [0],
       promotionTime: [],
-      shortSummary: [],
+      rating: [],
+      shortSummary: [''],
+      status: [0],
+      studentNum: [],
       subject: [],
+      subjectId: [],
+      subjectName: [''],
+      teacherId: [''],
+      teacherName: [''],
+      teachers: [[]],
+      testUsers: [''],
+      totalFiltered: [0],
+      totalRating: [0],
+      totalStudent: [0],
+      userRating: [0]
     });
   }
 
@@ -69,23 +104,13 @@ export class InformationComponent implements OnInit {
     this.getCourseYears();
   }
 
-  getSubjectsByClassRoomId(classRoomId: string): void {
-    this.courseSrv
-      .getSubject(classRoomId, this.searchText, this.page, this.size)
+  getSubjectsByClassRoomId(): void {
+    this.subjectSrv
+      .getSubjectByCourse(this.classRoomId, this.searchText, this.page, this.size)
       .subscribe({
         next: (response) => {
-          // console.log('API Response of Subject:', response);
-          this.subject = response;
-
-          const subjectId = this.courseForm.get('subject')?.value?.id;
-          if (subjectId) {
-            const selectedSubject = this.subject.find(
-              (subject) => subject.id === subjectId
-            );
-            this.courseForm.patchValue({
-              subject: selectedSubject || null, // Nếu không tìm thấy, gán null
-            });
-          }
+          this.subject = response.data.data;
+          console.log("Subject: ", this.subject)
         },
         error: () => {
           console.error('Error fetching subjects.');
@@ -134,40 +159,13 @@ export class InformationComponent implements OnInit {
     this.courseSrv.getCourseById(id, accountId).subscribe({
       next: (data) => {
         if (data.statusCode === 200) {
-          const courseData = data.data;
-          // Cập nhật danh sách giáo viên và form
-          this.courseForm.patchValue({
-            id: courseData.id,
-            name: courseData.name,
-            price: courseData.price,
-            priceDiscount: courseData.priceDiscount,
-            courseAvatar: courseData.courseAvatar,
-            courseBanner: courseData.courseBanner,
-            promotionTime: courseData.promotionTime,
-            isShowHome: courseData.isShowHome === 1, // Chuyển 0/1 -> true/false
-            status: courseData.status === 1,
-            classRoom:
-              this.classRoom.find(
-                (room) => room.id === courseData.classRoomId
-              ) || null,
-            teachers: courseData.teachers, // You can set it as null for no teacher selected
-            courseYears: this.courseYears.find(
-              (years) => years.id === courseData.courseYearId
-            ),
-            courseInfo1: courseData.courseInfo1,
-            courseInfo2: courseData.courseInfo2,
-            shortSummary: courseData.shortSummary,
-            subject: { id: courseData.subjectId },
-          });
+          const courseDetail = data.data;
+          console.log("Course Detail: ", courseDetail);
+          this.patchForm(courseDetail);
+          console.log("Form value: ", this.courseForm.value);
 
-          console.log('Form value: ', this.courseForm.value);
-
-          if (courseData.classRoomId) {
-            console.log('Fetching subjects for ClassRoomId:', this.classRoomId);
-            this.getSubjectsByClassRoomId(courseData.classRoomId);
-          } else {
-            console.warn('ClassRoomId is missing. Skipping subject fetch.');
-          }
+          this.classRoomId = courseDetail?.classRoomId;
+          this.getSubjectsByClassRoomId();
         }
       },
       error: () => {
@@ -176,12 +174,65 @@ export class InformationComponent implements OnInit {
     });
   }
 
+  patchForm(course: any) {
+    this.courseForm.patchValue({
+      accountId: course.accountId,
+      accountName: course.accountName,
+      accounts: course.accounts,
+      averageRating: course.averageRating === 0,
+      classRoom: course.classRoom,
+      classRoomId: course.classRoomId,
+      classRoomName: course.classRoomName,
+      code: course.code,
+      courseAvatar: course.courseAvatar,
+      courseBanner: course.courseBanner,
+      courseInfo1: course.courseInfo1,
+      courseInfo2: course.courseInfo2,
+      courseRatingSummary: course.courseRatingSummary,
+      courseRatings: course.courseRatings,
+      courseRelevants: course.courseRelevants,
+      courseSchedules: course.courseSchedules,
+      courseThumbnail: course.courseThumbnail,
+      courseYearId: course.courseYearId,
+      createdBy: course.createdBy,
+      createdDate: course.createdDate,
+      currentRate: course.currentRate,
+      id: course.id,
+      isPassCourse: course.isPassCourse,
+      isShowHome: course.isShowHome === 1,
+      modifiedBy: course.modifiedBy,
+      modifiedDate: course.modifiedDate,
+      name: course.name,
+      order: course.order,
+      price: course.price,
+      priceDiscount: course.priceDiscount,
+      promotionTime: course.promotionTime,
+      rating: course.rating,
+      shortSummary: course.shortSummary,
+      status: course.status,
+      studentNum: course.studentNum,
+      subject: course.subject,
+      subjectId: course.subjectId,
+      subjectName: course.subjectName,
+      teacherId: course.teacherId,
+      teacherName: course.teacherName,
+      teachers: course.teachers.map((teacher: Teacher) => teacher.id),
+      testUsers: course.testUsers,
+      totalFiltered: course.totalFiltered,
+      totalRating: course.totalRating,
+      totalStudent: course.totalStudent,
+      userRating: course.userRating
+    })
+
+    this.selectedTeachers = course.teachers;
+  }
+
   onTeacherChange(event: any): void {
-    const selectedTeachers = this.courseForm.get('teachers')?.value;
-    if (selectedTeachers && selectedTeachers.length > 0) {
-      const teacherNames = selectedTeachers.map((teacher: any) => teacher.name);
-      console.log('Selected Teacher Names:', teacherNames);
-    }
+    const selectedTeacherIds = this.courseForm.get('teachers')?.value || [];
+    this.selectedTeachers = this.teacher.filter(teacher =>
+      selectedTeacherIds.includes(teacher.id)
+    );
+    console.log('Selected Teachers:', this.selectedTeachers);
   }
 
 }

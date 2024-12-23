@@ -7,6 +7,7 @@ import { DashboardService } from "../../../../services/dashboard.service";
 import { ClassRoomService } from "../../../../services/classRoom.service";
 import { ClassRoom } from "../../../../models/classRoom.model";
 import { CourseService } from "../../../../services/course.service";
+import { SubjectService } from "../../../../services/subject.service";
 
 @Component({
   selector: 'app-dashboard-overview',
@@ -27,7 +28,7 @@ export class DashboardOverviewComponent implements OnInit {
   searchText: string = '';
 
   private searchSubject: Subject<string> = new Subject(); // Subject for search
-  constructor(private dashboardSrv: DashboardService, private classRoomSrv: ClassRoomService, private courseSrv: CourseService) {
+  constructor(private dashboardSrv: DashboardService, private classRoomSrv: ClassRoomService, private courseSrv: CourseService, private subjectSrv: SubjectService) {
 
   }
 
@@ -63,12 +64,12 @@ export class DashboardOverviewComponent implements OnInit {
 
   // Get subject
   getSubjectsByClassRoomId(classRoomId: string): void {
-    this.courseSrv
-      .getSubject(classRoomId, this.searchText, this.page, this.size)
+    this.subjectSrv
+      .getSubjectByCourse(classRoomId, this.searchText, this.page, this.size)
       .subscribe({
 
         next: (response) => {
-          this.subject = response;
+          this.subject = response.data.data;
         },
         error: () => {
           console.error('Error fetching subjects.');

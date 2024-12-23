@@ -3,11 +3,8 @@
     <p-breadcrumb class="max-w-full" [model]="menuBreachCrumbs" [home]="home" />
   </div>
   <div class="tab-view">
-    <p-tabView
-      [(activeIndex)]="activeTabIndex"
-      (onChange)="onTabChange($event)"
-    >
-      <p-tabPanel [routerLink]="['/chi-tiet-khoa-hoc', id, 0]">
+    <p-tabView (onChange)="onTabChange($event)">
+      <p-tabPanel>
         <ng-template pTemplate="header">
           <div class="flex align-items-center gap-2">
             <span>
@@ -25,9 +22,7 @@
             <span>
               <i class="pi pi-list" style="font-size: 12px"></i>
             </span>
-            <span class="font-bold white-space-nowrap m-0"
-              >Chương trình học</span
-            >
+            <span class="font-bold white-space-nowrap m-0">Chương trình học</span>
           </div>
         </ng-template>
         <app-chuong-trinh-hoc></app-chuong-trinh-hoc>
@@ -37,10 +32,7 @@
         <ng-template pTemplate="header">
           <div class="flex align-items-center gap-2">
             <span>
-              <i
-                class="pi pi-sort-numeric-down-alt"
-                style="font-size: 12px"
-              ></i>
+              <i class="pi pi-sort-numeric-down-alt" style="font-size: 12px"></i>
             </span>
             <span class="font-bold white-space-nowrap m-0">Điểm</span>
           </div>

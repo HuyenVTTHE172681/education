@@ -10,6 +10,7 @@ import { TeacherService } from '../../../services/teacher.service';
 import { ClassRoomService } from '../../../services/classRoom.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { SubjectService } from '../../../services/subject.service';
 
 @Component({
   selector: 'app-khoa-hoc',
@@ -48,7 +49,7 @@ export class KhoaHocComponent implements OnInit {
 
   private searchSubject: Subject<string> = new Subject(); // Subject for search
   constructor(private courseSrv: CourseService, private router: Router, private classRoomSrv: ClassRoomService,
-    private teacherSrv: TeacherService,) { }
+    private teacherSrv: TeacherService, private subjectSrv: SubjectService) { }
 
   ngOnInit(): void {
     this.getAllKhoaHoc();
@@ -96,12 +97,12 @@ export class KhoaHocComponent implements OnInit {
   }
 
   getSubjectsByClassRoomId(classRoomId: string): void {
-    this.courseSrv
-      .getSubject(classRoomId, this.searchText, this.page, this.size)
+    this.subjectSrv
+      .getSubjectByCourse(classRoomId, this.searchText, this.page, this.size)
       .subscribe({
         next: (response) => {
           // console.log('API Response of Subject:', response);
-          this.subject = response;
+          this.subject = response.data.data;
         },
         error: () => {
           console.error('Error fetching subjects.');
