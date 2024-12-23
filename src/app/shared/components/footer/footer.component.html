@@ -1,4 +1,4 @@
-<div class="footer-wrapper">
+<div class="footer-wrapper" *ngIf="!isAdmin">
   <div class="footer-top common-content">
     <div class="footer-top--item">
       <div class="footer-top--item-header">Chăm sóc khách hàng</div>
@@ -87,9 +87,9 @@
       </div>
     </div>
   </div> -->
-  
-  
-    <div class="footer-bottom">
+
+
+  <div class="footer-bottom">
     <div class="footer-bottom--wrapper">
       <div class="footer-bottom--left" *ngIf="footerLeft.length > 0">
         <div *ngFor="let item of footerLeft">
@@ -103,10 +103,7 @@
       </div>
     </div>
   </div>
-  
-  
-  <img
-    src="https://hochieuqua7.web.app/images/footer/footer4.png"
-    class="footer-background"
-  />
+
+
+  <img src="https://hochieuqua7.web.app/images/footer/footer4.png" class="footer-background" />
 </div>

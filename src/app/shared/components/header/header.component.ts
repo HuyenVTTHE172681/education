@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/authen.service';
 import { MenuService } from '../../../services/menu.service';
+import { MenuItem } from '../../../models/menu.model';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +16,12 @@ export class HeaderComponent implements OnInit {
   menu: any[] = [];
   menuAdmin: any[] = [];
   isAdmin: boolean = false;
+  page: number = 1;
+  size: number = 100;
+  filter: string = '';
+  screenAdmin: string = 'admin';
+  screenUser: string = 'user';
+  status: number = 1;
 
   constructor(private router: Router, private authenSrv: AuthService, private menuService: MenuService) {
     this.items = [
@@ -72,8 +79,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUserInfo();
-    this.getMenuItems();
-    this.getMenuAdmin();
   }
 
   getUser() {
@@ -109,9 +114,6 @@ export class HeaderComponent implements OnInit {
     window.location.reload(); // Tải lại trang để reset UI
     this.router.navigate(['/edu']);
   }
-  toggleDropdown() {
-    this.isDropdownOpen = !this.isDropdownOpen;
-  }
 
   executeCommand(command: Function, overlayPanel: any) {
     if (command) {
@@ -132,9 +134,14 @@ export class HeaderComponent implements OnInit {
       this.isAdmin = this.user?.roleTypeDataId === 'admin';
       console.log('Is Admin:', this.isAdmin);
 
+      // Gọi hàm lấy menu tương ứng
+      this.loadMenu();
+
     } else {
       const token = localStorage.getItem('token');
       console.log('Không tìm thấy thông tin user, token hiện tại:', token);
+      this.loadMenu();
+
 
       if (token) {
         // Gọi lại API nếu cần cập nhật thông tin
@@ -144,6 +151,13 @@ export class HeaderComponent implements OnInit {
 
             this.user = res.data;
             localStorage.setItem('user', JSON.stringify(this.user));
+
+            // Cập nhật vai trò sau khi lấy thông tin user
+            this.isAdmin = this.user?.roleTypeDataId === 'admin';
+            console.log('Is Admin:', this.isAdmin);
+
+            // Gọi hàm lấy menu tương ứng
+            this.loadMenu();
           },
           error: (err) => {
             console.error('Lỗi khi gọi API lấy thông tin user:', err);
@@ -154,18 +168,66 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  getMenuItems() {
-    this.menuService.getMenuItems().subscribe((items: any) => {
-      this.menu = items;
+  loadMenu() {
+    if (this.isAdmin) {
+      console.log('Người dùng là admin, gọi getMenuAdmin');
+      this.getMenuAdmin();
+    } else {
+      console.log('Người dùng không phải admin, gọi getMenuUser');
+      this.getMenuUser();
+    }
+  }
 
-      console.log("Menu: ", this.menu)
+  getMenuUser() {
+    this.menuService.getMenuUser(this.page, this.size, this.filter, this.screenUser, this.status).subscribe((data) => {
+      console.log("Raw Menu User Data:", data.data.data);
+      this.menu = this.buildTree(data.data.data);
+      console.log("Processed Menu User:", this.menu);
     });
   }
+
 
   getMenuAdmin(): void {
-    this.menuService.getMenuAdmin().subscribe((items: any) => {
-      this.menuAdmin = items;
-      console.log('Menu admin: ', this.menuAdmin);
-    });
+    this.menuService.getMenuAdmin(this.page, this.size, this.filter, this.screenAdmin, this.status).subscribe((data) => {
+      console.log("Raw Menu User Data:", data.data.data);
+      this.menu = this.buildTree(data.data.data);
+      console.log("Processed Menu User:", this.menu);
+    })
   }
+
+  buildTree = (arr: any[]) => {
+    const results: any = [];
+    arr.map(t => {
+      if (t.childs && t.childs.length) {
+        t.childs = this.buildTree(t.childs);
+      }
+      const result = {
+        label: t.name,
+        items: t.childs,
+        icon: t.icon,
+        actions: JSON.parse(t.actions) || [],
+        path: t.path,
+        command: () => {
+          if (t.path !== 'none') {
+            this.router.navigate([t.path]);
+          }
+        }
+      };
+      if (result.items && result.items.length === 0) {
+        delete result.items;
+      }
+
+      // Kiểm tra nếu được phân quyền thì mới thêm vào hiển thị
+      // if (this.user?.roles.map((role: any) => role.id).includes(t.id) || !this.user?.roles) {
+      //   results.push(result);
+      // }
+      // return result;
+
+      results.push(result);
+    })
+    return results;
+  }
+
+
+
 }
