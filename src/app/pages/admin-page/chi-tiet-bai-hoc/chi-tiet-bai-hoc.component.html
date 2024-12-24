@@ -25,6 +25,30 @@
                         <span>
                             <i class="pi pi-users" style="font-size: 12px"></i>
                         </span>
+                        <span class="font-bold white-space-nowrap m-0">Câu hỏi</span>
+                    </div>
+                </ng-template>
+                <app-information-account></app-information-account>
+            </p-tabPanel>
+
+            <p-tabPanel *ngIf="isEditMode">
+                <ng-template pTemplate="header">
+                    <div class="flex align-items-center gap-2">
+                        <span>
+                            <i class="pi pi-users" style="font-size: 12px"></i>
+                        </span>
+                        <span class="font-bold white-space-nowrap m-0">Nhận xét</span>
+                    </div>
+                </ng-template>
+                <app-information-account></app-information-account>
+            </p-tabPanel>
+
+            <p-tabPanel *ngIf="isEditMode">
+                <ng-template pTemplate="header">
+                    <div class="flex align-items-center gap-2">
+                        <span>
+                            <i class="pi pi-users" style="font-size: 12px"></i>
+                        </span>
                         <span class="font-bold white-space-nowrap m-0">Tài khoản hiển thị</span>
                     </div>
                 </ng-template>

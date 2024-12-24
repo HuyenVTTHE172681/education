@@ -1,1 +1,80 @@
-<p>information-comment works!</p>
+<div class="khoa-hoc customer-table common-content">
+    <p-table [value]="comment" dataKey="id" [scrollable]="true" scrollHeight="600px"
+        [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+        [tableStyle]="{ 'min-width': '75rem' }">
+
+        <ng-template pTemplate="header">
+            <tr style="font-size: 14px;">
+                <th pSortableColumn="code" style="min-width: 53px; left: 0px">
+                    <p-checkbox [binary]="true" inputId="binary" />
+                </th>
+                <th pSortableColumn="code" style="min-width: 300px;">
+                    Avatar <p-sortIcon field="code" />
+                </th>
+                <th pSortableColumn="code" style="min-width: 150px; left: 350px;">
+                    Tài khoản <p-sortIcon field="code" />
+                </th>
+                <th pSortableColumn="code" style="min-width: 150px;">
+                    Bình luận <p-sortIcon field="code" />
+                </th>
+                <th pSortableColumn="code" style="min-width: 150px;">
+                    Ngày bình luận <p-sortIcon field="code" />
+                </th>
+                <th pSortableColumn="code" style="min-width: 150px;">
+                    Trạng thái <p-sortIcon field="code" />
+                </th>
+                <th pSortableColumn="code" style="min-width: 150px;">
+                    Hành động <p-sortIcon field="code" />
+                </th>
+            </tr>
+        </ng-template>
+
+        <!-- Body -->
+        <ng-template pTemplate="body" let-test>
+            <ng-container *ngIf="comment.length > 0; else noData">
+                <tr style="font-size: 14px;">
+                    <td><p-checkbox [binary]="true" inputId="binary" /></td>
+                    <td class="text-blue-700 pointer">{{ test?.avatar }}</td>
+                    <td>{{ test?.account }}</td>
+                    <td>{{ test?.comment }}</td>
+                    <td>{{ test?.dateComment }}</td>
+                    <td>
+                        <p-button [label]="getStatusLabel(test?.status)" [raised]="true"
+                            [severity]="getStatus(test?.status)" [rounded]="true" />
+                    </td>
+                    <td>
+                        <p-button icon="pi pi-ellipsis-v" [text]="true" severity="secondary"
+                            (onClick)="setSelected(test); menu.toggle($event)" />
+                    </td>
+                </tr>
+            </ng-container>
+        </ng-template>
+
+        <!-- No Data Template -->
+        <ng-template #noData>
+            <tr>
+                <td colspan="7" class="text-center">Không có bản ghi nào</td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+    <div class="flex align-items-center justify-content-start" style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: flex-end;
+                  gap: 10px;
+                ">
+        <p-paginator [rows]="size" [totalRecords]="totalItems" [first]="(page - 1) * size"
+            (onPageChange)="onPageChange($event)"></p-paginator>
+
+        <div class="flex justify-content-center align-items-center gap-3">
+            <span>Từ 1 đến 10</span>
+        </div>
+    </div>
+</div>
+
+
+<!-- Popup view to edit/deleted -->
+<div class="card flex justify-content-center">
+    <p-menu #menu [model]="items" [popup]="true" (onShow)="onMenuShow(menu)" />
+</div>

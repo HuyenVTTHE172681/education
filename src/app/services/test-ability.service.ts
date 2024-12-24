@@ -228,23 +228,59 @@ export class TestAbilityService {
       .get<IResponeList<TestCategory>>(apiURL)
       .pipe(catchError(this.handleError));
   }
-  updateTest(test: any): Observable<IResponeListData<Test>> {
-      // https://hhq.runasp.net/api/Teacher
-    const query = `/Test/SetTestNew`;
-  
-      const apiURL = `${this.apiBaseUrl}${query}`;
-      console.log('Generated dashboard API URL:', apiURL);
-  
-      const token = localStorage.getItem('token');
-      const headers = token
-        ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-        : new HttpHeaders();
-  
-      return this.http
-        .post<IResponeListData<Test>>(apiURL, test, { headers })
-        .pipe(catchError(this.handleError));
-    }
 
+  updateTest(test: any): Observable<IResponeListData<Test>> {
+    // https://hhq.runasp.net/api/Teacher
+    const query = `/Test/SetTestNew`;
+
+    const apiURL = `${this.apiBaseUrl}${query}`;
+    console.log('Generated dashboard API URL:', apiURL);
+
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+
+    return this.http
+      .post<IResponeListData<Test>>(apiURL, test, { headers })
+      .pipe(catchError(this.handleError));
+  }
+
+  addTest(test: any): Observable<IResponeListData<Test>> {
+    // https://hhq.runasp.net/api/Test/SetTestNew
+    const query = `/Test/SetTestNew`;
+
+    const apiURL = `${this.apiBaseUrl}${query}`;
+    console.log('Generated dashboard API URL:', apiURL);
+
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+
+    return this.http
+      .post<IResponeListData<Test>>(apiURL, test, { headers })
+      .pipe(catchError(this.handleError));
+  }
+
+  comment(
+    filter: string,
+    page: number,
+    size: number,
+    parentId: string,
+    screen: string,
+  ): Observable<IResponeList<any>> {
+
+    // https://hhq.runasp.net/api/Comment?filter=&offSet=0&pageSize=10&parentId=&screen=A7EEB296-05F0-4238-9C7E-016F3F8D9D7B
+    const query = `/Comment?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}&parentId=${parentId}&screen=${screen}`;
+
+    const apiURL = `${this.apiBaseUrl}${query}`;
+    console.log('Generated API URL:', apiURL);
+
+    return this.http
+      .get<IResponeList<any>>(apiURL)
+      .pipe(catchError(this.handleError));
+  }
   // Hàm xử lý lỗi
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

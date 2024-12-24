@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Test, TestCategory } from '../../../../models/test.model';
-import { TestAbilityComponent } from '../../../edu/test-ability/test-ability.component';
 import { TestAbilityService } from '../../../../services/test-ability.service';
-import { Subject } from '../../../../models/subject.model';
 
 @Component({
   selector: 'app-information-test',
@@ -75,7 +73,7 @@ export class InformationTestComponent implements OnInit {
       testQuestionGroupId: [0],
       testUsers: [],
       thumbnail: [''],
-      time: [''],
+      time: [0],
       totalFiltered: [''],
       totalPoint: [0],
       totalPointPass: [0],
@@ -132,59 +130,58 @@ export class InformationTestComponent implements OnInit {
 
   patchForm(test: any) {
     this.testForm.patchValue({
-      accountsSpecial: test.accountsSpecial,
-      avgRating: test.avgRating,
-      commentConfiguration: test.commentConfiguration,
-      courseId: test.courseId,
-      courseScheduleId: test.courseScheduleId,
-      createdBy: test.createdBy,
-      createdDate: test.createdDate,
-      deadlineDate: test.deadlineDate,
-      description: test.description,
-      id: test.id,
-      isAutoSendMail: test.isAutoSendMail === 1,
-      isAutoSort: test.isAutoSort,
-      isFree: test.isFree === 1,
-      isHaveTestUser: test.isHaveTestUser,
-      isNotification: test.isNotification,
-      isShowInAbilityTest: test.isShowInAbilityTest === 1,
-      isSpecial: test.isSpecial === 1,
-      isTestAttacked: test.isTestAttacked === 1,
-      isTestPass: test.isTestPass,
-      isTestViewed: test.isTestViewed,
-      lessonLink: test.lessonLink,
-      livestreamAvatar: test.livestreamAvatar,
-      livestreamCode: test.livestreamCode,
-      livestreamDate: test.livestreamDate,
-      livestreamGroup: test.livestreamGroup,
-      livestreamLink: test.livestreamLink,
-      livestreamTeacher: test.livestreamTeacher,
-      modifiedBy: test.modifiedBy,
-      modifiedDate: test.modifiedDate,
-      name: test.name,
-      numberOfTest: test.numberOfTest,
-      numberQuestionPass: test.numberQuestionPass,
-      order: test.order,
-      pointShowLessonLink: test.pointShowLessonLink,
-      quizzs: test.quizzs,
-      relationTests: test.relationTests,
-      remainMinute: test.remainMinute,
-      status: test.status === 1,
-      testCategoryCode: test.testCategoryCode,
-      testCategoryId: test.testCategoryId,
-      testCategoryName: test.testCategoryName,
-      testComment: test.testComment,
-      testQuestionGroupId: test.testQuestionGroupId,
-      testUsers: test.testUsers,
-      thumbnail: test.thumbnail,
-      time: test.time,
-      totalFiltered: test.totalFiltered,
-      totalPoint: test.totalPoint,
-      totalPointPass: test.totalPointPass,
-      totalViewed: test.totalViewed,
-      videoUrl: test.videoUrl
-    })
-
+      accountsSpecial: test.accountsSpecial || [],
+      avgRating: test.avgRating ?? 0,
+      commentConfiguration: test.commentConfiguration || '',
+      courseId: test.courseId || '',
+      courseScheduleId: test.courseScheduleId || '',
+      createdBy: test.createdBy || '',
+      createdDate: test.createdDate || '',
+      deadlineDate: test.deadlineDate || '',
+      description: test.description || '',
+      id: test.id || '',
+      isAutoSendMail: test.isAutoSendMail ?? 0,
+      isAutoSort: test.isAutoSort ?? 0,
+      isFree: test.isFree ?? 0,
+      isHaveTestUser: test.isHaveTestUser ?? 0,
+      isNotification: test.isNotification ?? 0,
+      isShowInAbilityTest: test.isShowInAbilityTest ?? 0,
+      isSpecial: test.isSpecial ?? 0,
+      isTestAttacked: test.isTestAttacked ?? 0,
+      isTestPass: test.isTestPass ?? 0,
+      isTestViewed: test.isTestViewed ?? 0,
+      lessonLink: test.lessonLink || '',
+      livestreamAvatar: test.livestreamAvatar || '',
+      livestreamCode: test.livestreamCode || '',
+      livestreamDate: test.livestreamDate || '',
+      livestreamGroup: test.livestreamGroup || '',
+      livestreamLink: test.livestreamLink || '',
+      livestreamTeacher: test.livestreamTeacher || '',
+      modifiedBy: test.modifiedBy || '',
+      modifiedDate: test.modifiedDate || '',
+      name: test.name || '',
+      numberOfTest: test.numberOfTest ?? 0,
+      numberQuestionPass: test.numberQuestionPass ?? 0,
+      order: test.order ?? 0,
+      pointShowLessonLink: test.pointShowLessonLink ?? 0,
+      quizzs: test.quizzs || [],
+      relationTests: test.relationTests || [],
+      remainMinute: test.remainMinute ?? 0,
+      status: test.status ?? 0,
+      testCategoryCode: test.testCategoryCode || '',
+      testCategoryId: test.testCategoryId || '',
+      testCategoryName: test.testCategoryName || '',
+      testComment: test.testComment || '',
+      testQuestionGroupId: test.testQuestionGroupId ?? 0,
+      testUsers: test.testUsers || [],
+      thumbnail: test.thumbnail || '',
+      time: test.time ?? 0,
+      totalFiltered: test.totalFiltered ?? 0,
+      totalPoint: test.totalPoint ?? 0,
+      totalPointPass: test.totalPointPass ?? 0,
+      totalViewed: test.totalViewed ?? 0,
+      videoUrl: test.videoUrl || ''
+    });
   }
 
   updateSubject() {
@@ -195,7 +192,21 @@ export class InformationTestComponent implements OnInit {
       formValue.isFree = formValue.isFree ? 1 : 0
       formValue.isShowInAbilityTest = formValue.isShowInAbilityTest ? 1 : 0
       formValue.isSpecial = formValue.isSpecial ? 1 : 0
-      formValue.isTestAttacked = formValue.isTestAttacked ? 1 : 0
+      formValue.isTestAttacked = formValue.isTestAttacked ? 1 : 0;
+      formValue.avgRating = formValue.avgRating ? 1 : 0;
+      formValue.isAutoSort = formValue.isAutoSort ? 1 : 0;
+      formValue.isHaveTestUser = formValue.isHaveTestUser ? 1 : 0;
+      formValue.isTestViewed = formValue.isTestViewed ? 1 : 0;
+      formValue.numberOfTest = formValue.numberOfTest ? 1 : 0;
+      formValue.numberQuestionPass = formValue.numberQuestionPass ? 1 : 0;
+      formValue.order = formValue.order ? 1 : 0;
+      formValue.pointShowLessonLink = formValue.pointShowLessonLink ? 1 : 0;
+      formValue.remainMinute = formValue.remainMinute ? 1 : 0;
+      formValue.testQuestionGroupId = formValue.testQuestionGroupId ? 1 : 0;
+      formValue.time = formValue.time ? 1 : 0;
+      formValue.totalPointPass = formValue.totalPointPass ? 1 : 0;
+      formValue.totalViewed = formValue.totalViewed ? 1 : 0;
+
       // formValue.testCategoryCode = formValue.testCategoryCode ? '' : ''
 
       if (this.isEditMode) {
@@ -213,6 +224,26 @@ export class InformationTestComponent implements OnInit {
             alert('Có lỗi xảy ra. Vui lòng thử lại!');
           },
         });
+      } else {
+        // if (this.testForm.valid) {
+        //   console.log("Form error: ", this.testForm.errors);
+        //   alert("Vui lòng kiểm tra thông tin đầu vào !")
+        // } else {
+        this.testSrv.addTest(formValue).subscribe({
+          next: (data) => {
+            if (data.statusCode === 200) {
+              alert('Thêm bài kiểm tra!');
+              this.router.navigate(['/quan-tri/bai-kiem-tra']);
+            } else if (data.statusCode === 500) {
+              alert(data.message);
+            }
+          },
+          error: (err) => {
+            console.error('Error adding account:', err);
+            alert('Có lỗi xảy ra. Vui thử lại!');
+          },
+        })
+        // }
       }
     } else {
       alert("Form is not valid");
