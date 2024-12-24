@@ -225,25 +225,25 @@ export class InformationTestComponent implements OnInit {
           },
         });
       } else {
-        // if (this.testForm.valid) {
-        //   console.log("Form error: ", this.testForm.errors);
-        //   alert("Vui lòng kiểm tra thông tin đầu vào !")
-        // } else {
-        this.testSrv.addTest(formValue).subscribe({
-          next: (data) => {
-            if (data.statusCode === 200) {
-              alert('Thêm bài kiểm tra!');
-              this.router.navigate(['/quan-tri/bai-kiem-tra']);
-            } else if (data.statusCode === 500) {
-              alert(data.message);
-            }
-          },
-          error: (err) => {
-            console.error('Error adding account:', err);
-            alert('Có lỗi xảy ra. Vui thử lại!');
-          },
-        })
-        // }
+        if (this.testForm.valid) {
+          console.log("Form error: ", this.testForm.errors);
+          alert("Vui lòng kiểm tra thông tin đầu vào !")
+        } else {
+          this.testSrv.addTest(formValue).subscribe({
+            next: (data) => {
+              if (data.statusCode === 200) {
+                alert('Thêm bài kiểm tra!');
+                this.router.navigate(['/quan-tri/bai-kiem-tra']);
+              } else if (data.statusCode === 500) {
+                alert(data.message);
+              }
+            },
+            error: (err) => {
+              console.error('Error adding account:', err);
+              alert('Có lỗi xảy ra. Vui thử lại!');
+            },
+          })
+        }
       }
     } else {
       alert("Form is not valid");

@@ -210,6 +210,21 @@ export class BaiHocComponent implements OnInit {
   }
 
   handleDelete() {
+    if (this.selectedTest) {
+      const id = this.selectedTest.id;
+      console.log("Test id: ", id);
+
+      this.testSrv.deleteTest(id).subscribe({
+        next: () => {
+          this.dialogDelete = false;
+          alert("Xóa bài học thành công");
+          this.getTest();
+        },
+        error: (err) => {
+          alert("Lỗi xảy ra khi xóa. Vui lòng thử lại!")
+        }
+      })
+    }
 
   }
 

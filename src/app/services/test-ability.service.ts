@@ -263,6 +263,23 @@ export class TestAbilityService {
       .pipe(catchError(this.handleError));
   }
 
+  deleteTest(id: string) {
+    // https://hhq.runasp.net/api/test/D014159F-E9A5-4F7C-970D-000A9F2AE917
+    const apiUrl = `${this.apiBaseUrl}/test/${id}`;
+
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+
+    return this.http.delete<any>(apiUrl, { headers }).pipe(
+      catchError((err: HttpErrorResponse) => {
+        console.error('API EditCourse Error: ', err);
+        return throwError(() => new Error(err.message || 'API call failed'));
+      })
+    );
+  }
+
   comment(
     filter: string,
     page: number,
