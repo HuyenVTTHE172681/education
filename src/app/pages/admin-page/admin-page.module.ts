@@ -64,6 +64,7 @@ import { ChiTietBaiHocComponent } from './chi-tiet-bai-hoc/chi-tiet-bai-hoc.comp
 import { InformationTestComponent } from './chi-tiet-bai-hoc/information-test/information-test.component';
 import { InformationAccountComponent } from './chi-tiet-bai-hoc/information-account/information-account.component';
 import { InformationCommentComponent } from './chi-tiet-bai-hoc/information-comment/information-comment.component';
+import { InformationQuestionComponent } from './chi-tiet-bai-hoc/information-question/information-question.component';
 register(); // Register Swiper
 @NgModule({
   declarations: [
@@ -98,6 +99,7 @@ register(); // Register Swiper
     InformationTestComponent,
     InformationAccountComponent,
     InformationCommentComponent,
+    InformationQuestionComponent,
   ],
   imports: [
     CommonModule,

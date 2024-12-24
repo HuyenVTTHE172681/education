@@ -3,6 +3,7 @@
         <p-breadcrumb class="max-w-full" [model]="menuBreachCrumbs" [home]="home" />
         <div class="header-title">
             {{ isEditMode ? 'Chi tiết bài học' : 'Thêm bài học' }}
+            <!-- {{ 'Test Category:' + testCategory }} -->
         </div>
     </div>
     <div class="tab-view">
@@ -13,29 +14,29 @@
                         <span>
                             <i class="pi pi-map-marker" style="font-size: 12px"></i>
                         </span>
-                        <span class="font-bold white-space-nowrap m-0">Thông tin</span>
+                        <span class="font-bold white-space-nowrap m-0">Chi tiết</span>
                     </div>
                 </ng-template>
                 <app-information-test></app-information-test>
             </p-tabPanel>
 
-            <p-tabPanel *ngIf="isEditMode">
+            <p-tabPanel *ngIf="isEditMode && testCategory === 'kiem-tra'">
                 <ng-template pTemplate="header">
                     <div class="flex align-items-center gap-2">
                         <span>
-                            <i class="pi pi-users" style="font-size: 12px"></i>
+                            <i class="pi pi-question" style="font-size: 12px"></i>
                         </span>
                         <span class="font-bold white-space-nowrap m-0">Câu hỏi</span>
                     </div>
                 </ng-template>
-                <app-information-account></app-information-account>
+                <app-information-question></app-information-question>
             </p-tabPanel>
 
-            <p-tabPanel *ngIf="isEditMode">
+            <p-tabPanel *ngIf="isEditMode && testCategory === 'kiem-tra'">
                 <ng-template pTemplate="header">
                     <div class="flex align-items-center gap-2">
                         <span>
-                            <i class="pi pi-users" style="font-size: 12px"></i>
+                            <i class="pi pi-cog" style="font-size: 12px"></i>
                         </span>
                         <span class="font-bold white-space-nowrap m-0">Nhận xét</span>
                     </div>
@@ -43,7 +44,7 @@
                 <app-information-account></app-information-account>
             </p-tabPanel>
 
-            <p-tabPanel *ngIf="isEditMode">
+            <p-tabPanel *ngIf="isEditMode && testCategory === 'kiem-tra'">
                 <ng-template pTemplate="header">
                     <div class="flex align-items-center gap-2">
                         <span>

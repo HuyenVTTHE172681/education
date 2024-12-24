@@ -68,20 +68,20 @@
                 <td>{{ test?.deadlineDate }}</td>
                 <td>{{ test?.testCategoryName }}</td>
                 <td>
-                    <p-button [label]="getFree(test?.isFree)" [raised]="true"
-                        [severity]="getStatusFree(test?.isFree)" [rounded]="true"/>
+                    <p-button [label]="getFree(test?.isFree)" [raised]="true" [severity]="getStatusFree(test?.isFree)"
+                        [rounded]="true" />
                 </td>
                 <td>
                     <p-button [label]="getEmail(test?.isAutoSendMail)" [raised]="true"
-                        [severity]="getStatus(test?.isAutoSendMail)" [rounded]="true"/>
+                        [severity]="getStatus(test?.isAutoSendMail)" [rounded]="true" />
                 </td>
                 <td>
                     <p-button [label]="getStatusLabel(test?.status)" [raised]="true"
-                        [severity]="getStatus(test?.status)" [rounded]="true"/>
+                        [severity]="getStatus(test?.status)" [rounded]="true" />
                 </td>
                 <td>
                     <p-button [label]="getStatusLabel(test?.isShowInAbilityTest)" [raised]="true"
-                        [severity]="getStatus(test?.isShowInAbilityTest)" [rounded]="true"/>
+                        [severity]="getStatus(test?.isShowInAbilityTest)" [rounded]="true" />
                 </td>
             </tr>
         </ng-template>
