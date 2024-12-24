@@ -21,11 +21,8 @@ export class InformationTestComponent implements OnInit {
   size: number = 10;
   testForm: FormGroup;
   isEditMode: boolean = false;
-
   searchText: string = '';
-
   testCategory: TestCategory[] = [];
-  selectedTestCategory: { id: string, name: string; code: string } | null = null;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -53,7 +50,7 @@ export class InformationTestComponent implements OnInit {
       isTestAttacked: [0],
       isTestPass: [0],
       isTestViewed: [0],
-      lessonLink: ['', [Validators.required]],
+      lessonLink: [''],
       livestreamAvatar: [''],
       livestreamCode: [''],
       livestreamDate: [''],
@@ -62,7 +59,7 @@ export class InformationTestComponent implements OnInit {
       livestreamTeacher: [''],
       modifiedBy: [''],
       modifiedDate: [''],
-      name: ['', [Validators.required]],
+      name: [''],
       numberOfTest: [0],
       numberQuestionPass: [0],
       order: [0],
@@ -73,7 +70,7 @@ export class InformationTestComponent implements OnInit {
       status: [0],
       testCategoryCode: [''],
       testCategoryId: [''],
-      testCategoryName: ['', [Validators.required]],
+      testCategoryName: [''],
       testComment: [''],
       testQuestionGroupId: [0],
       testUsers: [],
@@ -201,13 +198,6 @@ export class InformationTestComponent implements OnInit {
       formValue.isTestAttacked = formValue.isTestAttacked ? 1 : 0
       // formValue.testCategoryCode = formValue.testCategoryCode ? '' : ''
 
-      // Gán giá trị testCategoryCode từ selectedTestCategory
-      if (this.selectedTestCategory && this.selectedTestCategory.id) {
-        formValue.testCategoryCode = this.selectedTestCategory.code;
-        formValue.testCategoryId = this.selectedTestCategory.id;
-        formValue.testCategoryName = this.selectedTestCategory.name;
-      }
-
       if (this.isEditMode) {
         this.testSrv.updateTest(formValue).subscribe({
           next: (data) => {
@@ -224,6 +214,9 @@ export class InformationTestComponent implements OnInit {
           },
         });
       }
+    } else {
+      alert("Form is not valid");
+      console.log("Form is not valid, errors: ", this.testForm.errors);
     }
   }
 }

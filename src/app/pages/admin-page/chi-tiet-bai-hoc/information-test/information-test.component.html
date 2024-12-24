@@ -4,7 +4,6 @@
             <div class="grid mt-3">
                 <div class="col-12">
                     <form class="p-fluid mt-3" [formGroup]="testForm">
-                        aaaaaa
                         <div class="grid">
                             <div class="col-12 md:col-3">
                                 <div class="field">
@@ -38,7 +37,8 @@
                                     </small>
                                 </div>
                             </div>
-                            <div class="col-12" *ngIf="selectedTestCategory?.code == 'bai-giang'">
+                            <!-- <div class="col-12" *ngIf="selectedTestCategory?.code == 'bai-giang'"> -->
+                            <div class="col-12" *ngIf="testForm.get('testCategoryId')?.value == 'bai-giang'">
                                 <div class="field">
                                     <p-floatLabel>
                                         <label for="name">Nhập đường dẫn video trực tiếp <span
@@ -54,7 +54,7 @@
                                     </small>
                                 </div>
                             </div>
-                            <div class="col-12" *ngIf="selectedTestCategory?.code == 'livestream'">
+                            <div class="col-12" *ngIf="testForm.get('testCategoryId')?.value == 'livestream'">
                                 <div class="col-3">
                                     <div class="avatar">
                                         <img src="https://hochieuqua7.web.app/images/admin/setting/slide/empty-image.png"
@@ -146,7 +146,7 @@
                                 </div>
                             </div>
                             <div class="col-12 md:col-3"
-                                *ngIf="selectedTestCategory?.code === 'bai-giang' || selectedTestCategory?.code === 'kiem-tra' || selectedTestCategory?.code==='livestream' || selectedTestCategory?.code==='offline'">
+                                *ngIf="testForm.get('testCategoryId')?.value == 'bai-giang' || testForm.get('testCategoryId')?.value == 'livestream' || testForm.get('testCategoryId')?.value == 'offline' || testForm.get('testCategoryId')?.value == 'kiem-tra'">
                                 <div class=" field">
                                     <p-floatLabel>
                                         <input pInputText class="input-field" formControlName="time" />
@@ -156,7 +156,7 @@
                                 </div>
                             </div>
                             <div class="col-12 md:col-3"
-                                *ngIf="selectedTestCategory?.code === 'kiem-tra' || selectedTestCategory?.code === 'bai-tap'">
+                                *ngIf="testForm.get('testCategoryId')?.value == 'kiem-tra' || testForm.get('testCategoryId')?.value == 'bai-tap'">
                                 <div class="field">
                                     <p-floatLabel>
                                         <input pInputText class="input-field" formControlName="totalPointPass" />
@@ -166,7 +166,7 @@
                                 </div>
                             </div>
                             <div class="col-12 md:col-3"
-                                *ngIf="selectedTestCategory?.code === 'kiem-tra' || selectedTestCategory?.code === 'bai-tap'">
+                                *ngIf="testForm.get('testCategoryId')?.value == 'kiem-tra' || testForm.get('testCategoryId')?.value == 'bai-tap'">
                                 <div class="field">
                                     <p-floatLabel>
                                         <input pInputText class="input-field" formControlName="numberOfTest" />
@@ -176,7 +176,7 @@
                                 </div>
                             </div>
                             <div class="col-12 md:col-3"
-                                *ngIf="selectedTestCategory?.code === 'kiem-tra' || selectedTestCategory?.code === 'bai-tap'">
+                                *ngIf="testForm.get('testCategoryId')?.value == 'kiem-tra' || testForm.get('testCategoryId')?.value == 'bai-tap'">
                                 <div class="field">
                                     <p-floatLabel>
                                         <input pInputText class="input-field" formControlName="deadlineDate" />
@@ -186,7 +186,7 @@
                                 </div>
                             </div>
                             <div class="col-12 md:col-3"
-                                *ngIf="selectedTestCategory?.code === 'kiem-tra' || selectedTestCategory?.code === 'bai-tap'">
+                                *ngIf="testForm.get('testCategoryId')?.value == 'kiem-tra' || testForm.get('testCategoryId')?.value == 'bai-tap'">
                                 <div class="field">
                                     <p-floatLabel>
                                         <input pInputText class="input-field" formControlName="lessonLink" />
@@ -195,7 +195,7 @@
                                     </p-floatLabel>
                                 </div>
                             </div>
-                            <div class="col-12 md:col-3" *ngIf="selectedTestCategory?.code === 'kiem-tra'">
+                            <div class="col-12 md:col-3" *ngIf="testForm.get('testCategoryId')?.value == 'kiem-tra'">
                                 <div class="field">
                                     <p-floatLabel>
                                         <p-inputSwitch formControlName="isShowInAbilityTest"></p-inputSwitch>
@@ -204,7 +204,7 @@
                                     </p-floatLabel>
                                 </div>
                             </div>
-                            <div class="col-12 md:col-3" *ngIf="selectedTestCategory?.code === 'kiem-tra'">
+                            <div class="col-12 md:col-3" *ngIf="testForm.get('testCategoryId')?.value == 'kiem-tra'">
                                 <div class="field">
                                     <p-floatLabel>
                                         <p-inputSwitch formControlName="isAutoSendMail"></p-inputSwitch>
@@ -214,7 +214,7 @@
                                 </div>
                             </div>
                             <div class="col-12 md:col-3"
-                                *ngIf="selectedTestCategory?.code === 'bai-giang' || selectedTestCategory?.code === 'kiem-tra' || selectedTestCategory?.code==='bai-tap' || selectedTestCategory?.code==='livestream' || selectedTestCategory?.code==='offline'">
+                                *ngIf="testForm.get('testCategoryId')?.value == 'bai-giang' || testForm.get('testCategoryId')?.value == 'kiem-tra' || testForm.get('testCategoryId')?.value == 'bai-tap' || testForm.get('testCategoryId')?.value == 'livestream' || testForm.get('testCategoryId')?.value == 'offline'">
                                 <div class=" field">
                                     <p-floatLabel>
                                         <p-inputSwitch formControlName="status"></p-inputSwitch>
@@ -224,7 +224,7 @@
                                 </div>
                             </div>
                             <div class="col-12 md:col-3"
-                                *ngIf="selectedTestCategory?.code === 'bai-giang' || selectedTestCategory?.code === 'kiem-tra' || selectedTestCategory?.code==='bai-tap' || selectedTestCategory?.code==='livestream'">
+                                *ngIf="testForm.get('testCategoryId')?.value == 'bai-giang' || testForm.get('testCategoryId')?.value == 'kiem-tra' || testForm.get('testCategoryId')?.value == 'bai-tap' || testForm.get('testCategoryId')?.value == 'livestream'">
                                 <div class=" field">
                                     <p-floatLabel>
                                         <p-inputSwitch formControlName="isFree"></p-inputSwitch>
@@ -234,7 +234,8 @@
                                 </div>
                             </div>
                             <div class="col-12 md:col-3"
-                                *ngIf="selectedTestCategory?.code === 'bai-giang' || selectedTestCategory?.code === 'kiem-tra' || selectedTestCategory?.code==='bai-tap' || selectedTestCategory?.code==='livestream'">
+                                *ngIf="testForm.get('testCategoryId')?.value == 'bai-giang' || testForm.get('testCategoryId')?.value == 'kiem-tra' || testForm.get('testCategoryId')?.value == 'bai-tap' || testForm.get('testCategoryId')?.value == 'livestream'">
+                                >
                                 <div class=" field">
                                     <p-floatLabel>
                                         <p-inputSwitch formControlName="isSpecial"></p-inputSwitch>
