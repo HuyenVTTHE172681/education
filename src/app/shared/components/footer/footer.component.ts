@@ -14,12 +14,13 @@ export class FooterComponent implements OnInit {
   isAdmin: boolean = false;
   user: any = null;
 
-  constructor(private footerSrv: FooterService, private authenSrv: AuthService) {}
+  constructor(private footerSrv: FooterService, private authenSrv: AuthService) { }
 
   ngOnInit(): void {
     this.footerSrv.getFooter().subscribe((data) => {
       this.processFooterData(data);
     });
+    this.loadUserInfo();
   }
 
   loadUserInfo() {
@@ -28,11 +29,10 @@ export class FooterComponent implements OnInit {
 
     if (savedUser) {
       this.user = JSON.parse(savedUser);
-      console.log('Người dùng hiện tại:', this.user);
 
       // Kiểm tra role
       this.isAdmin = this.user?.roleTypeDataId === 'admin';
-      console.log('Is Admin:', this.isAdmin);
+      console.log('Is Admin From Footer:', this.isAdmin);
 
     } else {
       const token = localStorage.getItem('token');
