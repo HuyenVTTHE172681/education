@@ -26,6 +26,7 @@ export class InformationSubjectComponent implements OnInit {
   roleId: string = '';
   roleTypeDataId: string = '';
   subject: SubjectModel[] = [];
+  totalSubejct: number = 0;
 
   roleList = [
     { name: 'Tất cả', value: '' },
@@ -83,7 +84,7 @@ export class InformationSubjectComponent implements OnInit {
     this.subjectSrv.getSubjectByCourse(courseID, this.filter, this.page, this.size).subscribe((data) => {
       this.subject = data.data.data;
       this.totalItems = data.data.recordsTotal;
-      // console.log("Teacher: ", this.subject);
+      console.log("Teacher: ", this.subject);
     })
   }
 
