@@ -159,6 +159,7 @@ export class ChiTietGiaoVienComponent implements OnInit {
           alert('Vui lòng kiểm tra thông tin đầu vào!');
         } else {
           this.teacherSrv.addTeacher(formValue).subscribe({
+
             next: (data) => {
               if (data.statusCode === 200) {
                 alert('Thêm tài khoản thành công!');

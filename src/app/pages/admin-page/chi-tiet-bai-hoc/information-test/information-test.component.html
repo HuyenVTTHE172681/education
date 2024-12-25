@@ -248,7 +248,7 @@
                                 <div class="col-12 fixed-action">
                                     <div class="col-9 flex justify-content-start">
                                         <p-button class="mr-2" label="Xem trước" [outlined]="true" icon="pi pi-times" />
-                                        <p-button class="mr-2" label="Hủy bỏ" [outlined]="true" icon="pi pi-times" />
+                                        <p-button class="mr-2" label="Hủy bỏ" (click) = "back()" [outlined]="true" icon="pi pi-times" />
                                         <p-button class="mr-2" label="{{ isEditMode ? 'Cập nhật' : 'Thêm mới' }}"
                                             icon="pi pi-save" (click)="updateSubject()" />
                                     </div>

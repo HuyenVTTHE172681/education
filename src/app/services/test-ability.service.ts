@@ -230,7 +230,6 @@ export class TestAbilityService {
   }
 
   updateTest(test: any): Observable<IResponeListData<Test>> {
-    // https://hhq.runasp.net/api/Teacher
     const query = `/Test/SetTestNew`;
 
     const apiURL = `${this.apiBaseUrl}${query}`;

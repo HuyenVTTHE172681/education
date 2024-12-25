@@ -65,6 +65,8 @@ import { InformationTestComponent } from './chi-tiet-bai-hoc/information-test/in
 import { InformationAccountComponent } from './chi-tiet-bai-hoc/information-account/information-account.component';
 import { InformationCommentComponent } from './chi-tiet-bai-hoc/information-comment/information-comment.component';
 import { InformationQuestionComponent } from './chi-tiet-bai-hoc/information-question/information-question.component';
+import { InformationFeedbackComponent } from './chi-tiet-bai-hoc/information-feedback/information-feedback.component';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 register(); // Register Swiper
 @NgModule({
   declarations: [
@@ -100,6 +102,7 @@ register(); // Register Swiper
     InformationAccountComponent,
     InformationCommentComponent,
     InformationQuestionComponent,
+    InformationFeedbackComponent,
   ],
   imports: [
     CommonModule,
@@ -137,6 +140,7 @@ register(); // Register Swiper
     ChartModule,
     CalendarModule,
     MultiSelectModule,
+    InputTextareaModule
   ],
   providers: [ConfirmationService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
