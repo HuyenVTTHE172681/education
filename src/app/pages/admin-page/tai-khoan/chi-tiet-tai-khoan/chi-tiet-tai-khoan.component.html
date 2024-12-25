@@ -78,7 +78,8 @@
                                         </p-iconField>
                                         <label for="name">Email <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
-                                    <small class="text-red-500" *ngIf="accountForm.get('email')?.hasError('required')">Email là bắt
+                                    <small class="text-red-500"
+                                        *ngIf="accountForm.get('email')?.hasError('required')">Email là bắt
                                         buộc.</small>
                                 </div>
                             </div>
@@ -91,7 +92,9 @@
                                         </p-iconField>
                                         <label for="name">Số điện thoại<span class="text-red-500">*</span></label>
                                     </p-floatLabel>
-                                    <small class="text-red-500" *ngIf="accountForm.get('phone')?.hasError('required')">Phone là bắt buộc.</small>
+                                    <small class="text-red-500"
+                                        *ngIf="accountForm.get('phone')?.hasError('required')">Phone là bắt
+                                        buộc.</small>
                                 </div>
                             </div>
                             <div class="col-12 md:col-6">
@@ -131,8 +134,8 @@
                             <div class="col-12 md:col-6">
                                 <div class="field">
                                     <p-floatLabel>
-                                        <p-dropdown [options]="role" optionLabel="label" formControlName="roleId"
-                                            display="chip" [showClear]="true">
+                                        <p-dropdown [options]="role" optionLabel="name" optionValue="id"
+                                            formControlName="roleId" display="chip" [showClear]="true">
                                         </p-dropdown>
                                         <label for="roleId">Quyền menu <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
@@ -141,8 +144,8 @@
                             <div class="col-12 md:col-6">
                                 <div class="field">
                                     <p-floatLabel>
-                                        <p-dropdown [options]="roleData" optionLabel="label"
-                                            formControlName="roleTypeDataName" display="chip" [showClear]="true">
+                                        <p-dropdown [options]="roleData" optionLabel="name" optionValue="id"
+                                            formControlName="roleTypeDataId" display="chip" [showClear]="true">
                                         </p-dropdown>
                                         <label for="roleTypeDataName">Quyền data <span
                                                 class="text-red-500">*</span></label>

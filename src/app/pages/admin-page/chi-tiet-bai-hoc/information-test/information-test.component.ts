@@ -99,20 +99,7 @@ export class InformationTestComponent implements OnInit {
 
   getTestCategory() {
     this.testSrv.getTestType(this.searchText, this.page, this.size).subscribe((data) => {
-      this.testCategory = data.data.data.map((category: any) => ({
-        code: category.code || '',
-        createdBy: category.createdBy || '',
-        createdDate: category.createdDate || '',
-        description: category.description || '',
-        id: category.id || '',
-        modifiedBy: category.modifiedBy || '',
-        modifiedDate: category.modifiedDate || '',
-        name: category.name || '',
-        order: category.order || 1,
-        status: category.status || 0,
-        totalFiltered: category.totalFiltered || 0
-      }));
-      console.log('testCategory:', this.testCategory);
+      this.testCategory = data.data.data;
     });
   }
 

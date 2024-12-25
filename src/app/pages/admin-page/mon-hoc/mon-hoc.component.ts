@@ -98,14 +98,8 @@ export class MonHocComponent implements OnInit {
       this.subject = data.data.data;
       this.totalItems = data.data.recordsTotal;
 
-      // this.classRoomName = this.subject
-      //   .flatMap((subject: any) => subject.classRooms || []) // Lấy tất cả classRooms từ các subject
-      //   .map((classRoom: any) => classRoom.name); // Trích xuất name
-
-      // console.log("ClassRoom Name: ", this.classRoomName)
-
-      console.log("Subject: ", this.subject);
-      console.log("Filter: ", this.filter)
+      // console.log("Subject: ", this.subject);
+      // console.log("Filter: ", this.filter)
     })
   }
 
@@ -186,8 +180,5 @@ export class MonHocComponent implements OnInit {
   addSubject() {
     this.router.navigate(['/quan-tri/mon-hoc/them-moi'])
   }
-
-
-
 
 }

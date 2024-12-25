@@ -23,7 +23,7 @@ export class ChiTietLopHocComponent {
 
     this.menuBreachCrumbs = [
       { label: 'Quản trị', routerLink: '/quan-tri' },
-      { label: 'lớp học', routerLink: '/quan-tri/lop-hoc' },
+      { label: 'Lớp học', routerLink: '/quan-tri/lop-hoc' },
       { label: 'Chi tiết lớp học' },
     ];
 

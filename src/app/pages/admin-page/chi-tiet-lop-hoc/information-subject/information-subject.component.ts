@@ -3,6 +3,7 @@ import { debounceTime, Subject } from 'rxjs';
 import { Subject as SubjectModel } from '../../../../models/subject.model';
 import { SubjectService } from '../../../../services/subject.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-information-subject',
@@ -10,18 +11,22 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './information-subject.component.css'
 })
 export class InformationSubjectComponent implements OnInit {
-  breadcrum: any[] = [];
-  home: any = [];
+  breadcrum: MenuItem[] = [];
+  home: MenuItem = [];
+
   items: any[] = [];
+
   filter: string = '';
   page: number = 1;
   size: number = 10;
+
   totalItems: number = 0;
+
   courseId: string | null = null;;
   roleId: string = '';
   roleTypeDataId: string = '';
   subject: SubjectModel[] = [];
-  selectedTeacher: any;
+
   roleList = [
     { name: 'Tất cả', value: '' },
     { name: 'Người dùng', value: 'user' },
@@ -30,6 +35,7 @@ export class InformationSubjectComponent implements OnInit {
   ];
   selectedRole: any = this.roleList[0];
   dialogDelete: boolean = false;
+  selectedSubject: any = null;
 
   private searchSubject: Subject<string> = new Subject();
   constructor(private subjectSrv: SubjectService, private router: Router, private route: ActivatedRoute) { }
@@ -37,7 +43,7 @@ export class InformationSubjectComponent implements OnInit {
   ngOnInit(): void {
     this.courseId = this.route.snapshot.paramMap.get('id');
 
-    if(this.courseId) {
+    if (this.courseId) {
       this.getSubject(this.courseId);
     }
 
@@ -53,14 +59,9 @@ export class InformationSubjectComponent implements OnInit {
         label: 'Options',
         items: [
           {
-            label: 'Sửa',
-            icon: 'pi pi-check',
-            command: () => this.editAccount(), // Open sidebar on click
-          },
-          {
             label: 'Xóa',
             icon: 'pi pi-trash',
-            command: () => this.deletedAccount(), // Delete functionality (if needed)
+            command: () => this.deletedSubject(), // Delete functionality (if needed)
           },
         ],
       },
@@ -71,17 +72,10 @@ export class InformationSubjectComponent implements OnInit {
       this.page = 1; // Reset to the first page for new search
     });
   }
-
-  addNewTeacher() {
-    this.router.navigate(['/']);
-  }
-  editAccount() {
-    this.router.navigate(['/quan-tri/giao-vien/', this.selectedTeacher?.id]);
-  }
-  deletedAccount() {
-    if (this.selectedTeacher) {
+  deletedSubject() {
+    if (this.selectedSubject) {
       this.dialogDelete = true;
-      console.log("Delete payement: ", this.selectedTeacher?.id);
+      console.log("Delete subject in classroom: ", this.selectedSubject?.id);
     }
   }
 
@@ -89,14 +83,14 @@ export class InformationSubjectComponent implements OnInit {
     this.subjectSrv.getSubjectByCourse(courseID, this.filter, this.page, this.size).subscribe((data) => {
       this.subject = data.data.data;
       this.totalItems = data.data.recordsTotal;
-      console.log("Teacher: ", this.subject);
+      // console.log("Teacher: ", this.subject);
     })
   }
 
   onPageChange(event: any): void {
     this.page = event.page + 1;
     this.size = event.rows;
-    console.log("Page: ", this.page);
+    // console.log("Page: ", this.page);
   }
 
   onSearchChange(searchValue: string): void {
@@ -112,15 +106,9 @@ export class InformationSubjectComponent implements OnInit {
     this.page = 1;
   }
 
-  setSelectedAccount(account: any) {
-    this.selectedTeacher = account;
-    console.log("Course: ", this.selectedTeacher);
-  }
-
-  onMenuShow(menu: any) {
-    if (this.selectedTeacher) {
-      console.log('Selected File ID:', this.selectedTeacher.id);
-    }
+  setSelectedSubject(subject: any) {
+    this.selectedSubject = subject;
+    console.log("Selected Subject: ", this.selectedSubject);
   }
 
   onStatusChange(event: any) {
@@ -145,21 +133,23 @@ export class InformationSubjectComponent implements OnInit {
     return status === 1 ? 'Hiển thị' : 'Ẩn';
   }
 
-  handleDeleteTeacher() {
-    // if (this.selectedTeacher) {
-    //   const accID = this.selectedTeacher?.id;
-    //   console.log("Teacher id: ", accID)
-    //   this.teacherSrv.deleteTeacher(accID).subscribe({
-    //     next: () => {
-    //       this.dialogDelete = false;
-    //       alert("Xóa giáo viên thành công");
-    //       this.getTeacher();
-    //     },
-    //     error: (err) => {
-    //       alert("Lỗi xảy ra khi xóa. Vui lòng thử lại!")
-    //     }
-    //   })
-    // }
+  handleDeletedSubject() {
+    if (this.selectedSubject) {
+      const subjectID = this.selectedSubject.id;
+      console.log("Subject Selected: ", subjectID);
+
+      this.subjectSrv.deleteSubject(subjectID).subscribe({
+        next: () => {
+          this.dialogDelete = false;
+          alert('Xóa môn học thành công!');
+          this.getSubject(this.courseId!);
+        },
+        error: (error) => {
+          alert("Error deleting subject");
+        }
+      })
+
+    }
   }
 
 }

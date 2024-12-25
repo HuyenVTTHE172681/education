@@ -125,7 +125,7 @@ export class ChiTietGiaoVienComponent implements OnInit {
     this.dashboardSrv.getAccountsNotTeacher(this.filter, this.page, this.size).subscribe(
       (data) => {
         this.accountsNotTeacher = data.data.data;
-        console.log("Accounts not teacher: ", this.accountsNotTeacher);
+        // console.log("Accounts not teacher: ", this.accountsNotTeacher);
       }
     )
   }
@@ -187,25 +187,5 @@ export class ChiTietGiaoVienComponent implements OnInit {
     this.router.navigate(['/quan-tri/giao-vien']);
   }
 
-  onAccountSelect(event: any) {
-    if (!this.isEditMode) { // Chỉ xử lý khi đang ở add mode
-      const selectedAccount = event.value;
 
-      if (selectedAccount) {
-        this.teacherForm.patchValue({
-          accountId: selectedAccount.id,
-          name: selectedAccount.name || '',
-          email: selectedAccount.email || '',
-          phone: selectedAccount.phone || '',
-          address: selectedAccount.address || '',
-          identityNo: selectedAccount.identityNo || '',
-          userName: selectedAccount.userName || '',
-          avatar: selectedAccount.avatar || '',
-        });
-      } else {
-        // Nếu không có tài khoản nào được chọn
-        this.teacherForm.reset();
-      }
-    }
-  }
 }

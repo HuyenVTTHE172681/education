@@ -9,16 +9,6 @@
                     <div class="header-title hidden-mobile">Môn học trong lớp</div>
                 </div>
                 <div class="col-12 md:col-8 text-right flex justify-content-end align-items-end">
-                    <div class="mr-2 text-left search">
-                        <label for="search">Tìm kiếm: </label>
-                        <p-inputGroup [style.height.px]="32">
-                            <input type="text" pInputText placeholder="Nhập nội dung tìm kiếm" severity="secondary"
-                                [(ngModel)]="filter" (ngModelChange)="onSearchChange($event)" />
-                            <button type="button" pButton icon="pi pi-search" [outlined]="true" severity="secondary"
-                                (click)="searchPayment()"></button>
-                        </p-inputGroup>
-                    </div>
-                    <p-button label="Thêm mới" icon="pi pi-plus" class="mr-2" (click)="addNewTeacher()" />
                     <p-button icon="pi pi-file-excel" severity="success"></p-button>
                 </div>
             </div>
@@ -45,24 +35,32 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-subject>
-            <tr style="font-size: 14px;">
-                <td><p-checkbox [binary]="true" inputId="binary" /></td>
-                <td><p-button icon="pi pi-ellipsis-v" [text]="true" severity="secondary"
-                        (onClick)="setSelectedAccount(subject); menu.toggle($event)" /></td>
-                <td>
-                    <img [src]="subject?.avatar" width="50" height="50" class="shadow-4" style="border-radius: 6px" />
-                </td>
-                <td class="text-blue-700 pointer">
-                    <a [routerLink]="['/quan-tri/mon-hoc', subject?.id]" style="text-decoration: none;">
-                        {{ subject?.name }}
-                    </a>
-                </td>
-                <td> {{ subject?.order }}</td>
-                <td>
-                    <p-button [label]="getStatusLabel(subject?.status)" [raised]="true"
-                        [severity]="getStatus(subject?.status)" />
-                </td>
-            </tr>
+            <ng-container *ngIf="subject.length > 0; else elseBlock">
+                <tr style="font-size: 14px;">
+                    <td><p-checkbox [binary]="true" inputId="binary" /></td>
+                    <td><p-button icon="pi pi-ellipsis-v" [text]="true" severity="secondary"
+                            (onClick)="setSelectedSubject(subject); menu.toggle($event)" /></td>
+                    <td>
+                        <img [src]="subject?.avatar" width="50" height="50" class="shadow-4"
+                            style="border-radius: 6px" />
+                    </td>
+                    <td class="text-blue-700 pointer">
+                        <a [routerLink]="['/quan-tri/mon-hoc', subject?.id]" style="text-decoration: none;">
+                            {{ subject?.name }}
+                        </a>
+                    </td>
+                    <td> {{ subject?.order }}</td>
+                    <td>
+                        <p-button [label]="getStatusLabel(subject?.status)" [raised]="true"
+                            [severity]="getStatus(subject?.status)" />
+                    </td>
+                </tr>
+            </ng-container>
+            <ng-template #elseBlock>
+                <tr>
+                    <td colspan="5">Không có dữ liệu</td>
+                </tr>
+            </ng-template>
         </ng-template>
     </p-table>
     <div class="flex align-items-center justify-content-start" style="
@@ -83,7 +81,7 @@
 
 <!-- Popup view to edit/deleted -->
 <div class="card flex justify-content-center">
-    <p-menu #menu [model]="items" [popup]="true" (onShow)="onMenuShow(menu)" />
+    <p-menu #menu [model]="items" [popup]="true" />
 </div>
 
 
@@ -95,6 +93,6 @@
     </div>
     <div class="flex justify-content-end gap-2">
         <p-button label="Từ chối" severity="secondary" (click)="dialogDelete = false" />
-        <p-button label="Đồng ý" (click)="handleDeleteTeacher()" />
+        <p-button label="Đồng ý" (click)="handleDeletedSubject()" />
     </div>
 </p-dialog>

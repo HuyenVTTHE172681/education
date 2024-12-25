@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { DashboardService } from '../../../../services/dashboard.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from '../../../../models/user.model';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -13,7 +12,7 @@ import { map } from 'rxjs/operators';
 })
 export class ChiTietTaiKhoanComponent implements OnInit {
   id: string | null = null;
-  breadcrum: any[] = [];
+  breadcrum: MenuItem[] = [];
   home: MenuItem | undefined;
   roleData: any[] = [];
   role: any[] = [];
@@ -79,28 +78,22 @@ export class ChiTietTaiKhoanComponent implements OnInit {
 
   // Lấy danh sách vai trò
   getRole() {
-    this.dashboardSrv.getRole(this.filter, this.page, this.size).pipe(
-      map((data) => data.data.data.map((role: any) => ({
-        label: role.name,
-        value: role.id
-      })))
-    ).subscribe((roles) => {
-      this.role = roles;
-      console.log("Mapped Roles: ", this.role);
-    });
+    this.dashboardSrv.getRole(this.filter, this.page, this.size).subscribe((data) => {
+      if (data.statusCode === 200) {
+        this.role = data.data.data;
+        console.log("Role: ", this.role);
+      }
+    })
   }
 
   // Lấy danh sách kiểu vai trò
   getRoleDataType() {
-    this.dashboardSrv.getRoleDataType(this.filter, this.page, this.size).pipe(
-      map((data) => data.data.data.map((roleData: any) => ({
-        label: roleData.name,
-        value: roleData.id
-      })))
-    ).subscribe((roleDataTypes) => {
-      this.roleData = roleDataTypes;
-      console.log("Mapped Role Data Types: ", this.roleData);
-    });
+    this.dashboardSrv.getRoleDataType(this.filter, this.page, this.size).subscribe((data) => {
+      if (data.statusCode === 200) {
+        this.roleData = data.data.data;
+        console.log("Role data: ", this.roleData);
+      }
+    })
   }
 
 

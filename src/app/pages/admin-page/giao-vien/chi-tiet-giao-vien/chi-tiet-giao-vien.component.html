@@ -35,24 +35,10 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-user" />
-
-                                            <p-dropdown [options]="accountsNotTeacher"
-                                                [(ngModel)]="selectedAccountsNotTeacher" optionLabel="name"
-                                                [filter]="true" filterBy="name" [showClear]="true"
-                                                placeholder="Select Username" (onChange)="onAccountSelect($event)"
+                                            <p-dropdown [options]="accountsNotTeacher" optionLabel="name"
+                                                optionValue="id" formControlName="name" [filter]="true"
+                                                filterBy="name" [showClear]="true" placeholder="Select Username"
                                                 [disabled]="isEditMode">
-
-                                                <ng-template pTemplate="selectedItem" let-selectedOption>
-                                                    <div class="flex align-items-center gap-2">
-                                                        <div>{{ selectedOption.name }} - {{ selectedOption.userName }}
-                                                        </div>
-                                                    </div>
-                                                </ng-template>
-                                                <ng-template let-country pTemplate="item">
-                                                    <div class="flex align-items-center gap-2">
-                                                        <div>{{ country.name }} - {{ country.userName }}</div>
-                                                    </div>
-                                                </ng-template>
                                             </p-dropdown>
                                         </p-iconField>
                                         <label for="name">Tài khoản <span class="text-red-500">*</span></label>
