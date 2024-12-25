@@ -21,14 +21,14 @@ export class ChiTietMonHocComponent implements OnInit {
   classRoom: ClassRoom[] = [];
   selectedClassRoom: any[] = [];
   page: number = 1;
-  size: number = 10;
+  size: number = 1000;
   searchText: string = '';
-  fallbackFormControl = new FormControl([]); 
+  fallbackFormControl = new FormControl([]);
 
   constructor(private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, private classRoomSrv: ClassRoomService, private subjectSrv: SubjectService) {
     this.subjectForm = this.formBuilder.group({
       avatar: [''],
-      classRoomIds: [],
+      classRoomIds: [[]],
       classRooms: [[], [Validators.required]], // mảng selected lớp học
       courseId: [''],
       courses: [''],
@@ -58,7 +58,7 @@ export class ChiTietMonHocComponent implements OnInit {
 
     this.breadcrum = [
       { label: 'Quản trị', routerLink: '/quan-tri' },
-      { label: 'Môn học', routerLink: '/quan-tri/moc-hoc' },
+      { label: 'Môn học', routerLink: '/quan-tri/mon-hoc' },
       { label: 'Chi tiết Môn học' },
     ];
     this.home = { icon: 'pi pi-shop', routerLink: '/' };
@@ -114,8 +114,9 @@ export class ChiTietMonHocComponent implements OnInit {
       const formValue = { ...this.subjectForm.value };
 
       formValue.status = formValue.status ? 1 : 0;
-      formValue.classRoomIds = this.selectedClassRoom.map((classRoom) => classRoom.id);
+      // formValue.classRoomIds = this.selectedClassRoom.map((classRoom) => classRoom.id);
 
+      console.log("Form value: ", formValue);
       if (this.isEditMode) {
         this.subjectSrv.updateSubject(formValue).subscribe({
           next: (data) => {
@@ -159,13 +160,6 @@ export class ChiTietMonHocComponent implements OnInit {
 
   goBack() {
     this.router.navigate(['/quan-tri/mon-hoc']);
-  }
-
-  onClassRoomChange(selected: any[]) {
-    this.selectedClassRoom = selected;
-    this.subjectForm.patchValue({
-      classRoomIds: this.selectedClassRoom.map((classRoom) => classRoom.id),
-    });
   }
 
 

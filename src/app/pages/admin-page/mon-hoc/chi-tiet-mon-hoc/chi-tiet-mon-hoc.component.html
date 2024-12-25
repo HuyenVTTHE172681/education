@@ -48,11 +48,9 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-sort-alpha-down" />
-                                            <p-multiSelect [options]="classRoom"
-                                                formControlName="classRooms"
-                                                [(ngModel)]="selectedClassRoom"
-                                                (ngModelChange)="onClassRoomChange($event)" optionLabel="name"
-                                                placeholder="Chọn lớp học"></p-multiSelect>
+                                            <p-multiSelect [options]="classRoom" formControlName="classRoomIds"
+                                                optionValue="id" optionLabel="name" placeholder="Chọn lớp học"
+                                                [maxSelectedLabels]="30"></p-multiSelect>
                                         </p-iconField>
                                         <label for="classRooms">Lớp học <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
