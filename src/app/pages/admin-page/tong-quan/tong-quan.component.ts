@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../../../services/dashboard.service';
+import { AdviceRequest, DashboardOverview, TestQuestions } from '../../../models/dashboard.model';
 
 @Component({
   selector: 'app-tong-quan',
@@ -9,11 +10,12 @@ import { DashboardService } from '../../../services/dashboard.service';
 export class TongQuanComponent implements OnInit {
   dateFilter: any | undefined;
   selectedDateFilter: any | undefined;
-  dashboardFilterByDate: any = {};// 
-  adviceRequest: any = {}; //
-  testQuestion: any = {};
-  fromDate: string = '2024-12-01%2000:00:00';
-  toDate: string = '2024-12-07%2023:59:59';
+  dashboardFilterByDate: DashboardOverview = new DashboardOverview();
+  adviceRequest: AdviceRequest[] = [];
+  testQuestion: TestQuestions = new TestQuestions();
+
+  fromDate: string = '';
+  toDate: string = '';
   dataChart: any;
   options: any;
 
@@ -23,7 +25,8 @@ export class TongQuanComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateDateRange('day');
-    this.getDashboardFilterByDate(this.fromDate, this.toDate);
+    this.getDashboardFilterByDate();
+    this.getDateFilter(this.selectedDateFilter);
 
     // Chart setup 
     const documentStyle = getComputedStyle(document.documentElement);
@@ -35,34 +38,60 @@ export class TongQuanComponent implements OnInit {
       }
     };
 
+  }
+
+  getDateFilter(dateFilter: any) {
     this.dateFilter = [
       { name: 'Hôm nay', code: 'day' },
       { name: 'Tuần nay', code: 'week' },
       { name: 'Tháng nay', code: 'month' },
       { name: 'Năm nay', code: 'year' },
     ];
-
   }
 
-  getDashboardFilterByDate(fromDate: string, toDate: string) {
+  // Filter by date and update chart
+  getDashboardFilterByDate() {
     this.dashboardSrv.getDashboardFilterByDate(this.fromDate, this.toDate).subscribe({
-      next: (data: any) => {
-        this.dashboardFilterByDate = data.data.dashboardOverview;
-        this.adviceRequest = data.data.adviceRequest;
-        this.testQuestion = data.data.testQuestions;
-        this.updateChartData();
+      next: (response: any) => {
+        const data = response.data;
 
-        // console.log("Dashboad: ", this.dashboardFilterByDate);
-        // console.log("Dashboad: ", this.adviceRequest);
-        console.log("Dashboad Chart data: ", this.testQuestion?.data);
-        console.log("Dashboad Chart data: ", this.testQuestion?.labels);
+        // Ánh xạ từng trường
+        this.dashboardFilterByDate = { ...data.dashboardOverview };
+        this.adviceRequest = data.adviceRequest.map((item: any) => ({
+          academicAbility: item.academicAbility,
+          birthday: item.birthday,
+          comment: item.comment,
+          createdBy: item.createdBy,
+          createdDate: item.createdDate,
+          id: item.id,
+          isAdvice: item.isAdvice,
+          modifiedBy: item.modifiedBy,
+          modifiedDate: item.modifiedDate,
+          name: item.name,
+          phone: item.phone,
+          totalFiltered: item.totalFiltered,
+        }));
+        this.testQuestion = {
+          data: data.testQuestions.data,
+          labels: data.testQuestions.labels,
+        };
+
+        // Debug log
+        // console.log("Dashboard Overview: ", this.dashboardFilterByDate);
+        // console.log("Advice Request: ", this.adviceRequest);
+        // console.log("Test Questions: ", this.testQuestion);
+        this.updateChartData();
       },
-    })
+      error: (err) => {
+        console.error("Error fetching dashboard data: ", err);
+      },
+    });
   }
+
   onDateFilterChange() {
     if (this.selectedDateFilter) {
       this.updateDateRange(this.selectedDateFilter);
-      this.getDashboardFilterByDate(this.fromDate, this.toDate);
+      this.getDashboardFilterByDate();
     }
   }
   updateDateRange(filter: string) {
@@ -127,43 +156,4 @@ export class TongQuanComponent implements OnInit {
     };
   }
 
-  // initChart() {
-  //   const documentStyle = getComputedStyle(document.documentElement);
-  //   const textColor = documentStyle.getPropertyValue('--p-text-color');
-  //   const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-
-  //   this.dataChart = {
-  //     datasets: [
-  //       {
-  //         data: this.testQuestion?.data,
-  //         backgroundColor: [
-  //           documentStyle.getPropertyValue('--p-pink-500'),
-  //           documentStyle.getPropertyValue('--p-gray-500'),
-  //           documentStyle.getPropertyValue('--p-orange-500'),
-  //           documentStyle.getPropertyValue('--p-purple-500'),
-  //           documentStyle.getPropertyValue('--p-cyan-500')
-  //         ],
-  //         label: 'My dataset'
-  //       }
-  //     ],
-  //     labels: this.testQuestion?.labels
-  //   };
-
-  //   this.options = {
-  //     plugins: {
-  //       legend: {
-  //         labels: {
-  //           color: textColor
-  //         }
-  //       }
-  //     },
-  //     scales: {
-  //       r: {
-  //         grid: {
-  //           color: surfaceBorder
-  //         }
-  //       }
-  //     }
-  //   };
-  // }
 }

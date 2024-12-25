@@ -5,9 +5,9 @@ import { catchError, map } from 'rxjs/operators';
 import { MenuItem } from 'primeng/api';
 import { API_URL } from '../environments/constants';
 import { IResponeList, IResponeListData } from '../models/common.model';
-import { ClassRoom } from '../models/classRoom.model';
-import { Dashboard, Guide, Payment } from '../models/dashboard.model';
+import { Dashboard } from '../models/dashboard.model';
 import { User } from '../models/user.model';
+import { Guide } from '../models/guide.model';
 
 @Injectable({
     providedIn: 'root',
@@ -130,71 +130,6 @@ export class DashboardService {
 
         return this.http
             .get<IResponeList<Dashboard>>(apiURL, { headers })
-            .pipe(catchError(this.handleError));
-    }
-
-    getDashboardPayment(
-        filter: string = '',
-        isPayment: number = -1,
-        page: number,
-        size: number,
-    ): Observable<IResponeList<Payment>> {
-
-        // https://hhq.runasp.net/api/Payment?filter=&isPayment=-1&offSet=0&pageSize=10
-        const query = `/Payment?filter=${filter}&isPayment=${isPayment}&offSet=${(page - 1) * size}&pageSize=${size}`;
-
-        const apiURL = `${this.apiBaseUrl}${query}`;
-        console.log('Generated dashboard API URL:', apiURL);
-
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
-        return this.http
-            .get<IResponeList<Payment>>(apiURL, { headers })
-            .pipe(catchError(this.handleError));
-    }
-
-    deletedPaymentList(id: string) {
-        const apiUrl = `${this.apiBaseUrl}/Payment/${id}`;
-
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
-        return this.http.delete<any>(apiUrl, { headers }).pipe(
-            catchError((err: HttpErrorResponse) => {
-                console.error('API EditCourse Error: ', err);
-                return throwError(() => new Error(err.message || 'API call failed'));
-            })
-        );
-    }
-
-    updatePayment(payload: {
-        id: string;
-        isPayment: number;
-        comment: string;
-    }): Observable<{
-        statusCode: number;
-        data: { valid: boolean; messages: string };
-    }> {
-        // https://hhq.runasp.net/api/Payment/ChangePaymentStatus
-        const apiUrl = `${this.apiBaseUrl}/Payment/ChangePaymentStatus`;
-        console.log('Set Status API URL:', apiUrl);
-
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
-        return this.http
-            .put<{ statusCode: number; data: { valid: boolean; messages: string } }>(
-                apiUrl,
-                payload,
-                { headers }
-            )
             .pipe(catchError(this.handleError));
     }
 

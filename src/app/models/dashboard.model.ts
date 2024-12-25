@@ -8,43 +8,36 @@ export class Dashboard {
     createdBy = '';
     createdDate = '';
     modifiedBy = '';
-    modifiedDate: any = null;
+    modifiedDate = '';
 }
 
-
-export class Payment {
-    accountId = '';
-    accountName = '';
+export class AdviceRequest {
+    academicAbility = '';
+    birthday = '';
     comment = '';
-    content = '';
-    courseId = '';
-    courseName = '';
     createdBy = '';
     createdDate = '';
-    expireDate: any = null;
     id = '';
-    isPayment = 0;
+    isAdvice = '';
     modifiedBy = '';
-    modifiedDate: any = null;
-    otherAddress = '';
-    otherEmail = '';
-    otherName = '';
-    otherPhone = '';
-    paymentDate = '';
-    paymentTypeId = '';
-    paymentTypeName = '';
-    totalFiltered = 0;
+    modifiedDate = '';
+    name = '';
+    phone = '';
+    totalFiltered = '';
 }
 
-export class Guide {
-    content = '';
-    createdBy = '';
-    createdDate = '';
-    id = '';
-    modifiedBy = '';
-    modifiedDate: any = null;
-    order = 0;
-    status = true;
-    title = '';
-    totalFiltered = 0;
+export class DashboardOverview {
+    numClassRooms = 0;
+    numCourses = 0;
+    numNewTeachers = 0;
+    numNewUsers = 0;
+    numQuestions = 0;
+    numRecruits = 0;
+    numSubjects = 0;
+    numTests = 0;
+}
+
+export class TestQuestions {
+    data: number[] = [];
+    labels: string[] = [];
 }

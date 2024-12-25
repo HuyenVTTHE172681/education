@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Payment } from '../../../models/dashboard.model';
 import { DashboardService } from '../../../services/dashboard.service';
 import { debounceTime, Subject } from 'rxjs';
+import { Payment } from '../../../models/payment.model';
+import { PaymentService } from '../../../services/payment.service';
 
 @Component({
   selector: 'app-payment',
@@ -74,8 +75,8 @@ export class PaymentComponent implements OnInit {
     });
   }
 
-  constructor(private dashboardSrv: DashboardService) {
-  }
+  constructor(private paymentSrv: PaymentService) { }
+  
 
   acceptPayment() {
     if (this.selectedPayment.isPayment === 1) {
@@ -126,7 +127,7 @@ export class PaymentComponent implements OnInit {
   }
 
   getDashboardPayment() {
-    this.dashboardSrv.getDashboardPayment(this.filter, this.selectedStatus.value, this.page, this.size).subscribe((data) => {
+    this.paymentSrv.getDashboardPayment(this.filter, this.selectedStatus.value, this.page, this.size).subscribe((data) => {
       this.payment = data.data.data;
       this.totalItems = data.data.recordsTotal;
       console.log("Payment: ", this.payment);
@@ -176,7 +177,7 @@ export class PaymentComponent implements OnInit {
         alert("Thanh toán đã được duyệt, không xóa được!");
         this.dialogDelete = false;
       } else {
-        this.dashboardSrv.deletedPaymentList(paymentID).subscribe({
+        this.paymentSrv.deletedPaymentList(paymentID).subscribe({
           next: () => {
             this.dialogDelete = false;
             this.getDashboardPayment(); // Làm mới dữ liệu
@@ -204,7 +205,7 @@ export class PaymentComponent implements OnInit {
         comment: comment
       }
 
-      this.dashboardSrv.updatePayment(payload).subscribe({
+      this.paymentSrv.updatePayment(payload).subscribe({
         next: (response) => {
           if (response.data.valid) {
             alert("Xác nhận thanh toán rồi!");
@@ -233,9 +234,7 @@ export class PaymentComponent implements OnInit {
         isPayment: 0,
         comment: comment
       }
-
-
-      this.dashboardSrv.updatePayment(payload).subscribe({
+      this.paymentSrv.updatePayment(payload).subscribe({
         next: (respone) => {
           if (respone.data.valid) {
             alert("Hủy xác nhận thanh toán rồi!");

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../../../services/dashboard.service';
-import { Guide } from '../../../models/dashboard.model';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Guide } from '../../../models/guide.model';
 
 @Component({
   selector: 'app-guide-support',
@@ -44,8 +44,8 @@ export class GuideSupportComponent implements OnInit {
   selectGuide(guide: Guide) {
     this.selectedGuide = guide; // Set the selected guide
   }
- getSanitizedContent(content: string | undefined): SafeHtml {
-  return this.sanitizer.bypassSecurityTrustHtml(content || '');
- }
+  getSanitizedContent(content: string | undefined): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(content || '');
+  }
 
 }
