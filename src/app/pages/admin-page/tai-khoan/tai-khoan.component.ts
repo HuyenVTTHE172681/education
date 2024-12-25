@@ -3,6 +3,7 @@ import { DashboardService } from '../../../services/dashboard.service';
 import { User } from '../../../models/user.model';
 import { debounceTime, Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-tai-khoan',
@@ -10,12 +11,14 @@ import { Router } from '@angular/router';
   styleUrl: './tai-khoan.component.css'
 })
 export class TaiKhoanComponent implements OnInit {
-  breadcrum: any[] = [];
-  home: any = [];
+  breadcrum: MenuItem[] | undefined;
+  home: MenuItem | undefined;
   items: any[] = [];
+
   filter: string = '';
   page: number = 1;
   size: number = 10;
+  
   totalItems: number = 0;
   roleId: string = '';
   roleTypeDataId: string = '';
@@ -49,7 +52,7 @@ export class TaiKhoanComponent implements OnInit {
         items: [
           {
             label: 'Edit',
-            icon: 'pi pi-check',
+            icon: 'pi pi-pencil',
             command: () => this.editAccount(), // Open sidebar on click
           },
           {
@@ -63,7 +66,7 @@ export class TaiKhoanComponent implements OnInit {
     // Subscribe to the search subject with debounce
     this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
       this.filter = searchValue;
-      this.page = 1; // Reset to the first page for new search
+      this.page = 1;
       this.getDashboardAccount();
     });
   }
@@ -74,14 +77,14 @@ export class TaiKhoanComponent implements OnInit {
   deletedAccount() {
     if (this.selectedAccount) {
       this.dialogDelete = true;
-      console.log("Delete payement: ", this.selectedAccount?.id);
+      // console.log("Delete payement: ", this.selectedAccount?.id);
     }
   }
   getDashboardAccount() {
     this.dashboardSrv.getDashboardAccount(this.filter, this.page, this.size, this.selectedRole.value || '', this.selectedRole.value || '').subscribe((data) => {
       this.account = data.data.data;
       this.totalItems = data.data.recordsTotal;
-      console.log("Payment: ", this.account);
+      // console.log("Payment: ", this.account);
     })
   }
 
@@ -89,7 +92,7 @@ export class TaiKhoanComponent implements OnInit {
     this.page = event.page + 1;
     this.size = event.rows;
     this.getDashboardAccount();
-    console.log("Page: ", this.page);
+    // console.log("Page: ", this.page);
   }
 
   onSearchChange(searchValue: string): void {
@@ -109,18 +112,12 @@ export class TaiKhoanComponent implements OnInit {
 
   setSelectedAccount(account: any) {
     this.selectedAccount = account;
-    console.log("Course: ", this.selectedAccount);
-  }
-
-  onMenuShow(menu: any) {
-    if (this.selectedAccount) {
-      console.log('Selected File ID:', this.selectedAccount.id);
-    }
+    // console.log("Course: ", this.selectedAccount);
   }
 
   onStatusChange(event: any) {
     this.page = 1;
-    console.log('Trạng thái đã được chọn: ', this.selectedRole);
+    // console.log('Trạng thái đã được chọn: ', this.selectedRole);
     this.getDashboardAccount();
   }
 
