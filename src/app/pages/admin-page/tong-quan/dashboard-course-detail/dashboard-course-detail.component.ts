@@ -46,7 +46,6 @@ export class DashboardCourseDetailComponent implements OnInit {
     this.getAllKhoaHoc();
     this.getCourseYears();
     this.getTeachers();
-
     this.getDashboardAdminCourseDetail();
   }
 
@@ -54,7 +53,7 @@ export class DashboardCourseDetailComponent implements OnInit {
     this.dashboardSrv.getDashboardAdminCourseDetail(this.selectedClassroom || '', this.selectedCourse || '', this.selectedCourseYear || '', this.selectedSubject || '', this.selectedTeacher || '').subscribe({
       next: (data: IResponeList<any>) => {
         this.dashboardAdminCourseDetail = data.data.data;
-        console.log("Admin course: ", this.dashboardAdminCourseDetail)
+        // console.log("Admin course: ", this.dashboardAdminCourseDetail)
       }
     })
   }
@@ -69,7 +68,8 @@ export class DashboardCourseDetailComponent implements OnInit {
           this.subject = response.data.data;
         },
         error: () => {
-          console.error('Error fetching subjects.');
+          // console.error('Error fetching subjects.');
+          alert('Error fetching subjects.');
         },
       });
   }
@@ -101,7 +101,7 @@ export class DashboardCourseDetailComponent implements OnInit {
     ).subscribe({
       next: (data: IResponeList<Course>) => {
         this.course = data.data.data;
-        console.log("Course: ", this.course)
+        // console.log("Course: ", this.course)
       }
     })
   }
@@ -111,10 +111,11 @@ export class DashboardCourseDetailComponent implements OnInit {
     this.courseSrv.getCourseYear(this.searchText, this.page, this.size, this.status).subscribe({
       next: (data) => {
         this.courseYears = data;
-        console.log('Course Years:', this.courseYears);
+        // console.log('Course Years:', this.courseYears);
       },
       error: (err) => {
-        console.error('Error loading course years:', err);
+        // console.error('Error loading course years:', err);
+        alert('Error loading course years.');
       },
     });
   }
@@ -126,11 +127,11 @@ export class DashboardCourseDetailComponent implements OnInit {
       .subscribe({
         next: (data: IResponeList<Teacher>) => {
           this.teacher = data.data.data;
-          console.log('Teacher: ', this.teacher);
-
+          // console.log('Teacher: ', this.teacher);
         },
         error: (err) => {
-          console.log('Error loading teachers: ', err);
+          // console.log('Error loading teachers: ', err);
+          alert('Error loading teachers.');
         },
       });
   }

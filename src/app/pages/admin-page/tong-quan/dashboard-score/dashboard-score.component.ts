@@ -39,7 +39,7 @@ export class DashboardScoreComponent implements OnInit {
     this.dashboardSrv.getDashboardAdminScore(this.selectedClassroom, this.selectedSubject || '', this.accountId, this.filter, this.page, this.size).subscribe({
       next: (data: IResponeList<any>) => {
         this.dashboardAdminScore = data.data.data;
-        console.log("Admin course: ", this.dashboardAdminScore)
+        // console.log("Admin course: ", this.dashboardAdminScore)
       }
     })
   }
@@ -65,7 +65,8 @@ export class DashboardScoreComponent implements OnInit {
           this.subject = response.data.data;
         },
         error: () => {
-          console.error('Error fetching subjects.');
+          // console.error('Error fetching subjects.');
+          alert('Error fetching subjects.');
         },
       });
   }
@@ -75,7 +76,7 @@ export class DashboardScoreComponent implements OnInit {
     this.searchSubject.next(this.filter);
   }
   searchCourse(): void {
-    console.log('Searching with filter:', this.filter);
+    // console.log('Searching with filter:', this.filter);
     this.page = 1;
     this.getDashboardAdminScore();
   }

@@ -9,7 +9,6 @@ export class DashboardTeacherComponent implements OnInit {
   products: any;
 
   constructor() {
-
   }
 
   ngOnInit(): void {

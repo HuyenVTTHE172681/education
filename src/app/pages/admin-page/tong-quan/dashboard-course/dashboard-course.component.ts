@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ClassRoomService } from '../../../../services/classRoom.service';
-import { CourseService } from '../../../../services/course.service';
 import { DashboardService } from '../../../../services/dashboard.service';
 import { TeacherService } from '../../../../services/teacher.service';
 import { IResponeList } from '../../../../models/common.model';
@@ -27,12 +26,11 @@ export class DashboardCourseComponent implements OnInit {
   searchText: string = '';
 
   private searchSubject: Subject<string> = new Subject(); // Subject for search
-  constructor(private classRoomSrv: ClassRoomService, private courseSrv: CourseService, private dashboardSrv: DashboardService, private teacherSrv: TeacherService, private subjectSrv: SubjectService) {
+  constructor(private classRoomSrv: ClassRoomService, private dashboardSrv: DashboardService, private subjectSrv: SubjectService) {
   }
 
   ngOnInit(): void {
     this.getDashboardAdminCourse();
-
     this.getClassRoom();
   }
 
@@ -40,7 +38,7 @@ export class DashboardCourseComponent implements OnInit {
     this.dashboardSrv.getDashboardAdminCourse(this.page, this.size, this.filter, this.selectedClassroom || '', this.selectedSubject || '', this.accountId).subscribe({
       next: (data: IResponeList<any>) => {
         this.adminCourse = data.data.data;
-        console.log("Admin course: ", this.adminCourse)
+        // console.log("Admin course: ", this.adminCourse)
       }
     })
   }
@@ -61,12 +59,12 @@ export class DashboardCourseComponent implements OnInit {
     this.subjectSrv
       .getSubjectByCourse(classRoomId, this.searchText, this.page, this.size)
       .subscribe({
-
         next: (response) => {
           this.subject = response.data.data;
         },
         error: () => {
-          console.error('Error fetching subjects.');
+          // console.error('Error fetching subjects.');
+          alert('Error fetching subjects.');
         },
       });
   }
@@ -76,7 +74,7 @@ export class DashboardCourseComponent implements OnInit {
     this.searchSubject.next(this.filter);
   }
   searchCourse(): void {
-    console.log('Searching with filter:', this.filter);
+    // console.log('Searching with filter:', this.filter);
     this.page = 1;
     this.getDashboardAdminCourse();
   }

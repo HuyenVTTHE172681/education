@@ -34,7 +34,6 @@ export class DashboardOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDashboard();
-
     this.getClassRoom();
   }
 
@@ -42,10 +41,10 @@ export class DashboardOverviewComponent implements OnInit {
     this.dashboardSrv.getDashboardAdminOverview(this.page, this.size, this.filter, this.selectedClassroom || '', this.selectedSubject || '', this.accountId).subscribe({
       next: (data: IResponeList<Dashboard>) => {
         this.dashboard = data.data.data;
-        console.log("Filter: ", this.filter);
-        console.log("Selected classrôm: ", this.selectedClassroom);
-        console.log("Subject: ", this.selectedSubject)
-        console.log("Dashboad Admin Overview: ", this.dashboard);
+        // console.log("Filter: ", this.filter);
+        // console.log("Selected classrôm: ", this.selectedClassroom);
+        // console.log("Subject: ", this.selectedSubject)
+        // console.log("Dashboad Admin Overview: ", this.dashboard);
 
       },
     });
@@ -72,7 +71,8 @@ export class DashboardOverviewComponent implements OnInit {
           this.subject = response.data.data;
         },
         error: () => {
-          console.error('Error fetching subjects.');
+          // console.error('Error fetching subjects.');
+          alert('Error fetching subjects.');
         },
       });
   }
@@ -82,7 +82,7 @@ export class DashboardOverviewComponent implements OnInit {
     this.searchSubject.next(this.filter);
   }
   searchCourse(): void {
-    console.log('Searching with filter:', this.filter);
+    // console.log('Searching with filter:', this.filter);
     this.page = 1;
     this.getDashboard();
   }
