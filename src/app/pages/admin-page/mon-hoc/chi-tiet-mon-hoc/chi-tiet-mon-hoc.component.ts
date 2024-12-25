@@ -29,7 +29,7 @@ export class ChiTietMonHocComponent implements OnInit {
     this.subjectForm = this.formBuilder.group({
       avatar: [''],
       classRoomIds: [[]],
-      classRooms: [[], [Validators.required]], // mảng selected lớp học
+      classRooms: [[]], // mảng selected lớp học
       courseId: [''],
       courses: [''],
       createdBy: [''],
