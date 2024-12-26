@@ -41,14 +41,7 @@ const routes: Routes = [
       },
       {
         path: 'chi-tiet-khoa-hoc/:id',
-        component: ChiTietKhoaHocComponent,
-        // children: [
-        //   { path: '0', component: InformationComponent },
-        //   { path: '1', component: ChuongTrinhHocComponent },
-        //   { path: '2', component: ScoresComponent },
-        //   { path: '3', component: FeedbackComponent },
-        //   { path: '', redirectTo: '0', pathMatch: 'full' },
-        // ],
+        component: ChiTietKhoaHocComponent
       },
       {
         path: 'thanh-toan',

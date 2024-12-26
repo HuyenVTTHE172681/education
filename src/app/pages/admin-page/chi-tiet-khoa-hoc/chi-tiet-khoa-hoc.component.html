@@ -3,7 +3,8 @@
     <p-breadcrumb class="max-w-full" [model]="menuBreachCrumbs" [home]="home" />
   </div>
   <div class="tab-view">
-    <p-tabView (onChange)="onTabChange($event)">
+    <p-tabView >
+
       <p-tabPanel>
         <ng-template pTemplate="header">
           <div class="flex align-items-center gap-2">
@@ -51,6 +52,7 @@
         </ng-template>
         <app-feedback></app-feedback>
       </p-tabPanel>
+      
     </p-tabView>
   </div>
 </div>
