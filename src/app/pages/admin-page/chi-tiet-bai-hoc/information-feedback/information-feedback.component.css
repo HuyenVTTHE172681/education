@@ -1,0 +1,17 @@
+.comment_field {
+    position: relative;
+}
+
+
+/* position: absolute;
+    right: 0;
+    top: 27%;
+    background: #fff;
+    background-color: #fff; */
+
+.field .p-inputtext {
+    background: rgba(104, 164, 251, .12);
+    border: 1px solid #e3e7f2;
+    font-size: 14px;
+}
+

@@ -329,3 +329,18 @@ label {
   text-align: center;
   text-shadow: 0 2px 1px #494949;
 }
+
+.field {
+  margin-bottom: 18px;
+}
+
+textarea {
+  height: 53px;
+  overflow: hidden;
+  padding-right: 100%;
+  width: 100%;
+  background: rgba(104, 164, 251, .12);
+  border: 1px solid #e3e7f2;
+  font-size: 14px;
+  border-radius: 4px;
+}
