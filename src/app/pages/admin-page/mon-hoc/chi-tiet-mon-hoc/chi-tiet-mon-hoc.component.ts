@@ -17,12 +17,13 @@ export class ChiTietMonHocComponent implements OnInit {
   home: MenuItem = [];
   subjectForm: FormGroup;
   isEditMode: boolean = false;
-
   classRoom: ClassRoom[] = [];
   selectedClassRoom: any[] = [];
-  page: number = 1;
-  size: number = 1000;
-  searchText: string = '';
+  query = {
+    page: 1,
+    size: 1000,
+    searchText: ''
+  }
   fallbackFormControl = new FormControl([]);
 
   constructor(private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, private classRoomSrv: ClassRoomService, private subjectSrv: SubjectService) {
@@ -45,6 +46,7 @@ export class ChiTietMonHocComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initParams();
     this.getClassRoom();
     this.id = this.route.snapshot.paramMap.get('id');
 
@@ -56,19 +58,20 @@ export class ChiTietMonHocComponent implements OnInit {
       this.subjectForm.reset();
     }
 
+  }
+
+  initParams() {
     this.breadcrum = [
       { label: 'Quản trị', routerLink: '/quan-tri' },
       { label: 'Môn học', routerLink: '/quan-tri/mon-hoc' },
       { label: 'Chi tiết Môn học' },
     ];
     this.home = { icon: 'pi pi-shop', routerLink: '/' };
-
   }
 
   getClassRoom() {
-    this.classRoomSrv.getClassRooms(this.page, this.size, this.searchText).subscribe((data) => {
+    this.classRoomSrv.getClassRooms(this.query.page, this.query.size, this.query.searchText).subscribe((data) => {
       this.classRoom = data.data.data;
-      console.log("ClassRoom: ", this.classRoom);
     })
   }
 

@@ -4,6 +4,7 @@ import { User } from '../../../core/models/user.model';
 import { debounceTime, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { STATUS } from '../../../environments/constants';
 
 @Component({
   selector: 'app-tai-khoan',
@@ -13,15 +14,15 @@ import { MenuItem } from 'primeng/api';
 export class TaiKhoanComponent implements OnInit {
   breadcrum: MenuItem[] | undefined;
   home: MenuItem | undefined;
-  items: any[] = [];
+  items: MenuItem[] = [];
 
-  filter: string = '';
-  page: number = 1;
-  size: number = 10;
+  query = {
+    filter: '',
+    page: 1,
+    size: 10
+  }
 
   totalItems: number = 0;
-  roleId: string = '';
-  roleTypeDataId: string = '';
   account: User[] = [];
   selectedAccount: any;
   roleList = [
@@ -38,7 +39,17 @@ export class TaiKhoanComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDashboardAccount();
+    this.initParams();
 
+    // Subscribe to the search subject with debounce
+    this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
+      this.query.filter = searchValue;
+      this.query.page = 1;
+      this.getDashboardAccount();
+    });
+  }
+
+  initParams() {
     this.breadcrum = [
       { label: 'Quản trị' },
       { label: 'Tài khoản' },
@@ -63,14 +74,7 @@ export class TaiKhoanComponent implements OnInit {
         ],
       },
     ];
-    // Subscribe to the search subject with debounce
-    this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
-      this.filter = searchValue;
-      this.page = 1;
-      this.getDashboardAccount();
-    });
   }
-
   editAccount() {
     this.router.navigate(['/quan-tri/tai-khoan/', this.selectedAccount?.id]);
   }
@@ -81,7 +85,7 @@ export class TaiKhoanComponent implements OnInit {
     }
   }
   getDashboardAccount() {
-    this.dashboardSrv.getDashboardAccount(this.filter, this.page, this.size, this.selectedRole.value || '', this.selectedRole.value || '').subscribe((data) => {
+    this.dashboardSrv.getDashboardAccount(this.query.filter, this.query.page, this.query.size, this.selectedRole.value || '', this.selectedRole.value || '').subscribe((data) => {
       this.account = data.data.data;
       this.totalItems = data.data.recordsTotal;
       // console.log("Payment: ", this.account);
@@ -89,8 +93,8 @@ export class TaiKhoanComponent implements OnInit {
   }
 
   onPageChange(event: any): void {
-    this.page = event.page + 1;
-    this.size = event.rows;
+    this.query.page = event.page + 1;
+    this.query.size = event.rows;
     this.getDashboardAccount();
     // console.log("Page: ", this.page);
   }
@@ -99,14 +103,14 @@ export class TaiKhoanComponent implements OnInit {
     this.searchSubject.next(searchValue); // Emit search value
   }
   searchPayment() {
-    this.page = 1;
+    this.query.page = 1;
     this.getDashboardAccount();
   }
 
   resetFilters(): void {
     this.selectedRole = '';
-    this.filter = '';
-    this.page = 1;
+    this.query.filter = '';
+    this.query.page = 1;
     this.getDashboardAccount();
   }
 
@@ -116,7 +120,7 @@ export class TaiKhoanComponent implements OnInit {
   }
 
   onStatusChange(event: any) {
-    this.page = 1;
+    this.query.page = 1;
     // console.log('Trạng thái đã được chọn: ', this.selectedRole);
     this.getDashboardAccount();
   }
@@ -135,7 +139,7 @@ export class TaiKhoanComponent implements OnInit {
   }
 
   getStatusLabel(status: number) {
-    return status === 1 ? 'Đang hoạt động' : 'Dừng hoạt động';
+    return status === 1 ? STATUS.DANG_HOAT_DONG : STATUS.DUNG_HOAT_DONG;
   }
 
   handleDeleteAccount() {

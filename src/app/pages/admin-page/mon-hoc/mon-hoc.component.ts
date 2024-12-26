@@ -6,6 +6,7 @@ import { ClassRoomService } from '../../../core/services/classRoom.service';
 import { ClassRoom } from '../../../core/models/classRoom.model';
 import { debounceTime, Subject } from 'rxjs';
 import { MenuItem } from 'primeng/api';
+import { STATUS } from '../../../environments/constants';
 @Component({
   selector: 'app-mon-hoc',
   templateUrl: './mon-hoc.component.html',
@@ -14,11 +15,12 @@ import { MenuItem } from 'primeng/api';
 export class MonHocComponent implements OnInit {
   breadcrum: MenuItem[] = [];
   home: MenuItem = [];
-  items: any;
-
-  page: number = 1;
-  size: number = 10;
-  filter: string = '';
+  items: MenuItem[] = [];
+  query = {
+    page: 1,
+    size: 10,
+    filter: '',
+  }
   subject: SubjectModel[] = [];
   selectedSubject: any = null;
   totalItems: number = 0;
@@ -34,10 +36,20 @@ export class MonHocComponent implements OnInit {
   constructor(private router: Router, private classRoomSrv: ClassRoomService, private subjectSrv: SubjectService) { }
 
   ngOnInit(): void {
+    this.initParams();
     this.getClassRoom();
     this.getSubject();
 
+    // Subscribe to the search subject with debounce
+    this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
+      this.query.filter = searchValue;
+      this.query.page = 1;
+      this.getSubject();
+    });
 
+  }
+
+  initParams() {
     this.breadcrum = [
       { label: 'Quản trị' },
       { label: 'Khóa học' },
@@ -62,14 +74,6 @@ export class MonHocComponent implements OnInit {
         ],
       },
     ];
-
-    // Subscribe to the search subject with debounce
-    this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
-      this.filter = searchValue;
-      this.page = 1;
-      this.getSubject();
-    });
-
   }
 
   editSubject() {
@@ -95,7 +99,7 @@ export class MonHocComponent implements OnInit {
   }
 
   getSubject() {
-    this.subjectSrv.getSubjectByCourse(this.selectedClassroom || '', this.filter, this.page, this.size).subscribe((data) => {
+    this.subjectSrv.getSubjectByCourse(this.selectedClassroom || '', this.query.filter, this.query.page, this.query.size).subscribe((data) => {
       this.subject = data.data.data;
       this.totalItems = data.data.recordsTotal;
 
@@ -114,14 +118,14 @@ export class MonHocComponent implements OnInit {
 
   // Pagination
   onPageChange(event: any): void {
-    this.page = event.page + 1;
-    this.size = event.rows;
+    this.query.page = event.page + 1;
+    this.query.size = event.rows;
     this.getSubject();
   }
 
   // Get ClassRoom to dropdown list filter Subject
   getClassRoom() {
-    this.classRoomSrv.getClassRooms(this.page, this.size, this.searchText).subscribe((data) => {
+    this.classRoomSrv.getClassRooms(this.query.page, this.query.size, this.searchText).subscribe((data) => {
       this.classRoom = data.data.data;
       console.log("ClassRoom: ", this.classRoom);
     })
@@ -132,14 +136,14 @@ export class MonHocComponent implements OnInit {
     this.searchSubject.next(searchValue);
   }
   searchCourse() {
-    this.page = 1;
+    this.query.page = 1;
     this.getSubject();
   }
   resetFilters(): void {
     this.selectedClassroom = undefined;
     this.selectedSubject = undefined;
-    this.filter = '';
-    this.page = 1;
+    this.query.filter = '';
+    this.query.page = 1;
     this.getSubject();
   }
 
@@ -157,7 +161,7 @@ export class MonHocComponent implements OnInit {
     }
   }
   getStatusLabel(status: number) {
-    return status === 1 ? 'Hiển thị' : 'Ẩn';
+    return status === 1 ? STATUS.HIEN_THI : STATUS.AN;
   }
 
   handleDeletedSubject() {

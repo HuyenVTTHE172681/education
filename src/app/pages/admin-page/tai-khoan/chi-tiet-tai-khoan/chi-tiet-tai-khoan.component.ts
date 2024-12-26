@@ -16,9 +16,11 @@ export class ChiTietTaiKhoanComponent implements OnInit {
   home: MenuItem | undefined;
   roleData: any[] = [];
   role: any[] = [];
-  filter: string = '';
-  page: number = 1;
-  size: number = 10;
+  query = {
+    filter: '',
+    page: 1,
+    size: 10
+  }
   accountForm: FormGroup;
 
   constructor(
@@ -78,20 +80,18 @@ export class ChiTietTaiKhoanComponent implements OnInit {
 
   // Lấy danh sách vai trò
   getRole() {
-    this.dashboardSrv.getRole(this.filter, this.page, this.size).subscribe((data) => {
+    this.dashboardSrv.getRole(this.query.filter, this.query.page, this.query.size).subscribe((data) => {
       if (data.statusCode === 200) {
         this.role = data.data.data;
-        console.log("Role: ", this.role);
       }
     })
   }
 
   // Lấy danh sách kiểu vai trò
   getRoleDataType() {
-    this.dashboardSrv.getRoleDataType(this.filter, this.page, this.size).subscribe((data) => {
+    this.dashboardSrv.getRoleDataType(this.query.filter, this.query.page, this.query.size).subscribe((data) => {
       if (data.statusCode === 200) {
         this.roleData = data.data.data;
-        console.log("Role data: ", this.roleData);
       }
     })
   }
@@ -106,7 +106,6 @@ export class ChiTietTaiKhoanComponent implements OnInit {
         console.log("Account detail 1: ", accountDetail);
         console.log("Account detail test mapping: ", this.role.find((role: any) => role.id === accountDetail.roleId)?.name);
         this.patchAccountForm(accountDetail);
-        console.log("Form value: ", this.accountForm.value);
       }
     });
   }

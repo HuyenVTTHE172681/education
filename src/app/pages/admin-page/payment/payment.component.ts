@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardService } from '../../../core/services/dashboard.service';
 import { debounceTime, Subject } from 'rxjs';
 import { Payment } from '../../../core/models/payment.model';
 import { PaymentService } from '../../../core/services/payment.service';
 import { MenuItem } from 'primeng/api';
+import { STATUS } from '../../../environments/constants';
 
 @Component({
   selector: 'app-payment',
@@ -13,15 +13,16 @@ import { MenuItem } from 'primeng/api';
 export class PaymentComponent implements OnInit {
   breadcrum: MenuItem[] = [];
   home: MenuItem = [];
-  items: any[] = [];
+  items: MenuItem[] = [];
   payment: Payment[] = [];
-  filter: string = '';
-  isPayment: number = -1;
-  page: number = 1;
-  size: number = 10;
-  totalItems: number = 0;
-
   selectedPayment: any = null;
+  query = {
+    filter: '',
+    isPayment: -1,
+    page: 1,
+    size: 10
+  }
+  totalItems: number = 0;
   private searchSubject: Subject<string> = new Subject(); // Subject for search
 
   statusList = [
@@ -36,8 +37,20 @@ export class PaymentComponent implements OnInit {
   note: string = '';
 
   ngOnInit(): void {
+    this.initParams();
     this.getDashboardPayment();
 
+    // Subscribe to the search subject with debounce
+    this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
+      this.query.filter = searchValue;
+      this.query.page = 1; // Reset to the first page for new search
+      this.getDashboardPayment();
+    });
+  }
+
+  constructor(private paymentSrv: PaymentService) { }
+
+  initParams() {
     this.breadcrum = [
       { label: 'Quản trị' },
       { label: 'Thanh toán' },
@@ -68,15 +81,7 @@ export class PaymentComponent implements OnInit {
       },
     ];
 
-    // Subscribe to the search subject with debounce
-    this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
-      this.filter = searchValue;
-      this.page = 1; // Reset to the first page for new search
-      this.getDashboardPayment();
-    });
   }
-
-  constructor(private paymentSrv: PaymentService) { }
 
 
   acceptPayment() {
@@ -107,8 +112,7 @@ export class PaymentComponent implements OnInit {
   }
 
   onStatusChange(event: any) {
-    this.page = 1;
-    console.log('Trạng thái đã được chọn: ', this.selectedStatus);
+    this.query.page = 1;
     this.getDashboardPayment();
   }
   // Trigger search with debounce
@@ -116,30 +120,28 @@ export class PaymentComponent implements OnInit {
     this.searchSubject.next(searchValue); // Emit search value
   }
   searchPayment() {
-    this.page = 1;
+    this.query.page = 1;
     this.getDashboardPayment();
   }
 
   resetFilters(): void {
     this.selectedStatus = -1;
-    this.filter = '';
-    this.page = 1; // Reset về trang đầu tiên
+    this.query.filter = '';
+    this.query.page = 1; // Reset về trang đầu tiên
     this.getDashboardPayment(); // Gọi API để lấy lại dữ liệu ban đầu
   }
 
   getDashboardPayment() {
-    this.paymentSrv.getDashboardPayment(this.filter, this.selectedStatus.value, this.page, this.size).subscribe((data) => {
+    this.paymentSrv.getDashboardPayment(this.query.filter, this.selectedStatus.value, this.query.page, this.query.size).subscribe((data) => {
       this.payment = data.data.data;
       this.totalItems = data.data.recordsTotal;
-      console.log("Payment: ", this.payment);
     })
   }
 
   onPageChange(event: any): void {
-    this.page = event.page + 1;
-    this.size = event.rows;
+    this.query.page = event.page + 1;
+    this.query.size = event.rows;
     this.getDashboardPayment();
-    console.log("Page: ", this.page);
   }
 
   getStatus(isPayment: number) {
@@ -157,17 +159,11 @@ export class PaymentComponent implements OnInit {
 
 
   getStatusLabel(isPayment: number) {
-    return isPayment === 1 ? 'Đã thanh toán' : 'Chờ thanh toán';
+    return isPayment === 1 ? STATUS.DA_THANH_TOAN : STATUS.CHO_THANH_TOAN;
   }
 
   setSelectedPayment(course: any) {
     this.selectedPayment = course;
-    console.log("Course: ", this.selectedPayment);
-  }
-  onMenuShow(menu: any) {
-    if (this.selectedPayment) {
-      console.log('Selected File ID:', this.selectedPayment.id);
-    }
   }
 
   handleDeletePayment() {
