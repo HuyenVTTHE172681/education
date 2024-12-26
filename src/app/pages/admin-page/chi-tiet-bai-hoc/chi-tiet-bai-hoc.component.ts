@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { TestAbilityService } from '../../../core/services/test-ability.service';
-import { Test, TestCategory } from '../../../core/models/test.model';
+import { Test } from '../../../core/models/test.model';
 
 @Component({
   selector: 'app-chi-tiet-bai-hoc',
@@ -10,7 +10,7 @@ import { Test, TestCategory } from '../../../core/models/test.model';
   styleUrl: './chi-tiet-bai-hoc.component.css'
 })
 export class ChiTietBaiHocComponent implements OnInit {
-  menuBreachCrumbs: any[] = [];
+  menuBreachCrumbs: MenuItem[] = [];
   home: MenuItem | undefined;
   checked: boolean = false;
   id: string | null = null;
@@ -21,14 +21,19 @@ export class ChiTietBaiHocComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private testSrv: TestAbilityService) { }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.isEditMode = !!this.id;
-    console.log('ID course: ', this.id);
+    this.initParams();
 
-    if (this.id) {
-      this.getTestDetail(this.id);
-    }
+    this.route.params.subscribe((params) => {
+      this.id = params['id'];
+      this.isEditMode = !!this.id;
+      if (this.id) {
+        this.getTestDetail(this.id);
+      }
+    });
 
+  }
+
+  initParams() {
     this.menuBreachCrumbs = [
       { label: 'Quản trị', routerLink: '/quan-tri' },
       { label: 'Bài kiểm tra', routerLink: '/quan-tri/bai-kiem-tra' },
