@@ -24,20 +24,16 @@ export class CauHoiComponent implements OnInit {
     publicStatus: -1,
     testQuestionGroupId: -1,
     testQuestionTypeCode: '',
+    searchValue: '',
+    size2: 10000,
+    status: 1,
   }
   totalItems: number = 0;
   selectedQuestion: any = null;
-
   testQuestionGroup: TestQuestionGroup[] = [];
   selectedTestQuestionGroup: any = null;
   testQuestionType: TestQuestionType[] = [];
   selectTestQuestionType: any = null;
-  query = {
-    searchValue: '',
-    page: 1,
-    size: 10000,
-    status: 1,
-  }
   levelQuestion = [
     { name: 'Tất cả', value: -1 },
     { name: 'Dễ', value: 1 },
@@ -195,7 +191,7 @@ export class CauHoiComponent implements OnInit {
   resetFilters() { }
 
   getTestQuestionGroup() {
-    this.questionSrv.getTestQuestionGroup(this.query.searchValue, this.query.page, this.query.size, this.query.status).subscribe(res => {
+    this.questionSrv.getTestQuestionGroup(this.queryQuestion.searchValue, this.queryQuestion.page, this.queryQuestion.size2, this.queryQuestion.status).subscribe(res => {
       if (res.statusCode === 200) {
         this.testQuestionGroup = res.data.data;
         console.log("Test Question Group: ", this.testQuestionGroup);
@@ -204,7 +200,7 @@ export class CauHoiComponent implements OnInit {
   }
 
   getTestQuestionType() {
-    this.questionSrv.getTestQuestionType(this.query.searchValue, this.query.page, this.query.size).subscribe(res => {
+    this.questionSrv.getTestQuestionType(this.queryQuestion.searchValue, this.queryQuestion.page, this.queryQuestion.size2).subscribe(res => {
       if (res.statusCode === 200) {
         this.testQuestionType = res.data.data;
         console.log("Test Question Type: ", this.testQuestionType);
