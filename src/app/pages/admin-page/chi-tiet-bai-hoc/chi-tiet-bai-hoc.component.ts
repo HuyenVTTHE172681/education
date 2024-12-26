@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-import { TestAbilityService } from '../../../services/test-ability.service';
-import { Test, TestCategory } from '../../../models/test.model';
+import { TestAbilityService } from '../../../core/services/test-ability.service';
+import { Test, TestCategory } from '../../../core/models/test.model';
 
 @Component({
   selector: 'app-chi-tiet-bai-hoc',

@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClassRoomService } from '../../../../services/classRoom.service';
-import { IResponeList } from '../../../../models/common.model';
-import { ClassRoom } from '../../../../models/classRoom.model';
-import { Teacher } from '../../../../models/teacher.model';
-import { TeacherService } from '../../../../services/teacher.service';
-import { CourseService } from '../../../../services/course.service';
+import { ClassRoomService } from '../../../../core/services/classRoom.service';
+import { IResponeList } from '../../../../core/models/common.model';
+import { ClassRoom } from '../../../../core/models/classRoom.model';
+import { Teacher } from '../../../../core/models/teacher.model';
+import { TeacherService } from '../../../../core/services/teacher.service';
+import { CourseService } from '../../../../core/services/course.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Course, CourseYear } from '../../../../models/course.model';
-import { Subject } from '../../../../models/subject.model';
+import { Course, CourseYear } from '../../../../core/models/course.model';
+import { Subject } from '../../../../core/models/subject.model';
 import { TRISTATECHECKBOX_VALUE_ACCESSOR } from 'primeng/tristatecheckbox';
 import { map } from 'rxjs/operators';
-import { SubjectService } from '../../../../services/subject.service';
+import { SubjectService } from '../../../../core/services/subject.service';
 
 @Component({
   selector: 'app-information',

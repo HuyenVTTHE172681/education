@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TestAbilityService } from '../../../../../services/test-ability.service';
+import { TestAbilityService } from '../../../../../core/services/test-ability.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -18,7 +18,7 @@ export class ChiTietBaiKiemTraComponent implements OnInit {
     this.initValidationForm();
   }
 
-  constructor(private testSrv: TestAbilityService, private fb: FormBuilder) {}
+  constructor(private testSrv: TestAbilityService, private fb: FormBuilder) { }
 
   initValidationForm() {
     this.validationForm = this.fb.group({

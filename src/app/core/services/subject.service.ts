@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, filter, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { MenuItem } from 'primeng/api';
-import { API_URL } from '../environments/constants';
+import { API_URL } from '../../environments/constants';
 import { IResponeList, IResponeListData } from '../models/common.model';
 import { ClassRoom } from '../models/classRoom.model';
 import { Teacher } from '../models/teacher.model';

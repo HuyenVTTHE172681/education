@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { TestAbilityService } from '../../../services/test-ability.service';
-import { Test } from '../../../models/test.model';
-import { IResponeList } from '../../../models/common.model';
-import { ClassRoom } from '../../../models/classRoom.model';
+import { TestAbilityService } from '../../../core/services/test-ability.service';
+import { Test } from '../../../core/models/test.model';
+import { IResponeList } from '../../../core/models/common.model';
+import { ClassRoom } from '../../../core/models/classRoom.model';
 
 @Component({
   selector: 'app-test-ability',
@@ -25,7 +25,7 @@ export class TestAbilityComponent implements OnInit {
   // Show dialog
   showFormRegisterTest: boolean = false;
 
-  constructor(private testAbilityService: TestAbilityService) {}
+  constructor(private testAbilityService: TestAbilityService) { }
 
   ngOnInit(): void {
     this.getClassRooms(); // Load class rooms

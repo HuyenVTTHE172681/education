@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TestAbilityService } from '../../../services/test-ability.service';
-import { CourseService } from '../../../services/course.service';
+import { TestAbilityService } from '../../../core/services/test-ability.service';
+import { CourseService } from '../../../core/services/course.service';
 
 @Component({
   selector: 'app-course',
@@ -19,7 +19,7 @@ export class CourseComponent implements OnInit {
   constructor(
     private testAbilitySr: TestAbilityService,
     private courseSrv: CourseService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getClassrooms();

@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { CourseService } from '../../../services/course.service';
-import { Course } from '../../../models/course.model';
-import { Subject as SubjectModel } from '../../../models/subject.model';
-import { IResponeList } from '../../../models/common.model';
+import { CourseService } from '../../../core/services/course.service';
+import { Course } from '../../../core/models/course.model';
+import { Subject as SubjectModel } from '../../../core/models/subject.model';
+import { IResponeList } from '../../../core/models/common.model';
 import { Router } from '@angular/router';
-import { ClassRoom } from '../../../models/classRoom.model';
-import { Teacher } from '../../../models/teacher.model';
-import { TeacherService } from '../../../services/teacher.service';
-import { ClassRoomService } from '../../../services/classRoom.service';
+import { ClassRoom } from '../../../core/models/classRoom.model';
+import { Teacher } from '../../../core/models/teacher.model';
+import { TeacherService } from '../../../core/services/teacher.service';
+import { ClassRoomService } from '../../../core/services/classRoom.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { SubjectService } from '../../../services/subject.service';
+import { SubjectService } from '../../../core/services/subject.service';
 import { MenuItem } from 'primeng/api';
 
 @Component({

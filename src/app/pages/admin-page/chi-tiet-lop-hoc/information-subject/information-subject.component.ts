@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { debounceTime, Subject } from 'rxjs';
-import { Subject as SubjectModel } from '../../../../models/subject.model';
-import { SubjectService } from '../../../../services/subject.service';
+import { Subject as SubjectModel } from '../../../../core/models/subject.model';
+import { SubjectService } from '../../../../core/services/subject.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { debounceTime, Subject } from 'rxjs';
-import { ClassRoom } from '../../../models/classRoom.model';
+import { ClassRoom } from '../../../core/models/classRoom.model';
 import { Router } from '@angular/router';
-import { ClassRoomService } from '../../../services/classRoom.service';
+import { ClassRoomService } from '../../../core/services/classRoom.service';
 import { MenuItem } from 'primeng/api';
 
 @Component({

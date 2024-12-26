@@ -3,43 +3,43 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, filter, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { MenuItem } from 'primeng/api';
-import { API_URL } from '../environments/constants';
+import { API_URL } from '../../environments/constants';
 import { IResponeList, IResponeListData } from '../models/common.model';
-import { Teacher } from '../models/teacher.model';
+import { ClassRoom } from '../models/classRoom.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TeacherService {
+export class ClassRoomService {
   apiBaseUrl: string = '';
 
   constructor(private http: HttpClient) {
     this.apiBaseUrl = API_URL.URL_API_CORE;
   }
 
-  getTeachers(
+  getClassRooms(
     page: number,
     size: number,
     filter: string = ''
-  ): Observable<IResponeList<Teacher>> {
+  ): Observable<IResponeList<ClassRoom>> {
 
-    // https://hhq.runasp.net/api/Teacher?filter=&offSet=0&pageSize=10
-    const query = `/Teacher?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
+    const query = `/ClassRoom?filter=${filter}&offSet=${(page - 1) * size
+      }&pageSize=${size}`;
 
     const apiURL = `${this.apiBaseUrl}${query}`;
     console.log('Generated API URL:', apiURL);
 
     return this.http
-      .get<IResponeList<Teacher>>(apiURL)
+      .get<IResponeList<ClassRoom>>(apiURL)
       .pipe(catchError(this.handleError));
   }
 
-  getTeacherWithId(
+  getClassRoomWithId(
     id: string
-  ): Observable<IResponeListData<Teacher>> {
+  ): Observable<IResponeListData<ClassRoom>> {
 
-    // https://hhq.runasp.net/api/Teacher/96203833-60B9-49FA-AD39-749F26999ABC
-    const query = `/Teacher/${id}`;
+    // https://hhq.runasp.net/api/ClassRoom/09EC54D6-A668-4D86-BF42-C2AAD3C00343
+    const query = `/ClassRoom/${id}`;
 
     const apiURL = `${this.apiBaseUrl}${query}`;
     console.log('Generated dashboard API URL:', apiURL);
@@ -50,13 +50,13 @@ export class TeacherService {
     //   : new HttpHeaders();
 
     return this.http
-      .get<IResponeListData<Teacher>>(apiURL)
+      .get<IResponeListData<ClassRoom>>(apiURL)
       .pipe(catchError(this.handleError));
   }
 
-  updateTeacher(teacher: any): Observable<IResponeListData<Teacher>> {
-    // https://hhq.runasp.net/api/Teacher
-    const query = `/Teacher`;
+  addClassRoom(classroom: any): Observable<IResponeListData<ClassRoom>> {
+    // https://hhq.runasp.net/api/ClassRoom
+    const query = `/ClassRoom`;
 
     const apiURL = `${this.apiBaseUrl}${query}`;
     console.log('Generated dashboard API URL:', apiURL);
@@ -67,13 +67,13 @@ export class TeacherService {
       : new HttpHeaders();
 
     return this.http
-      .post<IResponeListData<Teacher>>(apiURL, teacher, { headers })
+      .post<IResponeListData<ClassRoom>>(apiURL, classroom, { headers })
       .pipe(catchError(this.handleError));
   }
 
-  addTeacher(teacher: any): Observable<IResponeListData<Teacher>> {
-    // https://hhq.runasp.net/api/Teacher
-    const query = `/Teacher`;
+  updateClassRoom(classroom: any): Observable<IResponeListData<ClassRoom>> {
+    // https://hhq.runasp.net/api/ClassRoom
+    const query = `/ClassRoom`;
 
     const apiURL = `${this.apiBaseUrl}${query}`;
     console.log('Generated dashboard API URL:', apiURL);
@@ -84,13 +84,13 @@ export class TeacherService {
       : new HttpHeaders();
 
     return this.http
-      .post<IResponeListData<Teacher>>(apiURL, teacher, { headers })
+      .post<IResponeListData<ClassRoom>>(apiURL, classroom, { headers })
       .pipe(catchError(this.handleError));
   }
 
-  deleteTeacher(id: string) {
-    // https://hhq.runasp.net/api/Teacher/16BA72F7-2737-48C5-872D-CCAE38E084B1
-    const apiUrl = `${this.apiBaseUrl}/Teacher/${id}`;
+  deleteClassRoom(id: string) {
+    // https://hhq.runasp.net/api/ClassRoom/1436D85E-5D79-4356-A50F-D922401DFB31
+    const apiUrl = `${this.apiBaseUrl}/ClassRoom/${id}`;
 
     const token = localStorage.getItem('token');
     const headers = token

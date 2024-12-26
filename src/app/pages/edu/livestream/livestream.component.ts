@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TestAbilityService } from '../../../services/test-ability.service';
+import { TestAbilityService } from '../../../core/services/test-ability.service';
 
 @Component({
   selector: 'app-livestream',
@@ -12,7 +12,7 @@ export class LivestreamComponent implements OnInit {
   selectedClassRoom: string | null = null;
   selectedSubject: string | null = null;
 
-  constructor(private testAbilitySr: TestAbilityService) {}
+  constructor(private testAbilitySr: TestAbilityService) { }
 
   ngOnInit(): void {
     this.getClassrooms();

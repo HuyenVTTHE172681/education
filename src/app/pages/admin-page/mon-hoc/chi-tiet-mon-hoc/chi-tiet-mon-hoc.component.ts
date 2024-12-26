@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-import { ClassRoom } from '../../../../models/classRoom.model';
-import { ClassRoomService } from '../../../../services/classRoom.service';
-import { SubjectService } from '../../../../services/subject.service';
+import { ClassRoom } from '../../../../core/models/classRoom.model';
+import { ClassRoomService } from '../../../../core/services/classRoom.service';
+import { SubjectService } from '../../../../core/services/subject.service';
 
 @Component({
   selector: 'app-chi-tiet-mon-hoc',

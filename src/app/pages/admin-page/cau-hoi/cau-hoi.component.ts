@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { QuestionsService } from '../../../services/question.service';
-import { Question, TestQuestionGroup, TestQuestionType } from '../../../models/question.model';
+import { QuestionsService } from '../../../core/services/question.service';
+import { Question, TestQuestionGroup, TestQuestionType } from '../../../core/models/question.model';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -58,22 +58,19 @@ export class CauHoiComponent implements OnInit {
   constructor(private questionSrv: QuestionsService) { }
 
   ngOnInit(): void {
-    this.getBreadcrum();
     this.initParams();
     this.getQuestion();
     this.getTestQuestionGroup();
     this.getTestQuestionType();
   }
 
-  getBreadcrum() {
+  initParams() {
     this.breadcrum = [
       { label: 'Quản trị' },
       { label: 'Bài kiểm tra' },
     ];
     this.home = { icon: 'pi pi-warehouse', routerLink: '/' };
-  }
 
-  initParams() {
     this.items = [
       {
         label: 'Options',

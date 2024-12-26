@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StepService } from '../../../services/step.service';
+import { StepService } from '../../../core/services/step.service';
 
 @Component({
   selector: 'app-exam-home',
@@ -36,7 +36,7 @@ export class ExamHomeComponent implements OnInit {
   };
 
   stepsApi: any[] = [];
-  constructor(private stepSrv: StepService) {}
+  constructor(private stepSrv: StepService) { }
 
   ngOnInit(): void {
     this.stepSrv.getSteps().subscribe((data) => {

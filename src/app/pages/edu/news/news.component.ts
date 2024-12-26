@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NewsService } from '../../../services/news.service';
+import { NewsService } from '../../../core/services/news.service';
 
 @Component({
   selector: 'app-news',
@@ -12,7 +12,7 @@ export class NewsComponent implements OnInit {
   newsByDate: any[] = [];
   newsByView: any[] = [];
 
-  constructor(private newSrv: NewsService) {}
+  constructor(private newSrv: NewsService) { }
   ngOnInit() {
 
     this.newSrv.getCategory().subscribe((res) => {
@@ -31,5 +31,5 @@ export class NewsComponent implements OnInit {
       this.newsByView = res;
     })
   }
-  
+
 }

@@ -1,5 +1,5 @@
 import { Component, NgModule, OnInit } from '@angular/core';
-import { HomeService } from '../../../services/home.service';
+import { HomeService } from '../../../core/services/home.service';
 
 @Component({
   selector: 'app-teacher-quiz',
@@ -97,10 +97,10 @@ export class TeacherQuizComponent implements OnInit {
   quizzes: any[] = [];
   teachers: any[] = [];
 
-  constructor(private homeService: HomeService) {}
+  constructor(private homeService: HomeService) { }
 
   ngOnInit(): void {
-      this.homeService.getQuiz().subscribe((res) => (this.quizzes = res));
-      this.homeService.getTeachers().subscribe((res) => (this.teachers = res));
+    this.homeService.getQuiz().subscribe((res) => (this.quizzes = res));
+    this.homeService.getTeachers().subscribe((res) => (this.teachers = res));
   }
 }

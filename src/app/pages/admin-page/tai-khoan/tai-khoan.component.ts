@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardService } from '../../../services/dashboard.service';
-import { User } from '../../../models/user.model';
+import { DashboardService } from '../../../core/services/dashboard.service';
+import { User } from '../../../core/models/user.model';
 import { debounceTime, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
@@ -18,7 +18,7 @@ export class TaiKhoanComponent implements OnInit {
   filter: string = '';
   page: number = 1;
   size: number = 10;
-  
+
   totalItems: number = 0;
   roleId: string = '';
   roleTypeDataId: string = '';

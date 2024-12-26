@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardService } from '../../../services/dashboard.service';
+import { DashboardService } from '../../../core/services/dashboard.service';
 import { debounceTime, Subject } from 'rxjs';
-import { Payment } from '../../../models/payment.model';
-import { PaymentService } from '../../../services/payment.service';
+import { Payment } from '../../../core/models/payment.model';
+import { PaymentService } from '../../../core/services/payment.service';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -77,7 +77,7 @@ export class PaymentComponent implements OnInit {
   }
 
   constructor(private paymentSrv: PaymentService) { }
-  
+
 
   acceptPayment() {
     if (this.selectedPayment.isPayment === 1) {

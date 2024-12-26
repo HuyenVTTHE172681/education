@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardService } from '../../../services/dashboard.service';
-import { AdviceRequest, DashboardOverview, TestQuestions } from '../../../models/dashboard.model';
+import { DashboardService } from '../../../core/services/dashboard.service';
+import { AdviceRequest, DashboardOverview, TestQuestions } from '../../../core/models/dashboard.model';
 
 @Component({
   selector: 'app-tong-quan',

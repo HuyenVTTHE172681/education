@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
-import { API_URL } from '../environments/constants';
+import { API_URL } from '../../environments/constants';
 
 @Injectable({
   providedIn: 'root',

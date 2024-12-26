@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, filter, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { MenuItem } from 'primeng/api';
-import { API_URL } from '../environments/constants';
+import { API_URL } from '../../environments/constants';
 import { IResponeList, IResponeListData } from '../models/common.model';
 import { Dashboard } from '../models/dashboard.model';
 import { User } from '../models/user.model';

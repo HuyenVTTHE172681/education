@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { API_URL } from '../environments/constants';
+import { API_URL } from '../../environments/constants';
 import { IResponeList, IResponeListData } from '../models/common.model';
 import { User } from '../models/user.model';
 import { Payment } from '../models/payment.model';

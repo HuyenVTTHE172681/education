@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeService } from '../../../services/home.service';
+import { HomeService } from '../../../core/services/home.service';
 
 @Component({
   selector: 'app-product-list',
@@ -32,7 +32,7 @@ export class ProductListComponent implements OnInit {
     'rgb(135, 206, 250)',
     'rgb(255, 99, 71)',
   ];
-  constructor(private homeService: HomeService) {}
+  constructor(private homeService: HomeService) { }
 
   ngOnInit(): void {
     // this.homeService.getSubjects().subscribe((res) => (this.products = res));

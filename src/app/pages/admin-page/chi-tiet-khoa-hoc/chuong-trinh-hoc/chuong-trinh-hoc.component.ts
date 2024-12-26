@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CourseService } from '../../../../services/course.service';
+import { CourseService } from '../../../../core/services/course.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TestAbilityService } from '../../../../services/test-ability.service';
+import { TestAbilityService } from '../../../../core/services/test-ability.service';
 
 @Component({
   selector: 'app-chuong-trinh-hoc',

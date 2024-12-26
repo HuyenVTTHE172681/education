@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TeacherService } from '../../../../services/teacher.service';
-import { ClassRoomService } from '../../../../services/classRoom.service';
-import { ClassRoom } from '../../../../models/classRoom.model';
+import { TeacherService } from '../../../../core/services/teacher.service';
+import { ClassRoomService } from '../../../../core/services/classRoom.service';
+import { ClassRoom } from '../../../../core/models/classRoom.model';
 import { MenuItem } from 'primeng/api';
 
 @Component({

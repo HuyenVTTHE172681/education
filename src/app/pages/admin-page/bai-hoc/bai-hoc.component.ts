@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Test, TestCategory } from '../../../models/test.model';
-import { TestAbilityService } from '../../../services/test-ability.service';
-import { ClassRoomService } from '../../../services/classRoom.service';
-import { ClassRoom } from '../../../models/classRoom.model';
-import { SubjectService } from '../../../services/subject.service';
-import { Subject as SubjectModel } from '../../../models/subject.model';
+import { Test, TestCategory } from '../../../core/models/test.model';
+import { TestAbilityService } from '../../../core/services/test-ability.service';
+import { ClassRoomService } from '../../../core/services/classRoom.service';
+import { ClassRoom } from '../../../core/models/classRoom.model';
+import { SubjectService } from '../../../core/services/subject.service';
+import { Subject as SubjectModel } from '../../../core/models/subject.model';
 import { debounceTime, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { STATUS } from '../../../environments/constants';
 
 @Component({
   selector: 'app-bai-hoc',
@@ -17,18 +18,26 @@ import { MenuItem } from 'primeng/api';
 export class BaiHocComponent implements OnInit {
   breadcrum: MenuItem[] = [];
   home: MenuItem = [];
-  items: any[] = [];
+  items: MenuItem[] | undefined;
 
-  searchText: string = '';
-  page: number = 1;
-  size: number = 10;
+  query = {
+    searchText: '',
+    page: 1,
+    size: 10,
+    sizeForFilter: 1000,
+    status: -1,
+    testCategoryId: -1,
+    classRoomId: -1,
+    subjectId: -1,
+    courseId: '',
+    filter: '',
+    isFromCMS: 1,
+  }
 
   testCategory: TestCategory[] = [];
   selectedTestCategory: string | undefined;
-
   classRoom: ClassRoom[] = [];
   selectedClassroom: string | undefined;
-
   subject: SubjectModel[] = [];
   selectedSubject: string | undefined;
 
@@ -42,9 +51,6 @@ export class BaiHocComponent implements OnInit {
   test: Test[] = [];
   totalItems: number = 0;
   selectedTest: any = null;
-  courseId: string = '';
-  filter: string = '';
-  isFromCMS: number = 1;
 
   dialogDelete: boolean = false;
   private searchSubject: Subject<string> = new Subject(); // Subject for search
@@ -56,7 +62,18 @@ export class BaiHocComponent implements OnInit {
     this.getClassRoom();
     this.getSubject();
     this.getTest();
+    this.initParams();
 
+
+    // Subscribe to the search subject with debounce
+    this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
+      this.query.filter = searchValue;
+      this.query.page = 1;
+      this.getTest();
+    });
+  }
+
+  initParams() {
     this.breadcrum = [
       { label: 'Quản trị' },
       { label: 'Bài kiểm tra' },
@@ -85,13 +102,6 @@ export class BaiHocComponent implements OnInit {
         ],
       },
     ];
-
-    // Subscribe to the search subject with debounce
-    this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
-      this.filter = searchValue;
-      this.page = 1; // Reset to the first page for new search
-      this.getTest();
-    });
   }
 
   edit() {
@@ -105,29 +115,45 @@ export class BaiHocComponent implements OnInit {
   }
 
   getTestCategory() {
-    this.testSrv.getTestType(this.searchText, this.page, this.size).subscribe((data) => {
-      this.testCategory = data.data.data;
-      console.log("test category: ", this.testCategory);
+    this.testSrv.getTestType(this.query.searchText, this.query.page, this.query.sizeForFilter).subscribe((data) => {
+      if (data.statusCode == 200) {
+        this.testCategory = data.data.data;
+        console.log("test category: ", this.testCategory);
+      }
     })
   }
 
   getClassRoom() {
-    this.classRoomSrv.getClassRooms(this.page, this.size, this.searchText).subscribe((data) => {
+    this.classRoomSrv.getClassRooms(this.query.page, this.query.sizeForFilter, this.query.searchText).subscribe((data) => {
       this.classRoom = data.data.data;
       console.log("ClassRoom: ", this.classRoom);
     })
   }
 
   getSubject() {
-    this.subjectSrv.getSubjectByCourse(this.selectedClassroom || '', this.searchText, this.page, this.size).subscribe((data) => {
-      this.subject = data.data.data;
-      console.log("Subject: ", this.subject);
-    })
+    this.subjectSrv.getSubjectByCourse(
+      this.selectedClassroom || '',
+      this.query.searchText,
+      this.query.page,
+      this.query.sizeForFilter
+    )
+      .subscribe((data) => {
+        this.subject = data.data.data;
+        console.log("Subject: ", this.subject);
+      })
   }
 
   getTest() {
-    this.testSrv.getTest(this.selectedStatus.value, this.selectedClassroom || '', this.courseId, this.filter,
-      this.isFromCMS, this.page, this.size, this.selectedSubject || '', this.selectedTestCategory || ''
+    this.testSrv.getTest(
+      this.selectedStatus.value,
+      this.selectedClassroom || '',
+      this.query.courseId,
+      this.query.filter,
+      this.query.isFromCMS,
+      this.query.page,
+      this.query.size,
+      this.selectedSubject || '',
+      this.selectedTestCategory || ''
     ).subscribe((data) => {
       this.test = data.data.data;
       this.totalItems = data.data.recordsTotal;
@@ -135,20 +161,14 @@ export class BaiHocComponent implements OnInit {
     })
   }
 
-  onMenuShow(menu: any) {
-    if (this.selectedTest) {
-      console.log("Test: ", this.selectedTest.id);
-    }
-  }
-
   onPageChange(event: any): void {
-    this.page = event.page + 1;
-    this.size = event.rows;
+    this.query.page = event.page + 1;
+    this.query.size = event.rows;
     this.getTest();
   }
 
   search() {
-    this.page = 1;
+    this.query.page = 1;
     this.getTest();
   }
   onSearchChange(searchValue: string): void {
@@ -160,8 +180,8 @@ export class BaiHocComponent implements OnInit {
     this.selectedStatus = -1;
     this.selectedSubject = undefined;
     this.selectedTestCategory = undefined;
-    this.filter = '';
-    this.page = 1;
+    this.query.filter = '';
+    this.query.page = 1;
     this.getTest();
   }
 
@@ -170,7 +190,7 @@ export class BaiHocComponent implements OnInit {
   }
 
   getStatusLabel(status: number) {
-    return status === 1 ? 'Hiển thị' : 'Ẩn';
+    return status === 1 ? STATUS.HIEN_THI : STATUS.AN;
   }
   getStatus(status: number) {
     switch (status) {
@@ -186,7 +206,7 @@ export class BaiHocComponent implements OnInit {
   }
 
   getFree(status: number) {
-    return status === 1 ? 'Miễn phí' : 'Trả phí';
+    return status === 1 ? STATUS.MIEN_PHI : STATUS.TRA_PHI;
   }
 
   getStatusFree(status: number) {
@@ -203,7 +223,7 @@ export class BaiHocComponent implements OnInit {
   }
 
   getEmail(status: number) {
-    return status === 1 ? 'Gửi' : 'Không';
+    return status === 1 ? STATUS.GUI : STATUS.KHONG;
   }
 
   addNew() {
@@ -213,7 +233,7 @@ export class BaiHocComponent implements OnInit {
   handleDelete() {
     if (this.selectedTest) {
       const id = this.selectedTest.id;
-      console.log("Test id: ", id);
+      // console.log("Test id: ", id);
 
       this.testSrv.deleteTest(id).subscribe({
         next: () => {

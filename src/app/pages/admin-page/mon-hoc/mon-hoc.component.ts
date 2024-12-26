@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject as SubjectModel } from '../../../models/subject.model';
-import { SubjectService } from '../../../services/subject.service';
+import { Subject as SubjectModel } from '../../../core/models/subject.model';
+import { SubjectService } from '../../../core/services/subject.service';
 import { Router } from '@angular/router';
-import { ClassRoomService } from '../../../services/classRoom.service';
-import { ClassRoom } from '../../../models/classRoom.model';
+import { ClassRoomService } from '../../../core/services/classRoom.service';
+import { ClassRoom } from '../../../core/models/classRoom.model';
 import { debounceTime, Subject } from 'rxjs';
 import { MenuItem } from 'primeng/api';
 @Component({

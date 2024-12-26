@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardService } from '../../../services/dashboard.service';
+import { DashboardService } from '../../../core/services/dashboard.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { Guide } from '../../../models/guide.model';
+import { Guide } from '../../../core/models/guide.model';
 import { MenuItem } from 'primeng/api';
 
 @Component({

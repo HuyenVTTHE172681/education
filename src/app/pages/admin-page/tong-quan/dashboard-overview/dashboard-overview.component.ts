@@ -1,13 +1,13 @@
 import { Component, OnInit } from "@angular/core";
-import { Subject as SubjectModel } from "../../../../models/subject.model";
-import { Dashboard } from "../../../../models/dashboard.model";
-import { IResponeList } from "../../../../models/common.model";
+import { Subject as SubjectModel } from "../../../../core/models/subject.model";
+import { Dashboard } from "../../../../core/models/dashboard.model";
+import { IResponeList } from "../../../../core/models/common.model";
 import { Subject } from "rxjs";
-import { DashboardService } from "../../../../services/dashboard.service";
-import { ClassRoomService } from "../../../../services/classRoom.service";
-import { ClassRoom } from "../../../../models/classRoom.model";
-import { CourseService } from "../../../../services/course.service";
-import { SubjectService } from "../../../../services/subject.service";
+import { DashboardService } from "../../../../core/services/dashboard.service";
+import { ClassRoomService } from "../../../../core/services/classRoom.service";
+import { ClassRoom } from "../../../../core/models/classRoom.model";
+import { CourseService } from "../../../../core/services/course.service";
+import { SubjectService } from "../../../../core/services/subject.service";
 
 @Component({
   selector: 'app-dashboard-overview',

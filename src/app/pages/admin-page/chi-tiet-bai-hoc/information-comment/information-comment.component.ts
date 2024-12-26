@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TestAbilityService } from '../../../../services/test-ability.service';
+import { TestAbilityService } from '../../../../core/services/test-ability.service';
 
 @Component({
   selector: 'app-information-comment',
@@ -26,7 +26,7 @@ export class InformationCommentComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     console.log('ID course: ', this.id);
 
-    if(this.id) {
+    if (this.id) {
       this.getComment();
     }
 

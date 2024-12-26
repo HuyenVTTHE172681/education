@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeService } from '../../../services/home.service';
+import { HomeService } from '../../../core/services/home.service';
 
 @Component({
   selector: 'app-slide',
@@ -92,7 +92,7 @@ export class SlideComponent implements OnInit {
     'rgb(255, 99, 71)',
   ];
 
-  constructor(private homeService: HomeService) {}
+  constructor(private homeService: HomeService) { }
 
   ngOnInit(): void {
     this.homeService.getSlider().subscribe((res) => (this.slider = res));

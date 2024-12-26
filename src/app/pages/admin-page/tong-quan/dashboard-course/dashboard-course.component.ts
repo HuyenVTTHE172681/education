@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ClassRoomService } from '../../../../services/classRoom.service';
-import { DashboardService } from '../../../../services/dashboard.service';
-import { TeacherService } from '../../../../services/teacher.service';
-import { IResponeList } from '../../../../models/common.model';
-import { ClassRoom } from '../../../../models/classRoom.model';
-import { Subject as SubjectModel } from '../../../../models/subject.model';
+import { ClassRoomService } from '../../../../core/services/classRoom.service';
+import { DashboardService } from '../../../../core/services/dashboard.service';
+import { TeacherService } from '../../../../core/services/teacher.service';
+import { IResponeList } from '../../../../core/models/common.model';
+import { ClassRoom } from '../../../../core/models/classRoom.model';
+import { Subject as SubjectModel } from '../../../../core/models/subject.model';
 import { Subject } from 'rxjs';
-import { SubjectService } from '../../../../services/subject.service';
+import { SubjectService } from '../../../../core/services/subject.service';
 
 @Component({
   selector: 'app-dashboard-course',

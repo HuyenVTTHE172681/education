@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { debounceTime, Subject } from 'rxjs';
-import { DashboardService } from '../../../services/dashboard.service';
+import { DashboardService } from '../../../core/services/dashboard.service';
 import { Router } from '@angular/router';
-import { TeacherService } from '../../../services/teacher.service';
-import { Teacher } from '../../../models/teacher.model';
+import { TeacherService } from '../../../core/services/teacher.service';
+import { Teacher } from '../../../core/models/teacher.model';
 import { MenuItem } from 'primeng/api';
 
 @Component({

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-import { TeacherService } from '../../../../services/teacher.service';
-import { DashboardService } from '../../../../services/dashboard.service';
+import { TeacherService } from '../../../../core/services/teacher.service';
+import { DashboardService } from '../../../../core/services/dashboard.service';
 
 @Component({
   selector: 'app-chi-tiet-giao-vien',

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RecruitmentService } from '../../../services/recruitment.service';
+import { RecruitmentService } from '../../../core/services/recruitment.service';
 
 @Component({
   selector: 'app-recruitment',
@@ -30,7 +30,7 @@ export class RecruitmentComponent implements OnInit {
     1024: { slidesPerView: 3, spaceBetween: 20 }, // Màn hình lớn: 4 sản phẩm
   };
 
-  constructor(private recruitmentSrv: RecruitmentService) {}
+  constructor(private recruitmentSrv: RecruitmentService) { }
 
   ngOnInit(): void {
     this.loadSteps();

@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { API_URL } from '../environments/constants';
+import { API_URL } from '../../environments/constants';
 import { IResponeList, IResponeListData } from '../models/common.model';
 import { Course } from '../models/course.model';
 

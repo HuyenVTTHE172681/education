@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Test, TestCategory } from '../../../../models/test.model';
-import { TestAbilityService } from '../../../../services/test-ability.service';
+import { Test, TestCategory } from '../../../../core/models/test.model';
+import { TestAbilityService } from '../../../../core/services/test-ability.service';
 import { MenuItem } from 'primeng/api';
 
 @Component({
