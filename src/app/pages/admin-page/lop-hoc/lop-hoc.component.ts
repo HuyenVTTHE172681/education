@@ -3,6 +3,7 @@ import { debounceTime, Subject } from 'rxjs';
 import { ClassRoom } from '../../../models/classRoom.model';
 import { Router } from '@angular/router';
 import { ClassRoomService } from '../../../services/classRoom.service';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-lop-hoc',
@@ -10,8 +11,8 @@ import { ClassRoomService } from '../../../services/classRoom.service';
   styleUrl: './lop-hoc.component.css'
 })
 export class LopHocComponent implements OnInit {
-  breadcrum: any[] = [];
-  home: any = [];
+  breadcrum: MenuItem[] = [];
+  home: MenuItem = [];
   items: any[] = [];
   filter: string = '';
   page: number = 1;

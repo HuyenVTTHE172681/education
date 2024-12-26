@@ -11,6 +11,7 @@ import { ClassRoomService } from '../../../services/classRoom.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { SubjectService } from '../../../services/subject.service';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-khoa-hoc',
@@ -20,9 +21,9 @@ import { SubjectService } from '../../../services/subject.service';
 export class KhoaHocComponent implements OnInit {
   course: Course[] = [];
   items: any[] = [];
-  breadcrum: any[] = [];
+  breadcrum: MenuItem[] = [];
   members: any[] = [];
-  home: any = [];
+  home: MenuItem = [];
   accountId: string = '';
   callFromAdmin: number = 1;
   classId: string = '';

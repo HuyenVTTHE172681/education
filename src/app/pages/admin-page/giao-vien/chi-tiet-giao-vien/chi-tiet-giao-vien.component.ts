@@ -12,8 +12,8 @@ import { DashboardService } from '../../../../services/dashboard.service';
 })
 export class ChiTietGiaoVienComponent implements OnInit {
   id: string | null = null;
-  breadcrum: any[] = [];
-  home: MenuItem | undefined;
+  breadcrum: MenuItem[] = [];
+  home: MenuItem = [];
   roleData: any[] = [];
   role: any[] = [];
   filter: string = '';

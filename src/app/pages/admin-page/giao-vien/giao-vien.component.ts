@@ -4,6 +4,7 @@ import { DashboardService } from '../../../services/dashboard.service';
 import { Router } from '@angular/router';
 import { TeacherService } from '../../../services/teacher.service';
 import { Teacher } from '../../../models/teacher.model';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-giao-vien',
@@ -11,8 +12,8 @@ import { Teacher } from '../../../models/teacher.model';
   styleUrl: './giao-vien.component.css'
 })
 export class GiaoVienComponent implements OnInit {
-  breadcrum: any[] = [];
-  home: any = [];
+  breadcrum: MenuItem[] = [];
+  home: MenuItem = [];
   items: any[] = [];
   filter: string = '';
   page: number = 1;

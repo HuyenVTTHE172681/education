@@ -7,6 +7,7 @@ import { SubjectService } from '../../../services/subject.service';
 import { Subject as SubjectModel } from '../../../models/subject.model';
 import { debounceTime, Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-bai-hoc',
@@ -14,8 +15,8 @@ import { Router } from '@angular/router';
   styleUrl: './bai-hoc.component.css'
 })
 export class BaiHocComponent implements OnInit {
-  breadcrum: any[] = [];
-  home: any = [];
+  breadcrum: MenuItem[] = [];
+  home: MenuItem = [];
   items: any[] = [];
 
   searchText: string = '';

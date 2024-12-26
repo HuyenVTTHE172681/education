@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../../../services/dashboard.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Guide } from '../../../models/guide.model';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-guide-support',
@@ -9,8 +10,8 @@ import { Guide } from '../../../models/guide.model';
   styleUrl: './guide-support.component.css'
 })
 export class GuideSupportComponent implements OnInit {
-  breadcrum: any[] = [];
-  home: any = [];
+  breadcrum: MenuItem[] = [];
+  home: MenuItem = [];
   listGuide: Guide[] = [];
   page: number = 1;
   size: number = 1000;

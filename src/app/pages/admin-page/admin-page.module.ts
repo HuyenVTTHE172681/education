@@ -66,6 +66,7 @@ import { InformationCommentComponent } from './chi-tiet-bai-hoc/information-comm
 import { InformationQuestionComponent } from './chi-tiet-bai-hoc/information-question/information-question.component';
 import { InformationFeedbackComponent } from './chi-tiet-bai-hoc/information-feedback/information-feedback.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CauHoiComponent } from './cau-hoi/cau-hoi.component';
 
 register(); // Register Swiper
 @NgModule({
@@ -102,6 +103,7 @@ register(); // Register Swiper
     InformationCommentComponent,
     InformationQuestionComponent,
     InformationFeedbackComponent,
+    CauHoiComponent,
   ],
   imports: [
     CommonModule,

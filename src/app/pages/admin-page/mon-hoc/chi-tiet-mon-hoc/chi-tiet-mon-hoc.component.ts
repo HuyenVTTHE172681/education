@@ -13,8 +13,8 @@ import { SubjectService } from '../../../../services/subject.service';
 })
 export class ChiTietMonHocComponent implements OnInit {
   id: string | null = null;
-  breadcrum: any[] = [];
-  home: MenuItem | undefined;
+  breadcrum: MenuItem[] = [];
+  home: MenuItem = [];
   subjectForm: FormGroup;
   isEditMode: boolean = false;
 

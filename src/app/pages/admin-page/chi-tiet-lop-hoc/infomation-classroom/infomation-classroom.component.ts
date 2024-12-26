@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TeacherService } from '../../../../services/teacher.service';
 import { ClassRoomService } from '../../../../services/classRoom.service';
 import { ClassRoom } from '../../../../models/classRoom.model';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-infomation-classroom',
@@ -12,7 +13,7 @@ import { ClassRoom } from '../../../../models/classRoom.model';
 })
 export class InfomationClassroomComponent implements OnInit {
   id: string | null = null;
-  breadcrum: any[] = [];
+  breadcrum: MenuItem[] = [];
   roleData: any[] = [];
   role: any[] = [];
   filter: string = '';

@@ -3,6 +3,7 @@ import { DashboardService } from '../../../services/dashboard.service';
 import { debounceTime, Subject } from 'rxjs';
 import { Payment } from '../../../models/payment.model';
 import { PaymentService } from '../../../services/payment.service';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-payment',
@@ -10,8 +11,8 @@ import { PaymentService } from '../../../services/payment.service';
   styleUrl: './payment.component.css'
 })
 export class PaymentComponent implements OnInit {
-  breadcrum: any[] = [];
-  home: any = [];
+  breadcrum: MenuItem[] = [];
+  home: MenuItem = [];
   items: any[] = [];
   payment: Payment[] = [];
   filter: string = '';

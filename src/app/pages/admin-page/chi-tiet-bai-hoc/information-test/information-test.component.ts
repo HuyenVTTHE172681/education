@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Test, TestCategory } from '../../../../models/test.model';
 import { TestAbilityService } from '../../../../services/test-ability.service';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-information-test',
@@ -11,7 +12,7 @@ import { TestAbilityService } from '../../../../services/test-ability.service';
 })
 export class InformationTestComponent implements OnInit {
   id: string | null = null;
-  breadcrum: any[] = [];
+  breadcrum: MenuItem[] = [];
   roleData: any[] = [];
   role: any[] = [];
   filter: string = '';

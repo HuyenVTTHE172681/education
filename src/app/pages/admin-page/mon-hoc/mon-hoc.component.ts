@@ -5,14 +5,15 @@ import { Router } from '@angular/router';
 import { ClassRoomService } from '../../../services/classRoom.service';
 import { ClassRoom } from '../../../models/classRoom.model';
 import { debounceTime, Subject } from 'rxjs';
+import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-mon-hoc',
   templateUrl: './mon-hoc.component.html',
   styleUrl: './mon-hoc.component.css'
 })
 export class MonHocComponent implements OnInit {
-  breadcrum: any;
-  home: any;
+  breadcrum: MenuItem[] = [];
+  home: MenuItem = [];
   items: any;
 
   page: number = 1;
