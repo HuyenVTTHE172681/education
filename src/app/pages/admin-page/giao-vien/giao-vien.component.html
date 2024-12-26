@@ -14,7 +14,7 @@
                         <label for="search">Tìm kiếm: </label>
                         <p-inputGroup [style.height.px]="32">
                             <input type="text" pInputText placeholder="Nhập nội dung tìm kiếm" severity="secondary"
-                                [(ngModel)]="filter" (ngModelChange)="onSearchChange($event)" />
+                                [(ngModel)]="query.filter" (ngModelChange)="onSearchChange($event)" />
                             <button type="button" pButton icon="pi pi-search" [outlined]="true" severity="secondary"
                                 (click)="searchPayment()"></button>
                         </p-inputGroup>
@@ -88,7 +88,7 @@
                   justify-content: flex-end;
                   gap: 10px;
                 ">
-        <p-paginator [rows]="size" [totalRecords]="totalItems" [first]="(page - 1) * size"
+        <p-paginator [rows]="query.size" [totalRecords]="totalItems" [first]="(query.page - 1) * query.size"
             (onPageChange)="onPageChange($event)"></p-paginator>
 
         <div class="flex justify-content-center align-items-center gap-3">
@@ -100,7 +100,7 @@
 
 <!-- Popup view to edit/deleted -->
 <div class="card flex justify-content-center">
-    <p-menu #menu [model]="items" [popup]="true" (onShow)="onMenuShow(menu)" />
+    <p-menu #menu [model]="items" [popup]="true" />
 </div>
 
 

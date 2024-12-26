@@ -14,11 +14,11 @@ export class ChiTietGiaoVienComponent implements OnInit {
   id: string | null = null;
   breadcrum: MenuItem[] = [];
   home: MenuItem = [];
-  roleData: any[] = [];
-  role: any[] = [];
-  filter: string = '';
-  page: number = 1;
-  size: number = 1000;
+  query = {
+    filter: '',
+    page: 1,
+    size: 1000
+  }
   teacherForm: FormGroup;
   accountsNotTeacher: any[] = [];
   selectedAccountsNotTeacher: any = null;
@@ -58,17 +58,22 @@ export class ChiTietGiaoVienComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
-    console.log('ID course: ', this.id);
+    this.initParams();
+    this.getAccountsNotTeacher();
 
-    if (this.id) {
-      this.isEditMode = true;
-      this.getTeacherDetail(this.id);
-    } else {
-      this.isEditMode = false;
-      this.teacherForm.reset();
-    }
+    this.route.params.subscribe((params) => {
+      this.id = params['id'];
+      if (this.id) {
+        this.isEditMode = true;
+        this.getTeacherDetail(this.id);
+      } else {
+        this.isEditMode = false;
+        this.teacherForm.reset();
+      }
+    });
+  }
 
+  initParams() {
     this.breadcrum = [
       { label: 'Quản trị', routerLink: '/quan-tri' },
       { label: 'Giáo viên', routerLink: '/quan-tri/giao-vien' },
@@ -76,8 +81,6 @@ export class ChiTietGiaoVienComponent implements OnInit {
     ];
 
     this.home = { icon: 'pi pi-shop', routerLink: '/' };
-
-    this.getAccountsNotTeacher();
   }
 
   // Lấy chi tiết tài khoản
@@ -86,9 +89,9 @@ export class ChiTietGiaoVienComponent implements OnInit {
       if (data.statusCode === 200) {
         const teacherDetail = data.data;
 
-        console.log("Account detail 1: ", teacherDetail);
+        // console.log("Account detail 1: ", teacherDetail);
         this.patchAccountForm(teacherDetail);
-        console.log("Form value: ", this.teacherForm.value);
+        // console.log("Form value: ", this.teacherForm.value);
       }
     });
   }
@@ -96,7 +99,7 @@ export class ChiTietGiaoVienComponent implements OnInit {
   // Tách logic patch form
   patchAccountForm(teacher: any) {
     this.teacherForm.patchValue({
-      accountId: teacher.accountId,
+      accountId: teacher.accountId || '',
       address: teacher.address || '',
       avatar: teacher.avatar || '',
       averageRate: teacher.averageRate != null ? teacher.averageRate : 0, // Nếu null thì gán 0
@@ -122,7 +125,7 @@ export class ChiTietGiaoVienComponent implements OnInit {
 
 
   getAccountsNotTeacher() {
-    this.dashboardSrv.getAccountsNotTeacher(this.filter, this.page, this.size).subscribe(
+    this.dashboardSrv.getAccountsNotTeacher(this.query.filter, this.query.page, this.query.size).subscribe(
       (data) => {
         this.accountsNotTeacher = data.data.data;
         // console.log("Accounts not teacher: ", this.accountsNotTeacher);
