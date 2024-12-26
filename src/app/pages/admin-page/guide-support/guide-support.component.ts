@@ -50,4 +50,8 @@ export class GuideSupportComponent implements OnInit {
     this.selectedGuide = guide; // Set the selected guide
   }
 
+  getSanitizedContent(content: string | undefined): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(content || '');
+  }
+
 }

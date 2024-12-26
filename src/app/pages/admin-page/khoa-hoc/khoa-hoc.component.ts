@@ -12,6 +12,7 @@ import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { SubjectService } from '../../../core/services/subject.service';
 import { MenuItem } from 'primeng/api';
+import { STATUS } from '../../../environments/constants';
 
 @Component({
   selector: 'app-khoa-hoc',
@@ -20,24 +21,23 @@ import { MenuItem } from 'primeng/api';
 })
 export class KhoaHocComponent implements OnInit {
   course: Course[] = [];
-  items: any[] = [];
+  items: MenuItem[] = [];
   breadcrum: MenuItem[] = [];
-  members: any[] = [];
   home: MenuItem = [];
-  accountId: string = '';
-  callFromAdmin: number = 1;
-  classId: string = '';
-  filter: string = '';
-  isPayment: number = -1;
-  page: number = 1;
-  size: number = 10;
-  status: number = -1;
-  subjectId: string = '';
-  teacherId: string = '';
+  query = {
+    accountId: '',
+    callFromAdmin: 1,
+    classId: '',
+    filter: '',
+    isPayment: -1,
+    page: 1,
+    size: 10,
+    status: -1,
+    subjectId: '',
+    teacherId: '',
+    searchText: '',
+  };
   totalItems: number = 0;
-  searchText: string = '';
-
-
   selectedCourse: any = null;
   dialogDelete: boolean = false;
   classRoom: ClassRoom[] = [];
@@ -53,17 +53,20 @@ export class KhoaHocComponent implements OnInit {
     private teacherSrv: TeacherService, private subjectSrv: SubjectService) { }
 
   ngOnInit(): void {
+    this.initParams();
     this.getAllKhoaHoc();
     this.getClassRoom();
     this.getTeachers();
 
-    this.members = [
-      { name: 'Amy Elsner', image: 'amyelsner.png', email: 'amy@email.com', role: 'Owner' },
-      { name: 'Bernardo Dominic', image: 'bernardodominic.png', email: 'bernardo@email.com', role: 'Editor' },
-      { name: 'Ioni Bowcher', image: 'ionibowcher.png', email: 'ioni@email.com', role: 'Viewer' }
-    ];
+    // Subscribe to the search subject with debounce
+    this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
+      this.query.filter = searchValue;
+      this.query.page = 1; // Reset to the first page for new search
+      this.getAllKhoaHoc();
+    });
+  }
 
-
+  initParams() {
     this.breadcrum = [
       { label: 'Quản trị' },
       { label: 'Khóa học' },
@@ -88,21 +91,13 @@ export class KhoaHocComponent implements OnInit {
         ],
       },
     ];
-
-    // Subscribe to the search subject with debounce
-    this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
-      this.filter = searchValue;
-      this.page = 1; // Reset to the first page for new search
-      this.getAllKhoaHoc();
-    });
   }
 
   getSubjectsByClassRoomId(classRoomId: string): void {
     this.subjectSrv
-      .getSubjectByCourse(classRoomId, this.searchText, this.page, this.size)
+      .getSubjectByCourse(classRoomId, this.query.searchText, this.query.page, this.query.size)
       .subscribe({
         next: (response) => {
-          // console.log('API Response of Subject:', response);
           this.subject = response.data.data;
         },
         error: () => {
@@ -113,11 +108,10 @@ export class KhoaHocComponent implements OnInit {
 
   getTeachers() {
     this.teacherSrv
-      .getTeachers(this.page, this.size, this.searchText)
+      .getTeachers(this.query.page, this.query.size, this.query.searchText)
       .subscribe({
         next: (data: IResponeList<Teacher>) => {
           this.teacher = data.data.data;
-          console.log('Teacher: ', this.teacher);
 
         },
         error: (err) => {
@@ -128,7 +122,7 @@ export class KhoaHocComponent implements OnInit {
 
   getClassRoom() {
     this.classRoomSrv
-      .getClassRooms(this.page, this.size, this.searchText)
+      .getClassRooms(this.query.page, this.query.size, this.query.searchText)
       .subscribe({
         next: (data: IResponeList<ClassRoom>) => {
           this.classRoom = data.data.data;
@@ -148,21 +142,20 @@ export class KhoaHocComponent implements OnInit {
 
   getAllKhoaHoc(): void {
     this.courseSrv.getKhoaHoc(
-      this.accountId,
-      this.callFromAdmin,
+      this.query.accountId,
+      this.query.callFromAdmin,
       this.selectedClassroom || '',
-      this.filter,
-      this.isPayment,
-      this.page,
-      this.size,
-      this.status,
+      this.query.filter,
+      this.query.isPayment,
+      this.query.page,
+      this.query.size,
+      this.query.status,
       this.selectedSubject || '',
       this.selectedTeacher || ''
     ).subscribe({
       next: (data: IResponeList<Course>) => {
         this.course = data.data.data;
         this.totalItems = data.data.recordsTotal;
-        console.log("Course: ", this.course)
       }
     })
   }
@@ -172,7 +165,7 @@ export class KhoaHocComponent implements OnInit {
     this.searchSubject.next(searchValue); // Emit search value
   }
   searchCourse() {
-    this.page = 1;
+    this.query.page = 1;
     this.getAllKhoaHoc();
   }
 
@@ -180,27 +173,19 @@ export class KhoaHocComponent implements OnInit {
     this.selectedClassroom = undefined;
     this.selectedTeacher = undefined;
     this.selectedSubject = undefined;
-    this.filter = '';
-    this.page = 1; // Reset về trang đầu tiên
+    this.query.filter = '';
+    this.query.page = 1; // Reset về trang đầu tiên
     this.getAllKhoaHoc(); // Gọi API để lấy lại dữ liệu ban đầu
   }
 
   setSelectedCourse(course: any) {
     this.selectedCourse = course;
-    console.log("Course: ", this.selectedCourse);
-  }
-
-  onMenuShow(menu: any) {
-    if (this.selectedCourse) {
-      console.log('Selected File ID:', this.selectedCourse.id);
-    }
   }
 
   onPageChange(event: any): void {
-    this.page = event.page + 1;
-    this.size = event.rows;
+    this.query.page = event.page + 1;
+    this.query.size = event.rows;
     this.getAllKhoaHoc();
-    console.log("Page: ", this.page);
   }
 
   getStatus(status: number) {
@@ -217,7 +202,7 @@ export class KhoaHocComponent implements OnInit {
   }
 
   getStatusLabel(status: number) {
-    return status === 1 ? 'Hiển thị' : 'Ẩn';
+    return status === 1 ? STATUS.HIEN_THI : STATUS.AN;
   }
 
   handleDeleteCourse() {
