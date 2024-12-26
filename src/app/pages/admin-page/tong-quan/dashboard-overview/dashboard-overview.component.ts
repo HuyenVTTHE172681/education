@@ -16,16 +16,17 @@ import { SubjectService } from "../../../../core/services/subject.service";
 })
 export class DashboardOverviewComponent implements OnInit {
   dashboard: Dashboard[] = [];
-  page: number = 1;
-  size: number = 1000;
-  filter: string = '';
+  query = {
+    page: 1,
+    size: 1000,
+    filter: '',
+    accountId: '',
+    searchText: ''
+  }
   selectedClassroom: string | undefined;
-  accountId: string = '';
   selectedSubject: string | undefined;
-
   subject: SubjectModel[] = [];
   classRoom: ClassRoom[] = [];
-  searchText: string = '';
 
   private searchSubject: Subject<string> = new Subject(); // Subject for search
   constructor(private dashboardSrv: DashboardService, private classRoomSrv: ClassRoomService, private courseSrv: CourseService, private subjectSrv: SubjectService) {
@@ -38,7 +39,7 @@ export class DashboardOverviewComponent implements OnInit {
   }
 
   getDashboard() {
-    this.dashboardSrv.getDashboardAdminOverview(this.page, this.size, this.filter, this.selectedClassroom || '', this.selectedSubject || '', this.accountId).subscribe({
+    this.dashboardSrv.getDashboardAdminOverview(this.query.page, this.query.size, this.query.filter, this.selectedClassroom || '', this.selectedSubject || '', this.query.accountId).subscribe({
       next: (data: IResponeList<Dashboard>) => {
         this.dashboard = data.data.data;
         // console.log("Filter: ", this.filter);
@@ -53,7 +54,7 @@ export class DashboardOverviewComponent implements OnInit {
   // Get classrom
   getClassRoom() {
     this.classRoomSrv
-      .getClassRooms(this.page, this.size, this.searchText)
+      .getClassRooms(this.query.page, this.query.size, this.query.searchText)
       .subscribe({
         next: (data: IResponeList<ClassRoom>) => {
           this.classRoom = data.data.data;
@@ -64,7 +65,7 @@ export class DashboardOverviewComponent implements OnInit {
   // Get subject
   getSubjectsByClassRoomId(classRoomId: string): void {
     this.subjectSrv
-      .getSubjectByCourse(classRoomId, this.searchText, this.page, this.size)
+      .getSubjectByCourse(classRoomId, this.query.searchText, this.query.page, this.query.size)
       .subscribe({
 
         next: (response) => {
@@ -78,21 +79,20 @@ export class DashboardOverviewComponent implements OnInit {
   }
 
   onSearchChange(searchValue: string): void {
-    this.filter = searchValue.trim();
-    this.searchSubject.next(this.filter);
+    this.query.filter = searchValue.trim();
+    this.searchSubject.next(this.query.filter);
   }
   searchCourse(): void {
     // console.log('Searching with filter:', this.filter);
-    this.page = 1;
+    this.query.page = 1;
     this.getDashboard();
   }
 
   resetFilters(): void {
     this.selectedClassroom = undefined;
     this.selectedSubject = undefined;
-
-    this.filter = '';
-    this.page = 1;
+    this.query.filter = '';
+    this.query.page = 1;
 
 
     this.getDashboard();

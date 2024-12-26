@@ -5,7 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 import { MenuItem } from 'primeng/api';
 import { API_URL } from '../../environments/constants';
 import { IResponeList, IResponeListData } from '../models/common.model';
-import { Dashboard } from '../models/dashboard.model';
+import { Dashboard, DashboardAdminCourse, DashboardAdminScore } from '../models/dashboard.model';
 import { User } from '../models/user.model';
 import { Guide } from '../models/guide.model';
 
@@ -66,7 +66,7 @@ export class DashboardService {
         classRoomId: string = '',
         subjectIds: string = '',
         accountId: string = ''
-    ): Observable<IResponeList<any>> {
+    ): Observable<IResponeList<DashboardAdminCourse>> {
 
         // https://hhq.runasp.net/api/Dashboard/GetDashboardAdminCourse?ClassRoomId=&SubjectIds=&accountId=&filter=&offSet=0&pageSize=10
         const query = `/Dashboard/GetDashboardAdminCourse?ClassRoomId=${classRoomId}&SubjectIds=${subjectIds}&accountId=${accountId}&filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
@@ -80,7 +80,7 @@ export class DashboardService {
             : new HttpHeaders();
 
         return this.http
-            .get<IResponeList<any>>(apiURL, { headers })
+            .get<IResponeList<DashboardAdminCourse>>(apiURL, { headers })
             .pipe(catchError(this.handleError));
     }
 
@@ -115,7 +115,7 @@ export class DashboardService {
         filter: string = '',
         page: number,
         size: number,
-    ): Observable<IResponeList<any>> {
+    ): Observable<IResponeList<DashboardAdminScore>> {
 
         // https://hhq.runasp.net/api/Dashboard/GetDashboardAdminScore?ClassRoomId=&SubjectIds=&accountId=&filter=&offSet=0&pageSize=10
         const query = `/Dashboard/GetDashboardAdminScore?ClassRoomId=${classRoomId}&SubjectIds=${subjectIds}&accountId=${accountId}&filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
@@ -129,7 +129,7 @@ export class DashboardService {
             : new HttpHeaders();
 
         return this.http
-            .get<IResponeList<Dashboard>>(apiURL, { headers })
+            .get<IResponeList<DashboardAdminScore>>(apiURL, { headers })
             .pipe(catchError(this.handleError));
     }
 

@@ -23,13 +23,15 @@ export class DashboardCourseDetailComponent implements OnInit {
   course: Course[] = [];
   courseYears: CourseYear[] = [];
   teacher: Teacher[] = [];
-  searchText: string = '';
-  page: number = 1;
-  size: number = 1000;
-  status: number = -1;
-  callFromAdmin: number = 1;
-  isPayment: number = -1;
-  accountId: string = '';
+  query = {
+    searchText: '',
+    page: 1,
+    size: 1000,
+    status: -1,
+    callFromAdmin: 1,
+    isPayment: -1,
+    accountId: '',
+  }
   selectedClassroom: string | undefined;
   selectedCourse: string | undefined;
   selectedCourseYear: string | undefined;
@@ -61,7 +63,7 @@ export class DashboardCourseDetailComponent implements OnInit {
   // Get subject
   getSubjectsByClassRoomId(classRoomId: string): void {
     this.subjectSrv
-      .getSubjectByCourse(classRoomId, this.searchText, this.page, this.size)
+      .getSubjectByCourse(classRoomId, this.query.searchText, this.query.page, this.query.size)
       .subscribe({
 
         next: (response) => {
@@ -77,7 +79,7 @@ export class DashboardCourseDetailComponent implements OnInit {
   // Get classrom
   getClassRoom() {
     this.classRoomSrv
-      .getClassRooms(this.page, this.size, this.searchText)
+      .getClassRooms(this.query.page, this.query.size, this.query.searchText)
       .subscribe({
         next: (data: IResponeList<ClassRoom>) => {
           this.classRoom = data.data.data;
@@ -88,14 +90,14 @@ export class DashboardCourseDetailComponent implements OnInit {
   // Get khóa học
   getAllKhoaHoc(): void {
     this.courseSrv.getKhoaHoc(
-      this.accountId,
-      this.callFromAdmin,
+      this.query.accountId,
+      this.query.callFromAdmin,
       this.selectedClassroom || '',
-      this.searchText,
-      this.isPayment,
-      this.page,
-      this.size,
-      this.status,
+      this.query.searchText,
+      this.query.isPayment,
+      this.query.page,
+      this.query.size,
+      this.query.status,
       this.selectedSubject || '',
       this.selectedTeacher || ''
     ).subscribe({
@@ -108,7 +110,7 @@ export class DashboardCourseDetailComponent implements OnInit {
 
   // Get course year
   getCourseYears() {
-    this.courseSrv.getCourseYear(this.searchText, this.page, this.size, this.status).subscribe({
+    this.courseSrv.getCourseYear(this.query.searchText, this.query.page, this.query.size, this.query.status).subscribe({
       next: (data) => {
         this.courseYears = data;
         // console.log('Course Years:', this.courseYears);
@@ -123,7 +125,7 @@ export class DashboardCourseDetailComponent implements OnInit {
   // Get teacher
   getTeachers() {
     this.teacherSrv
-      .getTeachers(this.page, this.size, this.searchText)
+      .getTeachers(this.query.page, this.query.size, this.query.searchText)
       .subscribe({
         next: (data: IResponeList<Teacher>) => {
           this.teacher = data.data.data;

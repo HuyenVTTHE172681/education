@@ -7,6 +7,7 @@ import { ClassRoomService } from '../../../../core/services/classRoom.service';
 import { Subject as SubjectModel } from '../../../../core/models/subject.model';
 import { Subject } from 'rxjs';
 import { SubjectService } from '../../../../core/services/subject.service';
+import { DashboardAdminScore } from '../../../../core/models/dashboard.model';
 
 @Component({
   selector: 'app-dashboard-score',
@@ -14,14 +15,16 @@ import { SubjectService } from '../../../../core/services/subject.service';
   styleUrl: './dashboard-score.component.css'
 })
 export class DashboardScoreComponent implements OnInit {
-  page: number = 1;
-  size: number = 1000;
-  filter: string = '';
+  query = {
+    page: 1,
+    size: 1000,
+    filter: '',
+    accountId: '',
+    searchText: ''
+  }
   selectedClassroom: string | undefined;
-  accountId: string = '';
   selectedSubject: string | undefined;
-  dashboardAdminScore: any = {};
-  searchText: string = '';
+  dashboardAdminScore: DashboardAdminScore[] = [];
   classRoom: ClassRoom[] = [];
   subject: SubjectModel[] = [];
 
@@ -36,8 +39,8 @@ export class DashboardScoreComponent implements OnInit {
   }
 
   getDashboardAdminScore() {
-    this.dashboardSrv.getDashboardAdminScore(this.selectedClassroom, this.selectedSubject || '', this.accountId, this.filter, this.page, this.size).subscribe({
-      next: (data: IResponeList<any>) => {
+    this.dashboardSrv.getDashboardAdminScore(this.selectedClassroom, this.selectedSubject || '', this.query.accountId, this.query.filter, this.query.page, this.query.size).subscribe({
+      next: (data: IResponeList<DashboardAdminScore>) => {
         this.dashboardAdminScore = data.data.data;
         // console.log("Admin course: ", this.dashboardAdminScore)
       }
@@ -47,7 +50,7 @@ export class DashboardScoreComponent implements OnInit {
   // Get classrom
   getClassRoom() {
     this.classRoomSrv
-      .getClassRooms(this.page, this.size, this.searchText)
+      .getClassRooms(this.query.page, this.query.size, this.query.searchText)
       .subscribe({
         next: (data: IResponeList<ClassRoom>) => {
           this.classRoom = data.data.data;
@@ -58,7 +61,7 @@ export class DashboardScoreComponent implements OnInit {
   // Get subject
   getSubjectsByClassRoomId(classRoomId: string): void {
     this.subjectSrv
-      .getSubjectByCourse(classRoomId, this.searchText, this.page, this.size)
+      .getSubjectByCourse(classRoomId, this.query.searchText, this.query.page, this.query.size)
       .subscribe({
 
         next: (response) => {
@@ -72,12 +75,12 @@ export class DashboardScoreComponent implements OnInit {
   }
 
   onSearchChange(searchValue: string): void {
-    this.filter = searchValue.trim();
-    this.searchSubject.next(this.filter);
+    this.query.filter = searchValue.trim();
+    this.searchSubject.next(this.query.filter);
   }
   searchCourse(): void {
     // console.log('Searching with filter:', this.filter);
-    this.page = 1;
+    this.query.page = 1;
     this.getDashboardAdminScore();
   }
 
@@ -85,8 +88,8 @@ export class DashboardScoreComponent implements OnInit {
     this.selectedClassroom = undefined;
     this.selectedSubject = undefined;
 
-    this.filter = '';
-    this.page = 1;
+    this.query.filter = '';
+    this.query.page = 1;
 
 
     this.getDashboardAdminScore();
