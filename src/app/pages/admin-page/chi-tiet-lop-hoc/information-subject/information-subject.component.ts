@@ -4,6 +4,7 @@ import { Subject as SubjectModel } from '../../../../core/models/subject.model';
 import { SubjectService } from '../../../../core/services/subject.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { STATUS } from '../../../../environments/constants';
 
 @Component({
   selector: 'app-information-subject',
@@ -13,18 +14,14 @@ import { MenuItem } from 'primeng/api';
 export class InformationSubjectComponent implements OnInit {
   breadcrum: MenuItem[] = [];
   home: MenuItem = [];
-
-  items: any[] = [];
-
-  filter: string = '';
-  page: number = 1;
-  size: number = 10;
-
+  items: MenuItem[] = [];
+  query = {
+    filter: '',
+    page: 1,
+    size: 10,
+    courseId: ''
+  }
   totalItems: number = 0;
-
-  courseId: string | null = null;;
-  roleId: string = '';
-  roleTypeDataId: string = '';
   subject: SubjectModel[] = [];
   totalSubejct: number = 0;
 
@@ -42,12 +39,23 @@ export class InformationSubjectComponent implements OnInit {
   constructor(private subjectSrv: SubjectService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.courseId = this.route.snapshot.paramMap.get('id');
+    this.initParams();
 
-    if (this.courseId) {
-      this.getSubject(this.courseId);
-    }
+    this.route.params.subscribe((params) => {
+      this.query.courseId = params['id'];
+      if (this.query.courseId) {
+        this.getSubject(this.query.courseId);
+      }
+    });
 
+    // Subscribe to the search subject with debounce
+    this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
+      this.query.filter = searchValue;
+      this.query.page = 1;
+    });
+  }
+
+  initParams() {
     this.breadcrum = [
       { label: 'Quản trị' },
       { label: 'Lớp học' },
@@ -67,30 +75,25 @@ export class InformationSubjectComponent implements OnInit {
         ],
       },
     ];
-    // Subscribe to the search subject with debounce
-    this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
-      this.filter = searchValue;
-      this.page = 1; // Reset to the first page for new search
-    });
   }
   deletedSubject() {
     if (this.selectedSubject) {
       this.dialogDelete = true;
-      console.log("Delete subject in classroom: ", this.selectedSubject?.id);
+      // console.log("Delete subject in classroom: ", this.selectedSubject?.id);
     }
   }
 
   getSubject(courseID: string) {
-    this.subjectSrv.getSubjectByCourse(courseID, this.filter, this.page, this.size).subscribe((data) => {
+    this.subjectSrv.getSubjectByCourse(courseID, this.query.filter, this.query.page, this.query.size).subscribe((data) => {
       this.subject = data.data.data;
       this.totalItems = data.data.recordsTotal;
-      console.log("Teacher: ", this.subject);
+      // console.log("Teacher: ", this.subject);
     })
   }
 
   onPageChange(event: any): void {
-    this.page = event.page + 1;
-    this.size = event.rows;
+    this.query.page = event.page + 1;
+    this.query.size = event.rows;
     // console.log("Page: ", this.page);
   }
 
@@ -98,13 +101,13 @@ export class InformationSubjectComponent implements OnInit {
     this.searchSubject.next(searchValue); // Emit search value
   }
   searchPayment() {
-    this.page = 1;
+    this.query.page = 1;
   }
 
   resetFilters(): void {
     this.selectedRole = '';
-    this.filter = '';
-    this.page = 1;
+    this.query.filter = '';
+    this.query.page = 1;
   }
 
   setSelectedSubject(subject: any) {
@@ -113,7 +116,7 @@ export class InformationSubjectComponent implements OnInit {
   }
 
   onStatusChange(event: any) {
-    this.page = 1;
+    this.query.page = 1;
     console.log('Trạng thái đã được chọn: ', this.selectedRole);
   }
 
@@ -131,7 +134,7 @@ export class InformationSubjectComponent implements OnInit {
   }
 
   getStatusLabel(status: number) {
-    return status === 1 ? 'Hiển thị' : 'Ẩn';
+    return status === 1 ? STATUS.HIEN_THI : STATUS.AN;
   }
 
   handleDeletedSubject() {
@@ -143,7 +146,7 @@ export class InformationSubjectComponent implements OnInit {
         next: () => {
           this.dialogDelete = false;
           alert('Xóa môn học thành công!');
-          this.getSubject(this.courseId!);
+          this.getSubject(this.query.courseId);
         },
         error: (error) => {
           alert("Error deleting subject");

@@ -13,12 +13,6 @@ import { MenuItem } from 'primeng/api';
 })
 export class InfomationClassroomComponent implements OnInit {
   id: string | null = null;
-  breadcrum: MenuItem[] = [];
-  roleData: any[] = [];
-  role: any[] = [];
-  filter: string = '';
-  page: number = 1;
-  size: number = 10;
   classRoomForm: FormGroup;
   isEditMode: boolean = false;
 
@@ -45,16 +39,16 @@ export class InfomationClassroomComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
-    console.log('ID course: ', this.id);
-
-    if (this.id && this.id !== 'null' && this.id !== 'undefined') {
-      this.isEditMode = true;
-      this.getClassRoomDetail(this.id);
-    } else {
-      this.isEditMode = false;
-      this.classRoomForm.reset();
-    }
+    this.route.params.subscribe((params) => {
+      this.id = params['id'];
+      if (this.id && this.id !== 'null' && this.id !== 'undefined') {
+        this.isEditMode = true;
+        this.getClassRoomDetail(this.id);
+      } else {
+        this.isEditMode = false;
+        this.classRoomForm.reset();
+      }
+    });
   }
 
   // Lấy chi tiết tài khoản
@@ -63,9 +57,9 @@ export class InfomationClassroomComponent implements OnInit {
       if (data.statusCode === 200) {
         const classRoomDetail = data.data;
 
-        console.log("Account detail 1: ", classRoomDetail);
+        // console.log("Account detail 1: ", classRoomDetail);
         this.patchAccountForm(classRoomDetail);
-        console.log("Form value: ", this.classRoomForm.value);
+        // console.log("Form value: ", this.classRoomForm.value);
       }
     });
   }

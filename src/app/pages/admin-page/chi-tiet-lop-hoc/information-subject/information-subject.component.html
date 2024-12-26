@@ -65,7 +65,7 @@
                   justify-content: flex-end;
                   gap: 10px;
                 ">
-        <p-paginator [rows]="size" [totalRecords]="totalItems" [first]="(page - 1) * size"
+        <p-paginator [rows]="query.size" [totalRecords]="totalItems" [first]="(query.page - 1) * query.size"
             (onPageChange)="onPageChange($event)"></p-paginator>
 
         <div class="flex justify-content-center align-items-center gap-3">

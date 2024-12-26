@@ -8,19 +8,24 @@ import { MenuItem } from 'primeng/api';
   styleUrl: './chi-tiet-lop-hoc.component.css'
 })
 export class ChiTietLopHocComponent {
-  menuBreachCrumbs: any[] = [];
+  menuBreachCrumbs: MenuItem[] = [];
   home: MenuItem | undefined;
-  checked: boolean = false;
   id: string | null = null;
   isEditMode: boolean = false;
 
   constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.isEditMode = !!this.id;
-    console.log('ID course: ', this.id);
+    this.initParams();
 
+    this.route.params.subscribe((params) => {
+      this.id = params['id'];
+      this.isEditMode = !!this.id;
+    });
+
+  }
+
+  initParams() {
     this.menuBreachCrumbs = [
       { label: 'Quản trị', routerLink: '/quan-tri' },
       { label: 'Lớp học', routerLink: '/quan-tri/lop-hoc' },
@@ -28,8 +33,6 @@ export class ChiTietLopHocComponent {
     ];
 
     this.home = { icon: 'pi pi-shop', routerLink: '/' };
-
-
   }
 
   onTabChange(event: any): void {
