@@ -13,17 +13,22 @@ export class GuideSupportComponent implements OnInit {
   breadcrum: MenuItem[] = [];
   home: MenuItem = [];
   listGuide: Guide[] = [];
-  page: number = 1;
-  size: number = 1000;
-  filter: string = '';
-  screen: string = 'admin';
+  query = {
+    page: 1,
+    size: 1000,
+    filter: '',
+    screen: 'admin'
+  }
   selectedGuide: Guide | null = null;
 
   constructor(private dashboardSrv: DashboardService, public sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.getDashboardGuide();
+    this.initParams();
+  }
 
+  initParams() {
     this.breadcrum = [
       { label: 'Quản trị' },
       { label: 'Trợ giúp' },
@@ -33,9 +38,8 @@ export class GuideSupportComponent implements OnInit {
   }
 
   getDashboardGuide() {
-    this.dashboardSrv.getDashboardGuide(this.filter, this.page, this.size, this.screen).subscribe((data) => {
+    this.dashboardSrv.getDashboardGuide(this.query.filter, this.query.page, this.query.size, this.query.screen).subscribe((data) => {
       this.listGuide = data.data.data;
-      console.log("Payment: ", this.listGuide);
       if (this.listGuide.length > 0) {
         this.selectedGuide = this.listGuide[0];
       }
@@ -44,9 +48,6 @@ export class GuideSupportComponent implements OnInit {
 
   selectGuide(guide: Guide) {
     this.selectedGuide = guide; // Set the selected guide
-  }
-  getSanitizedContent(content: string | undefined): SafeHtml {
-    return this.sanitizer.bypassSecurityTrustHtml(content || '');
   }
 
 }
