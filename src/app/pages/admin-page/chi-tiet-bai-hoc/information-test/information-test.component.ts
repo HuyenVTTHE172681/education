@@ -28,7 +28,7 @@ export class InformationTestComponent implements OnInit {
     private testSrv: TestAbilityService
   ) {
     this.testForm = this.formBuilder.group({
-      accountsSpecial: [[]],
+      accountsSpecial: [''],
       avgRating: [0],
       commentConfiguration: [''],
       courseId: [''],
@@ -57,7 +57,7 @@ export class InformationTestComponent implements OnInit {
       livestreamTeacher: [''],
       modifiedBy: [''],
       modifiedDate: [''],
-      name: [''],
+      name: ['', Validators.required],
       numberOfTest: [0],
       numberQuestionPass: [0],
       order: [0],
@@ -67,7 +67,7 @@ export class InformationTestComponent implements OnInit {
       remainMinute: [0],
       status: [0],
       testCategoryCode: [''],
-      testCategoryId: [''],
+      testCategoryId: ['', Validators.required],
       testCategoryName: [''],
       testComment: [''],
       testQuestionGroupId: [0],
@@ -117,7 +117,7 @@ export class InformationTestComponent implements OnInit {
 
   patchForm(test: any) {
     this.testForm.patchValue({
-      accountsSpecial: test?.accountsSpecial || [],
+      accountsSpecial: test?.accountsSpecial || "[]",
       avgRating: test?.avgRating ?? 0,
       commentConfiguration: test?.commentConfiguration || "",
       courseId: test?.courseId || "",
@@ -196,6 +196,7 @@ export class InformationTestComponent implements OnInit {
       formValue.time = formValue?.time || 60;
       formValue.totalPointPass = formValue?.totalPointPass || 0;
       formValue.totalViewed = formValue?.totalViewed || 0;
+      formValue.accountsSpecial = formValue?.accountsSpecial || "[]";
 
 
       Object.keys(formValue).forEach((key) => {

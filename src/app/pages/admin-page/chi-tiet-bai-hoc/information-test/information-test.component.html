@@ -54,11 +54,16 @@
                                     </small>
                                 </div>
                             </div>
-                            <div class="col-12" *ngIf="testForm.get('testCategoryId')?.value == 'livestream'">
+                            <div class="col-12 flex" *ngIf="testForm.get('testCategoryId')?.value == 'livestream'">
                                 <div class="col-3">
                                     <div class="avatar">
-                                        <img src="https://hochieuqua7.web.app/images/admin/setting/slide/empty-image.png"
-                                            alt="">
+                                        <img *ngIf="testForm.get('livestreamAvatar')?.value, else elseBlock" [src]="
+                                                            testForm.get('livestreamAvatar')?.value || 'default-avatar.jpg'
+                                                          " alt="" />
+                                        <ng-template #elseBlock>
+                                            <img src="https://hochieuqua7.web.app/images/admin/setting/slide/empty-image.png"
+                                                alt="" />
+                                        </ng-template>
                                         <label for="upload-image">
                                             <i class="pi -pi-upload"></i> Ảnh livestream
                                         </label>
@@ -71,9 +76,10 @@
                                                 <p-floatLabel>
                                                     <p-iconField iconPosition="right">
                                                         <p-inputIcon styleClass="pi pi-ellipsis-h" />
-                                                        <input pInputText class="input-field" formControlName="name" />
+                                                        <input pInputText class="input-field"
+                                                            formControlName="livestreamLink" />
                                                     </p-iconField>
-                                                    <label for="name">Tiêu đề <span
+                                                    <label for="name">Đường dẫn livestream <span
                                                             class="text-red-500">*</span></label>
                                                 </p-floatLabel>
                                             </div>
@@ -83,9 +89,10 @@
                                                 <p-floatLabel>
                                                     <p-iconField iconPosition="right">
                                                         <p-inputIcon styleClass="pi pi-ellipsis-h" />
-                                                        <input pInputText class="input-field" formControlName="name" />
+                                                        <input pInputText class="input-field"
+                                                            formControlName="livestreamTeacher" />
                                                     </p-iconField>
-                                                    <label for="name">Tiêu đề <span
+                                                    <label for="name">Tên giáo viên livestream <span
                                                             class="text-red-500">*</span></label>
                                                 </p-floatLabel>
                                             </div>
@@ -95,9 +102,10 @@
                                                 <p-floatLabel>
                                                     <p-iconField iconPosition="right">
                                                         <p-inputIcon styleClass="pi pi-ellipsis-h" />
-                                                        <input pInputText class="input-field" formControlName="name" />
+                                                        <input pInputText class="input-field"
+                                                            formControlName="livestreamCode" />
                                                     </p-iconField>
-                                                    <label for="name">Tiêu đề <span
+                                                    <label for="name">Mã livestream <span
                                                             class="text-red-500">*</span></label>
                                                 </p-floatLabel>
                                             </div>
@@ -107,9 +115,10 @@
                                                 <p-floatLabel>
                                                     <p-iconField iconPosition="right">
                                                         <p-inputIcon styleClass="pi pi-ellipsis-h" />
-                                                        <input pInputText class="input-field" formControlName="name" />
+                                                        <input pInputText class="input-field"
+                                                            formControlName="livestreamGroup" />
                                                     </p-iconField>
-                                                    <label for="name">Tiêu đề <span
+                                                    <label for="name">Nhóm livestream <span
                                                             class="text-red-500">*</span></label>
                                                 </p-floatLabel>
                                             </div>
@@ -119,9 +128,12 @@
                                                 <p-floatLabel>
                                                     <p-iconField iconPosition="right">
                                                         <p-inputIcon styleClass="pi pi-ellipsis-h" />
-                                                        <input pInputText class="input-field" formControlName="name" />
+                                                        <p-calendar formControlName="livestreamDate"
+                                                            [iconDisplay]="'input'" [showIcon]="true"
+                                                            inputId="icondisplay" [showTime]="true" [hourFormat]="'24'">
+                                                        </p-calendar>
                                                     </p-iconField>
-                                                    <label for="name">Tiêu đề <span
+                                                    <label for="name">Ngày livestream <span
                                                             class="text-red-500">*</span></label>
                                                 </p-floatLabel>
                                             </div>
@@ -248,7 +260,8 @@
                                 <div class="col-12 fixed-action">
                                     <div class="col-9 flex justify-content-start">
                                         <p-button class="mr-2" label="Xem trước" [outlined]="true" icon="pi pi-times" />
-                                        <p-button class="mr-2" label="Hủy bỏ" (click) = "back()" [outlined]="true" icon="pi pi-times" />
+                                        <p-button class="mr-2" label="Hủy bỏ" (click)="back()" [outlined]="true"
+                                            icon="pi pi-times" />
                                         <p-button class="mr-2" label="{{ isEditMode ? 'Cập nhật' : 'Thêm mới' }}"
                                             icon="pi pi-save" (click)="updateSubject()" />
                                     </div>
