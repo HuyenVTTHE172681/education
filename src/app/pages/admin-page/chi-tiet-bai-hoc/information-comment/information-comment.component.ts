@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TestAbilityService } from '../../../../core/services/test-ability.service';
+import { MenuItem } from 'primeng/api';
+import { STATUS } from '../../../../environments/constants';
 
 @Component({
   selector: 'app-information-comment',
@@ -8,14 +10,16 @@ import { TestAbilityService } from '../../../../core/services/test-ability.servi
   styleUrl: './information-comment.component.css'
 })
 export class InformationCommentComponent implements OnInit {
-  id: string | null = null;
-  filter: string = '';
-  page: number = 1;
-  size: number = 10;
-  parentId: string = '';
+  items: MenuItem[] = [];
+  query = {
+    filter: '',
+    page: 1,
+    size: 10,
+    parentId: '',
+    id: ''
+  }
   comment: any[] = [];
   totalItems: number = 0;
-  items: any[] = [];
   selectedTest: any = null;
   constructor(
     private router: Router,
@@ -23,13 +27,18 @@ export class InformationCommentComponent implements OnInit {
     private testSrv: TestAbilityService) { }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
-    console.log('ID course: ', this.id);
+    this.initParams();
 
-    if (this.id) {
-      this.getComment();
-    }
+    this.route.params.subscribe((params) => {
+      this.query.id = params['id'];
+      if (this.query.id) {
+        this.getComment();
+      }
+    });
 
+
+  }
+  initParams() {
     this.items = [
       {
         label: 'Options',
@@ -52,22 +61,19 @@ export class InformationCommentComponent implements OnInit {
         ],
       },
     ];
-
   }
 
   deleted() {
-
   }
   getComment() {
-    this.testSrv.comment(this.filter, this.page, this.size, this.parentId, this.id!).subscribe((data) => {
+    this.testSrv.comment(this.query.filter, this.query.page, this.query.size, this.query.parentId, this.query.id).subscribe((data) => {
       this.comment = data.data.data;
       this.totalItems = data.data.recordsTotal;
-      console.log("Comment: ", this.comment);
     })
   }
 
   getStatusLabel(status: number) {
-    return status === 1 ? 'Hiển thị' : 'Ẩn';
+    return status === 1 ? STATUS.HIEN_THI : STATUS.AN;
   }
   getStatus(status: number) {
     switch (status) {
@@ -86,15 +92,9 @@ export class InformationCommentComponent implements OnInit {
     this.selectedTest = test;
   }
 
-  onMenuShow(menu: any) {
-    if (this.selectedTest) {
-      console.log("Test: ", this.selectedTest.id);
-    }
-  }
-
   onPageChange(event: any): void {
-    this.page = event.page + 1;
-    this.size = event.rows;
+    this.query.page = event.page + 1;
+    this.query.size = event.rows;
     this.getComment();
   }
 

@@ -13,14 +13,14 @@ import { MenuItem } from 'primeng/api';
 export class InformationTestComponent implements OnInit {
   id: string | null = null;
   breadcrum: MenuItem[] = [];
-  roleData: any[] = [];
-  role: any[] = [];
-  filter: string = '';
-  page: number = 1;
-  size: number = 10;
+  query = {
+    filter: '',
+    page: 1,
+    size: 10,
+    searchText: '',
+  }
   testForm: FormGroup;
   isEditMode: boolean = false;
-  searchText: string = '';
   testCategory: TestCategory[] = [];
   constructor(
     private router: Router,
@@ -86,20 +86,20 @@ export class InformationTestComponent implements OnInit {
   ngOnInit(): void {
     this.getTestCategory();
 
-    this.id = this.route.snapshot.paramMap.get('id');
-    console.log('ID course: ', this.id);
-
-    if (this.id && this.id !== 'null' && this.id !== 'undefined') {
-      this.isEditMode = true;
-      this.getTestDetail(this.id);
-    } else {
-      this.isEditMode = false;
-      this.testForm.reset();
-    }
+    this.route.params.subscribe((params) => {
+      this.id = params['id'];
+      if (this.id && this.id !== 'null' && this.id !== 'undefined') {
+        this.isEditMode = true;
+        this.getTestDetail(this.id);
+      } else {
+        this.isEditMode = false;
+        this.testForm.reset();
+      }
+    });
   }
 
   getTestCategory() {
-    this.testSrv.getTestType(this.searchText, this.page, this.size).subscribe((data) => {
+    this.testSrv.getTestType(this.query.searchText, this.query.page, this.query.size).subscribe((data) => {
       this.testCategory = data.data.data;
     });
   }
@@ -108,9 +108,7 @@ export class InformationTestComponent implements OnInit {
     this.testSrv.getTestNewById(id).subscribe((data) => {
       if (data.statusCode === 200) {
         const testDetail = data.data;
-        console.log("Test Data: ", testDetail)
         this.patchForm(testDetail);
-        console.log("Form value: ", this.testForm.value)
 
       }
     })
@@ -202,13 +200,11 @@ export class InformationTestComponent implements OnInit {
 
       Object.keys(formValue).forEach((key) => {
         if (formValue[key] === null || formValue[key] === undefined) {
-          formValue[key] = ''; // Chuyển thành chuỗi rỗng
+          formValue[key] = '';
         }
       });
+      // console.log("Form value: ", formValue);
 
-      console.log("Form value: ", formValue);
-
-      // Thực hiện thao tác Update hoặc Add
       if (this.isEditMode) {
         // UPDATE
         this.testSrv.updateTest(formValue).subscribe({

@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InformationFeedbackComponent implements OnInit {
   cities: any;
-
   selectedCity: any;
 
   constructor() { }
