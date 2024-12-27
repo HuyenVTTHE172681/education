@@ -28,19 +28,19 @@
     </div>
     <!-- UPDATE && ADD -->
     <div class="question-item">
-        <form>
+        <form [formGroup]="questionForm">
             <div class="grid">
                 <div class="col-12 flex justify-content-between align-items-center mb-3 question-header">
                     <div class="flex align-items-center">Câu hỏi 1: </div>
                     <div>
-                        <input type="number" [style]="{ width: '120px', textAlign: 'center'}" />
+                        <input type="number" formControlName="point" [style]="{ width: '120px', textAlign: 'center'}" />
                         điểm
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="field">
                         <p-floatLabel>
-                            <input pInputText class="input-field" placeholder="Nhập tên câu hỏi"
+                            <input pInputText class="input-field" formControlName="name" placeholder="Nhập tên câu hỏi"
                                 [style]="{ width: '100%' }" />
                             <label for="name">Tên câu hỏi: </label>
                         </p-floatLabel>
@@ -49,8 +49,9 @@
                 <div class="col-12 md:col-3">
                     <div class="field">
                         <p-floatLabel>
-                            <p-dropdown [options]="testQuestionType" optionLabel="name" optionValue="" [filter]="true"
-                                filterBy="name" [showClear]="true" [style]="{ width: '100%' }">
+                            <p-dropdown [options]="testQuestionType" formControlName="testQuestionTypeCode"
+                                optionLabel="name" optionValue="code" [filter]="true" filterBy="name" [showClear]="true"
+                                [style]="{ width: '100%' }">
                             </p-dropdown>
                             <label for="name">Loại câu hỏi: </label>
                         </p-floatLabel>
@@ -69,9 +70,9 @@
                 <div class="col-12 md:col-3">
                     <div class="field">
                         <p-floatLabel>
-                            <p-dropdown [options]="levelQuestion" optionLabel="name" optionValue="" [filter]="true"
-                                filterBy="name" [showClear]="true" placeholder="Select Username"
-                                [style]="{ width: '100%' }">
+                            <p-dropdown [options]="levelQuestion" formControlName="level" optionLabel="name"
+                                optionValue="code" [filter]="true" filterBy="name" [showClear]="true"
+                                placeholder="Select Username" [style]="{ width: '100%' }">
                             </p-dropdown>
                             <label for="name">Độ khó: </label>
                         </p-floatLabel>
@@ -80,7 +81,7 @@
                 <div class="col-12 md:col-3">
                     <div class="field">
                         <p-floatLabel>
-                            <input pInputText class="input-field" [style]="{ width: '100%' }" />
+                            <input formControlName="order" pInputText class="input-field" [style]="{ width: '100%' }" />
                             <label for="name">Thứ tự: </label>
                         </p-floatLabel>
                     </div>
@@ -88,7 +89,8 @@
                 <div class="col-12 md:col-9">
                     <div class="field">
                         <p-floatLabel>
-                            <input pInputText class="input-field" [style]="{ width: '100%' }" />
+                            <input formControlName="lessonLink" pInputText class="input-field"
+                                [style]="{ width: '100%' }" />
                             <label for="name">Đường dẫn bài học: </label>
                         </p-floatLabel>
                     </div>
@@ -96,7 +98,7 @@
                 <div class="col-12 md:col-3">
                     <div class="field">
                         <p-floatLabel>
-                            <p-inputSwitch formControlName="status"></p-inputSwitch>
+                            <p-inputSwitch formControlName="publicStatus"></p-inputSwitch>
                             <label for="content" class="font-size-14 ml-2">Hiển thị dọc</label>
                         </p-floatLabel>
                     </div>
@@ -104,8 +106,8 @@
                 <div class="col-12">
                     <div class="field">
                         <p-floatLabel>
-                            <p-multiSelect [options]="teacher" optionValue="id" optionLabel="name"
-                                placeholder="Chọn lớp học" [maxSelectedLabels]="30"
+                            <p-multiSelect [options]="teacher" formControlName="teacherIds" optionValue="id"
+                                optionLabel="name" placeholder="Chọn lớp học" [maxSelectedLabels]="30"
                                 [style]="{ width: '100%' }"></p-multiSelect>
                             <label for="classRooms">Giáo viên hợp tác <span class="text-red-500">*</span></label>
                         </p-floatLabel>
@@ -137,7 +139,7 @@
                 <div class="col-12">
                     <div class="field">
                         <label for="" class="font-size-14">Hướng dẫn bài kiểm tra:</label>
-                        <p-editor [style]="{ height: '400px' }" formControlName="descriptionShort" />
+                        <p-editor [style]="{ height: '400px' }" formControlName="content" />
                     </div>
                 </div>
                 <div class="col-12">
