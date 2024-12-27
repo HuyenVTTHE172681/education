@@ -24,15 +24,22 @@ export const CONSTANTS = {
         UPDATE_FAIL: 'Cập nhật thất bại',
         DELETE_SUCCESSFUL: 'Xóa thành công',
         DELETE_FAIL: 'Xóa thất bại',
-        DELETE_CANCEL: 'Hủy xóa danh mục'
+        DELETE_CANCEL: 'Hủy xóa danh mục',
+        INVALID_DATA: 'Vui lòng xử lý dữ liệu đầu vào hợp lệ'
     },
     SUMMARY: {
         SUMMARY_DELETE_SUCCESSFUL: 'Xóa danh mục thành công',
-        SUMMARY_CANCEL_DELETE: 'Hủy xóa danh mục'
+        SUMMARY_CANCEL_DELETE: 'Hủy xóa danh mục',
+        SUMMARY_UPDATE_SUCCESSFUL: 'Cập nhật danh mục thành công',
+        SUMMARY_UPDATE_FAIL: 'Cập nhật danh mục thất bại',
+        SUMMARY_DELETE_FALL: 'Xóa danh mục thất bại',
+        SUMMARY_ADD_SUCCESSFUL: 'Thêm danh mục thành công',
+        SUMMARY_ADD_FAIL: 'Thêm danh mục thất bại',
+        SUMMARY_INVALID_DATA: 'Vui lòng xử lý dữ liệu đầu vào hợp lệ'
     },
     CONFIRM: {
-        DELETE_CLASSROOM: 'Bạn có chắc chắn muốn xóa lớp học này không?',
-
+        DELETE_CLASSROOM: 'Bạn có chắc chắn muốn xóa lớp học này không ?',
+        DELETE_SUBJECT: 'Bạn có chắc chắn muốn xóa môn học này không ?'
     }
 }
 

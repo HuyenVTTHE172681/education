@@ -3,8 +3,8 @@ import { debounceTime, Subject } from 'rxjs';
 import { Subject as SubjectModel } from '../../../../core/models/subject.model';
 import { SubjectService } from '../../../../core/services/subject.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
-import { STATUS } from '../../../../environments/constants';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
+import { CONSTANTS, STATUS } from '../../../../environments/constants';
 
 @Component({
   selector: 'app-information-subject',
@@ -36,7 +36,12 @@ export class InformationSubjectComponent implements OnInit {
   selectedSubject: any = null;
 
   private searchSubject: Subject<string> = new Subject();
-  constructor(private subjectSrv: SubjectService, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private subjectSrv: SubjectService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.initParams();
@@ -68,19 +73,53 @@ export class InformationSubjectComponent implements OnInit {
         label: 'Options',
         items: [
           {
+            label: 'Sửa',
+            icon: 'pi pi-check',
+            command: () => this.edit(), // Open sidebar on click
+          },
+          {
             label: 'Xóa',
             icon: 'pi pi-trash',
-            command: () => this.deletedSubject(), // Delete functionality (if needed)
+            command: () => this.deleted(), // Delete functionality (if needed)
           },
         ],
       },
     ];
   }
-  deletedSubject() {
+
+  edit() {
     if (this.selectedSubject) {
-      this.dialogDelete = true;
-      // console.log("Delete subject in classroom: ", this.selectedSubject?.id);
+      this.router.navigate(['/quan-tri/mon-hoc/', this.selectedSubject?.id]);
     }
+  }
+  deleted() {
+    const documentId = this.selectedSubject?.id;
+    this.confirmationService.confirm({
+      message: CONSTANTS.CONFIRM.DELETE_SUBJECT,
+      header: 'Xác nhận',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Đồng ý',
+      rejectLabel: 'Hủy bỏ',
+      accept: () => {
+        this.subjectSrv.deleteSubject(documentId).subscribe((data) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: CONSTANTS.SUMMARY.SUMMARY_DELETE_SUCCESSFUL,
+            detail: CONSTANTS.MESSAGE_ALERT.DELETE_SUCCESSFUL,
+            key: 'br', life: 3000
+          });
+          this.getSubject(this.query.courseId);
+        })
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: CONSTANTS.SUMMARY.SUMMARY_CANCEL_DELETE,
+          detail: CONSTANTS.MESSAGE_ALERT.DELETE_CANCEL,
+          key: 'br', life: 3000
+        });
+      },
+    })
   }
 
   getSubject(courseID: string) {
@@ -112,12 +151,12 @@ export class InformationSubjectComponent implements OnInit {
 
   setSelectedSubject(subject: any) {
     this.selectedSubject = subject;
-    console.log("Selected Subject: ", this.selectedSubject);
+    // console.log("Selected Subject: ", this.selectedSubject);
   }
 
   onStatusChange(event: any) {
     this.query.page = 1;
-    console.log('Trạng thái đã được chọn: ', this.selectedRole);
+    // console.log('Trạng thái đã được chọn: ', this.selectedRole);
   }
 
   getStatus(status: number) {
@@ -137,23 +176,6 @@ export class InformationSubjectComponent implements OnInit {
     return status === 1 ? STATUS.HIEN_THI : STATUS.AN;
   }
 
-  handleDeletedSubject() {
-    if (this.selectedSubject) {
-      const subjectID = this.selectedSubject.id;
-      console.log("Subject Selected: ", subjectID);
 
-      this.subjectSrv.deleteSubject(subjectID).subscribe({
-        next: () => {
-          this.dialogDelete = false;
-          alert('Xóa môn học thành công!');
-          this.getSubject(this.query.courseId);
-        },
-        error: (error) => {
-          alert("Error deleting subject");
-        }
-      })
-
-    }
-  }
 
 }

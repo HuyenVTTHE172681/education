@@ -70,7 +70,7 @@ export class LopHocComponent implements OnInit {
           {
             label: 'Xóa',
             icon: 'pi pi-trash',
-            command: () => this.deletedClassRoom(), // Delete functionality (if needed)
+            command: () => this.deleted(), // Delete functionality (if needed)
           },
         ],
       },
@@ -83,7 +83,7 @@ export class LopHocComponent implements OnInit {
   editClassRoom() {
     this.router.navigate(['/quan-tri/lop-hoc/', this.selectedTeacher?.id]);
   }
-  deletedClassRoom() {
+  deleted() {
     const documentId = this.selectedTeacher?.id;
     this.confirmationService.confirm({
       message: CONSTANTS.CONFIRM.DELETE_CLASSROOM,

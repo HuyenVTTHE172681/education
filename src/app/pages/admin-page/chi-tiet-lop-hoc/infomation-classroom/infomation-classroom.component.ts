@@ -4,7 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TeacherService } from '../../../../core/services/teacher.service';
 import { ClassRoomService } from '../../../../core/services/classRoom.service';
 import { ClassRoom } from '../../../../core/models/classRoom.model';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
+import { CONSTANTS } from '../../../../environments/constants';
 
 @Component({
   selector: 'app-infomation-classroom',
@@ -20,7 +21,8 @@ export class InfomationClassroomComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private classRoomSrv: ClassRoomService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private messageService: MessageService
   ) {
     this.classRoomForm = this.formBuilder.group({
       avatar: [''],
@@ -88,46 +90,80 @@ export class InfomationClassroomComponent implements OnInit {
       const formValue = { ...this.classRoomForm.value };
       formValue.status = formValue.status ? 1 : 0;
 
-      console.log("Is Edit mode: ", this.isEditMode)
-
       if (this.isEditMode) {
         this.classRoomSrv.updateClassRoom(formValue).subscribe({
           next: (data) => {
+            console.log("Update Class Room Response:", data); // Log response
             if (data.statusCode === 200) {
-              alert('Cập nhật lớp học thành công!');
+              this.messageService.add({
+                severity: 'success',
+                summary: CONSTANTS.SUMMARY.SUMMARY_UPDATE_FAIL,
+                detail: CONSTANTS.MESSAGE_ALERT.UPDATE_FAIL,
+                key: 'br',
+                life: 3000
+              });
               this.router.navigate(['/quan-tri/lop-hoc']);
             } else if (data.statusCode === 500) {
               alert(data.message);
+              this.messageService.add({
+                severity: 'info',
+                summary: data.message,
+                detail: CONSTANTS.MESSAGE_ALERT.DELETE_FAIL,
+                key: 'br',
+                life: 3000
+              });
             }
           },
           error: (err) => {
-            console.error('Error updating class room:', err);
-            alert('Có lỗi xảy ra. Vuiổi thử lập!');
+            console.error("Update Class Room Error:", err); // Log error
+            this.messageService.add({
+              severity: 'info',
+              summary: CONSTANTS.SUMMARY.SUMMARY_UPDATE_SUCCESSFUL,
+              detail: CONSTANTS.MESSAGE_ALERT.DELETE_FAIL,
+              key: 'br',
+              life: 3000
+            });
           }
-        })
+        });
       } else {
-        // Trường hợp Add
         this.classRoomSrv.addClassRoom(formValue).subscribe({
           next: (data) => {
+            console.log("Add Class Room Response:", data); // Log response
             if (data.statusCode === 200) {
-              alert('Thêm lớp học thành công!');
+              this.messageService.add({
+                severity: 'success',
+                summary: CONSTANTS.SUMMARY.SUMMARY_ADD_SUCCESSFUL,
+                detail: CONSTANTS.MESSAGE_ALERT.ADD_SUCCESSFUL,
+                key: 'br',
+                life: 3000
+              });
               this.router.navigate(['/quan-tri/lop-hoc']);
-            } else if (data.statusCode === 500) {
-              alert(data.message);
+            } else {
+              console.error("Add Class Room Error:", data); // Log error for unexpected status
             }
           },
           error: (err) => {
-            console.error('Error adding class room:', err);
-            alert('Có lỗi xảy ra. Vui lòng thử lại!');
+            console.error("Add Class Room Error:", err); // Log error
+            this.messageService.add({
+              severity: 'info',
+              summary: CONSTANTS.SUMMARY.SUMMARY_ADD_FAIL,
+              detail: CONSTANTS.MESSAGE_ALERT.ADD_FAIL,
+              key: 'br',
+              life: 3000
+            });
           }
         });
       }
     } else {
-      console.log("Form is invalid");
-      alert("Vui lòng kiểm tra thông tin đầu vào!");
+      this.messageService.add({
+        severity: 'info',
+        summary: CONSTANTS.SUMMARY.SUMMARY_INVALID_DATA,
+        detail: CONSTANTS.MESSAGE_ALERT.INVALID_DATA,
+        key: 'br',
+        life: 3000
+      });
     }
   }
-
 
 
   goBack() {
