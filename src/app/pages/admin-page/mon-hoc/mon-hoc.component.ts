@@ -29,8 +29,6 @@ export class MonHocComponent implements OnInit {
   searchText: string = '';
   classRoom: ClassRoom[] = [];
   selectedClassroom: string | undefined;
-  dialogDelete: boolean = false;
-
   private searchSubject: Subject<string> = new Subject();
 
   constructor(

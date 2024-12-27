@@ -31,7 +31,6 @@ export class GiaoVienComponent implements OnInit {
     { name: 'Giáo viên', value: 'teacher' },
   ];
   selectedRole: any = this.roleList[0];
-  dialogDelete: boolean = false;
 
   private searchSubject: Subject<string> = new Subject();
   constructor(

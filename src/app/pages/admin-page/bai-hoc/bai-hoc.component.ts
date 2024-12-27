@@ -47,12 +47,9 @@ export class BaiHocComponent implements OnInit {
     { name: 'Ẩn', value: 0 },
   ];
   selectedStatus: any = this.statusList[0];
-
   test: Test[] = [];
   totalItems: number = 0;
   selectedTest: any = null;
-
-  dialogDelete: boolean = false;
   private searchSubject: Subject<string> = new Subject(); // Subject for search
 
   constructor(private testSrv: TestAbilityService, private classRoomSrv: ClassRoomService, private subjectSrv: SubjectService, private router: Router, private confirmationService: ConfirmationService, private messageService: MessageService) { }

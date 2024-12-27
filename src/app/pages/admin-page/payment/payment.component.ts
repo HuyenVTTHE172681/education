@@ -31,7 +31,6 @@ export class PaymentComponent implements OnInit {
     { name: 'Chưa thanh toán', value: 0 },
   ];
   selectedStatus: any = this.statusList[0];
-  dialogDelete: boolean = false;
   dialogAccept: boolean = false;
   dialogCancelAccept: boolean = false;
   note: string = '';
@@ -204,33 +203,6 @@ export class PaymentComponent implements OnInit {
     this.selectedPayment = course;
   }
 
-  handleDeletePayment() {
-    if (this.selectedPayment) {
-      const paymentID = this.selectedPayment.id;
-
-      if (this.selectedPayment.isPayment === 1) {
-        alert("Thanh toán đã được duyệt, không xóa được!");
-        this.dialogDelete = false;
-      } else {
-        this.paymentSrv.deletedPaymentList(paymentID).subscribe({
-          next: () => {
-            this.dialogDelete = false;
-            this.getDashboardPayment(); // Làm mới dữ liệu
-            alert('Xóa thanh toán thành công!');
-          },
-
-          error: (err) => {
-            console.error('Lỗi khi xóa:', err);
-            alert('Có lỗi xảy ra khi xóa. Vui lòng thử lại!');
-          },
-          complete: () => {
-            this.note = ''; // Reset note sau khi xử lý xong
-          }
-        })
-      }
-
-    }
-  }
 
   handleAcceptPayment(comment: string) {
     if (this.selectedPayment) {

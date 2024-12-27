@@ -32,7 +32,6 @@ export class InformationSubjectComponent implements OnInit {
     { name: 'Giáo viên', value: 'teacher' },
   ];
   selectedRole: any = this.roleList[0];
-  dialogDelete: boolean = false;
   selectedSubject: any = null;
 
   private searchSubject: Subject<string> = new Subject();

@@ -39,7 +39,6 @@ export class KhoaHocComponent implements OnInit {
   };
   totalItems: number = 0;
   selectedCourse: any = null;
-  dialogDelete: boolean = false;
   classRoom: ClassRoom[] = [];
   teacher: Teacher[] = [];
   subject: SubjectModel[] = [];
