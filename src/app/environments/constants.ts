@@ -13,7 +13,7 @@ export const STATUS = {
     CHO_THANH_TOAN: 'Chờ thanh toán',
     DANG_HOAT_DONG: 'Đang hoạt động',
     DUNG_HOAT_DONG: 'Dừng hoạt động'
-    
+
 }
 
 export const CONSTANTS = {
@@ -26,7 +26,12 @@ export const CONSTANTS = {
         DELETE_FAIL: 'Xóa thất bại',
         DELETE_CANCEL: 'Hủy xóa danh mục',
         INVALID_DATA: 'Vui lòng xử lý dữ liệu đầu vào hợp lệ',
-        PAYMENT_NOT_DELETE: 'Thanh toán được duyệt, không thể xóa!'
+        PAYMENT_NOT_DELETE: 'Thanh toán được duyệt, không thể xóa!',
+        ACCEPT_PAYMENT: 'Thanh toán đã được duyệt, không thể xác nhận lại!',
+        CANCEL_PAYMENT: 'Thanh toán chưa được duyệt, không thể hủy!',
+        ACCEPT_PAYMENT_SUCCESSFUL: 'Thanh toán được duyệt',
+        CANCEL_PAYMENT_SUCCESSFUL: 'Hủy thanh toán',
+        ERROR: 'Có lỗi xảy ra. Vui lòng thử lại !',
     },
     SUMMARY: {
         SUMMARY_DELETE_SUCCESSFUL: 'Xóa danh mục thành công',
@@ -37,7 +42,11 @@ export const CONSTANTS = {
         SUMMARY_ADD_SUCCESSFUL: 'Thêm danh mục thành công',
         SUMMARY_ADD_FAIL: 'Thêm danh mục thất bại',
         SUMMARY_INVALID_DATA: 'Vui lòng xử lý dữ liệu đầu vào hợp lệ',
-        SUMMARY_PAYMENT_NOT_DELETE: 'Thanh toán được duyệt, không thể xóa!'
+        SUMMARY_PAYMENT_NOT_DELETE: 'Thanh toán được duyệt, không thể xóa!',
+        SUMMARY_ACCEPT_PAYMENT: 'Thanh toán được duyệt, không thể xác nhận lại!',
+        SUMMARY_CANCEL_PAYMENT: 'Thanh toán chưa được duyệt, không thể hủy!',
+        SUMMARY_ACCEPT_SUCCESSFUL: 'Thanh toán được duyệt',
+        SUMMARY_ERROR: 'Có lỗi xảy ra. Vui lòng thử lại !',
     },
     CONFIRM: {
         DELETE_CLASSROOM: 'Bạn có chắc chắn muốn xóa lớp học này không ?',

@@ -88,10 +88,15 @@ export class PaymentComponent implements OnInit {
 
   acceptPayment() {
     if (this.selectedPayment.isPayment === 1) {
-      alert("Thanh toán đã được duyệt, không thể xác nhận lại!");
+      this.messageService.add({
+        severity: 'success',
+        summary: CONSTANTS.SUMMARY.SUMMARY_ACCEPT_PAYMENT,
+        detail: CONSTANTS.MESSAGE_ALERT.ACCEPT_PAYMENT,
+        key: 'br', life: 3000
+      });
     } else if (this.selectedPayment.isPayment === 0) {
       this.dialogAccept = true;
-      console.log("Accept payment: ", this.selectedPayment?.id);
+      // console.log("Accept payment: ", this.selectedPayment?.id);
     }
   }
 
@@ -99,10 +104,15 @@ export class PaymentComponent implements OnInit {
     if (!this.selectedPayment) return;
 
     if (this.selectedPayment.isPayment === 0) {
-      alert("Thanh toán chưa được duyệt, không thể hủy!");
+      this.messageService.add({
+        severity: 'success',
+        summary: CONSTANTS.SUMMARY.SUMMARY_CANCEL_PAYMENT,
+        detail: CONSTANTS.MESSAGE_ALERT.CANCEL_PAYMENT,
+        key: 'br', life: 3000
+      });
     } else if (this.selectedPayment.isPayment === 1) {
       this.dialogCancelAccept = true;
-      console.log("Cancel accept payment: ", this.selectedPayment?.id);
+      // console.log("Cancel accept payment: ", this.selectedPayment?.id);
     }
   }
 
@@ -215,23 +225,37 @@ export class PaymentComponent implements OnInit {
       this.paymentSrv.updatePayment(payload).subscribe({
         next: (response) => {
           if (response.data.valid) {
-            alert("Xác nhận thanh toán rồi!");
+            this.messageService.add({
+              severity: 'success',
+              summary: CONSTANTS.SUMMARY.SUMMARY_ACCEPT_SUCCESSFUL,
+              detail: CONSTANTS.MESSAGE_ALERT.ACCEPT_PAYMENT_SUCCESSFUL,
+              key: 'br', life: 3000
+            });
             this.dialogAccept = false;
             this.getDashboardPayment();
           } else {
-            alert("Có lỗi xảy ra");
+            this.messageService.add({
+              severity: 'success',
+              summary: CONSTANTS.SUMMARY.SUMMARY_INVALID_DATA,
+              detail: CONSTANTS.MESSAGE_ALERT.INVALID_DATA,
+              key: 'br', life: 3000
+            });
           }
         },
         error: (err) => {
           console.error('Lỗi khi xóa:', err);
-          alert('Có lỗi xảy ra khi xóa. Vui lòng thử lại!');
+          this.messageService.add({
+            severity: 'success',
+            summary: CONSTANTS.SUMMARY.SUMMARY_ERROR,
+            detail: CONSTANTS.MESSAGE_ALERT.ERROR,
+            key: 'br', life: 3000
+          });
         },
         complete: () => {
           this.note = ''; // Reset note sau khi xử lý xong
         }
       })
     }
-
   }
 
   handleCancelAcceptPayment(comment: string) {
@@ -244,16 +268,30 @@ export class PaymentComponent implements OnInit {
       this.paymentSrv.updatePayment(payload).subscribe({
         next: (respone) => {
           if (respone.data.valid) {
-            alert("Hủy xác nhận thanh toán rồi!");
+            this.messageService.add({
+              severity: 'success',
+              summary: CONSTANTS.SUMMARY.SUMMARY_CANCEL_PAYMENT,
+              detail: CONSTANTS.MESSAGE_ALERT.CANCEL_PAYMENT_SUCCESSFUL,
+              key: 'br', life: 3000
+            });
             this.dialogCancelAccept = false;
             this.getDashboardPayment();
           } else {
-            alert("Có lỗi xảy ra");
+            this.messageService.add({
+              severity: 'success',
+              summary: CONSTANTS.SUMMARY.SUMMARY_INVALID_DATA,
+              detail: CONSTANTS.MESSAGE_ALERT.INVALID_DATA,
+              key: 'br', life: 3000
+            });
           }
         },
         error: (err) => {
-          console.error('Lỗi khi xóa:', err);
-          alert('Có lỗi xảy ra khi xóa. Vui lòng thử lại!');
+          this.messageService.add({
+            severity: 'success',
+            summary: CONSTANTS.SUMMARY.SUMMARY_ERROR,
+            detail: CONSTANTS.MESSAGE_ALERT.ERROR,
+            key: 'br', life: 3000
+          });
         },
       })
 
