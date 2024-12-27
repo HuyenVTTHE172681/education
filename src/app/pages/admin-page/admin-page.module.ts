@@ -67,6 +67,10 @@ import { InformationQuestionComponent } from './chi-tiet-bai-hoc/information-que
 import { InformationFeedbackComponent } from './chi-tiet-bai-hoc/information-feedback/information-feedback.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CauHoiComponent } from './cau-hoi/cau-hoi.component';
+import { MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+
 
 register(); // Register Swiper
 @NgModule({
@@ -141,9 +145,11 @@ register(); // Register Swiper
     ChartModule,
     CalendarModule,
     MultiSelectModule,
-    InputTextareaModule
+    InputTextareaModule,
+    ConfirmDialogModule,
+    ToastModule
   ],
-  providers: [ConfirmationService],
+  providers: [ConfirmationService, MessageService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 

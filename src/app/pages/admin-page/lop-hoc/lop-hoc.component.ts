@@ -3,8 +3,8 @@ import { debounceTime, Subject } from 'rxjs';
 import { ClassRoom } from '../../../core/models/classRoom.model';
 import { Router } from '@angular/router';
 import { ClassRoomService } from '../../../core/services/classRoom.service';
-import { MenuItem } from 'primeng/api';
-import { STATUS } from '../../../environments/constants';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
+import { CONSTANTS, STATUS } from '../../../environments/constants';
 
 @Component({
   selector: 'app-lop-hoc',
@@ -36,7 +36,7 @@ export class LopHocComponent implements OnInit {
   dialogDelete: boolean = false;
 
   private searchSubject: Subject<string> = new Subject();
-  constructor(private classRoomSrv: ClassRoomService, private router: Router) { }
+  constructor(private classRoomSrv: ClassRoomService, private router: Router, private confirmationService: ConfirmationService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.initParams();
@@ -84,9 +84,35 @@ export class LopHocComponent implements OnInit {
     this.router.navigate(['/quan-tri/lop-hoc/', this.selectedTeacher?.id]);
   }
   deletedClassRoom() {
-    if (this.selectedTeacher) {
-      this.dialogDelete = true;
-    }
+    const documentId = this.selectedTeacher?.id;
+    this.confirmationService.confirm({
+      message: CONSTANTS.CONFIRM.DELETE_CLASSROOM,
+      header: 'Xác nhận',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Đồng ý',
+      rejectLabel: 'Hủy bỏ',
+      accept: () => {
+        this.classRoomSrv.deleteClassRoom(documentId).subscribe((data) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: CONSTANTS.SUMMARY.SUMMARY_DELETE_SUCCESSFUL,
+            detail: CONSTANTS.MESSAGE_ALERT.DELETE_SUCCESSFUL,
+            key: 'br', life: 3000
+          });
+          this.getClassRoom();
+        })
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: CONSTANTS.SUMMARY.SUMMARY_CANCEL_DELETE,
+          detail: CONSTANTS.MESSAGE_ALERT.DELETE_CANCEL,
+          key: 'br', life: 3000
+        });
+      },
+    })
+
+
   }
   getClassRoom() {
     this.classRoomSrv.getClassRooms(this.query.page, this.query.size, this.query.filter).subscribe((data) => {
@@ -149,20 +175,4 @@ export class LopHocComponent implements OnInit {
     return status === 1 ? STATUS.HIEN_THI : STATUS.AN;
   }
 
-  handleDeleteClassroom() {
-    if (this.selectedTeacher) {
-      const accID = this.selectedTeacher?.id;
-      console.log("Teacher id: ", accID)
-      this.classRoomSrv.deleteClassRoom(accID).subscribe({
-        next: () => {
-          this.dialogDelete = false;
-          alert("Xóa lớpb" + this.selectedTeacher?.name + " thanh cong");
-          this.getClassRoom();
-        },
-        error: (err) => {
-          alert("Lỗi xảy ra khi xóa. Vui lòng thử lại!")
-        }
-      })
-    }
-  }
 }

@@ -15,3 +15,30 @@ export const STATUS = {
     DUNG_HOAT_DONG: 'Dừng hoạt động'
     
 }
+
+export const CONSTANTS = {
+    MESSAGE_ALERT: {
+        ADD_SUCCESSFUL: 'Thêm mới thành công',
+        ADD_FAIL: 'Thêm mới thất bại',
+        UPDATE_SUCCESSFUL: 'Cập nhật thành công',
+        UPDATE_FAIL: 'Cập nhật thất bại',
+        DELETE_SUCCESSFUL: 'Xóa thành công',
+        DELETE_FAIL: 'Xóa thất bại',
+        DELETE_CANCEL: 'Hủy xóa danh mục'
+    },
+    SUMMARY: {
+        SUMMARY_DELETE_SUCCESSFUL: 'Xóa danh mục thành công',
+        SUMMARY_CANCEL_DELETE: 'Hủy xóa danh mục'
+    },
+    CONFIRM: {
+        DELETE_CLASSROOM: 'Bạn có chắc chắn muốn xóa lớp học này không?',
+
+    }
+}
+
+export const PERMISSION_KEYS = {
+    ADD: 'AC_ADD',
+    EDIT: 'AC_EDIT',
+    DELETE: 'AC_REMOVE',
+    VIEW: 'AC_VIEW',
+};
