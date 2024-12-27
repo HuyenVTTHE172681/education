@@ -49,8 +49,8 @@
                 <div class="col-12 md:col-3">
                     <div class="field">
                         <p-floatLabel>
-                            <p-dropdown optionLabel="name" optionValue="" [filter]="true" filterBy="name"
-                                [showClear]="true" [style]="{ width: '100%' }">
+                            <p-dropdown [options]="testQuestionType" optionLabel="name" optionValue="" [filter]="true"
+                                filterBy="name" [showClear]="true" [style]="{ width: '100%' }">
                             </p-dropdown>
                             <label for="name">Loại câu hỏi: </label>
                         </p-floatLabel>
@@ -59,8 +59,8 @@
                 <div class="col-12 md:col-3">
                     <div class="field">
                         <p-floatLabel>
-                            <p-dropdown optionLabel="name" optionValue="" [filter]="true" filterBy="name"
-                                [showClear]="true" [style]="{ width: '100%' }">
+                            <p-dropdown [options]="testQuestionGroup" optionLabel="name" optionValue="" [filter]="true"
+                                filterBy="name" [showClear]="true" [style]="{ width: '100%' }">
                             </p-dropdown>
                             <label for="name">Nhóm câu hỏi: </label>
                         </p-floatLabel>
@@ -69,8 +69,9 @@
                 <div class="col-12 md:col-3">
                     <div class="field">
                         <p-floatLabel>
-                            <p-dropdown optionLabel="name" optionValue="" [filter]="true" filterBy="name"
-                                [showClear]="true" placeholder="Select Username" [style]="{ width: '100%' }">
+                            <p-dropdown [options]="levelQuestion" optionLabel="name" optionValue="" [filter]="true"
+                                filterBy="name" [showClear]="true" placeholder="Select Username"
+                                [style]="{ width: '100%' }">
                             </p-dropdown>
                             <label for="name">Độ khó: </label>
                         </p-floatLabel>
@@ -103,8 +104,9 @@
                 <div class="col-12">
                     <div class="field">
                         <p-floatLabel>
-                            <p-multiSelect optionValue="id" optionLabel="name" placeholder="Chọn lớp học"
-                                [maxSelectedLabels]="30" [style]="{ width: '100%' }"></p-multiSelect>
+                            <p-multiSelect [options]="teacher" optionValue="id" optionLabel="name"
+                                placeholder="Chọn lớp học" [maxSelectedLabels]="30"
+                                [style]="{ width: '100%' }"></p-multiSelect>
                             <label for="classRooms">Giáo viên hợp tác <span class="text-red-500">*</span></label>
                         </p-floatLabel>
                     </div>
