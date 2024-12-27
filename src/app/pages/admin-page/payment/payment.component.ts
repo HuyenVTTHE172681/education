@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { debounceTime, Subject } from 'rxjs';
 import { Payment } from '../../../core/models/payment.model';
 import { PaymentService } from '../../../core/services/payment.service';
-import { MenuItem } from 'primeng/api';
-import { STATUS } from '../../../environments/constants';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
+import { CONSTANTS, STATUS } from '../../../environments/constants';
 
 @Component({
   selector: 'app-payment',
@@ -48,7 +48,10 @@ export class PaymentComponent implements OnInit {
     });
   }
 
-  constructor(private paymentSrv: PaymentService) { }
+  constructor(
+    private paymentSrv: PaymentService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService) { }
 
   initParams() {
     this.breadcrum = [
@@ -105,10 +108,45 @@ export class PaymentComponent implements OnInit {
   }
 
   deletedPayment() {
-    if (this.selectedPayment) {
-      this.dialogDelete = true;
-      console.log("Delete payement: ", this.selectedPayment?.id);
+    const documentId = this.selectedPayment?.id;
+
+    if (this.selectedPayment.isPayment === 1) {
+      this.messageService.add({
+        severity: 'success',
+        summary: CONSTANTS.SUMMARY.SUMMARY_PAYMENT_NOT_DELETE,
+        detail: CONSTANTS.MESSAGE_ALERT.PAYMENT_NOT_DELETE,
+        key: 'br', life: 3000
+      });
+      this.getDashboardPayment();
+    } else {
+      this.confirmationService.confirm({
+        message: CONSTANTS.CONFIRM.DELETE_PAYMENT,
+        header: 'Xác nhận',
+        icon: 'pi pi-exclamation-triangle',
+        acceptLabel: 'Đồng ý',
+        rejectLabel: 'Hủy bỏ',
+        accept: () => {
+          this.paymentSrv.deletedPaymentList(documentId).subscribe((data) => {
+            this.messageService.add({
+              severity: 'success',
+              summary: CONSTANTS.SUMMARY.SUMMARY_DELETE_SUCCESSFUL,
+              detail: CONSTANTS.MESSAGE_ALERT.DELETE_SUCCESSFUL,
+              key: 'br', life: 3000
+            });
+            this.getDashboardPayment();
+          })
+        },
+        reject: () => {
+          this.messageService.add({
+            severity: 'info',
+            summary: CONSTANTS.SUMMARY.SUMMARY_CANCEL_DELETE,
+            detail: CONSTANTS.MESSAGE_ALERT.DELETE_CANCEL,
+            key: 'br', life: 3000
+          });
+        },
+      })
     }
+
   }
 
   onStatusChange(event: any) {

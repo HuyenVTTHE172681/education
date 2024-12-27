@@ -25,7 +25,8 @@ export const CONSTANTS = {
         DELETE_SUCCESSFUL: 'Xóa thành công',
         DELETE_FAIL: 'Xóa thất bại',
         DELETE_CANCEL: 'Hủy xóa danh mục',
-        INVALID_DATA: 'Vui lòng xử lý dữ liệu đầu vào hợp lệ'
+        INVALID_DATA: 'Vui lòng xử lý dữ liệu đầu vào hợp lệ',
+        PAYMENT_NOT_DELETE: 'Thanh toán được duyệt, không thể xóa!'
     },
     SUMMARY: {
         SUMMARY_DELETE_SUCCESSFUL: 'Xóa danh mục thành công',
@@ -35,7 +36,8 @@ export const CONSTANTS = {
         SUMMARY_DELETE_FALL: 'Xóa danh mục thất bại',
         SUMMARY_ADD_SUCCESSFUL: 'Thêm danh mục thành công',
         SUMMARY_ADD_FAIL: 'Thêm danh mục thất bại',
-        SUMMARY_INVALID_DATA: 'Vui lòng xử lý dữ liệu đầu vào hợp lệ'
+        SUMMARY_INVALID_DATA: 'Vui lòng xử lý dữ liệu đầu vào hợp lệ',
+        SUMMARY_PAYMENT_NOT_DELETE: 'Thanh toán được duyệt, không thể xóa!'
     },
     CONFIRM: {
         DELETE_CLASSROOM: 'Bạn có chắc chắn muốn xóa lớp học này không ?',
@@ -43,7 +45,8 @@ export const CONSTANTS = {
         DELETE_BAI_HOC: 'Bạn có chắc chắn muốn xóa bài học này không ?',
         DELETE_TEACHER: 'Bạn có chắc chắn muốn xóa giáo viên này không ?',
         DELETE_COURSE: 'Bạn có chắc chắn muốn xóa khóa học này không ?',
-        DELETE_MON_HOC: 'Bạn có chắc chắn muốn xóa môn học này không ?'
+        DELETE_MON_HOC: 'Bạn có chắc chắn muốn xóa môn học này không ?',
+        DELETE_PAYMENT: 'Bạn có chắc chắn muốn xóa thanh toán này không ?'
     }
 }
 
