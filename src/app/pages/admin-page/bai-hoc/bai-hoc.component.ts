@@ -7,8 +7,8 @@ import { SubjectService } from '../../../core/services/subject.service';
 import { Subject as SubjectModel } from '../../../core/models/subject.model';
 import { debounceTime, Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
-import { STATUS } from '../../../environments/constants';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
+import { CONSTANTS, STATUS } from '../../../environments/constants';
 
 @Component({
   selector: 'app-bai-hoc',
@@ -55,7 +55,7 @@ export class BaiHocComponent implements OnInit {
   dialogDelete: boolean = false;
   private searchSubject: Subject<string> = new Subject(); // Subject for search
 
-  constructor(private testSrv: TestAbilityService, private classRoomSrv: ClassRoomService, private subjectSrv: SubjectService, private router: Router) { }
+  constructor(private testSrv: TestAbilityService, private classRoomSrv: ClassRoomService, private subjectSrv: SubjectService, private router: Router, private confirmationService: ConfirmationService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.getTestCategory();
@@ -109,16 +109,39 @@ export class BaiHocComponent implements OnInit {
   }
 
   deleted() {
-    if (this.selectedTest) {
-      this.dialogDelete = true;
-    }
+    const documentId = this.selectedTest?.id;
+    this.confirmationService.confirm({
+      message: CONSTANTS.CONFIRM.DELETE_BAI_HOC,
+      header: 'Xác nhận',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Đồng ý',
+      rejectLabel: 'Hủy bỏ',
+      accept: () => {
+        this.testSrv.deleteTest(documentId).subscribe((data) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: CONSTANTS.SUMMARY.SUMMARY_DELETE_SUCCESSFUL,
+            detail: CONSTANTS.MESSAGE_ALERT.DELETE_SUCCESSFUL,
+            key: 'br', life: 3000
+          });
+          this.getTest();
+        })
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: CONSTANTS.SUMMARY.SUMMARY_CANCEL_DELETE,
+          detail: CONSTANTS.MESSAGE_ALERT.DELETE_CANCEL,
+          key: 'br', life: 3000
+        });
+      },
+    })
   }
 
   getTestCategory() {
     this.testSrv.getTestType(this.query.searchText, this.query.page, this.query.sizeForFilter).subscribe((data) => {
       if (data.statusCode == 200) {
         this.testCategory = data.data.data;
-        console.log("test category: ", this.testCategory);
       }
     })
   }
@@ -139,7 +162,6 @@ export class BaiHocComponent implements OnInit {
     )
       .subscribe((data) => {
         this.subject = data.data.data;
-        console.log("Subject: ", this.subject);
       })
   }
 
@@ -157,7 +179,6 @@ export class BaiHocComponent implements OnInit {
     ).subscribe((data) => {
       this.test = data.data.data;
       this.totalItems = data.data.recordsTotal;
-      console.log("test: ", this.test);
     })
   }
 
@@ -230,23 +251,6 @@ export class BaiHocComponent implements OnInit {
     this.router.navigate(['/quan-tri/bai-kiem-tra/them-moi']);
   }
 
-  handleDelete() {
-    if (this.selectedTest) {
-      const id = this.selectedTest.id;
-      // console.log("Test id: ", id);
 
-      this.testSrv.deleteTest(id).subscribe({
-        next: () => {
-          this.dialogDelete = false;
-          alert("Xóa bài học thành công");
-          this.getTest();
-        },
-        error: (err) => {
-          alert("Lỗi xảy ra khi xóa. Vui lòng thử lại!")
-        }
-      })
-    }
-
-  }
 
 }

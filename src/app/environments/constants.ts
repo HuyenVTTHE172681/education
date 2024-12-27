@@ -39,7 +39,8 @@ export const CONSTANTS = {
     },
     CONFIRM: {
         DELETE_CLASSROOM: 'Bạn có chắc chắn muốn xóa lớp học này không ?',
-        DELETE_SUBJECT: 'Bạn có chắc chắn muốn xóa môn học này không ?'
+        DELETE_SUBJECT: 'Bạn có chắc chắn muốn xóa môn học này không ?',
+        DELETE_BAI_HOC: 'Bạn có chắc chắn muốn xóa bài học này không ?',
     }
 }
 

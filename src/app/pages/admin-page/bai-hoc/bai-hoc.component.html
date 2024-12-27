@@ -1,3 +1,6 @@
+<p-toast position="bottom-right" key="br" />
+<p-confirmDialog />
+
 <div class="khoa-hoc customer-table common-content">
     <p-table [value]="test" dataKey="id" [scrollable]="true" scrollHeight="600px"
         [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
@@ -96,29 +99,16 @@
             (onPageChange)="onPageChange($event)"></p-paginator>
 
         <div class="flex justify-content-center align-items-center gap-3">
-            <span>Từ 1 đến 10</span>
+            <span>Từ {{ (query.page - 1) * query.size + 1 }} đến {{ totalItems }}</span>
         </div>
     </div>
 </div>
-
 
 <!-- Popup view to edit/deleted -->
 <div class="card flex justify-content-center">
     <p-menu #menu [model]="items" [popup]="true" />
 </div>
 
-
-<!-- Dialog delete -->
-<p-dialog header="Xác nhận" [modal]="true" [(visible)]="dialogDelete" [style]="{ width: '25rem' }">
-    <div class="flex align-items-center gap-3 mb-3">
-        <i class="pi pi-exclamation-triangle" style="font-size: 2rem"></i>
-        <span style="font-weight: 100; font-size: 1.5rem">Bạn có chắc chắn muốn xóa không ?</span>
-    </div>
-    <div class="flex justify-content-end gap-2">
-        <p-button label="Từ chối" severity="secondary" (click)="dialogDelete = false" />
-        <p-button label="Đồng ý" (click)="handleDelete()" />
-    </div>
-</p-dialog>
 
 <p-overlayPanel #op>
     <div class="flex flex-column gap-3 w-25rem">
