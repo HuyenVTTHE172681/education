@@ -55,3 +55,64 @@ export class TestQuestionType {
 }
 
 
+export class TestQuestionNewById {
+    id = '';
+    answer = '';
+    attackFiles = '';
+    content = '';
+    createdBy = '';
+    createdDate = '';
+    description = '';
+    isAdd = 0;
+    isAutoSort = 0;
+    isLayoutSplitVertical = 0;
+    lessonLink = 0;
+    level = 0;
+    modifiedBy = 0;
+    modifiedDate = 0;
+    name = '';
+    order = 0;
+    point = 0;
+    publicStatus = 0;
+    quizzConfigSets = 0;
+    teacherIds = '';
+    testId = '';
+    testQuestionAnswers: TestQuestionAnswer = new TestQuestionAnswer();
+    testQuestionGroupId = 0;
+    testQuestionGroupName = '';
+    testQuestionTypeCode = '';
+    testQuestionTypeName = '';
+    totalFiltered = 0;
+}
+
+export class TestQuestionAnswer {
+    id = '';
+    questionId = '';
+    answer = '';
+    answerLeft = '';
+    answerRight = '';
+    childQuestionAnswers: ChildQuestionAnswer = new ChildQuestionAnswer();
+    comment = '';
+    isCorrect = 0;
+    isParent = 0;
+    isSpecial = 0;
+    order = 0;
+    parentId = '';
+}
+
+export class ChildQuestionAnswer {
+    id = '';
+    questionId = '';
+    answer = '';
+    answerLeft = '';
+    answerRight = '';
+    childQuestionAnswers = '';
+    comment = '';
+    isCorrect = 0;
+    isParent = 0;
+    isSpecial = 0;
+    order = 0;
+    parentId = '';
+}
+
+

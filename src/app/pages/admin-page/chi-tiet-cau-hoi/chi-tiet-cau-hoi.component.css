@@ -1,0 +1,13 @@
+.chuong-trinh-chi-tiet .question-item {
+    border-radius: 10px;
+    box-shadow: 0 0 3px 0 #b9b9b9;
+    margin-bottom: 20px;
+    overflow: hidden;
+    padding: 5px;
+}
+
+.question-header {
+    background: #eee;
+    font-weight: 600;
+    padding: 15px 20px;
+}

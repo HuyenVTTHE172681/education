@@ -70,6 +70,7 @@ import { CauHoiComponent } from './cau-hoi/cau-hoi.component';
 import { MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { ChiTietCauHoiComponent } from './chi-tiet-cau-hoi/chi-tiet-cau-hoi.component';
 
 
 register(); // Register Swiper
@@ -108,6 +109,7 @@ register(); // Register Swiper
     InformationQuestionComponent,
     InformationFeedbackComponent,
     CauHoiComponent,
+    ChiTietCauHoiComponent,
   ],
   imports: [
     CommonModule,

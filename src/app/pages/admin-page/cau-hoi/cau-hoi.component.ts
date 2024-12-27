@@ -3,6 +3,7 @@ import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { QuestionsService } from '../../../core/services/question.service';
 import { Question, TestQuestionGroup, TestQuestionType } from '../../../core/models/question.model';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cau-hoi',
@@ -53,6 +54,7 @@ export class CauHoiComponent implements OnInit {
 
   constructor(
     private questionSrv: QuestionsService,
+    private router: Router,
     private confirmationService: ConfirmationService,
     private messageService: MessageService) { }
 
@@ -77,7 +79,7 @@ export class CauHoiComponent implements OnInit {
           {
             label: 'Sửa',
             icon: 'pi pi-pencil',
-            command: () => this.deleted(), // Open sidebar on click
+            command: () => this.edit(), // Open sidebar on click
           },
           {
             label: 'Xóa',
@@ -92,6 +94,10 @@ export class CauHoiComponent implements OnInit {
         ],
       },
     ];
+  }
+
+  edit() {
+    this.router.navigate(['/quan-tri/cau-hoi/', this.selectedQuestion?.id])
   }
 
   deleted() {

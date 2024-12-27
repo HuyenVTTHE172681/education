@@ -3,8 +3,8 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, throwError, filter } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { API_URL } from '../../environments/constants';
-import { IResponeList } from '../models/common.model';
-import { Question, TestQuestionGroup, TestQuestionType } from '../models/question.model';
+import { IResponeList, IResponeListData } from '../models/common.model';
+import { Question, TestQuestionGroup, TestQuestionNewById, TestQuestionType } from '../models/question.model';
 
 @Injectable({
     providedIn: 'root',
@@ -84,6 +84,26 @@ export class QuestionsService {
 
         return this.http
             .get<IResponeList<TestQuestionType>>(apiURL, { headers })
+            .pipe(catchError(this.handleError));
+    }
+
+    getTestQuestionNewById(
+        id: string
+    ): Observable<IResponeListData<TestQuestionNewById>> {
+
+        // https://hhq.runasp.net/api/TestQuestion/GetTestQuestionNewById?id=1f72621d-aa93-4dae-8176-2fa1a37a3f51
+        const query = `/TestQuestion/GetTestQuestionNewById?id=${id}`;
+
+        const apiURL = `${this.apiBaseUrl}${query}`;
+        console.log('Generated dashboard API URL:', apiURL);
+
+        // const token = localStorage.getItem('token');
+        // const headers = token
+        //   ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+        //   : new HttpHeaders();
+
+        return this.http
+            .get<IResponeListData<TestQuestionNewById>>(apiURL)
             .pipe(catchError(this.handleError));
     }
 

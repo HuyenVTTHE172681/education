@@ -20,6 +20,7 @@ import { ChiTietMonHocComponent } from './mon-hoc/chi-tiet-mon-hoc/chi-tiet-mon-
 import { BaiHocComponent } from './bai-hoc/bai-hoc.component';
 import { ChiTietBaiHocComponent } from './chi-tiet-bai-hoc/chi-tiet-bai-hoc.component';
 import { CauHoiComponent } from './cau-hoi/cau-hoi.component';
+import { ChiTietCauHoiComponent } from './chi-tiet-cau-hoi/chi-tiet-cau-hoi.component';
 
 const routes: Routes = [
   {
@@ -110,6 +111,10 @@ const routes: Routes = [
       {
         path: 'cau-hoi',
         component: CauHoiComponent
+      },
+      {
+        path: 'cau-hoi/:id',
+        component: ChiTietCauHoiComponent
       }
 
     ],
