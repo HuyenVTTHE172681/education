@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { QuestionsService } from '../../../core/services/question.service';
 import { Question, TestQuestionGroup, TestQuestionType } from '../../../core/models/question.model';
 import { Subject } from 'rxjs';
@@ -51,7 +51,10 @@ export class CauHoiComponent implements OnInit {
   selectedPublicStatus: any = this.publicStatus[0];
   private searchSubject: Subject<string> = new Subject(); // Subject for search
 
-  constructor(private questionSrv: QuestionsService) { }
+  constructor(
+    private questionSrv: QuestionsService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.initParams();
@@ -91,7 +94,35 @@ export class CauHoiComponent implements OnInit {
     ];
   }
 
-  deleted() { }
+  deleted() {
+    // const documentId = this.selectedTeacher?.id;
+    // this.confirmationService.confirm({
+    //   message: CONSTANTS.CONFIRM.DELETE_CLASSROOM,
+    //   header: 'Xác nhận',
+    //   icon: 'pi pi-exclamation-triangle',
+    //   acceptLabel: 'Đồng ý',
+    //   rejectLabel: 'Hủy bỏ',
+    //   accept: () => {
+    //     this.classRoomSrv.deleteClassRoom(documentId).subscribe((data) => {
+    //       this.messageService.add({
+    //         severity: 'success',
+    //         summary: CONSTANTS.SUMMARY.SUMMARY_DELETE_SUCCESSFUL,
+    //         detail: CONSTANTS.MESSAGE_ALERT.DELETE_SUCCESSFUL,
+    //         key: 'br', life: 3000
+    //       });
+    //       this.getClassRoom();
+    //     })
+    //   },
+    //   reject: () => {
+    //     this.messageService.add({
+    //       severity: 'info',
+    //       summary: CONSTANTS.SUMMARY.SUMMARY_CANCEL_DELETE,
+    //       detail: CONSTANTS.MESSAGE_ALERT.DELETE_CANCEL,
+    //       key: 'br', life: 3000
+    //     });
+    //   },
+    // })
+  }
 
   getQuestion() {
     this.questionSrv
@@ -108,7 +139,6 @@ export class CauHoiComponent implements OnInit {
         if (res.statusCode === 200) {
           this.questions = res.data.data;
           this.totalItems = res.data.recordsTotal;
-          console.log("Question: ", this.questions);
         }
       })
   }
@@ -194,7 +224,6 @@ export class CauHoiComponent implements OnInit {
     this.questionSrv.getTestQuestionGroup(this.queryQuestion.searchValue, this.queryQuestion.page, this.queryQuestion.size2, this.queryQuestion.status).subscribe(res => {
       if (res.statusCode === 200) {
         this.testQuestionGroup = res.data.data;
-        console.log("Test Question Group: ", this.testQuestionGroup);
       }
     })
   }
@@ -203,7 +232,6 @@ export class CauHoiComponent implements OnInit {
     this.questionSrv.getTestQuestionType(this.queryQuestion.searchValue, this.queryQuestion.page, this.queryQuestion.size2).subscribe(res => {
       if (res.statusCode === 200) {
         this.testQuestionType = res.data.data;
-        console.log("Test Question Type: ", this.testQuestionType);
       }
     })
   }

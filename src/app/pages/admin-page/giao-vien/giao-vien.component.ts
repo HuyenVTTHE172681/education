@@ -4,8 +4,8 @@ import { DashboardService } from '../../../core/services/dashboard.service';
 import { Router } from '@angular/router';
 import { TeacherService } from '../../../core/services/teacher.service';
 import { Teacher } from '../../../core/models/teacher.model';
-import { MenuItem } from 'primeng/api';
-import { STATUS } from '../../../environments/constants';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
+import { CONSTANTS, STATUS } from '../../../environments/constants';
 
 @Component({
   selector: 'app-giao-vien',
@@ -34,7 +34,12 @@ export class GiaoVienComponent implements OnInit {
   dialogDelete: boolean = false;
 
   private searchSubject: Subject<string> = new Subject();
-  constructor(private teacherSrv: TeacherService, private router: Router) { }
+  constructor(
+    private teacherSrv: TeacherService, 
+    private router: Router,
+    private confirmationService: ConfirmationService, 
+    private messageService: MessageService
+  ) { }
 
   ngOnInit(): void {
     this.initParams();
@@ -83,16 +88,38 @@ export class GiaoVienComponent implements OnInit {
     this.router.navigate(['/quan-tri/giao-vien/', this.selectedTeacher?.id]);
   }
   deletedAccount() {
-    if (this.selectedTeacher) {
-      this.dialogDelete = true;
-      // console.log("Delete payement: ", this.selectedTeacher?.id);
-    }
+    const documentId = this.selectedTeacher?.id;
+        this.confirmationService.confirm({
+          message: CONSTANTS.CONFIRM.DELETE_TEACHER,
+          header: 'Xác nhận',
+          icon: 'pi pi-exclamation-triangle',
+          acceptLabel: 'Đồng ý',
+          rejectLabel: 'Hủy bỏ',
+          accept: () => {
+            this.teacherSrv.deleteTeacher(documentId).subscribe((data) => {
+              this.messageService.add({
+                severity: 'success',
+                summary: CONSTANTS.SUMMARY.SUMMARY_DELETE_SUCCESSFUL,
+                detail: CONSTANTS.MESSAGE_ALERT.DELETE_SUCCESSFUL,
+                key: 'br', life: 3000
+              });
+              this.getTeacher();
+            })
+          },
+          reject: () => {
+            this.messageService.add({
+              severity: 'info',
+              summary: CONSTANTS.SUMMARY.SUMMARY_CANCEL_DELETE,
+              detail: CONSTANTS.MESSAGE_ALERT.DELETE_CANCEL,
+              key: 'br', life: 3000
+            });
+          },
+        })
   }
   getTeacher() {
     this.teacherSrv.getTeachers(this.query.page, this.query.size, this.query.filter).subscribe((data) => {
       this.teacher = data.data.data;
       this.totalItems = data.data.recordsTotal;
-      console.log("Teacher: ", this.teacher);
     })
   }
 
@@ -143,20 +170,5 @@ export class GiaoVienComponent implements OnInit {
     return status === 1 ? STATUS.HIEN_THI : STATUS.AN;
   }
 
-  handleDeleteTeacher() {
-    if (this.selectedTeacher) {
-      const accID = this.selectedTeacher?.id;
-      this.teacherSrv.deleteTeacher(accID).subscribe({
-        next: () => {
-          this.dialogDelete = false;
-          alert("Xóa giáo viên thành công");
-          this.getTeacher();
-        },
-        error: (err) => {
-          alert("Lỗi xảy ra khi xóa. Vui lòng thử lại!")
-        }
-      })
-    }
-  }
 
 }

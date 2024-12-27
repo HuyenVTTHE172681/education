@@ -24,7 +24,7 @@ export class LopHocComponent implements OnInit {
 
   totalItems: number = 0;
   classRoom: ClassRoom[] = [];
-  selectedTeacher: any;
+  selectedClassroom: any;
 
   roleList = [
     { name: 'Tất cả', value: '' },
@@ -36,7 +36,12 @@ export class LopHocComponent implements OnInit {
   dialogDelete: boolean = false;
 
   private searchSubject: Subject<string> = new Subject();
-  constructor(private classRoomSrv: ClassRoomService, private router: Router, private confirmationService: ConfirmationService, private messageService: MessageService) { }
+  constructor(
+    private classRoomSrv: ClassRoomService,
+    private router: Router,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) { }
 
   ngOnInit(): void {
     this.initParams();
@@ -81,10 +86,10 @@ export class LopHocComponent implements OnInit {
     this.router.navigate(['/quan-tri/lop-hoc/them-moi']);
   }
   editClassRoom() {
-    this.router.navigate(['/quan-tri/lop-hoc/', this.selectedTeacher?.id]);
+    this.router.navigate(['/quan-tri/lop-hoc/', this.selectedClassroom?.id]);
   }
   deleted() {
-    const documentId = this.selectedTeacher?.id;
+    const documentId = this.selectedClassroom?.id;
     this.confirmationService.confirm({
       message: CONSTANTS.CONFIRM.DELETE_CLASSROOM,
       header: 'Xác nhận',
@@ -141,13 +146,13 @@ export class LopHocComponent implements OnInit {
   }
 
   setSelectedClassRoom(classRoom: any) {
-    this.selectedTeacher = classRoom;
-    console.log("Course: ", this.selectedTeacher);
+    this.selectedClassroom = classRoom;
+    console.log("Course: ", this.selectedClassroom);
   }
 
   onMenuShow(menu: any) {
-    if (this.selectedTeacher) {
-      console.log('Selected File ID:', this.selectedTeacher.id);
+    if (this.selectedClassroom) {
+      console.log('Selected File ID:', this.selectedClassroom.id);
     }
   }
 

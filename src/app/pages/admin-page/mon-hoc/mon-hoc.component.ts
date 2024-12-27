@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 import { ClassRoomService } from '../../../core/services/classRoom.service';
 import { ClassRoom } from '../../../core/models/classRoom.model';
 import { debounceTime, Subject } from 'rxjs';
-import { MenuItem } from 'primeng/api';
-import { STATUS } from '../../../environments/constants';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
+import { CONSTANTS, STATUS } from '../../../environments/constants';
 @Component({
   selector: 'app-mon-hoc',
   templateUrl: './mon-hoc.component.html',
@@ -33,7 +33,12 @@ export class MonHocComponent implements OnInit {
 
   private searchSubject: Subject<string> = new Subject();
 
-  constructor(private router: Router, private classRoomSrv: ClassRoomService, private subjectSrv: SubjectService) { }
+  constructor(
+    private router: Router,
+    private classRoomSrv: ClassRoomService,
+    private subjectSrv: SubjectService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.initParams();
@@ -81,21 +86,39 @@ export class MonHocComponent implements OnInit {
   }
 
   deletedSubject() {
-    if (this.selectedSubject) {
-      this.dialogDelete = true;
-      console.log("Delete subject: ", this.selectedSubject?.id);
-    }
+
+    const documentId = this.selectedSubject?.id;
+    this.confirmationService.confirm({
+      message: CONSTANTS.CONFIRM.DELETE_MON_HOC,
+      header: 'Xác nhận',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Đồng ý',
+      rejectLabel: 'Hủy bỏ',
+      accept: () => {
+        this.subjectSrv.deleteSubject(documentId).subscribe((data) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: CONSTANTS.SUMMARY.SUMMARY_DELETE_SUCCESSFUL,
+            detail: CONSTANTS.MESSAGE_ALERT.DELETE_SUCCESSFUL,
+            key: 'br', life: 3000
+          });
+          this.getSubject();
+        })
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: CONSTANTS.SUMMARY.SUMMARY_CANCEL_DELETE,
+          detail: CONSTANTS.MESSAGE_ALERT.DELETE_CANCEL,
+          key: 'br', life: 3000
+        });
+      },
+    })
   }
 
   setSelectedSubject(subject: any) {
     this.selectedSubject = subject;
     console.log("Selected Subject: ", this.selectedSubject);
-  }
-
-  onMenuShow(menu: any) {
-    if (this.selectedSubject) {
-      console.log('Selected File ID:', this.selectedSubject.id);
-    }
   }
 
   getSubject() {
@@ -162,24 +185,6 @@ export class MonHocComponent implements OnInit {
   }
   getStatusLabel(status: number) {
     return status === 1 ? STATUS.HIEN_THI : STATUS.AN;
-  }
-
-  handleDeletedSubject() {
-    if (this.selectedSubject) {
-      const subjectID = this.selectedSubject.id;
-      console.log("Subject Selected: ", subjectID);
-
-      this.subjectSrv.deleteSubject(subjectID).subscribe({
-        next: () => {
-          this.dialogDelete = false;
-          this.getSubject();
-        },
-        error: (error) => {
-          alert("Error deleting subject");
-        }
-      })
-
-    }
   }
 
   addSubject() {

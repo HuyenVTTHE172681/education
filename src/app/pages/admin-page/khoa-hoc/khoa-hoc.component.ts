@@ -11,8 +11,8 @@ import { ClassRoomService } from '../../../core/services/classRoom.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { SubjectService } from '../../../core/services/subject.service';
-import { MenuItem } from 'primeng/api';
-import { STATUS } from '../../../environments/constants';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
+import { CONSTANTS, STATUS } from '../../../environments/constants';
 
 @Component({
   selector: 'app-khoa-hoc',
@@ -50,7 +50,8 @@ export class KhoaHocComponent implements OnInit {
 
   private searchSubject: Subject<string> = new Subject(); // Subject for search
   constructor(private courseSrv: CourseService, private router: Router, private classRoomSrv: ClassRoomService,
-    private teacherSrv: TeacherService, private subjectSrv: SubjectService) { }
+    private teacherSrv: TeacherService, private subjectSrv: SubjectService,
+    private confirmationService: ConfirmationService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.initParams();
@@ -134,10 +135,33 @@ export class KhoaHocComponent implements OnInit {
   }
 
   deletedCourse() {
-    if (this.selectedCourse) {
-      this.dialogDelete = true;
-      console.log("Delete course: ", this.selectedCourse?.id);
-    }
+    const documentId = this.selectedCourse?.id;
+    this.confirmationService.confirm({
+      message: CONSTANTS.CONFIRM.DELETE_COURSE,
+      header: 'Xác nhận',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Đồng ý',
+      rejectLabel: 'Hủy bỏ',
+      accept: () => {
+        this.courseSrv.deletedCourseList(documentId).subscribe((data) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: CONSTANTS.SUMMARY.SUMMARY_DELETE_SUCCESSFUL,
+            detail: CONSTANTS.MESSAGE_ALERT.DELETE_SUCCESSFUL,
+            key: 'br', life: 3000
+          });
+          this.getClassRoom();
+        })
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: CONSTANTS.SUMMARY.SUMMARY_CANCEL_DELETE,
+          detail: CONSTANTS.MESSAGE_ALERT.DELETE_CANCEL,
+          key: 'br', life: 3000
+        });
+      },
+    })
   }
 
   getAllKhoaHoc(): void {
@@ -205,22 +229,5 @@ export class KhoaHocComponent implements OnInit {
     return status === 1 ? STATUS.HIEN_THI : STATUS.AN;
   }
 
-  handleDeleteCourse() {
-    if (this.selectedCourse) {
-      const courseID = this.selectedCourse.id;
 
-      this.courseSrv.deletedCourseList(courseID).subscribe({
-        next: () => {
-          this.dialogDelete = false;
-          this.getAllKhoaHoc(); // Làm mới dữ liệu
-          alert('Xóa chương trình học thành công!');
-        },
-        error: (err) => {
-          console.error('Lỗi khi xóa:', err);
-          alert('Có lỗi xảy ra khi xóa. Vui lòng thử lại!');
-        },
-      })
-
-    }
-  }
 }

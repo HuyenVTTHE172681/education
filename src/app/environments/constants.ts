@@ -41,6 +41,9 @@ export const CONSTANTS = {
         DELETE_CLASSROOM: 'Bạn có chắc chắn muốn xóa lớp học này không ?',
         DELETE_SUBJECT: 'Bạn có chắc chắn muốn xóa môn học này không ?',
         DELETE_BAI_HOC: 'Bạn có chắc chắn muốn xóa bài học này không ?',
+        DELETE_TEACHER: 'Bạn có chắc chắn muốn xóa giáo viên này không ?',
+        DELETE_COURSE: 'Bạn có chắc chắn muốn xóa khóa học này không ?',
+        DELETE_MON_HOC: 'Bạn có chắc chắn muốn xóa môn học này không ?'
     }
 }
 
