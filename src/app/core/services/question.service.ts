@@ -97,13 +97,13 @@ export class QuestionsService {
         const apiURL = `${this.apiBaseUrl}${query}`;
         console.log('Generated dashboard API URL:', apiURL);
 
-        // const token = localStorage.getItem('token');
-        // const headers = token
-        //   ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-        //   : new HttpHeaders();
+        const token = localStorage.getItem('token');
+        const headers = token
+            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+            : new HttpHeaders();
 
         return this.http
-            .get<IResponeListData<TestQuestionNewById>>(apiURL)
+            .get<IResponeListData<TestQuestionNewById>>(apiURL, { headers })
             .pipe(catchError(this.handleError));
     }
 

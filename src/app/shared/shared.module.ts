@@ -15,6 +15,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { OrderListModule } from 'primeng/orderlist';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 register(); // Register Swiper
 
@@ -39,5 +40,6 @@ register(); // Register Swiper
     AvatarGroupModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [MessageService, ConfirmationService],
 })
 export class SharedModule { }

@@ -11,3 +11,21 @@
     font-weight: 600;
     padding: 15px 20px;
 }
+
+.chương-trinh-chi-tiet .answer-item {
+    padding: 5px;
+}
+
+.answer-item--content {
+    border: 1px dashed #e2e1e1;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.matching_answer {
+    background: #e3e7f2;
+    border: 1px solid rgba(134, 161, 214, .7);
+    border-radius: 5px;
+    min-height: 40px;
+    padding: 8px;
+}

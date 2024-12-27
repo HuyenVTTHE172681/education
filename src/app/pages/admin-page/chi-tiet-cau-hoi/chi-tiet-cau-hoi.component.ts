@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { QuestionsService } from '../../../core/services/question.service';
+import { TestQuestionNewById } from '../../../core/models/question.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-chi-tiet-cau-hoi',
@@ -9,11 +12,25 @@ import { MenuItem } from 'primeng/api';
 export class ChiTietCauHoiComponent implements OnInit {
   breadcrumb: MenuItem[] = [];
   home: MenuItem = [];
+  id: string | null = null;
 
-  constructor() { }
+  questionNew: TestQuestionNewById = new TestQuestionNewById();
+
+  constructor(
+    private questionsSrv: QuestionsService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.initParams();
+
+    this.route.params.subscribe((params) => {
+      this.id = params['id'];
+      console.log("ID TEST QUESTION: ", this.id);
+      if (this.id) {
+        this.getTestQuestionNewById(this.id);
+      }
+    });
   }
 
   initParams() {
@@ -24,5 +41,12 @@ export class ChiTietCauHoiComponent implements OnInit {
     ];
 
     this.home = { icon: 'pi pi-warehouse', routerLink: '/' };
+  }
+
+  getTestQuestionNewById(id: string) {
+    this.questionsSrv.getTestQuestionNewById(id).subscribe((data) => {
+      this.questionNew = data.data;
+      console.log("Question Test New By id: ", this.questionNew);
+    })
   }
 }

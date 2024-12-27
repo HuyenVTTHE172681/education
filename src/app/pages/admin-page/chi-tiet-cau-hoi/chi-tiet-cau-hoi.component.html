@@ -3,21 +3,21 @@
         <p-breadcrumb class="max-w-full" [model]="breadcrumb" [home]="home" />
         <div class="header-title">Chi tiết câu hỏi</div>
     </div>
+    <!-- CHI TIẾT -->
     <div class="question-item">
         <div class="grid">
             <div class="col-12 flex justify-content-between align-items-center question-header">
                 <div class="flex align-items-center">
-                    Câu hỏi
+                    Câu hỏi 1:
                     <small class="test_question--name">
-                        (Test Type)
+                        ({{ questionNew?.name }})
                     </small>
                 </div>
-                <div class="">_ _ điểm</div>
+                <div class="">{{ questionNew?.point }} điểm</div>
             </div>
             <div class="col-12">
                 <div>
-                    <div class="name">
-                        <p>AAA</p>
+                    <div class="name" [innerHTML]="questionNew?.content">
                     </div>
                 </div>
             </div>
@@ -25,6 +25,161 @@
                 <p-button label="Sửa" [text]="true" />
             </div>
         </div>
+    </div>
+    <!-- UPDATE && ADD -->
+    <div class="question-item">
+        <form>
+            <div class="grid">
+                <div class="col-12 flex justify-content-between align-items-center mb-3 question-header">
+                    <div class="flex align-items-center">Câu hỏi 1: </div>
+                    <div>
+                        <input type="number" [style]="{ width: '120px', textAlign: 'center'}" />
+                        điểm
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="field">
+                        <p-floatLabel>
+                            <input pInputText class="input-field" placeholder="Nhập tên câu hỏi"
+                                [style]="{ width: '100%' }" />
+                            <label for="name">Tên câu hỏi: </label>
+                        </p-floatLabel>
+                    </div>
+                </div>
+                <div class="col-12 md:col-3">
+                    <div class="field">
+                        <p-floatLabel>
+                            <p-dropdown optionLabel="name" optionValue="" [filter]="true" filterBy="name"
+                                [showClear]="true" [style]="{ width: '100%' }">
+                            </p-dropdown>
+                            <label for="name">Loại câu hỏi: </label>
+                        </p-floatLabel>
+                    </div>
+                </div>
+                <div class="col-12 md:col-3">
+                    <div class="field">
+                        <p-floatLabel>
+                            <p-dropdown optionLabel="name" optionValue="" [filter]="true" filterBy="name"
+                                [showClear]="true" [style]="{ width: '100%' }">
+                            </p-dropdown>
+                            <label for="name">Nhóm câu hỏi: </label>
+                        </p-floatLabel>
+                    </div>
+                </div>
+                <div class="col-12 md:col-3">
+                    <div class="field">
+                        <p-floatLabel>
+                            <p-dropdown optionLabel="name" optionValue="" [filter]="true" filterBy="name"
+                                [showClear]="true" placeholder="Select Username" [style]="{ width: '100%' }">
+                            </p-dropdown>
+                            <label for="name">Độ khó: </label>
+                        </p-floatLabel>
+                    </div>
+                </div>
+                <div class="col-12 md:col-3">
+                    <div class="field">
+                        <p-floatLabel>
+                            <input pInputText class="input-field" [style]="{ width: '100%' }" />
+                            <label for="name">Thứ tự: </label>
+                        </p-floatLabel>
+                    </div>
+                </div>
+                <div class="col-12 md:col-9">
+                    <div class="field">
+                        <p-floatLabel>
+                            <input pInputText class="input-field" [style]="{ width: '100%' }" />
+                            <label for="name">Đường dẫn bài học: </label>
+                        </p-floatLabel>
+                    </div>
+                </div>
+                <div class="col-12 md:col-3">
+                    <div class="field">
+                        <p-floatLabel>
+                            <p-inputSwitch formControlName="status"></p-inputSwitch>
+                            <label for="content" class="font-size-14 ml-2">Hiển thị dọc</label>
+                        </p-floatLabel>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="field">
+                        <p-floatLabel>
+                            <p-multiSelect optionValue="id" optionLabel="name" placeholder="Chọn lớp học"
+                                [maxSelectedLabels]="30" [style]="{ width: '100%' }"></p-multiSelect>
+                            <label for="classRooms">Giáo viên hợp tác <span class="text-red-500">*</span></label>
+                        </p-floatLabel>
+                    </div>
+                </div>
+                <div class="col-12 font-size-13">
+                    <!-- Điều kiện của loại câu hỏi -->
+                    <!-- Đúng sai -->
+                    <div>Nhập văn bản câu hỏi của bạn, sau đó chọn nếu đúng hoặc sai là câu trả lời đúng.</div>
+                    <!-- Nhiều lựa chọn -->
+                    <div>Nhập câu hỏi của bạn và nhiều câu trả lời, sau đó chọn những câu trả lời đúng có thể.</div>
+                    <!-- Môt lựa chọn -->
+                    <div>Nhập câu hỏi của bạn và nhiều câu trả lời, sau đó chọn 1 câu trả lời đúng có thể. Nếu đánh dấu
+                        nhiều đáp ứng đúng thì đáp án đúng đầu tiên sẽ được sử dụng.</div>
+                    <!-- Điền vào chỗ trống -->
+                    <div>Nhập nội dung câu hỏi của bạn, sau đó xác định tất cả các câu trả lời đúng có thể có cho chỗ
+                        trống. Học sinh sẽ thấy câu hỏi theo sau là một văn bản nhỏ để nhập câu trả lời của họ. Chỉ định
+                        ô trống sẽ điền theo cú pháp [số].
+                        Nếu không điền thì ô input không xuất hiện. Ví dụ 14 + 7 = [21]
+                    </div>
+                    <!-- Điền vào nhiều khoảng trống -->
+                    <div>Nhập câu hỏi của bạn, chỉ định nơi mỗi chỗ trống sẽ đi. Sau đó, xác định câu trả lời đúng có
+                        thể cho mỗi ô trống. Học sinh phải nhập câu trả lời đúng vào hộp văn bản ở mỗi ô trống. Trong
+                        hộp bên dưới, mỗi
+                        nơi bạn muốn hiển thị hộp trả lời, nhập từ tham chiếu (không có dấu cách) được bao quanh bởi dấu
+                        ngoặc (ví dụ "Roes are [1], violets are [2]. Chú ý chỉ điền số trong dấu ngoặc vuông")
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="field">
+                        <label for="" class="font-size-14">Hướng dẫn bài kiểm tra:</label>
+                        <p-editor [style]="{ height: '400px' }" formControlName="descriptionShort" />
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="grid">
+                        <div class="col-12 answer-list grid">
+                            <div class="answer-item col-12">
+                                <div class="answer-item--content">
+                                    <div class="title flex justify-content-end">
+                                        <div>
+                                            <p-button icon="pi pi-comments" [rounded]="true" [text]="true"
+                                                severity="secondary" />
+                                            <p-button icon="pi pi-pencil" [rounded]="true" [text]="true"
+                                                severity="secondary" />
+                                            <p-button icon="pi pi-trash" [rounded]="true" [text]="true"
+                                                severity="danger" />
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-6">
+                                            <div>
+                                                <div class="matching_answer">
+                                                    <div></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div>
+                                                <div class="matching_answer">
+                                                    <div></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 flex justify-content-end">
+                            <p-button icon="pi pi-plus" class="mr-1" label="Thêm trả lời" [text]="true" [raised]="true"
+                                severity="success" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
     <div class="grid mt-2">
         <div class="col-12 flex justify-content-end">
