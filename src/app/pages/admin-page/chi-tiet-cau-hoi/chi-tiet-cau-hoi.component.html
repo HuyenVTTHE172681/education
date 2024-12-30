@@ -60,8 +60,9 @@
                 <div class="col-12 md:col-3">
                     <div class="field">
                         <p-floatLabel>
-                            <p-dropdown [options]="testQuestionGroup" optionLabel="name" optionValue="" [filter]="true"
-                                filterBy="name" [showClear]="true" [style]="{ width: '100%' }">
+                            <p-dropdown [options]="testQuestionGroup" formControlName="testQuestionGroupId"
+                                optionLabel="name" optionValue="id" [filter]="true" filterBy="name" [showClear]="true"
+                                [style]="{ width: '100%' }">
                             </p-dropdown>
                             <label for="name">Nhóm câu hỏi: </label>
                         </p-floatLabel>
@@ -113,29 +114,45 @@
                         </p-floatLabel>
                     </div>
                 </div>
+                
                 <div class="col-12 font-size-13">
                     <!-- Điều kiện của loại câu hỏi -->
-                    <!-- Đúng sai -->
-                    <div>Nhập văn bản câu hỏi của bạn, sau đó chọn nếu đúng hoặc sai là câu trả lời đúng.</div>
-                    <!-- Nhiều lựa chọn -->
-                    <div>Nhập câu hỏi của bạn và nhiều câu trả lời, sau đó chọn những câu trả lời đúng có thể.</div>
-                    <!-- Môt lựa chọn -->
-                    <div>Nhập câu hỏi của bạn và nhiều câu trả lời, sau đó chọn 1 câu trả lời đúng có thể. Nếu đánh dấu
+                    <div *ngIf="questionForm.get('testQuestionTypeCode')?.value === 'dung_sai'">Nhập văn bản câu hỏi của
+                        bạn, sau đó chọn nếu đúng hoặc sai là câu trả lời đúng.</div>
+
+                    <div *ngIf="questionForm.get('testQuestionTypeCode')?.value === 'nhieu_lua_chon'">Nhập câu hỏi của
+                        bạn và nhiều câu trả lời, sau đó chọn những câu trả lời đúng có thể.</div>
+
+                    <div *ngIf="questionForm.get('testQuestionTypeCode')?.value === 'mot_lua_chon'">Nhập câu hỏi của bạn
+                        và nhiều câu trả lời, sau đó chọn 1 câu trả lời đúng có thể. Nếu đánh dấu
                         nhiều đáp ứng đúng thì đáp án đúng đầu tiên sẽ được sử dụng.</div>
-                    <!-- Điền vào chỗ trống -->
-                    <div>Nhập nội dung câu hỏi của bạn, sau đó xác định tất cả các câu trả lời đúng có thể có cho chỗ
+
+                    <div *ngIf="questionForm.get('testQuestionTypeCode')?.value === 'dien_vao_cho_trong'">Nhập nội dung
+                        câu hỏi của bạn, sau đó xác định tất cả các câu trả lời đúng có thể có cho chỗ
                         trống. Học sinh sẽ thấy câu hỏi theo sau là một văn bản nhỏ để nhập câu trả lời của họ. Chỉ định
                         ô trống sẽ điền theo cú pháp [số].
                         Nếu không điền thì ô input không xuất hiện. Ví dụ 14 + 7 = [21]
                     </div>
-                    <!-- Điền vào nhiều khoảng trống -->
-                    <div>Nhập câu hỏi của bạn, chỉ định nơi mỗi chỗ trống sẽ đi. Sau đó, xác định câu trả lời đúng có
+
+                    <div
+                        *ngIf="questionForm.get('testQuestionTypeCode')?.value === 'dien_vao_nhieu_khoang_trong' || questionForm.get('testQuestionTypeCode')?.value === 'nhieu_trinh_tha_don_xuong'">
+                        Nhập
+                        câu hỏi của bạn, chỉ định nơi mỗi chỗ trống sẽ đi. Sau đó, xác định câu trả lời đúng có
                         thể cho mỗi ô trống. Học sinh phải nhập câu trả lời đúng vào hộp văn bản ở mỗi ô trống. Trong
                         hộp bên dưới, mỗi
                         nơi bạn muốn hiển thị hộp trả lời, nhập từ tham chiếu (không có dấu cách) được bao quanh bởi dấu
                         ngoặc (ví dụ "Roes are [1], violets are [2]. Chú ý chỉ điền số trong dấu ngoặc vuông")
                     </div>
+
+                    <div *ngIf="questionForm.get('testQuestionTypeCode')?.value === 'phu_hop'">Xây dựng các cặp giá trị
+                        khớp. Học sinh sẽ thấy các giá trị ở bê trái và phải chọn giá trị khớp ở bên phải từ danh sách
+                        thả xuống. Nhiều hàng có thể có cùng một câu trả lời và bạn có tjeer thêm các bộ phân tâm bổ
+                        sung vào bên phải</div>
+
+                    <div *ngIf="questionForm.get('testQuestionTypeCode')?.value === 'tieu_luan'">Học sinh sẽ được cung
+                        cấp một trường văn bản để soạn câu trả lời của họ.</div>
                 </div>
+
                 <div class="col-12">
                     <div class="field">
                         <label for="" class="font-size-14">Hướng dẫn bài kiểm tra:</label>

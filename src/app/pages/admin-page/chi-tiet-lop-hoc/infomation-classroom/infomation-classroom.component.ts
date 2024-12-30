@@ -90,11 +90,10 @@ export class InfomationClassroomComponent implements OnInit {
       const formValue = { ...this.classRoomForm.value };
       formValue.status = formValue.status ? 1 : 0;
 
-      if (this.isEditMode) {
-        this.classRoomSrv.updateClassRoom(formValue).subscribe({
-          next: (data) => {
-            console.log("Update Class Room Response:", data); // Log response
-            if (data.statusCode === 200) {
+      this.classRoomSrv.updateClassRoom(formValue).subscribe({
+        next: (data) => {
+          if (data.statusCode === 200) {
+            if (this.isEditMode) {
               this.messageService.add({
                 severity: 'success',
                 summary: CONSTANTS.SUMMARY.SUMMARY_UPDATE_FAIL,
@@ -102,34 +101,8 @@ export class InfomationClassroomComponent implements OnInit {
                 key: 'br',
                 life: 3000
               });
-              this.router.navigate(['/quan-tri/lop-hoc']);
-            } else if (data.statusCode === 500) {
-              alert(data.message);
-              this.messageService.add({
-                severity: 'info',
-                summary: data.message,
-                detail: CONSTANTS.MESSAGE_ALERT.DELETE_FAIL,
-                key: 'br',
-                life: 3000
-              });
-            }
-          },
-          error: (err) => {
-            console.error("Update Class Room Error:", err); // Log error
-            this.messageService.add({
-              severity: 'info',
-              summary: CONSTANTS.SUMMARY.SUMMARY_UPDATE_SUCCESSFUL,
-              detail: CONSTANTS.MESSAGE_ALERT.DELETE_FAIL,
-              key: 'br',
-              life: 3000
-            });
-          }
-        });
-      } else {
-        this.classRoomSrv.addClassRoom(formValue).subscribe({
-          next: (data) => {
-            console.log("Add Class Room Response:", data); // Log response
-            if (data.statusCode === 200) {
+              // this.router.navigate(['/quan-tri/lop-hoc']);
+            } else {
               this.messageService.add({
                 severity: 'success',
                 summary: CONSTANTS.SUMMARY.SUMMARY_ADD_SUCCESSFUL,
@@ -137,23 +110,22 @@ export class InfomationClassroomComponent implements OnInit {
                 key: 'br',
                 life: 3000
               });
-              this.router.navigate(['/quan-tri/lop-hoc']);
-            } else {
-              console.error("Add Class Room Error:", data); // Log error for unexpected status
+              // this.router.navigate(['/quan-tri/lop-hoc']);
             }
-          },
-          error: (err) => {
-            console.error("Add Class Room Error:", err); // Log error
-            this.messageService.add({
-              severity: 'info',
-              summary: CONSTANTS.SUMMARY.SUMMARY_ADD_FAIL,
-              detail: CONSTANTS.MESSAGE_ALERT.ADD_FAIL,
-              key: 'br',
-              life: 3000
-            });
           }
-        });
-      }
+        },
+        error: (err) => {
+          console.error("Update Class Room Error:", err); // Log error
+          this.messageService.add({
+            severity: 'info',
+            summary: CONSTANTS.SUMMARY.SUMMARY_UPDATE_FAIL,
+            detail: CONSTANTS.MESSAGE_ALERT.DELETE_FAIL,
+            key: 'br',
+            life: 3000
+          });
+        }
+      });
+
     } else {
       this.messageService.add({
         severity: 'info',

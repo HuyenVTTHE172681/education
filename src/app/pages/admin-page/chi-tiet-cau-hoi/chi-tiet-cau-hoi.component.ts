@@ -100,8 +100,10 @@ export class ChiTietCauHoiComponent implements OnInit {
 
   getTestQuestionNewById(id: string) {
     this.questionsSrv.getTestQuestionNewById(id).subscribe((data) => {
-      this.questionNew = data.data;
-      console.log("Question Test New By id: ", this.questionNew);
+      if(data.statusCode === 200) {
+        const questionDetail = data.data;
+        this.patchQuestionForm(questionDetail);
+      }
     })
   }
 
@@ -149,7 +151,6 @@ export class ChiTietCauHoiComponent implements OnInit {
       testQuestionTypeCode: question.testQuestionTypeCode,
       testQuestionTypeName: question.testQuestionTypeName,
       totalFiltered: question.totalFiltered,
-      
     })
   }
 

@@ -54,23 +54,6 @@ export class ClassRoomService {
       .pipe(catchError(this.handleError));
   }
 
-  addClassRoom(classroom: any): Observable<IResponeListData<ClassRoom>> {
-    // https://hhq.runasp.net/api/ClassRoom
-    const query = `/ClassRoom`;
-
-    const apiURL = `${this.apiBaseUrl}${query}`;
-    console.log('Generated dashboard API URL:', apiURL);
-
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
-
-    return this.http
-      .post<IResponeListData<ClassRoom>>(apiURL, classroom, { headers })
-      .pipe(catchError(this.handleError));
-  }
-
   updateClassRoom(classroom: any): Observable<IResponeListData<ClassRoom>> {
     // https://hhq.runasp.net/api/ClassRoom
     const query = `/ClassRoom`;
