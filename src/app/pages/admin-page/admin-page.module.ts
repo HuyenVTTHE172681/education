@@ -70,7 +70,8 @@ import { CauHoiComponent } from './cau-hoi/cau-hoi.component';
 import { MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
-import { ChiTietCauHoiComponent } from './chi-tiet-cau-hoi/chi-tiet-cau-hoi.component';
+import { ChiTietCauHoiComponent } from './cau-hoi/chi-tiet-cau-hoi/chi-tiet-cau-hoi.component';
+import { NhomCauHoiComponent } from './nhom-cau-hoi/nhom-cau-hoi.component';
 
 
 register(); // Register Swiper
@@ -110,6 +111,7 @@ register(); // Register Swiper
     InformationFeedbackComponent,
     CauHoiComponent,
     ChiTietCauHoiComponent,
+    NhomCauHoiComponent,
   ],
   imports: [
     CommonModule,

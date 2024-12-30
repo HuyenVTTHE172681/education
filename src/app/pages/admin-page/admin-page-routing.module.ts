@@ -3,10 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { KhoaHocComponent } from './khoa-hoc/khoa-hoc.component';
 import { ChiTietKhoaHocComponent } from './chi-tiet-khoa-hoc/chi-tiet-khoa-hoc.component';
 import { TongQuanComponent } from './tong-quan/tong-quan.component';
-import { InformationComponent } from './chi-tiet-khoa-hoc/information/information.component';
-import { ChuongTrinhHocComponent } from './chi-tiet-khoa-hoc/chuong-trinh-hoc/chuong-trinh-hoc.component';
-import { ScoresComponent } from './chi-tiet-khoa-hoc/scores/scores.component';
-import { FeedbackComponent } from './chi-tiet-khoa-hoc/feedback/feedback.component';
 import { PaymentComponent } from './payment/payment.component';
 import { GuideSupportComponent } from './guide-support/guide-support.component';
 import { TaiKhoanComponent } from './tai-khoan/tai-khoan.component';
@@ -20,7 +16,8 @@ import { ChiTietMonHocComponent } from './mon-hoc/chi-tiet-mon-hoc/chi-tiet-mon-
 import { BaiHocComponent } from './bai-hoc/bai-hoc.component';
 import { ChiTietBaiHocComponent } from './chi-tiet-bai-hoc/chi-tiet-bai-hoc.component';
 import { CauHoiComponent } from './cau-hoi/cau-hoi.component';
-import { ChiTietCauHoiComponent } from './chi-tiet-cau-hoi/chi-tiet-cau-hoi.component';
+import { ChiTietCauHoiComponent } from './cau-hoi/chi-tiet-cau-hoi/chi-tiet-cau-hoi.component';
+import { NhomCauHoiComponent } from './nhom-cau-hoi/nhom-cau-hoi.component';
 
 const routes: Routes = [
   {
@@ -115,6 +112,10 @@ const routes: Routes = [
       {
         path: 'cau-hoi/:id',
         component: ChiTietCauHoiComponent
+      },
+      {
+        path: 'nhom-cau-hoi',
+        component: NhomCauHoiComponent
       }
 
     ],
