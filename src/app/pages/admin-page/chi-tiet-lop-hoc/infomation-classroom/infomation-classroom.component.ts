@@ -101,7 +101,9 @@ export class InfomationClassroomComponent implements OnInit {
                 key: 'br',
                 life: 3000
               });
-              // this.router.navigate(['/quan-tri/lop-hoc']);
+              setTimeout(() => {
+                this.router.navigate(['/quan-tri/lop-hoc']);
+              }, 1000);
             } else {
               this.messageService.add({
                 severity: 'success',
@@ -110,12 +112,13 @@ export class InfomationClassroomComponent implements OnInit {
                 key: 'br',
                 life: 3000
               });
-              // this.router.navigate(['/quan-tri/lop-hoc']);
+              setTimeout(() => {
+                this.router.navigate(['/quan-tri/lop-hoc']);
+              }, 1000);
             }
           }
         },
         error: (err) => {
-          console.error("Update Class Room Error:", err); // Log error
           this.messageService.add({
             severity: 'info',
             summary: CONSTANTS.SUMMARY.SUMMARY_UPDATE_FAIL,

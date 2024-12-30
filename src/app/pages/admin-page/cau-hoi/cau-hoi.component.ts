@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrl: './cau-hoi.component.css'
 })
 export class CauHoiComponent implements OnInit {
-  breadcrum: MenuItem[] = [];
+  breadcrumb: MenuItem[] = [];
   home: MenuItem = [];
   items: any[] = [];
 
@@ -66,7 +66,7 @@ export class CauHoiComponent implements OnInit {
   }
 
   initParams() {
-    this.breadcrum = [
+    this.breadcrumb = [
       { label: 'Quản trị' },
       { label: 'Bài kiểm tra' },
     ];

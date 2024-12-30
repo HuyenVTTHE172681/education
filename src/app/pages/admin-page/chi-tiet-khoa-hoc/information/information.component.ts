@@ -9,9 +9,9 @@ import { CourseService } from '../../../../core/services/course.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Course, CourseYear } from '../../../../core/models/course.model';
 import { Subject } from '../../../../core/models/subject.model';
-import { TRISTATECHECKBOX_VALUE_ACCESSOR } from 'primeng/tristatecheckbox';
-import { map } from 'rxjs/operators';
 import { SubjectService } from '../../../../core/services/subject.service';
+import { MessageService } from 'primeng/api';
+import { CONSTANTS } from '../../../../environments/constants';
 
 @Component({
   selector: 'app-information',
@@ -41,7 +41,8 @@ export class InformationComponent implements OnInit {
     private teacherSrv: TeacherService,
     private courseSrv: CourseService,
     private subjectSrv: SubjectService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private messageService: MessageService
   ) {
     this.courseForm = this.formBuilder.group({
       accountId: [],
@@ -110,10 +111,15 @@ export class InformationComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.subject = response.data.data;
-          console.log("Subject: ", this.subject)
         },
-        error: () => {
-          console.error('Error fetching subjects.');
+        error: (err) => {
+          this.messageService.add({
+            severity: 'danger',
+            summary: err.message,
+            detail: CONSTANTS.MESSAGE_ALERT.ERROR,
+            key: 'br',
+            life: 3000
+          });
         },
       });
   }
@@ -122,10 +128,14 @@ export class InformationComponent implements OnInit {
     this.courseSrv.getCourseYear('', 0, 1000, -1).subscribe({
       next: (data) => {
         this.courseYears = data;
-        console.log('Course Years:', this.courseYears);
-      },
-      error: (err) => {
-        console.error('Error loading course years:', err);
+      }, error: (err) => {
+        this.messageService.add({
+          severity: 'danger',
+          summary: err.message,
+          detail: CONSTANTS.MESSAGE_ALERT.ERROR,
+          key: 'br',
+          life: 3000
+        });
       },
     });
   }
@@ -145,12 +155,17 @@ export class InformationComponent implements OnInit {
       .subscribe({
         next: (data: IResponeList<Teacher>) => {
           this.teacher = data.data.data;
-          console.log('Teacher: ', this.teacher);
 
           this.courseForm.get('teacher')?.enable();
         },
         error: (err) => {
-          console.log('Error loading teachers: ', err);
+          this.messageService.add({
+            severity: 'danger',
+            summary: err.message,
+            detail: CONSTANTS.MESSAGE_ALERT.ERROR,
+            key: 'br',
+            life: 3000
+          });
         },
       });
   }
@@ -160,16 +175,20 @@ export class InformationComponent implements OnInit {
       next: (data) => {
         if (data.statusCode === 200) {
           const courseDetail = data.data;
-          console.log("Course Detail: ", courseDetail);
           this.patchForm(courseDetail);
-          console.log("Form value: ", this.courseForm.value);
 
           this.classRoomId = courseDetail?.classRoomId;
           this.getSubjectsByClassRoomId();
         }
       },
-      error: () => {
-        console.log('Lỗi khi lấy thông tin khóa học');
+      error: (err) => {
+        this.messageService.add({
+          severity: 'danger',
+          summary: err.message,
+          detail: CONSTANTS.MESSAGE_ALERT.ERROR,
+          key: 'br',
+          life: 3000
+        });
       },
     });
   }
@@ -232,7 +251,6 @@ export class InformationComponent implements OnInit {
     this.selectedTeachers = this.teacher.filter(teacher =>
       selectedTeacherIds.includes(teacher.id)
     );
-    console.log('Selected Teachers:', this.selectedTeachers);
   }
 
 }

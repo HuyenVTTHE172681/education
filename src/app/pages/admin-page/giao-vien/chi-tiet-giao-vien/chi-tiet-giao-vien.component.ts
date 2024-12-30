@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { TeacherService } from '../../../../core/services/teacher.service';
 import { DashboardService } from '../../../../core/services/dashboard.service';
+import { CONSTANTS } from '../../../../environments/constants';
 
 @Component({
   selector: 'app-chi-tiet-giao-vien',
@@ -12,7 +13,7 @@ import { DashboardService } from '../../../../core/services/dashboard.service';
 })
 export class ChiTietGiaoVienComponent implements OnInit {
   id: string | null = null;
-  breadcrum: MenuItem[] = [];
+  breadcrumb: MenuItem[] = [];
   home: MenuItem = [];
   query = {
     filter: '',
@@ -29,7 +30,8 @@ export class ChiTietGiaoVienComponent implements OnInit {
     private route: ActivatedRoute,
     private teacherSrv: TeacherService,
     private dashboardSrv: DashboardService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private messageService: MessageService
   ) {
     this.teacherForm = this.formBuilder.group({
       accountId: [''],
@@ -74,7 +76,7 @@ export class ChiTietGiaoVienComponent implements OnInit {
   }
 
   initParams() {
-    this.breadcrum = [
+    this.breadcrumb = [
       { label: 'Quản trị', routerLink: '/quan-tri' },
       { label: 'Giáo viên', routerLink: '/quan-tri/giao-vien' },
       { label: 'Chi tiết Giáo viên' },
@@ -89,9 +91,7 @@ export class ChiTietGiaoVienComponent implements OnInit {
       if (data.statusCode === 200) {
         const teacherDetail = data.data;
 
-        // console.log("Account detail 1: ", teacherDetail);
         this.patchAccountForm(teacherDetail);
-        // console.log("Form value: ", this.teacherForm.value);
       }
     });
   }
@@ -128,7 +128,6 @@ export class ChiTietGiaoVienComponent implements OnInit {
     this.dashboardSrv.getAccountsNotTeacher(this.query.filter, this.query.page, this.query.size).subscribe(
       (data) => {
         this.accountsNotTeacher = data.data.data;
-        // console.log("Accounts not teacher: ", this.accountsNotTeacher);
       }
     )
   }
@@ -140,49 +139,52 @@ export class ChiTietGiaoVienComponent implements OnInit {
       formValue.averageRate = formValue.averageRate ?? 0;
       formValue.totalStudent = formValue.totalStudent ?? 0;
 
-      if (this.isEditMode) {
-        this.teacherSrv.updateTeacher(formValue).subscribe({
-          next: (data) => {
-            if (data.statusCode === 200) {
-              alert('Cập nhật tài khoản thành công!');
-              this.router.navigate(['/quan-tri/giao-vien']);
-            } else if (data.statusCode === 500) {
-              alert(data.message);
-            }
-          },
-          error: (err) => {
-            console.error('Error updating account:', err);
-            alert('Có lỗi xảy ra. Vui lòng thử lại!');
-          },
-        });
-      } else {
-        if (this.teacherForm.invalid) {
-          console.log("Form errors: ", this.teacherForm.errors);
-          console.log("Form field errors: ", this.teacherForm.controls);
-          alert('Vui lòng kiểm tra thông tin đầu vào!');
-        } else {
-          this.teacherSrv.addTeacher(formValue).subscribe({
-
-            next: (data) => {
-              if (data.statusCode === 200) {
-                alert('Thêm tài khoản thành công!');
+      this.teacherSrv.updateTeacher(formValue).subscribe({
+        next: (data) => {
+          if (data.statusCode === 200) {
+            if (this.isEditMode) {
+              this.messageService.add({
+                severity: 'success',
+                summary: CONSTANTS.SUMMARY.SUMMARY_UPDATE_FAIL,
+                detail: CONSTANTS.MESSAGE_ALERT.UPDATE_FAIL,
+                key: 'br',
+                life: 3000
+              });
+              setTimeout(() => {
                 this.router.navigate(['/quan-tri/giao-vien']);
-              } else if (data.statusCode === 500) {
-                alert(data.message);
-              }
-            },
-            error: (err) => {
-              console.error('Error adding account:', err);
-              alert('Có lỗi xảy ra. Vui lòng thử lại!');
-            },
+              }, 1000);
+            } else {
+              this.messageService.add({
+                severity: 'success',
+                summary: CONSTANTS.SUMMARY.SUMMARY_ADD_SUCCESSFUL,
+                detail: CONSTANTS.MESSAGE_ALERT.ADD_SUCCESSFUL,
+                key: 'br',
+                life: 3000
+              });
+              setTimeout(() => {
+                this.router.navigate(['/quan-tri/giao-vien']);
+              }, 1000);
+            }
+          }
+        },
+        error: (err) => {
+          this.messageService.add({
+            severity: 'info',
+            summary: err.message,
+            detail: CONSTANTS.MESSAGE_ALERT.DELETE_FAIL,
+            key: 'br',
+            life: 3000
           });
-        }
-      }
+        },
+      });
     } else {
-      // In ra các lỗi cụ thể trong form khi nó không hợp lệ
-      console.log("Form is invalid", this.teacherForm.errors);
-      console.log("Form control errors:", this.teacherForm.controls);
-      alert('Vui lòng kiểm tra thông tin đầu vào!');
+      this.messageService.add({
+        severity: 'info',
+        summary: CONSTANTS.SUMMARY.SUMMARY_INVALID_DATA,
+        detail: CONSTANTS.MESSAGE_ALERT.INVALID_DATA,
+        key: 'br',
+        life: 3000
+      });
     }
   }
 

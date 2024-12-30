@@ -16,7 +16,7 @@ import { CONSTANTS, STATUS } from '../../../environments/constants';
   styleUrl: './bai-hoc.component.css'
 })
 export class BaiHocComponent implements OnInit {
-  breadcrum: MenuItem[] = [];
+  breadcrumb: MenuItem[] = [];
   home: MenuItem = [];
   items: MenuItem[] | undefined;
 
@@ -71,7 +71,7 @@ export class BaiHocComponent implements OnInit {
   }
 
   initParams() {
-    this.breadcrum = [
+    this.breadcrumb = [
       { label: 'Quản trị' },
       { label: 'Bài kiểm tra' },
     ];
@@ -146,7 +146,6 @@ export class BaiHocComponent implements OnInit {
   getClassRoom() {
     this.classRoomSrv.getClassRooms(this.query.page, this.query.sizeForFilter, this.query.searchText).subscribe((data) => {
       this.classRoom = data.data.data;
-      console.log("ClassRoom: ", this.classRoom);
     })
   }
 

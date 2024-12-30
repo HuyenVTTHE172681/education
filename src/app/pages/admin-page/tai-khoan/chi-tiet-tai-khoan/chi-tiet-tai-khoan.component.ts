@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { DashboardService } from '../../../../core/services/dashboard.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { map } from 'rxjs/operators';
+import { CONSTANTS } from '../../../../environments/constants';
 
 @Component({
   selector: 'app-chi-tiet-tai-khoan',
@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
 })
 export class ChiTietTaiKhoanComponent implements OnInit {
   id: string | null = null;
-  breadcrum: MenuItem[] = [];
+  breadcrumb: MenuItem[] = [];
   home: MenuItem | undefined;
   roleData: any[] = [];
   role: any[] = [];
@@ -27,8 +27,10 @@ export class ChiTietTaiKhoanComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private dashboardSrv: DashboardService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private messageService: MessageService
   ) {
+    // Init form
     this.accountForm = this.formBuilder.group({
       address: [''],
       avatar: [''],
@@ -60,16 +62,17 @@ export class ChiTietTaiKhoanComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
-    console.log('ID course: ', this.id);
-
     if (this.id) {
       this.getAccountDetail(this.id);
     }
 
     this.getRole();
     this.getRoleDataType();
+    this.initParams();
+  }
 
-    this.breadcrum = [
+  initParams() {
+    this.breadcrumb = [
       { label: 'Quản trị', routerLink: '/quan-tri' },
       { label: 'Tài khoản', routerLink: '/quan-tri/tai-khoan' },
       { label: 'Chi tiết tài khoản' },
@@ -78,7 +81,6 @@ export class ChiTietTaiKhoanComponent implements OnInit {
     this.home = { icon: 'pi pi-shop', routerLink: '/' };
   }
 
-  // Lấy danh sách vai trò
   getRole() {
     this.dashboardSrv.getRole(this.query.filter, this.query.page, this.query.size).subscribe((data) => {
       if (data.statusCode === 200) {
@@ -87,7 +89,6 @@ export class ChiTietTaiKhoanComponent implements OnInit {
     })
   }
 
-  // Lấy danh sách kiểu vai trò
   getRoleDataType() {
     this.dashboardSrv.getRoleDataType(this.query.filter, this.query.page, this.query.size).subscribe((data) => {
       if (data.statusCode === 200) {
@@ -96,21 +97,15 @@ export class ChiTietTaiKhoanComponent implements OnInit {
     })
   }
 
-
-  // Lấy chi tiết tài khoản
   getAccountDetail(id: string) {
     this.dashboardSrv.getAccountDetail(id).subscribe((data) => {
       if (data.statusCode === 200) {
         const accountDetail = data.data;
-
-        console.log("Account detail 1: ", accountDetail);
-        console.log("Account detail test mapping: ", this.role.find((role: any) => role.id === accountDetail.roleId)?.name);
         this.patchAccountForm(accountDetail);
       }
     });
   }
 
-  // Tách logic patch form
   patchAccountForm(account: any) {
     this.accountForm.patchValue({
       address: account.address || '',
@@ -144,6 +139,7 @@ export class ChiTietTaiKhoanComponent implements OnInit {
   updateAccount() {
     if (this.accountForm.valid) {
       const formValue = { ...this.accountForm.value };
+      formValue.status = formValue.status ? 1 : 0;
 
       // Ensure `roleId` is sent as a simple string (e.g., "admin")
       if (formValue.roleId && typeof formValue.roleId === 'object') {
@@ -155,25 +151,39 @@ export class ChiTietTaiKhoanComponent implements OnInit {
         formValue.roleTypeDataName = formValue.roleTypeDataName.value;
       }
 
-      // Convert `status` to number
-      formValue.status = formValue.status ? 1 : 0;
-
       this.dashboardSrv.updateAccount(formValue).subscribe({
         next: (data) => {
           if (data.statusCode === 200) {
-            alert('Cập nhật tài khoản thành công!');
-            this.router.navigate(['/quan-tri/tai-khoan']);
-          } else if (data.statusCode === 500) {
-            alert(data.message);
+            this.messageService.add({
+              severity: 'success',
+              summary: CONSTANTS.SUMMARY.SUMMARY_UPDATE_FAIL,
+              detail: CONSTANTS.MESSAGE_ALERT.UPDATE_FAIL,
+              key: 'br',
+              life: 3000
+            });
+            setTimeout(() => {
+              this.router.navigate(['/quan-tri/tai-khoan']);
+            }, 1000);
           }
         },
         error: (err) => {
-          console.error('Error updating account:', err);
-          alert('Có lỗi xảy ra. Vui lòng thử lại!');
+          this.messageService.add({
+            severity: 'info',
+            summary: err.message,
+            detail: CONSTANTS.MESSAGE_ALERT.DELETE_FAIL,
+            key: 'br',
+            life: 3000
+          });
         },
       });
     } else {
-      alert('Vui lòng kiểm tra thông tin đầu vào!');
+      this.messageService.add({
+        severity: 'info',
+        summary: CONSTANTS.SUMMARY.SUMMARY_INVALID_DATA,
+        detail: CONSTANTS.MESSAGE_ALERT.INVALID_DATA,
+        key: 'br',
+        life: 3000
+      });
     }
   }
 

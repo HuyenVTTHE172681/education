@@ -71,23 +71,6 @@ export class TeacherService {
       .pipe(catchError(this.handleError));
   }
 
-  addTeacher(teacher: any): Observable<IResponeListData<Teacher>> {
-    // https://hhq.runasp.net/api/Teacher
-    const query = `/Teacher`;
-
-    const apiURL = `${this.apiBaseUrl}${query}`;
-    console.log('Generated dashboard API URL:', apiURL);
-
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
-
-    return this.http
-      .post<IResponeListData<Teacher>>(apiURL, teacher, { headers })
-      .pipe(catchError(this.handleError));
-  }
-
   deleteTeacher(id: string) {
     // https://hhq.runasp.net/api/Teacher/16BA72F7-2737-48C5-872D-CCAE38E084B1
     const apiUrl = `${this.apiBaseUrl}/Teacher/${id}`;

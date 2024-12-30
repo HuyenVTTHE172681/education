@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Test, TestCategory } from '../../../../core/models/test.model';
 import { TestAbilityService } from '../../../../core/services/test-ability.service';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
+import { CONSTANTS } from '../../../../environments/constants';
 
 @Component({
   selector: 'app-information-test',
@@ -26,7 +27,8 @@ export class InformationTestComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private testSrv: TestAbilityService
+    private testSrv: TestAbilityService,
+    private messageService: MessageService
   ) {
     this.testForm = this.formBuilder.group({
       accountsSpecial: [''],
@@ -203,49 +205,56 @@ export class InformationTestComponent implements OnInit {
           formValue[key] = '';
         }
       });
-      // console.log("Form value: ", formValue);
 
-      if (this.isEditMode) {
-        // UPDATE
-        this.testSrv.updateTest(formValue).subscribe({
-          next: (data) => {
-            if (data.statusCode === 200) {
-              alert('Cập nhật bài thành công!');
-              this.router.navigate(['/quan-tri/bai-kiem-tra']);
-            } else if (data.statusCode === 500) {
-              alert(data.message);
+      // UPDATE
+      this.testSrv.updateTest(formValue).subscribe({
+        next: (data) => {
+          if (data.statusCode === 200) {
+            if (this.isEditMode) {
+              this.messageService.add({
+                severity: 'success',
+                summary: CONSTANTS.SUMMARY.SUMMARY_UPDATE_FAIL,
+                detail: CONSTANTS.MESSAGE_ALERT.UPDATE_FAIL,
+                key: 'br',
+                life: 3000
+              });
+              setTimeout(() => {
+                this.router.navigate(['/quan-tri/bai-kiem-tra']);
+              }, 1000);
+            } else {
+              this.messageService.add({
+                severity: 'success',
+                summary: CONSTANTS.SUMMARY.SUMMARY_ADD_SUCCESSFUL,
+                detail: CONSTANTS.MESSAGE_ALERT.ADD_SUCCESSFUL,
+                key: 'br',
+                life: 3000
+              });
+              setTimeout(() => {
+                this.router.navigate(['/quan-tri/bai-kiem-tra']);
+              }, 1000);
             }
-          },
-          error: (err) => {
-            console.error('Error updating account:', err);
-            alert('Có lỗi xảy ra. Vui lòng thử lại!');
-          },
-        });
-      } else {
-        // ADD
-        this.testSrv.addTest(formValue).subscribe({
-          next: (data) => {
-            if (data.statusCode === 200) {
-              alert('Thêm tài khoản thành công!');
-              this.router.navigate(['/quan-tri/bai-kiem-tra']);
-            }
-            // else if (data.statusCode === 500) {
-            //   alert(data.message);
-            //   console.log('Payload sent to server:', formValue);
-            // }
-          },
-          error: (err) => {
-            console.error('Error adding account:', err);
-            alert('Có lỗi xảy ra. Vui lòng thử lại!');
-          },
-        });
-      }
+          }
+        },
+        error: (err) => {
+          this.messageService.add({
+            severity: 'info',
+            summary: err.message,
+            detail: CONSTANTS.MESSAGE_ALERT.DELETE_FAIL,
+            key: 'br',
+            life: 3000
+          });
+        },
+      });
     } else {
-      alert('Form is not valid');
-      console.log('Form is not valid, errors: ', this.testForm.errors);
+      this.messageService.add({
+        severity: 'info',
+        summary: CONSTANTS.SUMMARY.SUMMARY_INVALID_DATA,
+        detail: CONSTANTS.MESSAGE_ALERT.INVALID_DATA,
+        key: 'br',
+        life: 3000
+      });
     }
   }
-
 
   getInvalidControls(formGroup: FormGroup): string[] {
     const invalidControls: string[] = [];
