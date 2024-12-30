@@ -22,7 +22,7 @@ import { CONSTANTS, STATUS } from '../../../environments/constants';
 export class KhoaHocComponent implements OnInit {
   course: Course[] = [];
   items: MenuItem[] = [];
-  breadcrum: MenuItem[] = [];
+  breadcrumb: MenuItem[] = [];
   home: MenuItem = [];
   query = {
     accountId: '',
@@ -67,7 +67,7 @@ export class KhoaHocComponent implements OnInit {
   }
 
   initParams() {
-    this.breadcrum = [
+    this.breadcrumb = [
       { label: 'Quản trị' },
       { label: 'Khóa học' },
     ];

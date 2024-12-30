@@ -5,6 +5,7 @@ import { Question, TestQuestionGroup, TestQuestionType } from '../../../core/mod
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { CONSTANTS } from '../../../environments/constants';
+import { UtilsService } from '../../../core/utils/utils.service';
 
 @Component({
   selector: 'app-cau-hoi',
@@ -57,7 +58,8 @@ export class CauHoiComponent implements OnInit {
     private questionSrv: QuestionsService,
     private router: Router,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    public utilsService: UtilsService) { }
 
   ngOnInit(): void {
     this.initParams();
@@ -146,9 +148,9 @@ export class CauHoiComponent implements OnInit {
         this.selectTestQuestionType || '',
       ).subscribe(res => {
         if (res.statusCode === 200) {
-          this.questions = res.data.data;
-          this.totalItems = res.data.recordsTotal;
-        }
+          this.questions = res?.data?.data || [];
+          this.totalItems = res?.data?.recordsTotal || 0;
+        } 
       })
   }
 
@@ -177,36 +179,6 @@ export class CauHoiComponent implements OnInit {
     this.getQuestion();
   }
 
-  getStatusLabel(status: number) {
-    switch (status) {
-      case 0:
-        return 'Mới tạo';
-
-      case 1:
-        return 'Chờ duyệt';
-
-      case 2:
-        return 'Công khai';
-
-      default:
-        return '---';
-    }
-  }
-  getStatus(status: number) {
-    switch (status) {
-      case 0:
-        return 'primary';
-
-      case 1:
-        return 'warning';
-
-      case 2:
-        return 'success';
-
-      default:
-        return 'danger';
-    }
-  }
 
   getNameLevel(level: number) {
     switch (level) {
@@ -227,12 +199,18 @@ export class CauHoiComponent implements OnInit {
     }
   }
 
-  resetFilters() { }
+  resetFilters() {
+    this.selectedTestQuestionGroup = undefined;
+    this.selectTestQuestionType = undefined;
+    this.queryQuestion.filter = '';
+    this.queryQuestion.page = 1;
+    this.getQuestion();
+  }
 
   getTestQuestionGroup() {
     this.questionSrv.getTestQuestionGroup(this.queryQuestion.searchValue, this.queryQuestion.page, this.queryQuestion.size2, this.queryQuestion.status).subscribe(res => {
       if (res.statusCode === 200) {
-        this.testQuestionGroup = res.data.data;
+        this.testQuestionGroup = res?.data?.data || [];
       }
     })
   }
@@ -240,7 +218,7 @@ export class CauHoiComponent implements OnInit {
   getTestQuestionType() {
     this.questionSrv.getTestQuestionType(this.queryQuestion.searchValue, this.queryQuestion.page, this.queryQuestion.size2).subscribe(res => {
       if (res.statusCode === 200) {
-        this.testQuestionType = res.data.data;
+        this.testQuestionType = res?.data?.data || [];
       }
     })
   }

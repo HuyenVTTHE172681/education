@@ -10,7 +10,7 @@ import { MenuItem } from 'primeng/api';
   styleUrl: './guide-support.component.css'
 })
 export class GuideSupportComponent implements OnInit {
-  breadcrum: MenuItem[] = [];
+  breadcrumb: MenuItem[] = [];
   home: MenuItem = [];
   listGuide: Guide[] = [];
   query = {
@@ -29,7 +29,7 @@ export class GuideSupportComponent implements OnInit {
   }
 
   initParams() {
-    this.breadcrum = [
+    this.breadcrumb = [
       { label: 'Quản trị' },
       { label: 'Trợ giúp' },
     ];

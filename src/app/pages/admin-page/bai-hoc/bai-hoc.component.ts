@@ -9,6 +9,7 @@ import { debounceTime, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { CONSTANTS, HttpStatus, STATUS } from '../../../environments/constants';
+import { UtilsService } from '../../../core/utils/utils.service';
 
 @Component({
   selector: 'app-bai-hoc',
@@ -52,7 +53,15 @@ export class BaiHocComponent implements OnInit {
   selectedTest: any = null;
   private searchSubject: Subject<string> = new Subject(); // Subject for search
 
-  constructor(private testSrv: TestAbilityService, private classRoomSrv: ClassRoomService, private subjectSrv: SubjectService, private router: Router, private confirmationService: ConfirmationService, private messageService: MessageService) { }
+  constructor(
+    private testSrv: TestAbilityService,
+    private classRoomSrv: ClassRoomService,
+    private subjectSrv: SubjectService,
+    private router: Router,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
+    public utilsService: UtilsService
+  ) { }
 
   ngOnInit(): void {
     this.getTestCategory();
@@ -157,7 +166,7 @@ export class BaiHocComponent implements OnInit {
       this.query.sizeForFilter
     )
       .subscribe((data) => {
-        this.subject = data.data.data;
+        this.subject = data?.data?.data || [];
       })
   }
 
@@ -173,8 +182,8 @@ export class BaiHocComponent implements OnInit {
       this.selectedSubject || '',
       this.selectedTestCategory || ''
     ).subscribe((data) => {
-      this.test = data.data.data;
-      this.totalItems = data.data.recordsTotal;
+      this.test = data?.data?.data || [];
+      this.totalItems = data?.data?.recordsTotal || 0;
     })
   }
 
@@ -204,43 +213,6 @@ export class BaiHocComponent implements OnInit {
 
   setSelected(test: any) {
     this.selectedTest = test;
-  }
-
-  getStatusLabel(status: number) {
-    return status === 1 ? STATUS.HIEN_THI : STATUS.AN;
-  }
-  getStatus(status: number) {
-    switch (status) {
-      case 1:
-        return 'primary';
-
-      case 0:
-        return 'danger';
-
-      default:
-        return 'warning';
-    }
-  }
-
-  getFree(status: number) {
-    return status === 1 ? STATUS.MIEN_PHI : STATUS.TRA_PHI;
-  }
-
-  getStatusFree(status: number) {
-    switch (status) {
-      case 1:
-        return 'primary';
-
-      case 0:
-        return 'warning';
-
-      default:
-        return 'danger';
-    }
-  }
-
-  getEmail(status: number) {
-    return status === 1 ? STATUS.GUI : STATUS.KHONG;
   }
 
   addNew() {

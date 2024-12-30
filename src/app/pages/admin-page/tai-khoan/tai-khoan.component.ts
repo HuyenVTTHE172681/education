@@ -12,7 +12,7 @@ import { STATUS } from '../../../environments/constants';
   styleUrl: './tai-khoan.component.css'
 })
 export class TaiKhoanComponent implements OnInit {
-  breadcrum: MenuItem[] | undefined;
+  breadcrumb: MenuItem[] | undefined;
   home: MenuItem | undefined;
   items: MenuItem[] = [];
 
@@ -50,7 +50,7 @@ export class TaiKhoanComponent implements OnInit {
   }
 
   initParams() {
-    this.breadcrum = [
+    this.breadcrumb = [
       { label: 'Quản trị' },
       { label: 'Tài khoản' },
     ];

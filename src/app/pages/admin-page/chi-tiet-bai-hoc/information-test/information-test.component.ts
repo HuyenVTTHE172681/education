@@ -13,7 +13,6 @@ import { CONSTANTS, HttpStatus } from '../../../../environments/constants';
 })
 export class InformationTestComponent implements OnInit {
   id: string | null = null;
-  breadcrum: MenuItem[] = [];
   query = {
     filter: '',
     page: 1,
@@ -212,7 +211,7 @@ export class InformationTestComponent implements OnInit {
           if (data.statusCode === HttpStatus.OK) {
             let detail = this.isEditMode ? CONSTANTS.MESSAGE_ALERT.UPDATE_FAIL : CONSTANTS.MESSAGE_ALERT.ADD_SUCCESSFUL
             let summary = this.isEditMode ? CONSTANTS.SUMMARY.SUMMARY_UPDATE_FAIL : CONSTANTS.SUMMARY.SUMMARY_ADD_SUCCESSFUL
-            
+
             this.messageService.add({
               severity: 'success',
               summary: summary,

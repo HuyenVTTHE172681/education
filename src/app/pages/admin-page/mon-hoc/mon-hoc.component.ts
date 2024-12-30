@@ -13,7 +13,7 @@ import { CONSTANTS, STATUS } from '../../../environments/constants';
   styleUrl: './mon-hoc.component.css'
 })
 export class MonHocComponent implements OnInit {
-  breadcrum: MenuItem[] = [];
+  breadcrumb: MenuItem[] = [];
   home: MenuItem = [];
   items: MenuItem[] = [];
   query = {
@@ -53,7 +53,7 @@ export class MonHocComponent implements OnInit {
   }
 
   initParams() {
-    this.breadcrum = [
+    this.breadcrumb = [
       { label: 'Quản trị' },
       { label: 'Khóa học' },
     ];

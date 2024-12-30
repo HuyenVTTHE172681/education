@@ -11,7 +11,7 @@ import { CONSTANTS, STATUS } from '../../../environments/constants';
   styleUrl: './payment.component.css'
 })
 export class PaymentComponent implements OnInit {
-  breadcrum: MenuItem[] = [];
+  breadcrumb: MenuItem[] = [];
   home: MenuItem = [];
   items: MenuItem[] = [];
   payment: Payment[] = [];
@@ -53,7 +53,7 @@ export class PaymentComponent implements OnInit {
     private messageService: MessageService) { }
 
   initParams() {
-    this.breadcrum = [
+    this.breadcrumb = [
       { label: 'Quản trị' },
       { label: 'Thanh toán' },
     ];

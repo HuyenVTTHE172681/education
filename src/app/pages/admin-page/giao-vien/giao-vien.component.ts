@@ -13,7 +13,7 @@ import { CONSTANTS, STATUS } from '../../../environments/constants';
   styleUrl: './giao-vien.component.css'
 })
 export class GiaoVienComponent implements OnInit {
-  breadcrum: MenuItem[] = [];
+  breadcrumb: MenuItem[] = [];
   home: MenuItem = [];
   items: MenuItem[] = [];
   query = {
@@ -53,7 +53,7 @@ export class GiaoVienComponent implements OnInit {
   }
 
   initParams() {
-    this.breadcrum = [
+    this.breadcrumb = [
       { label: 'Quản trị' },
       { label: 'Tài khoản' },
     ];

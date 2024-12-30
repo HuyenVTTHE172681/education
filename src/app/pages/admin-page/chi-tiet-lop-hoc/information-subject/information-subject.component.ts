@@ -12,7 +12,7 @@ import { CONSTANTS, STATUS } from '../../../../environments/constants';
   styleUrl: './information-subject.component.css'
 })
 export class InformationSubjectComponent implements OnInit {
-  breadcrum: MenuItem[] = [];
+  breadcrumb: MenuItem[] = [];
   home: MenuItem = [];
   items: MenuItem[] = [];
   query = {
@@ -60,7 +60,7 @@ export class InformationSubjectComponent implements OnInit {
   }
 
   initParams() {
-    this.breadcrum = [
+    this.breadcrumb = [
       { label: 'Quản trị' },
       { label: 'Lớp học' },
     ];

@@ -12,7 +12,7 @@ import { CONSTANTS, STATUS } from '../../../environments/constants';
   styleUrl: './lop-hoc.component.css'
 })
 export class LopHocComponent implements OnInit {
-  breadcrum: MenuItem[] = [];
+  breadcrumb: MenuItem[] = [];
   home: MenuItem = [];
   items: MenuItem[] = [];
 
@@ -55,7 +55,7 @@ export class LopHocComponent implements OnInit {
   }
 
   initParams() {
-    this.breadcrum = [
+    this.breadcrumb = [
       { label: 'Quản trị' },
       { label: 'Lớp học' },
     ];
