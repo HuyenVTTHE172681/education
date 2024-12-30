@@ -115,4 +115,13 @@ export class ChildQuestionAnswer {
     parentId = '';
 }
 
+export class TestQuestionChangePublicStatus {
+    code ='';
+    id = '';
+    messages = '';
+    notiQue = false;
+    valid =  false;
+    work_st = 0;
+}
+
 

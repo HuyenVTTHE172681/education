@@ -4,7 +4,7 @@ import { Observable, throwError, filter } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { API_URL } from '../../environments/constants';
 import { IResponeList, IResponeListData } from '../models/common.model';
-import { Question, TestQuestionGroup, TestQuestionNewById, TestQuestionType } from '../models/question.model';
+import { Question, TestQuestionChangePublicStatus, TestQuestionGroup, TestQuestionNewById, TestQuestionType } from '../models/question.model';
 
 @Injectable({
     providedIn: 'root',
@@ -104,6 +104,46 @@ export class QuestionsService {
 
         return this.http
             .get<IResponeListData<TestQuestionNewById>>(apiURL, { headers })
+            .pipe(catchError(this.handleError));
+    }
+
+    updateTestQuestionChangePublicStatus(id: string, publicStatus: number): Observable<IResponeListData<TestQuestionChangePublicStatus>> {
+
+        // https://hhq.runasp.net/api/testQuestion/UpdateTestQuestionChangePublicStatus?id=2cd370f1-9995-462d-a38c-27a19b854cca&publicStatus=1
+        const query = `/TestQuestion/UpdateTestQuestionChangePublicStatus?id=${id}&publicStatus=${publicStatus}`;
+
+        const apiURL = `${this.apiBaseUrl}${query}`;
+        console.log('Generated dashboard API URL:', apiURL);
+
+        const token = localStorage.getItem('token');
+        const headers = token
+            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+            : new HttpHeaders();
+
+        return this.http
+            .get<IResponeListData<TestQuestionChangePublicStatus>>(apiURL, { headers })
+            .pipe(catchError(this.handleError));
+    }
+
+    deletedTestQuestion(documentId: string, isMultiple: number) {
+        const query = `/testQuestion`;
+        const apiURL = `${this.apiBaseUrl}${query}`;
+
+        const token = localStorage.getItem('token');
+        const headers = token
+            ? new HttpHeaders({
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json', // Định dạng JSON
+            })
+            : new HttpHeaders({ 'Content-Type': 'application/json' });
+
+        const payload = {
+            id: documentId,
+            isMultiple: isMultiple,
+        };
+
+        return this.http
+            .delete<any>(apiURL, { headers, body: payload }) // Gửi payload trong body
             .pipe(catchError(this.handleError));
     }
 

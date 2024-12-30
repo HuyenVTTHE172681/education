@@ -4,6 +4,7 @@ import { QuestionsService } from '../../../core/services/question.service';
 import { Question, TestQuestionGroup, TestQuestionType } from '../../../core/models/question.model';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { CONSTANTS } from '../../../environments/constants';
 
 @Component({
   selector: 'app-cau-hoi',
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
 export class CauHoiComponent implements OnInit {
   breadcrumb: MenuItem[] = [];
   home: MenuItem = [];
-  items: any[] = [];
+  items: MenuItem[] = [];
 
   questions: Question[] = [];
   queryQuestion = {
@@ -30,7 +31,7 @@ export class CauHoiComponent implements OnInit {
     status: 1,
   }
   totalItems: number = 0;
-  selectedQuestion: any = null;
+  selectedQuestion: Question = new Question();
   testQuestionGroup: TestQuestionGroup[] = [];
   selectedTestQuestionGroup: any = null;
   testQuestionType: TestQuestionType[] = [];
@@ -45,9 +46,9 @@ export class CauHoiComponent implements OnInit {
   selectedLevelQuestion: any = this.levelQuestion[0];
   publicStatus = [
     { name: 'Tất cả', value: -1 },
-    { name: 'Tạo mới', value: 0 },
+    { name: 'Mới tạo', value: 0 },
     { name: 'Chờ duyệt', value: 1 },
-    { name: 'Công chờ', value: 2 },
+    { name: 'Công khai', value: 2 },
   ]
   selectedPublicStatus: any = this.publicStatus[0];
   private searchSubject: Subject<string> = new Subject(); // Subject for search
@@ -89,7 +90,7 @@ export class CauHoiComponent implements OnInit {
           {
             label: 'Trình duyệt',
             icon: 'pi pi-eye',
-            command: () => this.deleted(), // Delete functionality (if needed)
+            command: () => this.updateTestQuestionPublicStatus(), // Delete functionality (if needed)
           },
         ],
       },
@@ -101,33 +102,35 @@ export class CauHoiComponent implements OnInit {
   }
 
   deleted() {
-    // const documentId = this.selectedTeacher?.id;
-    // this.confirmationService.confirm({
-    //   message: CONSTANTS.CONFIRM.DELETE_CLASSROOM,
-    //   header: 'Xác nhận',
-    //   icon: 'pi pi-exclamation-triangle',
-    //   acceptLabel: 'Đồng ý',
-    //   rejectLabel: 'Hủy bỏ',
-    //   accept: () => {
-    //     this.classRoomSrv.deleteClassRoom(documentId).subscribe((data) => {
-    //       this.messageService.add({
-    //         severity: 'success',
-    //         summary: CONSTANTS.SUMMARY.SUMMARY_DELETE_SUCCESSFUL,
-    //         detail: CONSTANTS.MESSAGE_ALERT.DELETE_SUCCESSFUL,
-    //         key: 'br', life: 3000
-    //       });
-    //       this.getClassRoom();
-    //     })
-    //   },
-    //   reject: () => {
-    //     this.messageService.add({
-    //       severity: 'info',
-    //       summary: CONSTANTS.SUMMARY.SUMMARY_CANCEL_DELETE,
-    //       detail: CONSTANTS.MESSAGE_ALERT.DELETE_CANCEL,
-    //       key: 'br', life: 3000
-    //     });
-    //   },
-    // })
+    const documentId = this.selectedQuestion?.id;
+    const isMultiple = 0;
+
+    this.confirmationService.confirm({
+      message: CONSTANTS.CONFIRM.DELETE_CLASSROOM,
+      header: 'Xác nhận',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Đồng ý',
+      rejectLabel: 'Hủy bỏ',
+      accept: () => {
+        this.questionSrv.deletedTestQuestion(documentId, isMultiple).subscribe((data) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: CONSTANTS.SUMMARY.SUMMARY_DELETE_SUCCESSFUL,
+            detail: CONSTANTS.MESSAGE_ALERT.DELETE_SUCCESSFUL,
+            key: 'br', life: 3000
+          });
+          this.getQuestion();
+        })
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: CONSTANTS.SUMMARY.SUMMARY_CANCEL_DELETE,
+          detail: CONSTANTS.MESSAGE_ALERT.DELETE_CANCEL,
+          key: 'br', life: 3000
+        });
+      },
+    })
   }
 
   getQuestion() {
@@ -177,13 +180,13 @@ export class CauHoiComponent implements OnInit {
   getStatusLabel(status: number) {
     switch (status) {
       case 0:
-        return 'Tạo mới';
+        return 'Mới tạo';
 
       case 1:
         return 'Chờ duyệt';
 
       case 2:
-        return 'Công chờ';
+        return 'Công khai';
 
       default:
         return '---';
@@ -242,7 +245,40 @@ export class CauHoiComponent implements OnInit {
     })
   }
 
+  updateTestQuestionPublicStatus() {
+    // 0 -> 2, 2 -> 0
+    this.selectedQuestion.publicStatus = (this.selectedQuestion.publicStatus + 1) % 3;
 
+    this.confirmationService.confirm({
+      message: CONSTANTS.CONFIRM.CHANGE_STATUS_QUESTION,
+      header: 'Xác nhận',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Đồng ý',
+      rejectLabel: 'Hủy bỏ',
+
+      accept: () => {
+        this.questionSrv.updateTestQuestionChangePublicStatus(this.selectedQuestion.id, this.selectedQuestion.publicStatus).subscribe(data => {
+          this.messageService.add({
+            severity: 'success',
+            summary: CONSTANTS.SUMMARY.SUMMARY_DELETE_SUCCESSFUL,
+            detail: CONSTANTS.MESSAGE_ALERT.CHANGE_STATUS,
+            key: 'br', life: 3000
+          });
+          setTimeout(() => {
+            this.getQuestion();
+          }, 1000)
+        })
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: CONSTANTS.SUMMARY.SUMMARY_CANCEL_DELETE,
+          detail: CONSTANTS.MESSAGE_ALERT.DELETE_CANCEL,
+          key: 'br', life: 3000
+        });
+      }
+    })
+  }
 
 
 }

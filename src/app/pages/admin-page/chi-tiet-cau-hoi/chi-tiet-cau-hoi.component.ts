@@ -34,6 +34,7 @@ export class ChiTietCauHoiComponent implements OnInit {
   testQuestionGroup: TestQuestionGroup[] = [];
   questionNew: TestQuestionNewById = new TestQuestionNewById();
   questionForm: FormGroup;
+  isEdit: boolean = false;
 
   constructor(
     private questionsSrv: QuestionsService,
@@ -100,7 +101,8 @@ export class ChiTietCauHoiComponent implements OnInit {
 
   getTestQuestionNewById(id: string) {
     this.questionsSrv.getTestQuestionNewById(id).subscribe((data) => {
-      if(data.statusCode === 200) {
+      if (data.statusCode === 200) {
+        this.questionNew = data.data;
         const questionDetail = data.data;
         this.patchQuestionForm(questionDetail);
       }
@@ -117,7 +119,7 @@ export class ChiTietCauHoiComponent implements OnInit {
     this.questionSrv.getTestQuestionType(this.query.filter, this.query.page, this.query.size).subscribe(res => {
       if (res.statusCode === 200) {
         this.testQuestionType = res.data.data;
-        
+
       }
     })
   }
@@ -160,6 +162,10 @@ export class ChiTietCauHoiComponent implements OnInit {
         this.testQuestionGroup = res.data.data;
       }
     })
+  }
+
+  onEdit() {
+    this.isEdit = true;
   }
 
 

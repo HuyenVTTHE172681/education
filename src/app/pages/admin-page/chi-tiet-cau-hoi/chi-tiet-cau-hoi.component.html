@@ -4,43 +4,44 @@
         <div class="header-title">Chi tiết câu hỏi</div>
     </div>
     <!-- CHI TIẾT -->
-    <div class="question-item">
+    <div class="question-item" *ngIf="!isEdit">
         <div class="grid">
             <div class="col-12 flex justify-content-between align-items-center question-header">
                 <div class="flex align-items-center">
                     Câu hỏi 1:
                     <small class="test_question--name">
-                        ({{ questionNew?.name }})
+                        ({{ questionNew.name }})
                     </small>
                 </div>
-                <div class="">{{ questionNew?.point }} điểm</div>
+                <div class="">{{ questionNew.point }} điểm</div>
             </div>
             <div class="col-12">
                 <div>
-                    <div class="name" [innerHTML]="questionNew?.content">
+                    <div class="name" [innerHTML]="questionNew.content">
                     </div>
                 </div>
             </div>
             <div class="col-12 flex justify-content-end">
-                <p-button label="Sửa" [text]="true" />
+                <p-button label="Sửa" [text]="true" (onClick)="onEdit()" />
             </div>
         </div>
     </div>
     <!-- UPDATE && ADD -->
-    <div class="question-item">
+    <div class="question-item" *ngIf="isEdit">
         <form [formGroup]="questionForm">
             <div class="grid">
                 <div class="col-12 flex justify-content-between align-items-center mb-3 question-header">
                     <div class="flex align-items-center">Câu hỏi 1: </div>
                     <div>
-                        <input type="number" formControlName="point" [style]="{ width: '120px', textAlign: 'center'}" />
+                        <input class="input-field" formControlName="point"
+                            [style]="{ width: '120px', textAlign: 'center'}" />
                         điểm
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="field">
                         <p-floatLabel>
-                            <input pInputText class="input-field" formControlName="name" placeholder="Nhập tên câu hỏi"
+                            <input class="input-field" formControlName="name" placeholder="Nhập tên câu hỏi"
                                 [style]="{ width: '100%' }" />
                             <label for="name">Tên câu hỏi: </label>
                         </p-floatLabel>
@@ -114,7 +115,7 @@
                         </p-floatLabel>
                     </div>
                 </div>
-                
+
                 <div class="col-12 font-size-13">
                     <!-- Điều kiện của loại câu hỏi -->
                     <div *ngIf="questionForm.get('testQuestionTypeCode')?.value === 'dung_sai'">Nhập văn bản câu hỏi của
@@ -159,7 +160,9 @@
                         <p-editor [style]="{ height: '400px' }" formControlName="content" />
                     </div>
                 </div>
-                <div class="col-12">
+
+                <!-- Phù hợp -->
+                <div class="col-12" *ngIf="questionForm.get('testQuestionTypeCode')?.value === 'phu_hop'">
                     <div class="grid">
                         <div class="col-12 answer-list grid">
                             <div class="answer-item col-12">
@@ -193,6 +196,93 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12 flex justify-content-end">
+                            <p-button icon="pi pi-plus" class="mr-1" label="Thêm trả lời" [text]="true" [raised]="true"
+                                severity="success" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Đúng sai -->
+                <div class="col-12" *ngIf="questionForm.get('testQuestionTypeCode')?.value === 'dung_sai'">
+                    <div class="grid">
+                        <div class="col-12 answer-list grid">
+                            <div class="answer-item--content">
+                                <div class="title flex justify-content-between align-items-center">
+                                    <label for class="answer-false">
+                                        <span class="text-secondary">
+                                            <i class="pi pi-th-large font-size-13 text-gray-600"></i>
+                                            Câu trả lời có thể
+                                        </span>
+                                    </label>
+                                    <label for class="answer-truth">
+                                        <b class="text-blue-500 text-bolder">
+                                            <i class="pi pi-check"></i>
+                                            Câu trả lời đúng
+                                        </b>
+                                    </label>
+                                    <div>
+                                        <p-button icon="pi pi-comments" [rounded]="true" [text]="true" class="mr-2" />
+                                        <p-button icon="pi pi-check" [rounded]="true" [text]="true" />
+                                    </div>
+                                </div>
+                                <span>Sai</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nhiều lựa chọn, Một lựa chọn, Điền vào chỗ trống -->
+                <div class="col-12" *ngIf="questionForm.get('testQuestionTypeCode')?.value === 'nhieu_lua_chon' 
+                            || questionForm.get('testQuestionTypeCode')?.value === 'mot_lua_chon'
+                            || questionForm.get('testQuestionTypeCode')?.value === 'dien_vao_cho_trong'">
+                    <div class="grid">
+                        <div class="col-12 answer-list grid">
+                            <div class="answer-item--content">
+                                <div class="title flex justify-content-between align-items-center">
+                                    <label for class="answer-false">
+                                        <span class="text-secondary">
+                                            <i class="pi pi-th-large font-size-13 text-gray-600"></i>
+                                            Câu trả lời có thể
+                                        </span>
+                                    </label>
+                                    <label for class="answer-truth">
+                                        <b class="text-blue-500 text-bolder">
+                                            <i class="pi pi-check"></i>
+                                            Câu trả lời đúng
+                                        </b>
+                                    </label>
+                                    <div>
+                                        <p-button icon="pi pi-code" [rounded]="true" [text]="true" class="mr-1" />
+                                        <p-button icon="pi pi-comments" [rounded]="true" [text]="true" class="mr-1" />
+                                        <p-button icon="pi pi-check" [rounded]="true" [text]="true" class="mr-1" />
+                                        <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" class="mr-1" />
+                                        <p-button icon="pi pi-trash" [rounded]="true" [text]="true" />
+                                    </div>
+                                </div>
+                                <input type="text" pInputText class="answer-value--input"
+                                    placeholder="Điền nội dung câu trả lời" />
+                            </div>
+                        </div>
+                        <div class="col-12 flex justify-content-end">
+                            <p-button icon="pi pi-plus" class="mr-1" label="Thêm trả lời" [text]="true" [raised]="true"
+                                severity="success" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Điền vào nhiều khoảng trống, Nhiều trình đơn thả xuống -->
+                <div class="col-12"
+                    *ngIf="questionForm.get('testQuestionTypeCode')?.value === 'dien_vao_nhieu_khoang_trong' || questionForm.get('testQuestionTypeCode')?.value === 'nhieu_trinh_tha_don_xuong'">
+                    <div class="grid">
+                        <div class="col-12 answer-position">
+                            <span [style]="{ fontWeight: 'bold' }">Hiển thị câu trả lời khả dụng cho: </span>
+                            <p-dropdown [options]="levelQuestion" formControlName="level" optionLabel="name"
+                                optionValue="code" [filter]="true" filterBy="name" [showClear]="true"
+                                [style]="{ width: '200px', marginLeft: '30px' }">
+                            </p-dropdown>
+                        </div>
+                        <div class="col-12 answer-list grid"></div>
                         <div class="col-12 flex justify-content-end">
                             <p-button icon="pi pi-plus" class="mr-1" label="Thêm trả lời" [text]="true" [raised]="true"
                                 severity="success" />

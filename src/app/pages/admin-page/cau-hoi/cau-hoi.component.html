@@ -1,3 +1,7 @@
+<p-toast position="bottom-right" key="br" />
+<p-confirmDialog />
+
+<!-- TABLE -->
 <div class="khoa-hoc customer-table common-content">
     <p-table [value]="questions" dataKey="id" [scrollable]="true" scrollHeight="600px"
         [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
@@ -104,7 +108,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Popup view to edit/deleted -->
 <div class="card flex justify-content-center">
