@@ -4,6 +4,7 @@ import { Payment } from '../../../core/models/payment.model';
 import { PaymentService } from '../../../core/services/payment.service';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { CONSTANTS, STATUS } from '../../../environments/constants';
+import { UtilsService } from '../../../core/utils/utils.service';
 
 @Component({
   selector: 'app-payment',
@@ -50,7 +51,8 @@ export class PaymentComponent implements OnInit {
   constructor(
     private paymentSrv: PaymentService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    public utilsService: UtilsService) { }
 
   initParams() {
     this.breadcrumb = [
@@ -191,23 +193,6 @@ export class PaymentComponent implements OnInit {
     this.getDashboardPayment();
   }
 
-  getStatus(isPayment: number) {
-    switch (isPayment) {
-      case 1:
-        return 'primary';
-
-      case 0:
-        return 'warning';
-
-      default:
-        return 'danger';
-    }
-  }
-
-
-  getStatusLabel(isPayment: number) {
-    return isPayment === 1 ? STATUS.DA_THANH_TOAN : STATUS.CHO_THANH_TOAN;
-  }
 
   setSelectedPayment(course: any) {
     this.selectedPayment = course;

@@ -64,8 +64,8 @@
                     </a>
                 </td>
                 <td>{{ subject?.order }}</td>
-                <td><p-button [label]="getStatusLabel(subject?.status)" [raised]="true"
-                        [severity]="getStatus(subject?.status)" /></td>
+                <td><p-button [label]="utilsService.getStatusLabel(subject?.status)" [raised]="true"
+                        [severity]="utilsService.getStatusClass(subject?.status)" /></td>
                 <td> {{ getClassRoomNames(subject) }}</td>
             </tr>
         </ng-template>

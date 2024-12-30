@@ -62,8 +62,8 @@
                     </a>
                 </td>
                 <td>
-                    <p-button [label]="getStatusLabel(classRoom?.status)" [raised]="true"
-                        [severity]="getStatus(classRoom?.status)" />
+                    <p-button [label]="utilsService.getStatusLabel(classRoom?.status)" [raised]="true"
+                        [severity]="utilsService.getStatusClass(classRoom?.status)" />
                 </td>
                 <td> {{ classRoom?.order }}</td>
             </tr>

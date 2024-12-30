@@ -84,8 +84,8 @@
                 <td>{{ product?.otherPhone }}</td>
                 <td>{{ product?.otherEmail }}</td>
                 <td>
-                    <p-button [label]="getStatusLabel(product?.isPayment)" [raised]="true"
-                        [severity]="getStatus(product?.isPayment)" />
+                    <p-button [label]="utilsService.getPaymentLabel(product?.isPayment)" [raised]="true"
+                        [severity]="utilsService.getFreeClass(product?.isPayment)" />
                 </td>
                 <td>{{ product?.paymentDate | date: 'dd-MM-yyyy HH:mm:ss' }}</td>
                 <td>{{ product?.expireDate | date: 'dd-MM-yyyy HH:mm:ss' }}</td>

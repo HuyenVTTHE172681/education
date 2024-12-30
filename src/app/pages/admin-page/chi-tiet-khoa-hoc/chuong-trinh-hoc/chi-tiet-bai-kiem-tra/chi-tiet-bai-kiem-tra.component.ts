@@ -8,8 +8,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './chi-tiet-bai-kiem-tra.component.css',
 })
 export class ChiTietBaiKiemTraComponent implements OnInit {
-  page: number = 0;
-  size: number = 10000;
+  query = {
+    filter: '',
+    page: 0,
+    size: 10000,
+  }
   testType: any;
   validationForm!: FormGroup;
 
@@ -35,10 +38,9 @@ export class ChiTietBaiKiemTraComponent implements OnInit {
   }
 
   getTestType() {
-    this.testSrv.getTestType('', this.page, this.size).subscribe({
+    this.testSrv.getTestType(this.query.filter, this.query.page, this.query.size).subscribe({
       next: (data) => {
         this.testType = data;
-        console.log('Test type: ', this.testType);
       },
     });
   }

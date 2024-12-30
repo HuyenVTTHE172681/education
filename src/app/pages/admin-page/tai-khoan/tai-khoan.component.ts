@@ -5,6 +5,7 @@ import { debounceTime, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { STATUS } from '../../../environments/constants';
+import { UtilsService } from '../../../core/utils/utils.service';
 
 @Component({
   selector: 'app-tai-khoan',
@@ -35,7 +36,10 @@ export class TaiKhoanComponent implements OnInit {
   dialogDelete: boolean = false;
 
   private searchSubject: Subject<string> = new Subject();
-  constructor(private dashboardSrv: DashboardService, private router: Router) { }
+  constructor(
+    private dashboardSrv: DashboardService,
+    private router: Router,
+    public utilsService: UtilsService) { }
 
   ngOnInit(): void {
     this.getDashboardAccount();
@@ -123,23 +127,6 @@ export class TaiKhoanComponent implements OnInit {
     this.query.page = 1;
     // console.log('Trạng thái đã được chọn: ', this.selectedRole);
     this.getDashboardAccount();
-  }
-
-  getStatus(status: number) {
-    switch (status) {
-      case 1:
-        return 'primary';
-
-      case 0:
-        return 'danger';
-
-      default:
-        return 'warning';
-    }
-  }
-
-  getStatusLabel(status: number) {
-    return status === 1 ? STATUS.DANG_HOAT_DONG : STATUS.DUNG_HOAT_DONG;
   }
 
   handleDeleteAccount() {

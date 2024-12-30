@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { STATUS } from '../../environments/constants';
 
 @Injectable({
-    providedIn: 'root', 
+    providedIn: 'root',
 })
 export class UtilsService {
     constructor() { }
@@ -14,7 +14,7 @@ export class UtilsService {
     getStatusClass(status: number) {
         switch (status) {
             case 1:
-                return 'primary'; 
+                return 'primary';
             case 0:
                 return 'danger';
             default:
@@ -35,7 +35,7 @@ export class UtilsService {
 
             case 2:
                 return 'success';
-            
+
             default:
                 return 'danger';
         }
@@ -59,5 +59,36 @@ export class UtilsService {
             default:
                 return '---';
         }
+    }
+
+    getPublicStatusClass(status: number) {
+        switch (status) {
+            case 0:
+                return 'primary';
+            case 1:
+                return 'warning';
+
+            case 2:
+                return 'success';
+
+            default:
+                return 'danger';
+        }
+    }
+
+    getCourseFreeLabel(status: number) {
+        return status === 1 ? 'isFree' : 'notFree';
+    }
+
+    getIconsStatus(status: number): string {
+        return status === 1 ? 'pi pi-check' : 'pi pi-times';
+    }
+
+    getPaymentLabel(isPayment: number) {
+        return isPayment === 1 ? STATUS.DA_THANH_TOAN : STATUS.CHO_THANH_TOAN;
+    }
+
+    getStatusOnlineLabel(status: number) {
+        return status === 1 ? STATUS.DANG_HOAT_DONG : STATUS.DUNG_HOAT_DONG;
     }
 }

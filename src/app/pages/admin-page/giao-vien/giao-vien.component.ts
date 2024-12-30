@@ -6,6 +6,7 @@ import { TeacherService } from '../../../core/services/teacher.service';
 import { Teacher } from '../../../core/models/teacher.model';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { CONSTANTS, STATUS } from '../../../environments/constants';
+import { UtilsService } from '../../../core/utils/utils.service';
 
 @Component({
   selector: 'app-giao-vien',
@@ -37,7 +38,8 @@ export class GiaoVienComponent implements OnInit {
     private teacherSrv: TeacherService, 
     private router: Router,
     private confirmationService: ConfirmationService, 
-    private messageService: MessageService
+    private messageService: MessageService,
+    public utilsService: UtilsService
   ) { }
 
   ngOnInit(): void {
@@ -151,23 +153,5 @@ export class GiaoVienComponent implements OnInit {
     this.query.page = 1;
     this.getTeacher();
   }
-
-  getStatus(status: number) {
-    switch (status) {
-      case 1:
-        return 'primary';
-
-      case 0:
-        return 'danger';
-
-      default:
-        return 'warning';
-    }
-  }
-
-  getStatusLabel(status: number) {
-    return status === 1 ? STATUS.HIEN_THI : STATUS.AN;
-  }
-
 
 }

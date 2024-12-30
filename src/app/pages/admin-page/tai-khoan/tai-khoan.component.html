@@ -72,8 +72,8 @@
                 <td>{{ acc?.phone }}</td>
                 <td>{{ acc?.roleName }}</td>
                 <td>
-                    <p-button [label]="getStatusLabel(acc?.status)" [raised]="true"
-                        [severity]="getStatus(acc?.status)" />
+                    <p-button [label]="utilsService.getStatusOnlineLabel(acc?.status)" [raised]="true"
+                        [severity]="utilsService.getStatusClass(acc?.status)" />
                 </td>
                 <td>{{ acc?.id }}</td>
                 <td>{{ acc?.createdDate | date: 'dd-MM-yyyy HH:mm:ss' }}</td>

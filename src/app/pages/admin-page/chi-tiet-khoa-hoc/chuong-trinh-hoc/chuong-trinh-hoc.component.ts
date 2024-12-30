@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../../../../core/services/course.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TestAbilityService } from '../../../../core/services/test-ability.service';
+import { MenuItem } from 'primeng/api';
+import { HttpStatus } from '../../../../environments/constants';
+import { UtilsService } from '../../../../core/utils/utils.service';
 
 @Component({
   selector: 'app-chuong-trinh-hoc',
@@ -9,8 +12,8 @@ import { TestAbilityService } from '../../../../core/services/test-ability.servi
   styleUrls: ['./chuong-trinh-hoc.component.css'],
 })
 export class ChuongTrinhHocComponent implements OnInit {
-  items: any[] = [];
-  itemsChild: any[] = [];
+  items: MenuItem[] = [];
+  itemsChild: MenuItem[] = [];
   files: any[] = [];
   id: string | null = null;
   expandedRows: any = {};
@@ -25,7 +28,8 @@ export class ChuongTrinhHocComponent implements OnInit {
     private courseSrv: CourseService,
     private testSrv: TestAbilityService,
     private route: ActivatedRoute,
-    private router: Router // private messageService: MessageService
+    private router: Router,
+    public utilsService: UtilsService
   ) { }
 
   ngOnInit() {
@@ -190,23 +194,6 @@ export class ChuongTrinhHocComponent implements OnInit {
     this.selectedTest = test;
   }
 
-  getStatus(status: number): string {
-    return status === 1 ? 'pi pi-check' : 'pi pi-times';
-  }
-
-  getStatusLabel(status: number) {
-    return status === 1 ? 'isFree' : 'notFree';
-  }
-
-  getStyle(status: number) {
-    switch (status) {
-      case 1:
-        return 'primary';
-      default:
-        return 'danger';
-    }
-  }
-
   changeTestStatus(testId: string, isFree: number, newStatus: number): void {
     const payload = {
       id: testId,
@@ -219,7 +206,7 @@ export class ChuongTrinhHocComponent implements OnInit {
       (response) => {
         console.log('Response:', response);
 
-        if (response.statusCode === 200 && response.data.valid) {
+        if (response.statusCode === HttpStatus.OK && response.data.valid) {
           alert(response.data.messages || 'Cập nhật trạng thái thành công!');
           if (this.id) {
             this.getCourseSchedule(this.id);
@@ -246,7 +233,7 @@ export class ChuongTrinhHocComponent implements OnInit {
       (response) => {
         console.log('Response:', response);
 
-        if (response.statusCode === 200 && response.data.valid) {
+        if (response.statusCode === HttpStatus.OK && response.data.valid) {
           alert(response.data.messages || 'Cập nhật trạng thái thành công!');
           if (this.id) {
             this.getCourseSchedule(this.id);
@@ -281,7 +268,6 @@ export class ChuongTrinhHocComponent implements OnInit {
 
     this.testSrv.setTestChangeAutoSendMail(payload).subscribe(
       (response) => {
-        console.log('Response:', response);
 
         if (response.statusCode === 200 && response.data.valid) {
           alert(response.data.messages || 'Cập nhật trạng thái thành công!');
@@ -329,56 +315,3 @@ export class ChuongTrinhHocComponent implements OnInit {
 }
 
 
-// handleAcceptPayment(comment: string) {
-//   if (this.selectedPayment) {
-//     // Tạo payload gửi API
-//     const payload = {
-//       id: this.selectedPayment.id,
-//       isPayment: 1, // Xác nhận thanh toán
-//       comment: comment,
-//     };
-
-//     // Gọi API để cập nhật trạng thái
-//     this.dashboardSrv.updatePayment(payload).subscribe({
-//       next: (response) => {
-//         if (response.data.valid) {
-//           alert('Xác nhận thanh toán thành công!');
-//           this.dialogAccept = false; // Đóng dialog
-//           this.getDashboardPayment(); // Làm mới danh sách thanh toán
-//         } else {
-//           alert(response.data.messages || 'Có lỗi xảy ra!');
-//         }
-//       },
-//       error: (err) => {
-//         console.error('Lỗi khi gọi API:', err);
-//         alert('Không thể xác nhận thanh toán. Vui lòng thử lại!');
-//       },
-//     });
-//   }
-// }
-
-// handleCancelAcceptPayment(comment: string) {
-//   if (this.selectedPayment) {
-//     const payload = {
-//       id: this.selectedPayment.id,
-//       isPayment: 0, // Hủy xác nhận thanh toán
-//       comment: comment,
-//     };
-
-//     this.dashboardSrv.updatePayment(payload).subscribe({
-//       next: (response) => {
-//         if (response.data.valid) {
-//           alert('Hủy xác nhận thanh toán thành công!');
-//           this.dialogCancelAccept = false; // Đóng dialog
-//           this.getDashboardPayment(); // Làm mới danh sách thanh toán
-//         } else {
-//           alert(response.data.messages || 'Có lỗi xảy ra!');
-//         }
-//       },
-//       error: (err) => {
-//         console.error('Lỗi khi gọi API:', err);
-//         alert('Không thể hủy xác nhận thanh toán. Vui lòng thử lại!');
-//       },
-//     });
-//   }
-// }

@@ -42,7 +42,8 @@
           <td>{{ file.data.name }}</td>
           <td>{{ file.data.order }}</td>
           <td>
-            <p-button [icon]="getStatus(file.data.status)" [text]="true" [severity]="getStyle(file.data.status)" />
+            <p-button [icon]="utilsService.getIconsStatus(file.data.status)" [text]="true"
+              [severity]="utilsService.getStatusClass(file.data.status)" />
           </td>
         </tr>
       </ng-template>
@@ -107,8 +108,8 @@
                           )
                         "
                       /> -->
-            <p-button [icon]="getStatus(test.data.status)" [text]="true" [severity]="getStyle(test.data.status)"
-              (onClick)="
+            <p-button [icon]="utilsService.getIconsStatus(test.data.status)" [text]="true"
+              [severity]="utilsService.getFreeClass(test.data.status)" (onClick)="
                           changeTestStatusForAll(
                             test.data.id,
                             test.data.isAutoSendMail,
@@ -133,7 +134,8 @@
                         "
                       >
                       </p-button> -->
-            <p-button [label]="getStatusLabel(test.data.isFree)" [severity]="getStyle(test.data.isFree)" (onClick)="
+            <p-button [label]="utilsService.getCourseFreeLabel(test.data.isFree)"
+              [severity]="utilsService.getFreeClass(test.data.isFree)" (onClick)="
                           changeTestStatusForAll(
                             test.data.id,
                             test.data.isAutoSendMail,
@@ -146,8 +148,8 @@
             </p-button>
           </td>
           <td>
-            <p-button [icon]="getStatus(test.data.isAutoSendMail)" [text]="true"
-              [severity]="getStyle(test.data.isAutoSendMail)" (onClick)="
+            <p-button [icon]="utilsService.getIconsStatus(test.data.isAutoSendMail)" [text]="true"
+              [severity]="utilsService.getFreeClass(test.data.isAutoSendMail)" (onClick)="
                           changeTestStatusForAll(
                             test.data.id,
                             test.data.isAutoSendMail === 1 ? 0 : 1,
@@ -159,8 +161,8 @@
                         " />
           </td>
           <td>
-            <p-button [icon]="getStatus(test.data.isSpecial)" [text]="true" [severity]="getStyle(test.data.isSpecial)"
-              (onClick)="
+            <p-button [icon]="utilsService.getIconsStatus(test.data.isSpecial)" [text]="true"
+              [severity]="utilsService.getFreeClass(test.data.isSpecial)" (onClick)="
                           changeTestStatusForAll(
                             test.data.id,
                             test.data.isAutoSendMail,
@@ -172,8 +174,8 @@
                         " />
           </td>
           <td>
-            <p-button [icon]="getStatus(test.data.isShowInAbilityTest)" [text]="true"
-              [severity]="getStyle(test.data.isShowInAbilityTest)" (onClick)="
+            <p-button [icon]="utilsService.getIconsStatus(test.data.isShowInAbilityTest)" [text]="true"
+              [severity]="utilsService.getFreeClass(test.data.isShowInAbilityTest)" (onClick)="
                           changeTestStatusForAll(
                             test.data.id,
                             test.data.isAutoSendMail,

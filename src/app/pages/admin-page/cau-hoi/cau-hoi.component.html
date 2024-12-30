@@ -86,7 +86,7 @@
                 <td>{{ getNameLevel(test?.level)}}</td>
                 <td>
                     <p-button [label]="utilsService.getPublicStatusLabel(test?.publicStatus)" [raised]="true"
-                        [severity]="utilsService.getFreeClass(test?.publicStatus)" [rounded]="true" />
+                        [severity]="utilsService.getPublicStatusClass(test?.publicStatus)" [rounded]="true" />
                 </td>
                 <td>{{ test?.createdBy }}</td>
             </tr>

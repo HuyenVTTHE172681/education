@@ -13,6 +13,7 @@ import { debounceTime } from 'rxjs/operators';
 import { SubjectService } from '../../../core/services/subject.service';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { CONSTANTS, STATUS } from '../../../environments/constants';
+import { UtilsService } from '../../../core/utils/utils.service';
 
 @Component({
   selector: 'app-khoa-hoc',
@@ -48,9 +49,16 @@ export class KhoaHocComponent implements OnInit {
   selectedSubject: string | undefined;
 
   private searchSubject: Subject<string> = new Subject(); // Subject for search
-  constructor(private courseSrv: CourseService, private router: Router, private classRoomSrv: ClassRoomService,
-    private teacherSrv: TeacherService, private subjectSrv: SubjectService,
-    private confirmationService: ConfirmationService, private messageService: MessageService) { }
+  constructor(
+    private courseSrv: CourseService, 
+    private router: Router, 
+    private classRoomSrv: ClassRoomService,
+    private teacherSrv: TeacherService, 
+    private subjectSrv: SubjectService,
+    private confirmationService: ConfirmationService, 
+    private messageService: MessageService,
+    public utilsService: UtilsService
+  ) { }
 
   ngOnInit(): void {
     this.initParams();
@@ -209,23 +217,6 @@ export class KhoaHocComponent implements OnInit {
     this.query.page = event.page + 1;
     this.query.size = event.rows;
     this.getAllKhoaHoc();
-  }
-
-  getStatus(status: number) {
-    switch (status) {
-      case 1:
-        return 'primary';
-
-      case 0:
-        return 'danger';
-
-      default:
-        return 'warning';
-    }
-  }
-
-  getStatusLabel(status: number) {
-    return status === 1 ? STATUS.HIEN_THI : STATUS.AN;
   }
 
 

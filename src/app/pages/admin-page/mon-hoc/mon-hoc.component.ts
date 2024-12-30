@@ -7,6 +7,7 @@ import { ClassRoom } from '../../../core/models/classRoom.model';
 import { debounceTime, Subject } from 'rxjs';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { CONSTANTS, STATUS } from '../../../environments/constants';
+import { UtilsService } from '../../../core/utils/utils.service';
 @Component({
   selector: 'app-mon-hoc',
   templateUrl: './mon-hoc.component.html',
@@ -36,7 +37,8 @@ export class MonHocComponent implements OnInit {
     private classRoomSrv: ClassRoomService,
     private subjectSrv: SubjectService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    public utilsService: UtilsService) { }
 
   ngOnInit(): void {
     this.initParams();
@@ -166,23 +168,6 @@ export class MonHocComponent implements OnInit {
     this.query.filter = '';
     this.query.page = 1;
     this.getSubject();
-  }
-
-  // Format Label
-  getStatus(status: number) {
-    switch (status) {
-      case 1:
-        return 'primary';
-
-      case 0:
-        return 'danger';
-
-      default:
-        return 'warning';
-    }
-  }
-  getStatusLabel(status: number) {
-    return status === 1 ? STATUS.HIEN_THI : STATUS.AN;
   }
 
   addSubject() {
