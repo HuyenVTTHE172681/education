@@ -146,13 +146,6 @@ export class LopHocComponent implements OnInit {
 
   setSelectedClassRoom(classRoom: any) {
     this.selectedClassroom = classRoom;
-    console.log("Course: ", this.selectedClassroom);
-  }
-
-  onMenuShow(menu: any) {
-    if (this.selectedClassroom) {
-      console.log('Selected File ID:', this.selectedClassroom.id);
-    }
   }
 
   onStatusChange(event: any) {

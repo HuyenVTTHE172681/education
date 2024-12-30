@@ -85,17 +85,6 @@ export class ChuongTrinhHocComponent implements OnInit {
   showDetailExam() {
     this.showExam = true;
   }
-  onMenuShow(menu: any) {
-    if (this.selectedFile) {
-      console.log('Selected File ID:', this.selectedFile.data.id);
-    }
-  }
-
-  onMenuChildShow(menu: any) {
-    if (this.selectedTest) {
-      console.log('Selected File ID:', this.selectedTest.data.id);
-    }
-  }
 
   editFile(): void {
     if (this.selectedFile) {
