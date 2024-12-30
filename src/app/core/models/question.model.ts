@@ -124,4 +124,17 @@ export class TestQuestionChangePublicStatus {
     work_st = 0;
 }
 
+export class QuestionGroups {
+    id = '';
+    name = '';
+    order = 0;
+    status = 0;
+    testQuestions = '';
+    createdBy = '';
+    createdDate = '';
+    modifiedBy = '';
+    modifiedDate = '';
+    totalFiltered = 0;
+}
+
 
