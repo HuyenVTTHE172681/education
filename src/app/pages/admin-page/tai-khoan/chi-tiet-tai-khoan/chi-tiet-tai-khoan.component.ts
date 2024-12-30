@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { DashboardService } from '../../../../core/services/dashboard.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CONSTANTS } from '../../../../environments/constants';
+import { CONSTANTS, HttpStatus } from '../../../../environments/constants';
 
 @Component({
   selector: 'app-chi-tiet-tai-khoan',
@@ -83,24 +83,24 @@ export class ChiTietTaiKhoanComponent implements OnInit {
 
   getRole() {
     this.dashboardSrv.getRole(this.query.filter, this.query.page, this.query.size).subscribe((data) => {
-      if (data.statusCode === 200) {
-        this.role = data.data.data;
+      if (data.statusCode === HttpStatus.OK) {
+        this.role = data?.data?.data || [];
       }
     })
   }
 
   getRoleDataType() {
     this.dashboardSrv.getRoleDataType(this.query.filter, this.query.page, this.query.size).subscribe((data) => {
-      if (data.statusCode === 200) {
-        this.roleData = data.data.data;
+      if (data.statusCode === HttpStatus.OK) {
+        this.roleData = data?.data?.data || [];
       }
     })
   }
 
   getAccountDetail(id: string) {
     this.dashboardSrv.getAccountDetail(id).subscribe((data) => {
-      if (data.statusCode === 200) {
-        const accountDetail = data.data;
+      if (data.statusCode === HttpStatus.OK) {
+        const accountDetail = data?.data || [];
         this.patchAccountForm(accountDetail);
       }
     });
@@ -153,7 +153,7 @@ export class ChiTietTaiKhoanComponent implements OnInit {
 
       this.dashboardSrv.updateAccount(formValue).subscribe({
         next: (data) => {
-          if (data.statusCode === 200) {
+          if (data.statusCode === HttpStatus.OK) {
             this.messageService.add({
               severity: 'success',
               summary: CONSTANTS.SUMMARY.SUMMARY_UPDATE_FAIL,

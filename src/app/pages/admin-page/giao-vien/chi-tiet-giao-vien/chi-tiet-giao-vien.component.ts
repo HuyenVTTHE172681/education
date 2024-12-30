@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { TeacherService } from '../../../../core/services/teacher.service';
 import { DashboardService } from '../../../../core/services/dashboard.service';
-import { CONSTANTS } from '../../../../environments/constants';
+import { CONSTANTS, HttpStatus } from '../../../../environments/constants';
 
 @Component({
   selector: 'app-chi-tiet-giao-vien',
@@ -88,7 +88,7 @@ export class ChiTietGiaoVienComponent implements OnInit {
   // Lấy chi tiết tài khoản
   getTeacherDetail(id: string) {
     this.teacherSrv.getTeacherWithId(id).subscribe((data) => {
-      if (data.statusCode === 200) {
+      if (data.statusCode === HttpStatus.OK) {
         const teacherDetail = data.data;
 
         this.patchAccountForm(teacherDetail);
@@ -127,7 +127,7 @@ export class ChiTietGiaoVienComponent implements OnInit {
   getAccountsNotTeacher() {
     this.dashboardSrv.getAccountsNotTeacher(this.query.filter, this.query.page, this.query.size).subscribe(
       (data) => {
-        this.accountsNotTeacher = data.data.data;
+        this.accountsNotTeacher = data?.data?.data || [];
       }
     )
   }
@@ -141,7 +141,7 @@ export class ChiTietGiaoVienComponent implements OnInit {
 
       this.teacherSrv.updateTeacher(formValue).subscribe({
         next: (data) => {
-          if (data.statusCode === 200) {
+          if (data.statusCode === HttpStatus.OK) {
             let detail = this.isEditMode ? CONSTANTS.MESSAGE_ALERT.UPDATE_FAIL : CONSTANTS.MESSAGE_ALERT.ADD_SUCCESSFUL
             let summary = this.isEditMode ? CONSTANTS.SUMMARY.SUMMARY_UPDATE_FAIL : CONSTANTS.SUMMARY.SUMMARY_ADD_SUCCESSFUL
 

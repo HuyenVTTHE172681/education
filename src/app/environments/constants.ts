@@ -2,6 +2,12 @@ export const API_URL = {
     URL_API_CORE: 'https://hhq.runasp.net/api',
 }
 
+export const HttpStatus = {
+    OK: 200,
+    UNAUTHORIZED: 401,
+    INTERNAL_SERVER_ERROR: 500, 
+}
+
 export const STATUS = {
     HIEN_THI: 'Hiển thị',
     AN: 'Ẩn',

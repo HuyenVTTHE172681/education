@@ -91,7 +91,6 @@ export class ChuongTrinhHocComponent implements OnInit {
       console.log('Editing file:', this.selectedFile.data.id);
     } else {
       this.selectedFile = { data: { courseId: this.id } }; // Thêm mới với courseID
-      console.log('Adding new file');
     }
     this.sidebarForEdit = true;
   }
@@ -108,7 +107,6 @@ export class ChuongTrinhHocComponent implements OnInit {
   deleteFile() {
     if (this.selectedFile) {
       this.dialogDelete = true;
-      console.log('Deleting file with ID:', this.selectedFile.data.id);
     }
   }
 
@@ -150,11 +148,6 @@ export class ChuongTrinhHocComponent implements OnInit {
             })),
           };
         });
-        console.log('Final Files Array:', this.files);
-        console.log(
-          'Final ID Files Array:',
-          this.files.map((file) => file.data.id)
-        );
       },
     });
   }
@@ -191,12 +184,10 @@ export class ChuongTrinhHocComponent implements OnInit {
 
   setSelectedFile(file: any) {
     this.selectedFile = file; // Lưu file vào biến selectedFile
-    console.log('File:', this.selectedFile);
   }
 
   setSelectedTest(test: any) {
     this.selectedTest = test;
-    console.log('File:', this.selectedTest);
   }
 
   getStatus(status: number): string {
@@ -223,7 +214,6 @@ export class ChuongTrinhHocComponent implements OnInit {
       status: newStatus,
     };
 
-    console.log('Payload gửi đi:', payload);
 
     this.testSrv.setTestChangeStatus(payload).subscribe(
       (response) => {
@@ -251,8 +241,6 @@ export class ChuongTrinhHocComponent implements OnInit {
       isFree: newIsFree,
       status: status,
     };
-
-    console.log('Payload gửi đi:', payload);
 
     this.testSrv.setTestChangeFree(payload).subscribe(
       (response) => {
@@ -290,7 +278,6 @@ export class ChuongTrinhHocComponent implements OnInit {
       isSpecial: isSpecial,
       status: status,
     };
-    console.log('Payload gửi đi:', payload);
 
     this.testSrv.setTestChangeAutoSendMail(payload).subscribe(
       (response) => {
@@ -314,7 +301,6 @@ export class ChuongTrinhHocComponent implements OnInit {
 
   refreshData() {
     if (this.id) {
-      console.log('Refreshing data for courseId:', this.id);
       this.getCourseSchedule(this.id);
     } else {
       console.error('Không tìm thấy courseId từ URL!');

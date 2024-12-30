@@ -5,7 +5,7 @@ import { TeacherService } from '../../../../core/services/teacher.service';
 import { ClassRoomService } from '../../../../core/services/classRoom.service';
 import { ClassRoom } from '../../../../core/models/classRoom.model';
 import { MenuItem, MessageService } from 'primeng/api';
-import { CONSTANTS } from '../../../../environments/constants';
+import { CONSTANTS, HttpStatus } from '../../../../environments/constants';
 
 @Component({
   selector: 'app-infomation-classroom',
@@ -56,12 +56,9 @@ export class InfomationClassroomComponent implements OnInit {
   // Lấy chi tiết tài khoản
   getClassRoomDetail(id: string) {
     this.classRoomSrv.getClassRoomWithId(id).subscribe((data) => {
-      if (data.statusCode === 200) {
-        const classRoomDetail = data.data;
-
-        // console.log("Account detail 1: ", classRoomDetail);
+      if (data.statusCode === HttpStatus.OK) {
+        const classRoomDetail = data?.data || []; 
         this.patchAccountForm(classRoomDetail);
-        // console.log("Form value: ", this.classRoomForm.value);
       }
     });
   }
@@ -92,37 +89,27 @@ export class InfomationClassroomComponent implements OnInit {
 
       this.classRoomSrv.updateClassRoom(formValue).subscribe({
         next: (data) => {
-          if (data.statusCode === 200) {
-            if (this.isEditMode) {
-              this.messageService.add({
-                severity: 'success',
-                summary: CONSTANTS.SUMMARY.SUMMARY_UPDATE_FAIL,
-                detail: CONSTANTS.MESSAGE_ALERT.UPDATE_FAIL,
-                key: 'br',
-                life: 3000
-              });
-              setTimeout(() => {
-                this.router.navigate(['/quan-tri/lop-hoc']);
-              }, 1000);
-            } else {
-              this.messageService.add({
-                severity: 'success',
-                summary: CONSTANTS.SUMMARY.SUMMARY_ADD_SUCCESSFUL,
-                detail: CONSTANTS.MESSAGE_ALERT.ADD_SUCCESSFUL,
-                key: 'br',
-                life: 3000
-              });
-              setTimeout(() => {
-                this.router.navigate(['/quan-tri/lop-hoc']);
-              }, 1000);
-            }
+          if (data.statusCode === HttpStatus.OK) {
+            let detail = this.isEditMode ? CONSTANTS.MESSAGE_ALERT.UPDATE_SUCCESSFUL : CONSTANTS.MESSAGE_ALERT.ADD_SUCCESSFUL
+            let summary = this.isEditMode ? CONSTANTS.SUMMARY.SUMMARY_UPDATE_SUCCESSFUL : CONSTANTS.SUMMARY.SUMMARY_ADD_SUCCESSFUL
+
+            this.messageService.add({
+              severity: 'success',
+              summary: summary,
+              detail: detail,
+              key: 'br',
+              life: 3000
+            });
+            setTimeout(() => {
+              this.router.navigate(['/quan-tri/lop-hoc']);
+            }, 1000);
           }
         },
         error: (err) => {
           this.messageService.add({
             severity: 'info',
             summary: CONSTANTS.SUMMARY.SUMMARY_UPDATE_FAIL,
-            detail: CONSTANTS.MESSAGE_ALERT.DELETE_FAIL,
+            detail: err.message,
             key: 'br',
             life: 3000
           });

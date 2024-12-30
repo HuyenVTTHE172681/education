@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CourseService } from '../../../../../core/services/course.service';
+import { HttpStatus } from '../../../../../environments/constants';
 
 @Component({
   selector: 'app-edit-chuong-trinh-hoc',
@@ -68,7 +69,7 @@ export class EditChuongTrinhHocComponent implements OnInit {
         // Edit logic
         this.courseSrv.editCourse(updateData).subscribe({
           next: (data) => {
-            if (data.statusCode === 200) {
+            if (data.statusCode === HttpStatus.OK) {
               alert('Edit course successfully!');
               this.dataUpdated.emit(true); // Emit event để thông báo cha
             } else {
@@ -85,7 +86,7 @@ export class EditChuongTrinhHocComponent implements OnInit {
         // Add logic
         this.courseSrv.addCourse(updateData).subscribe({
           next: (data) => {
-            if (data.statusCode === 200) {
+            if (data.statusCode === HttpStatus.OK) {
               alert('Add course successfully!');
               this.dataUpdated.emit(true); // Emit event để thông báo cha
               this.form.reset();

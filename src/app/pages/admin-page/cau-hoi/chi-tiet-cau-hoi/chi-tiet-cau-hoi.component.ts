@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Teacher } from '../../../../core/models/teacher.model';
 import { TeacherService } from '../../../../core/services/teacher.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { HttpStatus } from '../../../../environments/constants';
 
 @Component({
   selector: 'app-chi-tiet-cau-hoi',
@@ -82,7 +83,6 @@ export class ChiTietCauHoiComponent implements OnInit {
 
     this.route.params.subscribe((params) => {
       this.id = params['id'];
-      console.log("ID TEST QUESTION: ", this.id);
       if (this.id) {
         this.getTestQuestionNewById(this.id);
       }
@@ -101,9 +101,9 @@ export class ChiTietCauHoiComponent implements OnInit {
 
   getTestQuestionNewById(id: string) {
     this.questionsSrv.getTestQuestionNewById(id).subscribe((data) => {
-      if (data.statusCode === 200) {
-        this.questionNew = data.data;
-        const questionDetail = data.data;
+      if (data.statusCode === HttpStatus.OK) {
+        this.questionNew = data?.data || [];
+        const questionDetail = data?.data || [];
         this.patchQuestionForm(questionDetail);
       }
     })
@@ -111,14 +111,14 @@ export class ChiTietCauHoiComponent implements OnInit {
 
   getTeacher() {
     this.teacherSrv.getTeachers(this.query.page, this.query.size, this.query.filter).subscribe((data) => {
-      this.teacher = data.data.data;
+      this.teacher = data?.data?.data || [];
     })
   }
 
   getTestQuestionType() {
     this.questionSrv.getTestQuestionType(this.query.filter, this.query.page, this.query.size).subscribe(res => {
-      if (res.statusCode === 200) {
-        this.testQuestionType = res.data.data;
+      if (res.statusCode === HttpStatus.OK) {
+        this.testQuestionType = res?.data?.data || [];
 
       }
     })
@@ -158,8 +158,8 @@ export class ChiTietCauHoiComponent implements OnInit {
 
   getTestQuestionGroup() {
     this.questionSrv.getTestQuestionGroup(this.query.filter, this.query.page, this.query.size, this.query.status).subscribe(res => {
-      if (res.statusCode === 200) {
-        this.testQuestionGroup = res.data.data;
+      if (res.statusCode === HttpStatus.OK) {
+        this.testQuestionGroup = res?.data?.data || [];
       }
     })
   }

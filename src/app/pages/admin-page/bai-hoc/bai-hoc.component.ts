@@ -8,7 +8,7 @@ import { Subject as SubjectModel } from '../../../core/models/subject.model';
 import { debounceTime, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
-import { CONSTANTS, STATUS } from '../../../environments/constants';
+import { CONSTANTS, HttpStatus, STATUS } from '../../../environments/constants';
 
 @Component({
   selector: 'app-bai-hoc',
@@ -137,15 +137,15 @@ export class BaiHocComponent implements OnInit {
 
   getTestCategory() {
     this.testSrv.getTestType(this.query.searchText, this.query.page, this.query.sizeForFilter).subscribe((data) => {
-      if (data.statusCode == 200) {
-        this.testCategory = data.data.data;
+      if (data.statusCode == HttpStatus.OK) {
+        this.testCategory = data?.data?.data || [];
       }
     })
   }
 
   getClassRoom() {
     this.classRoomSrv.getClassRooms(this.query.page, this.query.sizeForFilter, this.query.searchText).subscribe((data) => {
-      this.classRoom = data.data.data;
+      this.classRoom = data?.data?.data || [];
     })
   }
 

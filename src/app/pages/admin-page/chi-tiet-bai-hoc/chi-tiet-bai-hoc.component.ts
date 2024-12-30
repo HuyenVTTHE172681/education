@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { TestAbilityService } from '../../../core/services/test-ability.service';
 import { Test } from '../../../core/models/test.model';
+import { HttpStatus } from '../../../environments/constants';
 
 @Component({
   selector: 'app-chi-tiet-bai-hoc',
@@ -44,13 +45,10 @@ export class ChiTietBaiHocComponent implements OnInit {
 
   getTestDetail(id: string) {
     this.testSrv.getTestNewById(id).subscribe((data) => {
-      if (data.statusCode === 200) {
-        const testDetail = data.data;
-        console.log("Test Data: ", testDetail)
-        // console.log("Test Category: ", testDetail?.testCategoryCode)
+      if (data.statusCode === HttpStatus.OK) {
+        const testDetail = data?.data || [];
 
         this.testCategory = testDetail?.testCategoryCode
-        console.log("Test Category: ", this.testCategory)
 
       }
     })

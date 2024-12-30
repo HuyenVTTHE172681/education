@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Test, TestCategory } from '../../../../core/models/test.model';
 import { TestAbilityService } from '../../../../core/services/test-ability.service';
 import { MenuItem, MessageService } from 'primeng/api';
-import { CONSTANTS } from '../../../../environments/constants';
+import { CONSTANTS, HttpStatus } from '../../../../environments/constants';
 
 @Component({
   selector: 'app-information-test',
@@ -108,8 +108,8 @@ export class InformationTestComponent implements OnInit {
 
   getTestDetail(id: string) {
     this.testSrv.getTestNewById(id).subscribe((data) => {
-      if (data.statusCode === 200) {
-        const testDetail = data.data;
+      if (data.statusCode === HttpStatus.OK) {
+        const testDetail = data?.data || [];
         this.patchForm(testDetail);
 
       }
@@ -209,30 +209,20 @@ export class InformationTestComponent implements OnInit {
       // UPDATE
       this.testSrv.updateTest(formValue).subscribe({
         next: (data) => {
-          if (data.statusCode === 200) {
-            if (this.isEditMode) {
-              this.messageService.add({
-                severity: 'success',
-                summary: CONSTANTS.SUMMARY.SUMMARY_UPDATE_FAIL,
-                detail: CONSTANTS.MESSAGE_ALERT.UPDATE_FAIL,
-                key: 'br',
-                life: 3000
-              });
-              setTimeout(() => {
-                this.router.navigate(['/quan-tri/bai-kiem-tra']);
-              }, 1000);
-            } else {
-              this.messageService.add({
-                severity: 'success',
-                summary: CONSTANTS.SUMMARY.SUMMARY_ADD_SUCCESSFUL,
-                detail: CONSTANTS.MESSAGE_ALERT.ADD_SUCCESSFUL,
-                key: 'br',
-                life: 3000
-              });
-              setTimeout(() => {
-                this.router.navigate(['/quan-tri/bai-kiem-tra']);
-              }, 1000);
-            }
+          if (data.statusCode === HttpStatus.OK) {
+            let detail = this.isEditMode ? CONSTANTS.MESSAGE_ALERT.UPDATE_FAIL : CONSTANTS.MESSAGE_ALERT.ADD_SUCCESSFUL
+            let summary = this.isEditMode ? CONSTANTS.SUMMARY.SUMMARY_UPDATE_FAIL : CONSTANTS.SUMMARY.SUMMARY_ADD_SUCCESSFUL
+            
+            this.messageService.add({
+              severity: 'success',
+              summary: summary,
+              detail: detail,
+              key: 'br',
+              life: 3000
+            });
+            setTimeout(() => {
+              this.router.navigate(['/quan-tri/bai-kiem-tra']);
+            }, 1000);
           }
         },
         error: (err) => {

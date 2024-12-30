@@ -5,7 +5,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { ClassRoom } from '../../../../core/models/classRoom.model';
 import { ClassRoomService } from '../../../../core/services/classRoom.service';
 import { SubjectService } from '../../../../core/services/subject.service';
-import { CONSTANTS } from '../../../../environments/constants';
+import { CONSTANTS, HttpStatus } from '../../../../environments/constants';
 
 @Component({
   selector: 'app-chi-tiet-mon-hoc',
@@ -79,14 +79,14 @@ export class ChiTietMonHocComponent implements OnInit {
 
   getClassRoom() {
     this.classRoomSrv.getClassRooms(this.query.page, this.query.size, this.query.searchText).subscribe((data) => {
-      this.classRoom = data.data.data;
+      this.classRoom = data?.data?.data || [];
     })
   }
 
   getSubjectDetail(id: string) {
     this.subjectSrv.getSubjectById(id).subscribe((data) => {
-      if (data.statusCode === 200) {
-        const subjectDetail = data.data;
+      if (data.statusCode === HttpStatus.OK) {
+        const subjectDetail = data?.data || [];
 
         this.selectedClassRoom = this.classRoom.filter((classRoom) =>
           subjectDetail.classRoomIds.includes(classRoom.id)
@@ -126,30 +126,20 @@ export class ChiTietMonHocComponent implements OnInit {
 
       this.subjectSrv.updateSubject(formValue).subscribe({
         next: (data) => {
-          if (data.statusCode === 200) {
-            if (this.isEditMode) {
-              this.messageService.add({
-                severity: 'success',
-                summary: CONSTANTS.SUMMARY.SUMMARY_UPDATE_FAIL,
-                detail: CONSTANTS.MESSAGE_ALERT.UPDATE_FAIL,
-                key: 'br',
-                life: 3000
-              });
-              setTimeout(() => {
-                this.router.navigate(['/quan-tri/mon-hoc']);
-              }, 1000);
-            } else {
-              this.messageService.add({
-                severity: 'success',
-                summary: CONSTANTS.SUMMARY.SUMMARY_ADD_SUCCESSFUL,
-                detail: CONSTANTS.MESSAGE_ALERT.ADD_SUCCESSFUL,
-                key: 'br',
-                life: 3000
-              });
-              setTimeout(() => {
-                this.router.navigate(['/quan-tri/mon-hoc']);
-              }, 1000);
-            }
+          if (data.statusCode === HttpStatus.OK) {
+            let detail = this.isEditMode ? CONSTANTS.MESSAGE_ALERT.UPDATE_FAIL : CONSTANTS.MESSAGE_ALERT.ADD_SUCCESSFUL
+            let summary = this.isEditMode ? CONSTANTS.SUMMARY.SUMMARY_UPDATE_FAIL : CONSTANTS.SUMMARY.SUMMARY_ADD_SUCCESSFUL
+
+            this.messageService.add({
+              severity: 'success',
+              summary: summary,
+              detail: detail,
+              key: 'br',
+              life: 3000
+            });
+            setTimeout(() => {
+              this.router.navigate(['/quan-tri/mon-hoc']);
+            }, 1000);
           }
         }
       })

@@ -11,7 +11,7 @@ import { Course, CourseYear } from '../../../../core/models/course.model';
 import { Subject } from '../../../../core/models/subject.model';
 import { SubjectService } from '../../../../core/services/subject.service';
 import { MessageService } from 'primeng/api';
-import { CONSTANTS } from '../../../../environments/constants';
+import { CONSTANTS, HttpStatus } from '../../../../environments/constants';
 
 @Component({
   selector: 'app-information',
@@ -144,7 +144,7 @@ export class InformationComponent implements OnInit {
       .getClassRooms(this.page, this.size, this.searchText)
       .subscribe({
         next: (data: IResponeList<ClassRoom>) => {
-          this.classRoom = data.data.data;
+          this.classRoom = data?.data?.data || [];
         },
       });
   }
@@ -173,8 +173,8 @@ export class InformationComponent implements OnInit {
   getCourseById(id: string, accountId: string = 'null') {
     this.courseSrv.getCourseById(id, accountId).subscribe({
       next: (data) => {
-        if (data.statusCode === 200) {
-          const courseDetail = data.data;
+        if (data.statusCode === HttpStatus.OK) {
+          const courseDetail = data?.data || [];
           this.patchForm(courseDetail);
 
           this.classRoomId = courseDetail?.classRoomId;
