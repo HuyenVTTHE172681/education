@@ -56,8 +56,8 @@ export class TongQuanComponent implements OnInit {
         const data = response.data;
 
         // Ánh xạ từng trường
-        this.dashboardFilterByDate = { ...data.dashboardOverview };
-        this.adviceRequest = data.adviceRequest.map((item: any) => ({
+        this.dashboardFilterByDate = { ...data?.dashboardOverview };
+        this.adviceRequest = data?.adviceRequest.map((item: any) => ({
           academicAbility: item.academicAbility,
           birthday: item.birthday,
           comment: item.comment,

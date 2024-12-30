@@ -48,9 +48,8 @@ export class TestAbilityComponent implements OnInit {
       )
       .subscribe({
         next: (data: IResponeList<Test>) => {
-          this.testAbilities = data.data.data;
-          this.totalItems = data.data.recordsTotal;
-          console.log('TestAbilities:', this.testAbilities);
+          this.testAbilities = data?.data?.data || [];
+          this.totalItems = data?.data?.recordsTotal || 0;
         },
         error: (error) => {
           console.log(error);
@@ -68,7 +67,6 @@ export class TestAbilityComponent implements OnInit {
           name: item.name, // Tên lớp học
           value: item.id, // ID lớp học
         }));
-        console.log('ClassRooms:', this.classRooms); // In ra kết quả các lớp học
       },
       error: (error) => {
         console.error('Error fetching classrooms:', error);
@@ -94,9 +92,9 @@ export class TestAbilityComponent implements OnInit {
 
   // Handle pagination change
   onPageChange(event: any): void {
-    this.page = event.page + 1; // Update current page
-    this.size = event.rows; // Update page size
-    this.getAllTestAbilities(); // Fetch the test abilities for the new page
+    this.page = event.page + 1;
+    this.size = event.rows;
+    this.getAllTestAbilities();
     console.log('Page changed:', this.page);
   }
 
@@ -107,7 +105,7 @@ export class TestAbilityComponent implements OnInit {
 
   // Optional: You can add search functionality for the filter as well
   onSearchChange(): void {
-    this.page = 1; // Reset to the first page on search change
+    this.page = 1;
     this.getAllTestAbilities();
   }
 }

@@ -39,8 +39,8 @@
                     <td>{{ test?.comment }}</td>
                     <td>{{ test?.dateComment }}</td>
                     <td>
-                        <p-button [label]="getStatusLabel(test?.status)" [raised]="true"
-                            [severity]="getStatus(test?.status)" [rounded]="true" />
+                        <p-button [label]="utilsService.getStatusLabel(test?.status)" [raised]="true"
+                            [severity]="utilsService.getStatusClass(test?.status)" [rounded]="true" />
                     </td>
                     <td>
                         <p-button icon="pi pi-ellipsis-v" [text]="true" severity="secondary"

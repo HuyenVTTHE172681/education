@@ -149,7 +149,7 @@ export class HeaderComponent implements OnInit {
           next: (res) => {
             console.log('Phản hồi từ API lấy thông tin user:', res);
 
-            this.user = res.data;
+            this.user = res?.data;
             localStorage.setItem('user', JSON.stringify(this.user));
 
             // Cập nhật vai trò sau khi lấy thông tin user

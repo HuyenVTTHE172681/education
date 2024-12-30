@@ -120,8 +120,8 @@ export class LopHocComponent implements OnInit {
   }
   getClassRoom() {
     this.classRoomSrv.getClassRooms(this.query.page, this.query.size, this.query.filter).subscribe((data) => {
-      this.classRoom = data.data.data;
-      this.totalItems = data.data.recordsTotal;
+      this.classRoom = data?.data?.data || [];
+      this.totalItems = data?.data?.recordsTotal || 0;
     })
   }
 

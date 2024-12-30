@@ -101,7 +101,7 @@ export class InformationTestComponent implements OnInit {
 
   getTestCategory() {
     this.testSrv.getTestType(this.query.searchText, this.query.page, this.query.size).subscribe((data) => {
-      this.testCategory = data.data.data;
+      this.testCategory = data?.data?.data || [];
     });
   }
 

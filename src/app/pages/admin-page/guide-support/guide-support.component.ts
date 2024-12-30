@@ -39,7 +39,7 @@ export class GuideSupportComponent implements OnInit {
 
   getDashboardGuide() {
     this.dashboardSrv.getDashboardGuide(this.query.filter, this.query.page, this.query.size, this.query.screen).subscribe((data) => {
-      this.listGuide = data.data.data;
+      this.listGuide = data?.data?.data || [];
       if (this.listGuide.length > 0) {
         this.selectedGuide = this.listGuide[0];
       }

@@ -54,7 +54,7 @@ export class DashboardCourseDetailComponent implements OnInit {
   getDashboardAdminCourseDetail() {
     this.dashboardSrv.getDashboardAdminCourseDetail(this.selectedClassroom || '', this.selectedCourse || '', this.selectedCourseYear || '', this.selectedSubject || '', this.selectedTeacher || '').subscribe({
       next: (data: IResponeList<any>) => {
-        this.dashboardAdminCourseDetail = data.data.data;
+        this.dashboardAdminCourseDetail = data?.data?.data || [];
         // console.log("Admin course: ", this.dashboardAdminCourseDetail)
       }
     })
@@ -82,7 +82,7 @@ export class DashboardCourseDetailComponent implements OnInit {
       .getClassRooms(this.query.page, this.query.size, this.query.searchText)
       .subscribe({
         next: (data: IResponeList<ClassRoom>) => {
-          this.classRoom = data.data.data;
+          this.classRoom = data?.data?.data || [];
         },
       });
   }
@@ -102,7 +102,7 @@ export class DashboardCourseDetailComponent implements OnInit {
       this.selectedTeacher || ''
     ).subscribe({
       next: (data: IResponeList<Course>) => {
-        this.course = data.data.data;
+        this.course = data?.data?.data || [];
         // console.log("Course: ", this.course)
       }
     })
@@ -128,7 +128,7 @@ export class DashboardCourseDetailComponent implements OnInit {
       .getTeachers(this.query.page, this.query.size, this.query.searchText)
       .subscribe({
         next: (data: IResponeList<Teacher>) => {
-          this.teacher = data.data.data;
+          this.teacher = data?.data?.data || [];
           // console.log('Teacher: ', this.teacher);
         },
         error: (err) => {

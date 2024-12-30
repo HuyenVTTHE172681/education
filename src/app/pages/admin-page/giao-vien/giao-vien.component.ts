@@ -35,9 +35,9 @@ export class GiaoVienComponent implements OnInit {
 
   private searchSubject: Subject<string> = new Subject();
   constructor(
-    private teacherSrv: TeacherService, 
+    private teacherSrv: TeacherService,
     private router: Router,
-    private confirmationService: ConfirmationService, 
+    private confirmationService: ConfirmationService,
     private messageService: MessageService,
     public utilsService: UtilsService
   ) { }
@@ -90,37 +90,37 @@ export class GiaoVienComponent implements OnInit {
   }
   deletedAccount() {
     const documentId = this.selectedTeacher?.id;
-        this.confirmationService.confirm({
-          message: CONSTANTS.CONFIRM.DELETE_TEACHER,
-          header: 'Xác nhận',
-          icon: 'pi pi-exclamation-triangle',
-          acceptLabel: 'Đồng ý',
-          rejectLabel: 'Hủy bỏ',
-          accept: () => {
-            this.teacherSrv.deleteTeacher(documentId).subscribe((data) => {
-              this.messageService.add({
-                severity: 'success',
-                summary: CONSTANTS.SUMMARY.SUMMARY_DELETE_SUCCESSFUL,
-                detail: CONSTANTS.MESSAGE_ALERT.DELETE_SUCCESSFUL,
-                key: 'br', life: 3000
-              });
-              this.getTeacher();
-            })
-          },
-          reject: () => {
-            this.messageService.add({
-              severity: 'info',
-              summary: CONSTANTS.SUMMARY.SUMMARY_CANCEL_DELETE,
-              detail: CONSTANTS.MESSAGE_ALERT.DELETE_CANCEL,
-              key: 'br', life: 3000
-            });
-          },
+    this.confirmationService.confirm({
+      message: CONSTANTS.CONFIRM.DELETE_TEACHER,
+      header: 'Xác nhận',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Đồng ý',
+      rejectLabel: 'Hủy bỏ',
+      accept: () => {
+        this.teacherSrv.deleteTeacher(documentId).subscribe((data) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: CONSTANTS.SUMMARY.SUMMARY_DELETE_SUCCESSFUL,
+            detail: CONSTANTS.MESSAGE_ALERT.DELETE_SUCCESSFUL,
+            key: 'br', life: 3000
+          });
+          this.getTeacher();
         })
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: CONSTANTS.SUMMARY.SUMMARY_CANCEL_DELETE,
+          detail: CONSTANTS.MESSAGE_ALERT.DELETE_CANCEL,
+          key: 'br', life: 3000
+        });
+      },
+    })
   }
   getTeacher() {
     this.teacherSrv.getTeachers(this.query.page, this.query.size, this.query.filter).subscribe((data) => {
-      this.teacher = data.data.data;
-      this.totalItems = data.data.recordsTotal;
+      this.teacher = data?.data?.data || [];
+      this.totalItems = data?.data?.recordsTotal || 0;
     })
   }
 

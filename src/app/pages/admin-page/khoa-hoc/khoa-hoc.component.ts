@@ -50,12 +50,12 @@ export class KhoaHocComponent implements OnInit {
 
   private searchSubject: Subject<string> = new Subject(); // Subject for search
   constructor(
-    private courseSrv: CourseService, 
-    private router: Router, 
+    private courseSrv: CourseService,
+    private router: Router,
     private classRoomSrv: ClassRoomService,
-    private teacherSrv: TeacherService, 
+    private teacherSrv: TeacherService,
     private subjectSrv: SubjectService,
-    private confirmationService: ConfirmationService, 
+    private confirmationService: ConfirmationService,
     private messageService: MessageService,
     public utilsService: UtilsService
   ) { }
@@ -119,7 +119,7 @@ export class KhoaHocComponent implements OnInit {
       .getTeachers(this.query.page, this.query.size, this.query.searchText)
       .subscribe({
         next: (data: IResponeList<Teacher>) => {
-          this.teacher = data.data.data;
+          this.teacher = data?.data?.data || [];
 
         },
         error: (err) => {
@@ -133,7 +133,7 @@ export class KhoaHocComponent implements OnInit {
       .getClassRooms(this.query.page, this.query.size, this.query.searchText)
       .subscribe({
         next: (data: IResponeList<ClassRoom>) => {
-          this.classRoom = data.data.data;
+          this.classRoom = data?.data?.data || [];
         },
       });
   }
@@ -185,8 +185,8 @@ export class KhoaHocComponent implements OnInit {
       this.selectedTeacher || ''
     ).subscribe({
       next: (data: IResponeList<Course>) => {
-        this.course = data.data.data;
-        this.totalItems = data.data.recordsTotal;
+        this.course = data?.data?.data || [];
+        this.totalItems = data?.data?.recordsTotal || 0;
       }
     })
   }

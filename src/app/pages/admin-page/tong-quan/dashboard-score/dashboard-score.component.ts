@@ -41,7 +41,7 @@ export class DashboardScoreComponent implements OnInit {
   getDashboardAdminScore() {
     this.dashboardSrv.getDashboardAdminScore(this.selectedClassroom, this.selectedSubject || '', this.query.accountId, this.query.filter, this.query.page, this.query.size).subscribe({
       next: (data: IResponeList<DashboardAdminScore>) => {
-        this.dashboardAdminScore = data.data.data;
+        this.dashboardAdminScore = data?.data?.data || [];
         // console.log("Admin course: ", this.dashboardAdminScore)
       }
     })
@@ -53,7 +53,7 @@ export class DashboardScoreComponent implements OnInit {
       .getClassRooms(this.query.page, this.query.size, this.query.searchText)
       .subscribe({
         next: (data: IResponeList<ClassRoom>) => {
-          this.classRoom = data.data.data;
+          this.classRoom = data?.data?.data || [];
         },
       });
   }
@@ -65,7 +65,7 @@ export class DashboardScoreComponent implements OnInit {
       .subscribe({
 
         next: (response) => {
-          this.subject = response.data.data;
+          this.subject = response?.data?.data || [];
         },
         error: () => {
           // console.error('Error fetching subjects.');

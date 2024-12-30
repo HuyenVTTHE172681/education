@@ -182,8 +182,8 @@ export class PaymentComponent implements OnInit {
 
   getDashboardPayment() {
     this.paymentSrv.getDashboardPayment(this.query.filter, this.selectedStatus.value, this.query.page, this.query.size).subscribe((data) => {
-      this.payment = data.data.data;
-      this.totalItems = data.data.recordsTotal;
+      this.payment = data?.data?.data || [];
+      this.totalItems = data?.data?.recordsTotal || 0;
     })
   }
 

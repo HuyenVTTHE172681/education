@@ -90,8 +90,8 @@ export class TaiKhoanComponent implements OnInit {
   }
   getDashboardAccount() {
     this.dashboardSrv.getDashboardAccount(this.query.filter, this.query.page, this.query.size, this.selectedRole.value || '', this.selectedRole.value || '').subscribe((data) => {
-      this.account = data.data.data;
-      this.totalItems = data.data.recordsTotal;
+      this.account = data?.data?.data || [];
+      this.totalItems = data?.data?.recordsTotal || 0;
       // console.log("Payment: ", this.account);
     })
   }

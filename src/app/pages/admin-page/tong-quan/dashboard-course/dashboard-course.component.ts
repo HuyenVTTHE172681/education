@@ -39,7 +39,7 @@ export class DashboardCourseComponent implements OnInit {
   getDashboardAdminCourse() {
     this.dashboardSrv.getDashboardAdminCourse(this.query.page, this.query.size, this.query.filter, this.selectedClassroom || '', this.selectedSubject || '', this.query.accountId).subscribe({
       next: (data: IResponeList<DashboardAdminCourse>) => {
-        this.adminCourse = data.data.data;
+        this.adminCourse = data?.data?.data || [];
         // console.log("Admin course: ", this.adminCourse)
       }
     })
@@ -51,7 +51,7 @@ export class DashboardCourseComponent implements OnInit {
       .getClassRooms(this.query.page, this.query.size, this.query.searchText)
       .subscribe({
         next: (data: IResponeList<ClassRoom>) => {
-          this.classRoom = data.data.data;
+          this.classRoom = data?.data?.data || [];
         },
       });
   }
@@ -62,7 +62,7 @@ export class DashboardCourseComponent implements OnInit {
       .getSubjectByCourse(classRoomId, this.query.searchText, this.query.page, this.query.size)
       .subscribe({
         next: (response) => {
-          this.subject = response.data.data;
+          this.subject = response?.data?.data || [];
         },
         error: () => {
           // console.error('Error fetching subjects.');

@@ -41,7 +41,7 @@ export class DashboardOverviewComponent implements OnInit {
   getDashboard() {
     this.dashboardSrv.getDashboardAdminOverview(this.query.page, this.query.size, this.query.filter, this.selectedClassroom || '', this.selectedSubject || '', this.query.accountId).subscribe({
       next: (data: IResponeList<Dashboard>) => {
-        this.dashboard = data.data.data;
+        this.dashboard = data?.data?.data || [];
         // console.log("Filter: ", this.filter);
         // console.log("Selected classrôm: ", this.selectedClassroom);
         // console.log("Subject: ", this.selectedSubject)
@@ -57,7 +57,7 @@ export class DashboardOverviewComponent implements OnInit {
       .getClassRooms(this.query.page, this.query.size, this.query.searchText)
       .subscribe({
         next: (data: IResponeList<ClassRoom>) => {
-          this.classRoom = data.data.data;
+          this.classRoom = data?.data?.data || [];
         },
       });
   }
@@ -69,7 +69,7 @@ export class DashboardOverviewComponent implements OnInit {
       .subscribe({
 
         next: (response) => {
-          this.subject = response.data.data;
+          this.subject = response?.data?.data || [];
         },
         error: () => {
           // console.error('Error fetching subjects.');

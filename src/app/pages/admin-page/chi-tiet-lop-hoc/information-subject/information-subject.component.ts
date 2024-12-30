@@ -123,16 +123,14 @@ export class InformationSubjectComponent implements OnInit {
 
   getSubject(courseID: string) {
     this.subjectSrv.getSubjectByCourse(courseID, this.query.filter, this.query.page, this.query.size).subscribe((data) => {
-      this.subject = data.data.data;
-      this.totalItems = data.data.recordsTotal;
-      // console.log("Teacher: ", this.subject);
+      this.subject = data?.data?.data || [];
+      this.totalItems = data?.data?.recordsTotal || 0;
     })
   }
 
   onPageChange(event: any): void {
     this.query.page = event.page + 1;
     this.query.size = event.rows;
-    // console.log("Page: ", this.page);
   }
 
   onSearchChange(searchValue: string): void {

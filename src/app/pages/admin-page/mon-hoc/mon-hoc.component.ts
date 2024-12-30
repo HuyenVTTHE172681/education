@@ -118,13 +118,12 @@ export class MonHocComponent implements OnInit {
 
   setSelectedSubject(subject: any) {
     this.selectedSubject = subject;
-    console.log("Selected Subject: ", this.selectedSubject);
   }
 
   getSubject() {
     this.subjectSrv.getSubjectByCourse(this.selectedClassroom || '', this.query.filter, this.query.page, this.query.size).subscribe((data) => {
-      this.subject = data.data.data;
-      this.totalItems = data.data.recordsTotal;
+      this.subject = data?.data?.data || [];
+      this.totalItems = data?.data?.recordsTotal || 0;
 
       // console.log("Subject: ", this.subject);
       // console.log("Filter: ", this.filter)
@@ -149,8 +148,7 @@ export class MonHocComponent implements OnInit {
   // Get ClassRoom to dropdown list filter Subject
   getClassRoom() {
     this.classRoomSrv.getClassRooms(this.query.page, this.query.size, this.searchText).subscribe((data) => {
-      this.classRoom = data.data.data;
-      console.log("ClassRoom: ", this.classRoom);
+      this.classRoom = data?.data?.data || [];
     })
   }
 

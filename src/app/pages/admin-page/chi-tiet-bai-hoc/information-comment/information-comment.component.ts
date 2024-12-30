@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TestAbilityService } from '../../../../core/services/test-ability.service';
 import { MenuItem } from 'primeng/api';
 import { STATUS } from '../../../../environments/constants';
+import { UtilsService } from '../../../../core/utils/utils.service';
 
 @Component({
   selector: 'app-information-comment',
@@ -24,7 +25,8 @@ export class InformationCommentComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private testSrv: TestAbilityService) { }
+    private testSrv: TestAbilityService,
+    public utilsService: UtilsService) { }
 
   ngOnInit(): void {
     this.initParams();
@@ -65,28 +67,14 @@ export class InformationCommentComponent implements OnInit {
 
   deleted() {
   }
+
   getComment() {
     this.testSrv.comment(this.query.filter, this.query.page, this.query.size, this.query.parentId, this.query.id).subscribe((data) => {
-      this.comment = data.data.data;
-      this.totalItems = data.data.recordsTotal;
+      this.comment = data?.data?.data || [];
+      this.totalItems = data?.data?.recordsTotal || 0;
     })
   }
 
-  getStatusLabel(status: number) {
-    return status === 1 ? STATUS.HIEN_THI : STATUS.AN;
-  }
-  getStatus(status: number) {
-    switch (status) {
-      case 1:
-        return 'primary';
-
-      case 0:
-        return 'danger';
-
-      default:
-        return 'warning';
-    }
-  }
 
   setSelected(test: any) {
     this.selectedTest = test;

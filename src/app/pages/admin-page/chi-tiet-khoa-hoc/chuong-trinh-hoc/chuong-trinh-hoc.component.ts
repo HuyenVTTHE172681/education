@@ -122,7 +122,7 @@ export class ChuongTrinhHocComponent implements OnInit {
   ) {
     this.courseSrv.getCourseSchedule(courseId, searchText, page, size).subscribe({
       next: (data) => {
-        this.files = data.map((courseData: any) => {
+        this.files = data?.map((courseData: any) => {
           return {
             data: {
               name: courseData.name,

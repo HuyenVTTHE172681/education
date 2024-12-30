@@ -89,7 +89,7 @@ export class ChiTietGiaoVienComponent implements OnInit {
   getTeacherDetail(id: string) {
     this.teacherSrv.getTeacherWithId(id).subscribe((data) => {
       if (data.statusCode === HttpStatus.OK) {
-        const teacherDetail = data.data;
+        const teacherDetail = data?.data || [];
 
         this.patchAccountForm(teacherDetail);
       }

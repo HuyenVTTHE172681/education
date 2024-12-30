@@ -110,7 +110,7 @@ export class InformationComponent implements OnInit {
       .getSubjectByCourse(this.classRoomId, this.searchText, this.page, this.size)
       .subscribe({
         next: (response) => {
-          this.subject = response.data.data;
+          this.subject = response?.data?.data || [];
         },
         error: (err) => {
           this.messageService.add({
@@ -154,7 +154,7 @@ export class InformationComponent implements OnInit {
       .getTeachers(this.page, this.size, this.searchText)
       .subscribe({
         next: (data: IResponeList<Teacher>) => {
-          this.teacher = data.data.data;
+          this.teacher = data?.data?.data || [];
 
           this.courseForm.get('teacher')?.enable();
         },

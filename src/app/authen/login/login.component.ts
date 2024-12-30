@@ -36,8 +36,8 @@ export class LoginComponent implements OnInit {
       next: (res) => {
         console.log('Phản hồi từ API đăng nhập:', res);
 
-        const token = res.data.token;
-        const username = res.data.username;
+        const token = res?.data?.token;
+        const username = res?.data?.username;
 
         if (token) {
           // Lưu token vào localStorage
