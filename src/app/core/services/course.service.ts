@@ -4,7 +4,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { API_URL } from '../../environments/constants';
-import { Course } from '../models/course.model';
+import { Course, CourseYear } from '../models/course.model';
 import { IResponseList, IResponseListData } from '../models/common.model';
 
 @Injectable({
@@ -100,7 +100,7 @@ export class CourseService {
     offSet: number,
     pageSize: number,
     status: number
-  ): Observable<any[]> {
+  ): Observable<IResponseList<CourseYear>> {
 
     const apiUrl = `${this.apiBaseUrl}/CourseYear?filter=${filter}&offSet=${offSet}&pageSize=${pageSize}&status=${status}`;
 
@@ -109,9 +109,24 @@ export class CourseService {
       ? new HttpHeaders({ Authorization: `Bearer ${token}` })
       : new HttpHeaders();
 
-    return this.http.get<any>(apiUrl, { headers }).pipe(
-      map((response) => response?.data?.data || [])
-    );
+    return this.http
+      .get<IResponseList<CourseYear>>(apiUrl, { headers })
+      .pipe(catchError(this.handleError));
+  }
+
+  getCourseYEarById(id: string): Observable<IResponseListData<CourseYear>> {
+
+    const query = `/CourseYear/${id}`;
+    const apiURL = `${this.apiBaseUrl}${query}`;
+
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+
+    return this.http
+      .get<IResponseListData<CourseYear>>(apiURL, { headers })
+      .pipe(catchError(this.handleError));
   }
 
 

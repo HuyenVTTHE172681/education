@@ -122,7 +122,6 @@ export class NhomCauHoiComponent implements OnInit {
       }
     });
   }
-
   patchQuestionForm(question: any) {
     this.questionGroupForm.patchValue({
       createdBy: question.createdBy || '',

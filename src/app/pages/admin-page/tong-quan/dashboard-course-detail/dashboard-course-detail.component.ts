@@ -112,7 +112,7 @@ export class DashboardCourseDetailComponent implements OnInit {
   getCourseYears() {
     this.courseSrv.getCourseYear(this.query.searchText, this.query.page, this.query.size, this.query.status).subscribe({
       next: (data) => {
-        this.courseYears = data;
+        this.courseYears = data?.data?.data || [];
         // console.log('Course Years:', this.courseYears);
       },
       error: (err) => {

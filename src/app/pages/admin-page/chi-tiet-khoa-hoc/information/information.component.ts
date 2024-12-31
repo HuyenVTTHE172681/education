@@ -127,7 +127,7 @@ export class InformationComponent implements OnInit {
   getCourseYears() {
     this.courseSrv.getCourseYear('', 0, 1000, -1).subscribe({
       next: (data) => {
-        this.courseYears = data || [];
+        this.courseYears = data?.data?.data || [];
       }, error: (err) => {
         this.messageService.add({
           severity: 'danger',
