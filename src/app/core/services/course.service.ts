@@ -4,8 +4,8 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { API_URL } from '../../environments/constants';
-import { IResponeList, IResponeListData } from '../models/common.model';
 import { Course } from '../models/course.model';
+import { IResponseList, IResponseListData } from '../models/common.model';
 
 @Injectable({
   providedIn: 'root',
@@ -51,19 +51,18 @@ export class CourseService {
     status: number = -1,
     subjectId: string = '',
     teacherId: string = ''
-  ): Observable<IResponeList<Course>> {
-    const offset = (page - 1) * size;
-    const query = `?accountId=${accountId}&callFromAdmin=${callFromAdmin}&classId=${classId}&filter=${filter}&isPayment=${isPayment}&offSet=${offset}&pageSize=${size}&status=${status}&subjectId=${subjectId}&teacherId=${teacherId}`;
+  ): Observable<IResponseList<Course>> {
 
+    const query = `?accountId=${accountId}&callFromAdmin=${callFromAdmin}&classId=${classId}&filter=${filter}&isPayment=${isPayment}&offSet=${(page - 1) * size}&pageSize=${size}&status=${status}&subjectId=${subjectId}&teacherId=${teacherId}`;
     const apiUrl = `${this.apiBaseUrl}/Course${query}`;
-    console.log("Api to all course:", apiUrl);
 
-    return this.http.get<IResponeList<Course>>(apiUrl).pipe(
+    return this.http.get<IResponseList<Course>>(apiUrl).pipe(
       catchError(this.handleError)
     );
   }
 
   deletedCourseList(id: string) {
+
     const apiUrl = `${this.apiBaseUrl}/Course/${id}`;
 
     const token = localStorage.getItem('token');
@@ -73,7 +72,6 @@ export class CourseService {
 
     return this.http.delete<any>(apiUrl, { headers }).pipe(
       catchError((err: HttpErrorResponse) => {
-        console.error('API EditCourse Error: ', err);
         return throwError(() => new Error(err.message || 'API call failed'));
       })
     );
@@ -83,9 +81,9 @@ export class CourseService {
   getCourseById(
     id: string,
     accountId: string
-  ): Observable<IResponeListData<Course>> {
+  ): Observable<IResponseListData<Course>> {
+
     const apiURL = `${this.apiBaseUrl}/Course/GetCourseByIdCMS?id=${id}&accountId=${accountId}`;
-    console.log('Course ById API URL:', apiURL);
 
     const token = localStorage.getItem('token');
     const headers = token
@@ -93,7 +91,7 @@ export class CourseService {
       : new HttpHeaders();
 
     return this.http
-      .get<IResponeListData<Course>>(apiURL, { headers })
+      .get<IResponseListData<Course>>(apiURL, { headers })
       .pipe(catchError(this.handleError));
   }
 
@@ -103,9 +101,8 @@ export class CourseService {
     pageSize: number,
     status: number
   ): Observable<any[]> {
-    const apiUrl = `${this.apiBaseUrl}/CourseYear?filter=${filter}&offSet=${offSet}&pageSize=${pageSize}&status=${status}`;
 
-    https: console.log('Course Year API URL:', apiUrl);
+    const apiUrl = `${this.apiBaseUrl}/CourseYear?filter=${filter}&offSet=${offSet}&pageSize=${pageSize}&status=${status}`;
 
     const token = localStorage.getItem('token');
     const headers = token
@@ -113,7 +110,7 @@ export class CourseService {
       : new HttpHeaders();
 
     return this.http.get<any>(apiUrl, { headers }).pipe(
-      map((response) => response?.data?.data || []) // Trích xuất mảng `data.data` từ phản hồi
+      map((response) => response?.data?.data || [])
     );
   }
 
@@ -124,6 +121,7 @@ export class CourseService {
     offSet: number = 0,
     pageSize: number = 10000
   ): Observable<any[]> {
+
     const apiUrl = `${this.apiBaseUrl}/CourseSchedule?courseId=${courseId}&filter=${filter}&offSet=${offSet}&pageSize=${pageSize}`;
     console.log('Course Schedule API url: ', apiUrl);
 
@@ -149,8 +147,8 @@ export class CourseService {
   }
 
   addCourse(data: any): Observable<any> {
+
     const apiUrl = `${this.apiBaseUrl}/CourseSchedule`;
-    console.log("Api add course: ", apiUrl)
 
     const token = localStorage.getItem('token');
     const headers = token

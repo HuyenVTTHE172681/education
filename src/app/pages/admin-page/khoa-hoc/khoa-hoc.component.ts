@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../../../core/services/course.service';
 import { Course } from '../../../core/models/course.model';
 import { Subject as SubjectModel } from '../../../core/models/subject.model';
-import { IResponeList } from '../../../core/models/common.model';
+import { IResponseList } from '../../../core/models/common.model';
 import { Router } from '@angular/router';
 import { ClassRoom } from '../../../core/models/classRoom.model';
 import { Teacher } from '../../../core/models/teacher.model';
@@ -12,7 +12,7 @@ import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { SubjectService } from '../../../core/services/subject.service';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
-import { CONSTANTS, STATUS } from '../../../environments/constants';
+import { CONSTANTS } from '../../../environments/constants';
 import { UtilsService } from '../../../core/utils/utils.service';
 
 @Component({
@@ -106,7 +106,7 @@ export class KhoaHocComponent implements OnInit {
       .getSubjectByCourse(classRoomId, this.query.searchText, this.query.page, this.query.size)
       .subscribe({
         next: (response) => {
-          this.subject = response.data.data;
+          this.subject = response?.data?.data || [];
         },
         error: () => {
           console.error('Error fetching subjects.');
@@ -118,7 +118,7 @@ export class KhoaHocComponent implements OnInit {
     this.teacherSrv
       .getTeachers(this.query.page, this.query.size, this.query.searchText)
       .subscribe({
-        next: (data: IResponeList<Teacher>) => {
+        next: (data: IResponseList<Teacher>) => {
           this.teacher = data?.data?.data || [];
 
         },
@@ -132,7 +132,7 @@ export class KhoaHocComponent implements OnInit {
     this.classRoomSrv
       .getClassRooms(this.query.page, this.query.size, this.query.searchText)
       .subscribe({
-        next: (data: IResponeList<ClassRoom>) => {
+        next: (data: IResponseList<ClassRoom>) => {
           this.classRoom = data?.data?.data || [];
         },
       });
@@ -184,7 +184,7 @@ export class KhoaHocComponent implements OnInit {
       this.selectedSubject || '',
       this.selectedTeacher || ''
     ).subscribe({
-      next: (data: IResponeList<Course>) => {
+      next: (data: IResponseList<Course>) => {
         this.course = data?.data?.data || [];
         this.totalItems = data?.data?.recordsTotal || 0;
       }

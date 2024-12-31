@@ -4,10 +4,10 @@ import { Observable, filter, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { MenuItem } from 'primeng/api';
 import { API_URL } from '../../environments/constants';
-import { IResponeList, IResponeListData } from '../models/common.model';
 import { Dashboard, DashboardAdminCourse, DashboardAdminScore } from '../models/dashboard.model';
 import { User } from '../models/user.model';
 import { Guide } from '../models/guide.model';
+import { IResponseList, IResponseListData } from '../models/common.model';
 
 @Injectable({
     providedIn: 'root',
@@ -26,14 +26,10 @@ export class DashboardService {
         classRoomId: string = '',
         subjectIds: string = '',
         accountId: string = ''
-    ): Observable<IResponeList<Dashboard>> {
+    ): Observable<IResponseList<Dashboard>> {
 
-        // https://hhq.runasp.net/api/Dashboard/GetDashboardAdminOverview?ClassRoomId=&SubjectIds=&accountId=&filter=&offSet=0&pageSize=10
-        const searchValue = filter ? `&filter=${filter}` : '';
         const query = `/Dashboard/GetDashboardAdminOverview?ClassRoomId=${classRoomId}&SubjectIds=${subjectIds}&accountId=${accountId}&filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
-
         const apiURL = `${this.apiBaseUrl}${query}`;
-        console.log('Generated dashboard API URL:', apiURL);
 
         const token = localStorage.getItem('token');
         const headers = token
@@ -41,15 +37,14 @@ export class DashboardService {
             : new HttpHeaders();
 
         return this.http
-            .get<IResponeList<Dashboard>>(apiURL, { headers })
+            .get<IResponseList<Dashboard>>(apiURL, { headers })
             .pipe(catchError(this.handleError));
     }
 
     getDashboardFilterByDate(fromDate: string, toDate: string): Observable<any> {
-        const query = `/Dashboard?fromDate=${fromDate}&toDate=${toDate}`;
 
+        const query = `/Dashboard?fromDate=${fromDate}&toDate=${toDate}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
-        console.log("Api filter dashboard by date:", apiURL);
 
         const token = localStorage.getItem('token');
         const headers = token
@@ -66,21 +61,19 @@ export class DashboardService {
         classRoomId: string = '',
         subjectIds: string = '',
         accountId: string = ''
-    ): Observable<IResponeList<DashboardAdminCourse>> {
+    ): Observable<IResponseList<DashboardAdminCourse>> {
 
-        // https://hhq.runasp.net/api/Dashboard/GetDashboardAdminCourse?ClassRoomId=&SubjectIds=&accountId=&filter=&offSet=0&pageSize=10
         const query = `/Dashboard/GetDashboardAdminCourse?ClassRoomId=${classRoomId}&SubjectIds=${subjectIds}&accountId=${accountId}&filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
-
         const apiURL = `${this.apiBaseUrl}${query}`;
-        console.log('Generated dashboard API URL:', apiURL);
 
         const token = localStorage.getItem('token');
+
         const headers = token
             ? new HttpHeaders({ Authorization: `Bearer ${token}` })
             : new HttpHeaders();
 
         return this.http
-            .get<IResponeList<DashboardAdminCourse>>(apiURL, { headers })
+            .get<IResponseList<DashboardAdminCourse>>(apiURL, { headers })
             .pipe(catchError(this.handleError));
     }
 
@@ -90,13 +83,10 @@ export class DashboardService {
         courseYearId: string = '',
         subjectId: string = '',
         teacherId: string = '',
-    ): Observable<IResponeList<any>> {
+    ): Observable<IResponseList<any>> {
 
-        //https://hhq.runasp.net/api/Dashboard/GetDashboardAdminCourseDetail?classRoomId=&courseYearId=&subjectId=&teacherId=
         const query = `/Dashboard/GetDashboardAdminCourseDetail?classRoomId=${classRoomId}&courseId=${courseId}&courseYearId=${courseYearId}&subjectId=${subjectId}&teacherId=${teacherId}`;
-
         const apiURL = `${this.apiBaseUrl}${query}`;
-        console.log('Generated dashboard API URL:', apiURL);
 
         const token = localStorage.getItem('token');
         const headers = token
@@ -104,7 +94,7 @@ export class DashboardService {
             : new HttpHeaders();
 
         return this.http
-            .get<IResponeList<any>>(apiURL, { headers })
+            .get<IResponseList<any>>(apiURL, { headers })
             .pipe(catchError(this.handleError));
     }
 
@@ -115,13 +105,10 @@ export class DashboardService {
         filter: string = '',
         page: number,
         size: number,
-    ): Observable<IResponeList<DashboardAdminScore>> {
+    ): Observable<IResponseList<DashboardAdminScore>> {
 
-        // https://hhq.runasp.net/api/Dashboard/GetDashboardAdminScore?ClassRoomId=&SubjectIds=&accountId=&filter=&offSet=0&pageSize=10
         const query = `/Dashboard/GetDashboardAdminScore?ClassRoomId=${classRoomId}&SubjectIds=${subjectIds}&accountId=${accountId}&filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
-
         const apiURL = `${this.apiBaseUrl}${query}`;
-        console.log('Generated dashboard API URL:', apiURL);
 
         const token = localStorage.getItem('token');
         const headers = token
@@ -129,7 +116,7 @@ export class DashboardService {
             : new HttpHeaders();
 
         return this.http
-            .get<IResponeList<DashboardAdminScore>>(apiURL, { headers })
+            .get<IResponseList<DashboardAdminScore>>(apiURL, { headers })
             .pipe(catchError(this.handleError));
     }
 
@@ -138,13 +125,10 @@ export class DashboardService {
         page: number,
         size: number,
         screen: string = 'admin',
-    ): Observable<IResponeList<Guide>> {
+    ): Observable<IResponseList<Guide>> {
 
-        // https://hhq.runasp.net/api/Guide?filter=&offSet=0&pageSize=1000&screen=admin
         const query = `/Guide?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}&screen=${screen}`;
-
         const apiURL = `${this.apiBaseUrl}${query}`;
-        console.log('Generated dashboard API URL:', apiURL);
 
         const token = localStorage.getItem('token');
         const headers = token
@@ -152,7 +136,7 @@ export class DashboardService {
             : new HttpHeaders();
 
         return this.http
-            .get<IResponeList<Guide>>(apiURL, { headers })
+            .get<IResponseList<Guide>>(apiURL, { headers })
             .pipe(catchError(this.handleError));
     }
 
@@ -162,13 +146,10 @@ export class DashboardService {
         size: number,
         roleId: string = '',
         roleTypeDataId: string = '',
-    ): Observable<IResponeList<User>> {
+    ): Observable<IResponseList<User>> {
 
-        //https://hhq.runasp.net/api/Account?filter=&offSet=0&pageSize=100000&roleId&roleTypeDataId
         const query = `/Account?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}&roleId=${roleId}&roleTypeDataId=${roleTypeDataId}`;
-
         const apiURL = `${this.apiBaseUrl}${query}`;
-        console.log('Generated dashboard API URL:', apiURL);
 
         const token = localStorage.getItem('token');
         const headers = token
@@ -176,7 +157,7 @@ export class DashboardService {
             : new HttpHeaders();
 
         return this.http
-            .get<IResponeList<User>>(apiURL, { headers })
+            .get<IResponseList<User>>(apiURL, { headers })
             .pipe(catchError(this.handleError));
     }
 
@@ -184,13 +165,10 @@ export class DashboardService {
         filter: string = '',
         page: number,
         size: number,
-    ): Observable<IResponeList<any>> {
+    ): Observable<IResponseList<any>> {
 
-        //https://hhq.runasp.net/api/Role?filter=&offSet=0&pageSize=1000
         const query = `/Role?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
-
         const apiURL = `${this.apiBaseUrl}${query}`;
-        console.log('Generated dashboard API URL:', apiURL);
 
         const token = localStorage.getItem('token');
         const headers = token
@@ -198,7 +176,7 @@ export class DashboardService {
             : new HttpHeaders();
 
         return this.http
-            .get<IResponeList<any>>(apiURL, { headers })
+            .get<IResponseList<any>>(apiURL, { headers })
             .pipe(catchError(this.handleError));
     }
 
@@ -206,13 +184,10 @@ export class DashboardService {
         filter: string = '',
         page: number,
         size: number,
-    ): Observable<IResponeList<any>> {
+    ): Observable<IResponseList<any>> {
 
-        //https://hhq.runasp.net/api/RoleDataType?filter=&offSet=0&pageSize=1000
         const query = `/RoleDataType?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
-
         const apiURL = `${this.apiBaseUrl}${query}`;
-        console.log('Generated dashboard API URL:', apiURL);
 
         const token = localStorage.getItem('token');
         const headers = token
@@ -220,19 +195,16 @@ export class DashboardService {
             : new HttpHeaders();
 
         return this.http
-            .get<IResponeList<any>>(apiURL, { headers })
+            .get<IResponseList<any>>(apiURL, { headers })
             .pipe(catchError(this.handleError));
     }
 
     getAccountDetail(
         id: string
-    ): Observable<IResponeListData<User>> {
+    ): Observable<IResponseListData<User>> {
 
-        // https://hhq.runasp.net/api/Account/021CBE66-81A3-4F43-A7F3-00D31823D08C
         const query = `/Account/${id}`;
-
         const apiURL = `${this.apiBaseUrl}${query}`;
-        console.log('Generated dashboard API URL:', apiURL);
 
         const token = localStorage.getItem('token');
         const headers = token
@@ -240,23 +212,22 @@ export class DashboardService {
             : new HttpHeaders();
 
         return this.http
-            .get<IResponeListData<User>>(apiURL, { headers })
+            .get<IResponseListData<User>>(apiURL, { headers })
             .pipe(catchError(this.handleError));
     }
 
-    updateAccount(account: any): Observable<IResponeListData<User>> {
-        // https://hhq.runasp.net/api/account/SetAccountUser
-        const query = `/account/SetAccountUser`;
+    updateAccount(account: any): Observable<IResponseListData<User>> {
 
+        const query = `/account/SetAccountUser`;
         const apiURL = `${this.apiBaseUrl}${query}`;
-        console.log('Generated dashboard API URL:', apiURL);
 
         const token = localStorage.getItem('token');
         const headers = token
             ? new HttpHeaders({ Authorization: `Bearer ${token}` })
             : new HttpHeaders();
+            
         return this.http
-            .post<IResponeListData<User>>(apiURL, account, { headers })
+            .post<IResponseListData<User>>(apiURL, account, { headers })
             .pipe(catchError(this.handleError));
     }
 
@@ -264,13 +235,10 @@ export class DashboardService {
         filter: string = '',
         page: number,
         size: number,
-    ): Observable<IResponeList<User>> {
+    ): Observable<IResponseList<User>> {
 
-        // https://hhq.runasp.net/api/Account/GetAccountsNotTeacher?filter=&offSet=0&pageSize=100000
         const query = `/Account/GetAccountsNotTeacher?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
-
         const apiURL = `${this.apiBaseUrl}${query}`;
-        console.log('Generated dashboard API URL:', apiURL);
 
         const token = localStorage.getItem('token');
         const headers = token
@@ -278,7 +246,7 @@ export class DashboardService {
             : new HttpHeaders();
 
         return this.http
-            .get<IResponeList<User>>(apiURL, { headers })
+            .get<IResponseList<User>>(apiURL, { headers })
             .pipe(catchError(this.handleError));
     }
 

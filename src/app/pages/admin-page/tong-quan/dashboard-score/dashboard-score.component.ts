@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../../../../core/services/dashboard.service';
 import { ClassRoom } from '../../../../core/models/classRoom.model';
-import { IResponeList } from '../../../../core/models/common.model';
+import { IResponseList } from '../../../../core/models/common.model';
 import { CourseService } from '../../../../core/services/course.service';
 import { ClassRoomService } from '../../../../core/services/classRoom.service';
 import { Subject as SubjectModel } from '../../../../core/models/subject.model';
@@ -40,9 +40,8 @@ export class DashboardScoreComponent implements OnInit {
 
   getDashboardAdminScore() {
     this.dashboardSrv.getDashboardAdminScore(this.selectedClassroom, this.selectedSubject || '', this.query.accountId, this.query.filter, this.query.page, this.query.size).subscribe({
-      next: (data: IResponeList<DashboardAdminScore>) => {
+      next: (data: IResponseList<DashboardAdminScore>) => {
         this.dashboardAdminScore = data?.data?.data || [];
-        // console.log("Admin course: ", this.dashboardAdminScore)
       }
     })
   }
@@ -52,7 +51,7 @@ export class DashboardScoreComponent implements OnInit {
     this.classRoomSrv
       .getClassRooms(this.query.page, this.query.size, this.query.searchText)
       .subscribe({
-        next: (data: IResponeList<ClassRoom>) => {
+        next: (data: IResponseList<ClassRoom>) => {
           this.classRoom = data?.data?.data || [];
         },
       });

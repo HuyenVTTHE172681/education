@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClassRoomService } from '../../../../core/services/classRoom.service';
 import { DashboardService } from '../../../../core/services/dashboard.service';
-import { IResponeList } from '../../../../core/models/common.model';
+import { IResponseList } from '../../../../core/models/common.model';
 import { ClassRoom } from '../../../../core/models/classRoom.model';
 import { Subject as SubjectModel } from '../../../../core/models/subject.model';
 import { Subject } from 'rxjs';
@@ -38,9 +38,8 @@ export class DashboardCourseComponent implements OnInit {
 
   getDashboardAdminCourse() {
     this.dashboardSrv.getDashboardAdminCourse(this.query.page, this.query.size, this.query.filter, this.selectedClassroom || '', this.selectedSubject || '', this.query.accountId).subscribe({
-      next: (data: IResponeList<DashboardAdminCourse>) => {
+      next: (data: IResponseList<DashboardAdminCourse>) => {
         this.adminCourse = data?.data?.data || [];
-        // console.log("Admin course: ", this.adminCourse)
       }
     })
   }
@@ -50,7 +49,7 @@ export class DashboardCourseComponent implements OnInit {
     this.classRoomSrv
       .getClassRooms(this.query.page, this.query.size, this.query.searchText)
       .subscribe({
-        next: (data: IResponeList<ClassRoom>) => {
+        next: (data: IResponseList<ClassRoom>) => {
           this.classRoom = data?.data?.data || [];
         },
       });
@@ -65,7 +64,6 @@ export class DashboardCourseComponent implements OnInit {
           this.subject = response?.data?.data || [];
         },
         error: () => {
-          // console.error('Error fetching subjects.');
           alert('Error fetching subjects.');
         },
       });
@@ -76,7 +74,6 @@ export class DashboardCourseComponent implements OnInit {
     this.searchSubject.next(this.query.filter);
   }
   searchCourse(): void {
-    // console.log('Searching with filter:', this.filter);
     this.query.page = 1;
     this.getDashboardAdminCourse();
   }

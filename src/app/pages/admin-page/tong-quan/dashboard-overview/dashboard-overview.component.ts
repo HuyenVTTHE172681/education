@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Subject as SubjectModel } from "../../../../core/models/subject.model";
 import { Dashboard } from "../../../../core/models/dashboard.model";
-import { IResponeList } from "../../../../core/models/common.model";
+import { IResponseList } from "../../../../core/models/common.model";
 import { Subject } from "rxjs";
 import { DashboardService } from "../../../../core/services/dashboard.service";
 import { ClassRoomService } from "../../../../core/services/classRoom.service";
@@ -40,7 +40,7 @@ export class DashboardOverviewComponent implements OnInit {
 
   getDashboard() {
     this.dashboardSrv.getDashboardAdminOverview(this.query.page, this.query.size, this.query.filter, this.selectedClassroom || '', this.selectedSubject || '', this.query.accountId).subscribe({
-      next: (data: IResponeList<Dashboard>) => {
+      next: (data: IResponseList<Dashboard>) => {
         this.dashboard = data?.data?.data || [];
         // console.log("Filter: ", this.filter);
         // console.log("Selected classrôm: ", this.selectedClassroom);
@@ -56,7 +56,7 @@ export class DashboardOverviewComponent implements OnInit {
     this.classRoomSrv
       .getClassRooms(this.query.page, this.query.size, this.query.searchText)
       .subscribe({
-        next: (data: IResponeList<ClassRoom>) => {
+        next: (data: IResponseList<ClassRoom>) => {
           this.classRoom = data?.data?.data || [];
         },
       });
@@ -83,7 +83,6 @@ export class DashboardOverviewComponent implements OnInit {
     this.searchSubject.next(this.query.filter);
   }
   searchCourse(): void {
-    // console.log('Searching with filter:', this.filter);
     this.query.page = 1;
     this.getDashboard();
   }

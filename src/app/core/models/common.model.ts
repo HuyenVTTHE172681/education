@@ -1,4 +1,4 @@
-export interface IResponeList<T> {
+export interface IResponseList<T> {
   statusCode: number;
   message: string;
   status: string;
@@ -10,7 +10,7 @@ export interface IResponeList<T> {
 }
 
 
-export interface IResponeListData<T> {
+export interface IResponseListData<T> {
   statusCode: number;
   message: string;
   status: string;

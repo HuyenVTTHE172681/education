@@ -3,8 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { API_URL } from '../../environments/constants';
-import { IResponeList, IResponeListData } from '../models/common.model';
-import { User } from '../models/user.model';
+import { IResponseList } from '../models/common.model';
 import { Payment } from '../models/payment.model';
 
 @Injectable({
@@ -22,13 +21,10 @@ export class PaymentService {
         isPayment: number = -1,
         page: number,
         size: number,
-    ): Observable<IResponeList<Payment>> {
+    ): Observable<IResponseList<Payment>> {
 
-        // https://hhq.runasp.net/api/Payment?filter=&isPayment=-1&offSet=0&pageSize=10
         const query = `/Payment?filter=${filter}&isPayment=${isPayment}&offSet=${(page - 1) * size}&pageSize=${size}`;
-
         const apiURL = `${this.apiBaseUrl}${query}`;
-        console.log('Generated dashboard API URL:', apiURL);
 
         const token = localStorage.getItem('token');
         const headers = token
@@ -36,7 +32,7 @@ export class PaymentService {
             : new HttpHeaders();
 
         return this.http
-            .get<IResponeList<Payment>>(apiURL, { headers })
+            .get<IResponseList<Payment>>(apiURL, { headers })
             .pipe(catchError(this.handleError));
     }
 
@@ -64,9 +60,7 @@ export class PaymentService {
         statusCode: number;
         data: { valid: boolean; messages: string };
     }> {
-        // https://hhq.runasp.net/api/Payment/ChangePaymentStatus
         const apiUrl = `${this.apiBaseUrl}/Payment/ChangePaymentStatus`;
-        console.log('Set Status API URL:', apiUrl);
 
         const token = localStorage.getItem('token');
         const headers = token

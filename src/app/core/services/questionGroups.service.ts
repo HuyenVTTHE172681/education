@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, throwError, filter } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { API_URL } from '../../environments/constants';
-import { IResponeList, IResponeListData } from '../models/common.model';
+import { IResponseList, IResponseListData } from '../models/common.model';
 import { Question, QuestionGroups, TestQuestionChangePublicStatus, TestQuestionGroup, TestQuestionNewById, TestQuestionType } from '../models/question.model';
 
 @Injectable({
@@ -21,7 +21,7 @@ export class QuestionGroupsService {
         page: number,
         size: number,
         status: number
-    ): Observable<IResponeList<QuestionGroups>> {
+    ): Observable<IResponseList<QuestionGroups>> {
 
         const query = `/TestQuestionGroup?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}&status=${status}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
@@ -32,21 +32,21 @@ export class QuestionGroupsService {
             : new HttpHeaders();
 
         return this.http
-            .get<IResponeList<QuestionGroups>>(apiURL, { headers })
+            .get<IResponseList<QuestionGroups>>(apiURL, { headers })
             .pipe(catchError(this.handleError));
     }
 
-    getQuestionGroupsById(id: number): Observable<IResponeListData<QuestionGroups>> {
+    getQuestionGroupsById(id: number): Observable<IResponseListData<QuestionGroups>> {
 
         const query = `/TestQuestionGroup/${id}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
         return this.http
-            .get<IResponeListData<QuestionGroups>>(apiURL)
+            .get<IResponseListData<QuestionGroups>>(apiURL)
             .pipe(catchError(this.handleError));
     }
 
-    updateQuestionGroup(questionGroup: any): Observable<IResponeListData<QuestionGroups>> {
+    updateQuestionGroup(questionGroup: any): Observable<IResponseListData<QuestionGroups>> {
 
         const query = `/TestQuestionGroup`;
         const apiURL = `${this.apiBaseUrl}${query}`;
@@ -57,7 +57,7 @@ export class QuestionGroupsService {
             : new HttpHeaders();
 
         return this.http
-            .post<IResponeListData<QuestionGroups>>(apiURL, questionGroup, { headers })
+            .post<IResponseListData<QuestionGroups>>(apiURL, questionGroup, { headers })
             .pipe(catchError(this.handleError));
     }
 

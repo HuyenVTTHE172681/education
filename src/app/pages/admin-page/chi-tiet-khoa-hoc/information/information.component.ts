@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClassRoomService } from '../../../../core/services/classRoom.service';
-import { IResponeList } from '../../../../core/models/common.model';
+import { IResponseList } from '../../../../core/models/common.model';
 import { ClassRoom } from '../../../../core/models/classRoom.model';
 import { Teacher } from '../../../../core/models/teacher.model';
 import { TeacherService } from '../../../../core/services/teacher.service';
@@ -127,7 +127,7 @@ export class InformationComponent implements OnInit {
   getCourseYears() {
     this.courseSrv.getCourseYear('', 0, 1000, -1).subscribe({
       next: (data) => {
-        this.courseYears = data;
+        this.courseYears = data || [];
       }, error: (err) => {
         this.messageService.add({
           severity: 'danger',
@@ -143,7 +143,7 @@ export class InformationComponent implements OnInit {
     this.classRoomSrv
       .getClassRooms(this.page, this.size, this.searchText)
       .subscribe({
-        next: (data: IResponeList<ClassRoom>) => {
+        next: (data: IResponseList<ClassRoom>) => {
           this.classRoom = data?.data?.data || [];
         },
       });
@@ -153,7 +153,7 @@ export class InformationComponent implements OnInit {
     this.teacherSrv
       .getTeachers(this.page, this.size, this.searchText)
       .subscribe({
-        next: (data: IResponeList<Teacher>) => {
+        next: (data: IResponseList<Teacher>) => {
           this.teacher = data?.data?.data || [];
 
           this.courseForm.get('teacher')?.enable();

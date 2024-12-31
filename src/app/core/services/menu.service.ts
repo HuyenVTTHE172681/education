@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { MenuItem } from 'primeng/api';
 import { API_URL } from '../../environments/constants';
-import { IResponeList } from '../models/common.model';
+import { IResponseList } from '../models/common.model';
 
 @Injectable({
   providedIn: 'root',
@@ -22,16 +22,13 @@ export class MenuService {
     filter: string = '',
     screen: string = '',
     status: number = 1
-  ): Observable<IResponeList<MenuItem>> {
+  ): Observable<IResponseList<MenuItem>> {
 
-    // https://hhq.runasp.net/api/Menu/GetMenusTree?filter=&offSet=0&pageSize=100&screen=user&status=1
     const query = `/Menu/GetMenusTree?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}&screen=${screen}&status=${status}`;
-
     const apiURL = `${this.apiBaseUrl}${query}`;
-    console.log('Generated API URL:', apiURL);
 
     return this.http
-      .get<IResponeList<MenuItem>>(apiURL)
+      .get<IResponseList<MenuItem>>(apiURL)
       .pipe(catchError(this.handleError));
   }
 
@@ -41,16 +38,13 @@ export class MenuService {
     filter: string = '',
     screen: string = '',
     status: number = 1
-  ): Observable<IResponeList<MenuItem>> {
+  ): Observable<IResponseList<MenuItem>> {
 
-    // https://hhq.runasp.net/api/Menu/GetMenusTree?filter=&offSet=0&pageSize=100&screen=admin&status=1
     const query = `/Menu/GetMenusTree?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}&screen=${screen}&status=${status}`;
-
     const apiURL = `${this.apiBaseUrl}${query}`;
-    console.log('Generated API URL:', apiURL);
 
     return this.http
-      .get<IResponeList<MenuItem>>(apiURL)
+      .get<IResponseList<MenuItem>>(apiURL)
       .pipe(catchError(this.handleError));
   }
 

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TestAbilityService } from '../../../core/services/test-ability.service';
 import { Test } from '../../../core/models/test.model';
-import { IResponeList } from '../../../core/models/common.model';
-import { ClassRoom } from '../../../core/models/classRoom.model';
+import { IResponseList } from '../../../core/models/common.model';
 
 @Component({
   selector: 'app-test-ability',
@@ -47,7 +46,7 @@ export class TestAbilityComponent implements OnInit {
         this.isFromCMS
       )
       .subscribe({
-        next: (data: IResponeList<Test>) => {
+        next: (data: IResponseList<Test>) => {
           this.testAbilities = data?.data?.data || [];
           this.totalItems = data?.data?.recordsTotal || 0;
         },

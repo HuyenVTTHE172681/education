@@ -3,7 +3,7 @@ import { ClassRoomService } from '../../../../core/services/classRoom.service';
 import { CourseService } from '../../../../core/services/course.service';
 import { DashboardService } from '../../../../core/services/dashboard.service';
 import { TeacherService } from '../../../../core/services/teacher.service';
-import { IResponeList } from '../../../../core/models/common.model';
+import { IResponseList } from '../../../../core/models/common.model';
 import { Subject as SubjectModel } from '../../../../core/models/subject.model';
 import { ClassRoom } from '../../../../core/models/classRoom.model';
 import { Course, CourseYear } from '../../../../core/models/course.model';
@@ -53,7 +53,7 @@ export class DashboardCourseDetailComponent implements OnInit {
 
   getDashboardAdminCourseDetail() {
     this.dashboardSrv.getDashboardAdminCourseDetail(this.selectedClassroom || '', this.selectedCourse || '', this.selectedCourseYear || '', this.selectedSubject || '', this.selectedTeacher || '').subscribe({
-      next: (data: IResponeList<any>) => {
+      next: (data: IResponseList<any>) => {
         this.dashboardAdminCourseDetail = data?.data?.data || [];
         // console.log("Admin course: ", this.dashboardAdminCourseDetail)
       }
@@ -81,7 +81,7 @@ export class DashboardCourseDetailComponent implements OnInit {
     this.classRoomSrv
       .getClassRooms(this.query.page, this.query.size, this.query.searchText)
       .subscribe({
-        next: (data: IResponeList<ClassRoom>) => {
+        next: (data: IResponseList<ClassRoom>) => {
           this.classRoom = data?.data?.data || [];
         },
       });
@@ -101,7 +101,7 @@ export class DashboardCourseDetailComponent implements OnInit {
       this.selectedSubject || '',
       this.selectedTeacher || ''
     ).subscribe({
-      next: (data: IResponeList<Course>) => {
+      next: (data: IResponseList<Course>) => {
         this.course = data?.data?.data || [];
         // console.log("Course: ", this.course)
       }
@@ -116,7 +116,6 @@ export class DashboardCourseDetailComponent implements OnInit {
         // console.log('Course Years:', this.courseYears);
       },
       error: (err) => {
-        // console.error('Error loading course years:', err);
         alert('Error loading course years.');
       },
     });
@@ -127,12 +126,10 @@ export class DashboardCourseDetailComponent implements OnInit {
     this.teacherSrv
       .getTeachers(this.query.page, this.query.size, this.query.searchText)
       .subscribe({
-        next: (data: IResponeList<Teacher>) => {
+        next: (data: IResponseList<Teacher>) => {
           this.teacher = data?.data?.data || [];
-          // console.log('Teacher: ', this.teacher);
         },
         error: (err) => {
-          // console.log('Error loading teachers: ', err);
           alert('Error loading teachers.');
         },
       });

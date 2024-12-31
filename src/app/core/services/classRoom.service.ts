@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable, filter, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { MenuItem } from 'primeng/api';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { API_URL } from '../../environments/constants';
-import { IResponeList, IResponeListData } from '../models/common.model';
 import { ClassRoom } from '../models/classRoom.model';
+import { IResponseList, IResponseListData } from '../models/common.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,29 +20,29 @@ export class ClassRoomService {
     page: number,
     size: number,
     filter: string = ''
-  ): Observable<IResponeList<ClassRoom>> {
+  ): Observable<IResponseList<ClassRoom>> {
 
     const query = `/ClassRoom?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
     const apiURL = `${this.apiBaseUrl}${query}`;
 
     return this.http
-      .get<IResponeList<ClassRoom>>(apiURL)
+      .get<IResponseList<ClassRoom>>(apiURL)
       .pipe(catchError(this.handleError));
   }
 
   getClassRoomWithId(
     id: string
-  ): Observable<IResponeListData<ClassRoom>> {
+  ): Observable<IResponseListData<ClassRoom>> {
 
     const query = `/ClassRoom/${id}`;
     const apiURL = `${this.apiBaseUrl}${query}`;
 
     return this.http
-      .get<IResponeListData<ClassRoom>>(apiURL)
+      .get<IResponseListData<ClassRoom>>(apiURL)
       .pipe(catchError(this.handleError));
   }
 
-  updateClassRoom(classroom: any): Observable<IResponeListData<ClassRoom>> {
+  updateClassRoom(classroom: any): Observable<IResponseListData<ClassRoom>> {
 
     const query = `/ClassRoom`;
     const apiURL = `${this.apiBaseUrl}${query}`;
@@ -55,7 +54,7 @@ export class ClassRoomService {
       : new HttpHeaders();
 
     return this.http
-      .post<IResponeListData<ClassRoom>>(apiURL, classroom, { headers })
+      .post<IResponseListData<ClassRoom>>(apiURL, classroom, { headers })
       .pipe(catchError(this.handleError));
   }
 
@@ -63,14 +62,13 @@ export class ClassRoomService {
 
     const apiUrl = `${this.apiBaseUrl}/ClassRoom/${id}`;
     const token = localStorage.getItem('token');
-    
+
     const headers = token
       ? new HttpHeaders({ Authorization: `Bearer ${token}` })
       : new HttpHeaders();
 
     return this.http.delete<any>(apiUrl, { headers }).pipe(
       catchError((err: HttpErrorResponse) => {
-        console.error('API EditCourse Error: ', err);
         return throwError(() => new Error(err.message || 'API call failed'));
       })
     );
