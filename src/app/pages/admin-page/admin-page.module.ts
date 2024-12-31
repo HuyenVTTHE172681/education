@@ -73,6 +73,7 @@ import { ToastModule } from 'primeng/toast';
 import { ChiTietCauHoiComponent } from './cau-hoi/chi-tiet-cau-hoi/chi-tiet-cau-hoi.component';
 import { NhomCauHoiComponent } from './nhom-cau-hoi/nhom-cau-hoi.component';
 import { NamHocComponent } from './nam-hoc/nam-hoc.component';
+import { DiemThiComponent } from './diem-thi/diem-thi.component';
 
 register(); // Register Swiper
 @NgModule({
@@ -113,6 +114,7 @@ register(); // Register Swiper
     ChiTietCauHoiComponent,
     NhomCauHoiComponent,
     NamHocComponent,
+    DiemThiComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,184 @@
+<p-toast position="bottom-right" key="br" />
+<p-confirmDialog />
+
+<div class="diem-thi customer-table common-content">
+    <p-table [value]="listScores" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows"
+        [scrollable]="true" scrollHeight="600px">
+
+        <ng-template pTemplate="caption">
+            <div class="grid align-items-end">
+                <div class="col-12 md:col-4">
+                    <p-breadcrumb class="max-w-full" [model]="breadcrumb" [home]="home" />
+                    <div class="header-title hidden-mobile">Khóa học</div>
+                </div>
+                <div class="col-12 md:col-8 text-right flex justify-content-end align-items-end">
+                    <div class="mr-2 text-left search">
+                        <label for="search">Tìm kiếm: </label>
+                        <p-inputGroup [style.height.px]="32">
+                            <input type="text" pInputText placeholder="Nhập nội dung tìm kiếm" severity="secondary" />
+                            <button type="button" pButton icon="pi pi-search" [outlined]="true"
+                                severity="secondary"></button>
+                        </p-inputGroup>
+                    </div>
+                    <!-- <p-button class="mr-2" label="Bộ lọc" icon="pi pi-sliders-h" menu.toggle($event)/> -->
+                    <p-button class="mr-2" label="Bộ lọc" (onClick)="op.toggle($event)" icon="pi pi-sliders-h" />
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 70px"></th>
+                <th style="width: 70px"></th>
+                <th style="width: 200px; left: 136px" pSortableColumn="name">Tên người dùng </th>
+                <th style="width: 150px" pSortableColumn="price">Tên bài thi</th>
+                <th style="width: 150px" pSortableColumn="category">Điện thoại </th>
+                <th style="width: 150px" pSortableColumn="rating">Email </th>
+                <th style="width: 150px" pSortableColumn="inventoryStatus">Tổng điểm </th>
+                <th style="width: 150px" pSortableColumn="inventoryStatus">Tổng câu đúng </th>
+                <th style="width: 150px" pSortableColumn="inventoryStatus">Tổng câu sai </th>
+                <th style="width: 150px" pSortableColumn="inventoryStatus">Gửi mail </th>
+                <th style="width: 150px" pSortableColumn="inventoryStatus">Có tự luận </th>
+                <th style="width: 200px;" pSortableColumn="inventoryStatus">Ngày tạo </th>
+                <th style="width: 200px" pSortableColumn="inventoryStatus">NGày hoàn thành </th>
+                <th style="width: 200px" pSortableColumn="inventoryStatus">Ngày sửa </th>
+                <th style="width: 200px" pSortableColumn="inventoryStatus">Người sửa </th>
+                <th style="width: 200px" pSortableColumn="inventoryStatus">Lớp </th>
+                <th style="width: 200px" pSortableColumn="inventoryStatus">Môn học </th>
+                <th style="width: 200px" pSortableColumn="inventoryStatus">Khóa học </th>
+                <th style="width: 200px" pSortableColumn="inventoryStatus">Ghi chú </th>
+
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-scores let-expanded="expanded">
+            <tr>
+                <td>
+                    <p-button type="button" pRipple [pRowToggler]="scores" [text]="true" [rounded]="true" [plain]="true"
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                </td>
+                <td></td>
+                <td>{{ scores?.userName }}</td>
+                <td>{{ scores?.testName }}</td>
+                <td>{{ scores?.userPhone }}</td>
+                <td>{{ scores?.userEmail }}</td>
+                <td>{{ scores?.totalPointPass }} / {{ scores?.totalPoint }}</td>
+                <td>{{ scores?.totalPointPass }}</td>
+                <td>{{ scores?.totalWrong }}</td>
+                <td>{{ scores?.isSendMail }}</td>
+                <td>{{ scores?.isHaveEssay }}</td>
+                <td>{{ scores?.createdDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+                <td>{{ scores?.modifiedDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+                <td>{{ scores?.modifiedBy }}</td>
+                <td>{{ scores?.classRoomName }}</td>
+                <td>{{ scores?.subjectName }}</td>
+                <td>{{ scores?.courseName }}</td>
+                <td>{{ scores?.comment }}</td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="rowexpansion" let-product>
+            <tr>
+                <td colspan="5">
+                    <div class="p-3">
+                        <p-table [value]="product.orders" dataKey="id">
+                            <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 50px"></th>
+                <th style="width: 200px">Tên bài thi</th>
+                <th style="width: 150px">Tổng điểm</th>
+                <th style="width: 150px">Tổng câu đúng</th>
+                <th style="width: 150px">Tổng câu sai</th>
+                <th style="width: 150px">Gửi mail</th>
+                <th style="width: 150px">Có tự luận</th>
+                <th style="width: 150px">Ngày tạo</th>
+                <th style="width: 150px">Ngày hoàn thành</th>
+                <th style="width: 150px">Ngày sửa</th>
+                <th style="width: 150px">Người sửa</th>
+                <th style="width: 150px">Ghi chú</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-order>
+            <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="6">There are no order for this product yet.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+</td>
+</tr>
+</ng-template>
+</p-table>
+
+<!-- <div class="flex align-items-center justify-content-start" style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: flex-end;
+                  gap: 10px;
+                ">
+    <p-paginator [rows]="query.size" [totalRecords]="totalItems" [first]="(query.page - 1) * query.size"
+        (onPageChange)="onPageChange($event)"></p-paginator>
+
+    <div class="flex justify-content-center align-items-center gap-3">
+        <span>Từ {{ (query.page - 1) * query.size + 1 }} đến {{ totalItems }}</span>
+    </div>
+</div> -->
+</div>
+
+
+<!-- Popup view to edit/deleted -->
+<div class="card flex justify-content-center">
+    <p-menu #menu [model]="items" [popup]="true" />
+</div>
+
+
+<p-overlayPanel #op>
+    <div class="flex flex-column gap-3 w-25rem">
+        <div>
+            <span class="font-medium text-900 block mb-2">Tìm kiếm nâng cao</span>
+        </div>
+        <div>
+            <ul class="list-none p-0 m-0 flex flex-column gap-3">
+                <li class="align-items-center ">
+                    <p-dropdown optionLabel="name" optionValue="id" [filter]="true" filterBy="name" [showClear]="true"
+                        [style]="{'width':'100%'}" placeholder="Giáo viên">
+                    </p-dropdown>
+                </li>
+
+                <li class="align-items-center mt-2">
+                    <p-dropdown optionLabel="name" optionValue="id" [filter]="true" filterBy="name" [showClear]="true"
+                        [style]="{'width':'100%'}" placeholder="Lớp học">
+                    </p-dropdown>
+                </li>
+
+                <li class="align-items-center mt-2">
+                    <p-dropdown optionLabel="name" optionValue="id" [filter]="true" filterBy="name" [showClear]="true"
+                        [style]="{'width':'100%'}" placeholder="Môn học">
+                    </p-dropdown>
+                </li>
+            </ul>
+        </div>
+
+        <div class="text-right" style="margin-top: 30px;">
+            <p-button class="mr-2" label="Xuất excel" icon="pi pi-file-excel" severity="success" />
+            <p-button class="mr-2" label="Làm mới" icon="pi pi-sync" severity="secondary" />
+            <p-button label="Tìm kiếm" icon="pi pi-search" />
+        </div>
+    </div>
+</p-overlayPanel>
