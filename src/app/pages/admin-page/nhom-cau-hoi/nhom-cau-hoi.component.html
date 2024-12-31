@@ -2,7 +2,7 @@
 <p-confirmDialog />
 
 <div class="khoa-hoc customer-table common-content">
-    <p-table  dataKey="id" [scrollable]="true" scrollHeight="600px"
+    <p-table [value]="questionGroups" dataKey="id" [scrollable]="true" scrollHeight="600px"
         [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
         [tableStyle]="{ 'min-width': '75rem' }">
 
@@ -17,12 +17,12 @@
                         <label for="search">Tìm kiếm: </label>
                         <p-inputGroup [style.height.px]="32">
                             <input type="text" pInputText placeholder="Nhập nội dung tìm kiếm" severity="secondary"
-                                />
+                                [(ngModel)]="query.filter" (ngModelChange)="onSearchChange($event)" />
                             <button type="button" pButton icon="pi pi-search" [outlined]="true" severity="secondary"
-                                ></button>
+                                (click)="search()"></button>
                         </p-inputGroup>
                     </div>
-                    <p-button label="Thêm mới" icon="pi pi-plus" class="mr-2" />
+                    <p-button label="Thêm mới" icon="pi pi-plus" class="mr-2" (onClick)="showAdd()" />
                     <p-button icon="pi pi-file-excel" severity="success"></p-button>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                 <th pSortableColumn="code" style="width: 150px;">
                     Mã <p-sortIcon field="code" />
                 </th>
-                <th pSortableColumn="code" style="min-width: 300px;">
+                <th pSortableColumn="code" style="min-width: 200px;">
                     Tên nhóm <p-sortIcon field="code" />
                 </th>
                 <th pSortableColumn="code" style="min-width: 200px;">
@@ -48,28 +48,22 @@
                 </th>
             </tr>
         </ng-template>
-        <!-- <ng-template pTemplate="body" let-classRoom>
+        <ng-template pTemplate="body" let-questionGroups>
             <tr style="font-size: 14px;">
                 <td><p-checkbox [binary]="true" inputId="binary" /></td>
                 <td><p-button icon="pi pi-ellipsis-v" [text]="true" severity="secondary"
-                        (onClick)="setSelectedClassRoom(classRoom); menu.toggle($event)" /></td>
+                        (onClick)="setSelectedQuestionGroup(questionGroups); menu.toggle($event)" /></td>
+                <td>{{ questionGroups?.id }}</td>
+                <td>{{ questionGroups?.name }}</td>
                 <td>
-                    <img [src]="classRoom?.avatar" width="50" height="50" class="shadow-4" style="border-radius: 6px" />
+                    <p-button [label]="utilsService.getStatusLabel(questionGroups?.status)" [raised]="true"
+                        [severity]="utilsService.getStatusClass(questionGroups?.status)" />
                 </td>
-                <td class="text-blue-700 pointer">
-                    <a [routerLink]="['/quan-tri/lop-hoc', classRoom?.id]" style="text-decoration: none;">
-                        {{ classRoom?.name }}
-                    </a>
-                </td>
-                <td>
-                    <p-button [label]="utilsService.getStatusLabel(classRoom?.status)" [raised]="true"
-                        [severity]="utilsService.getStatusClass(classRoom?.status)" />
-                </td>
-                <td> {{ classRoom?.order }}</td>
+                <td> {{ questionGroups?.order }}</td>
             </tr>
-        </ng-template> -->
+        </ng-template>
     </p-table>
-    <!-- <div class="flex align-items-center justify-content-start" style="
+    <div class="flex align-items-center justify-content-start" style="
                   display: flex;
                   align-items: center;
                   justify-content: flex-end;
@@ -81,10 +75,58 @@
         <div class="flex justify-content-center align-items-center gap-3">
             <span>Từ {{ (query.page - 1) * query.size + 1 }} đến {{ totalItems }}</span>
         </div>
-    </div> -->
+    </div>
 </div>
 
 <!-- Popup view to edit/deleted -->
 <div class="card flex justify-content-center">
     <p-menu #menu [model]="items" [popup]="true" />
 </div>
+
+<!-- Dialog for EDIT/ADD -->
+<p-dialog header="Chi tiết nhóm câu hỏi" [modal]="true" [(visible)]="showEditDialog" [style]="{ width: '500px' }">
+    <div class="chi-tiet-nhom-cau-hoi mt-3">
+        <div class="grid">
+            <div class="col-12 pl-5 pt-4">
+                <form [formGroup]="questionGroupForm" class="p-fluid">
+                    <div class="grid">
+                        <div class="col-12">
+                            <div class="field">
+                                <p-floatLabel>
+                                    <p-iconField iconPosition="right">
+                                        <p-inputIcon styleClass="pi pi-user" />
+                                        <input pInputText class="input-field" formControlName="name" />
+                                    </p-iconField>
+                                    <label for="name">Tên nhóm <span class="text-red-500">*</span></label>
+                                </p-floatLabel>
+                            </div>
+                        </div>
+                        <div class="col-7">
+                            <div class="field">
+                                <p-floatLabel>
+                                    <p-iconField iconPosition="right">
+                                        <p-inputIcon styleClass="pi pi-sort-numeric-down" />
+                                        <input pInputText class="input-field" formControlName="order" />
+                                    </p-iconField>
+                                    <label for="name">Thứ tự<span class="text-red-500">*</span></label>
+                                </p-floatLabel>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="field">
+                                <p-floatLabel>
+                                    <p-inputSwitch formControlName="status"></p-inputSwitch>
+                                    <label for="status" class="manual-active">Hiển thị <span
+                                            class="text-red-500">*</span></label>
+                                </p-floatLabel>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <p-button label="Lưu lại" severity="primary" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</p-dialog>

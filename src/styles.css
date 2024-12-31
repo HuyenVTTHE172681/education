@@ -348,3 +348,9 @@ textarea {
 .font-size-13 {
   font-size: 13px;
 }
+
+.p-dialog {
+  background: transparent;
+  border-radius: 15px;
+  overflow: hidden;
+}

@@ -40,6 +40,19 @@ export class QuestionGroupsService {
             .pipe(catchError(this.handleError));
     }
 
+    getQuestionGroupsById(id: number): Observable<IResponeListData<QuestionGroups>> {
+
+        //https://hhq.runasp.net/api/TestQuestionGroup/130
+        const query = `/TestQuestionGroup/${id}`;
+
+        const apiURL = `${this.apiBaseUrl}${query}`;
+
+
+        return this.http
+            .get<IResponeListData<QuestionGroups>>(apiURL)
+            .pipe(catchError(this.handleError));
+    }
+
     // Hàm xử lý lỗi
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
