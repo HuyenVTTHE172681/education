@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { QuestionGroups } from '../../../core/models/question.model';
 import { QuestionGroupsService } from '../../../core/services/questionGroups.service';
 import { CONSTANTS, HttpStatus } from '../../../environments/constants';
@@ -35,9 +35,8 @@ export class NhomCauHoiComponent implements OnInit {
     private questionGroupSrv: QuestionGroupsService,
     public utilsService: UtilsService,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService,
   ) {
     this.questionGroupForm = this.formBuilder.group({
       createdBy: [''],
@@ -86,48 +85,6 @@ export class NhomCauHoiComponent implements OnInit {
     ];
   }
 
-  showEdit() {
-    const selectedGroup = this.selectedQuestionGroups[0]; // Lấy nhóm câu hỏi được chọn
-    const id = selectedGroup.id;
-
-    if (id) {
-      this.questionGroupSrv.getQuestionGroupsById(id).subscribe((res) => {
-        if (res.statusCode === HttpStatus.OK) {
-          this.patchQuestionForm(res.data); // Điền dữ liệu vào form
-          this.showEditDialog = true; // Mở dialog
-          this.isEditMode = true;
-        }
-      });
-    }
-
-  }
-
-  showAdd() {
-    // Tìm ID lớn nhất từ danh sách hiện tại
-    const maxId = this.questionGroups.reduce((max, group) => (group.id > max ? group.id : max), 0);
-
-    this.questionGroupForm.reset();
-    this.questionGroupForm.patchValue({
-      createdBy: '',
-      createdDate: new Date().toISOString(),
-      id: maxId + 1,
-      modifiedBy: '',
-      modifiedDate: new Date().toISOString(),
-      name: '',
-      order: 0,
-      status: 0,
-      testQuestions: '',
-      totalFiltered: 0
-    });
-
-    this.showEditDialog = true;
-    this.isEditMode = false;
-  }
-
-
-  deleted() {
-  }
-
   getQuestionGroups() {
     this.questionGroupSrv.getQuestionGroups(this.query.filter, this.query.page, this.query.size, this.query.status).subscribe(res => {
       if (res.statusCode === HttpStatus.OK) {
@@ -156,6 +113,7 @@ export class NhomCauHoiComponent implements OnInit {
     this.getQuestionGroups();
   }
 
+  // GET QUESTION BY ID
   getQuestionGroupsById(id: number) {
     this.questionGroupSrv.getQuestionGroupsById(id).subscribe((data) => {
       if (data.statusCode === HttpStatus.OK) {
@@ -180,6 +138,44 @@ export class NhomCauHoiComponent implements OnInit {
     })
   }
 
+
+  showEdit() {
+    const selectedGroup = this.selectedQuestionGroups[0]; // Lấy nhóm câu hỏi được chọn
+    const id = selectedGroup.id;
+
+    if (id) {
+      this.questionGroupSrv.getQuestionGroupsById(id).subscribe((res) => {
+        if (res.statusCode === HttpStatus.OK) {
+          this.patchQuestionForm(res.data); // Điền dữ liệu vào form
+          this.showEditDialog = true; // Mở dialog
+          this.isEditMode = true;
+        }
+      });
+    }
+  }
+
+  showAdd() {
+    // Tìm ID lớn nhất từ danh sách hiện tại
+    const maxId = this.questionGroups.reduce((max, group) => (group.id > max ? group.id : max), 0);
+
+    this.questionGroupForm.reset();
+    this.questionGroupForm.patchValue({
+      createdBy: '',
+      createdDate: new Date().toISOString(),
+      id: maxId + 1,
+      modifiedBy: '',
+      modifiedDate: new Date().toISOString(),
+      name: '',
+      order: 0,
+      status: 0,
+      testQuestions: '',
+      totalFiltered: 0
+    });
+    this.showEditDialog = true;
+    this.isEditMode = false;
+  }
+
+  // ADD & UPDATE QUESTION GROUP
   saveQuestionGroup() {
     this.questionGroupForm.markAllAsTouched();
 
@@ -224,4 +220,39 @@ export class NhomCauHoiComponent implements OnInit {
       });
     }
   }
+
+  // DELETE
+  deleted() {
+    const documentId = this.selectedQuestionGroups[0].id;
+
+    this.confirmationService.confirm({
+      message: CONSTANTS.CONFIRM.DELETE_QUESTION_GROUP,
+      header: 'Xác nhận',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Đồng ý',
+      rejectLabel: 'Hủy bỏ',
+      accept: () => {
+        this.questionGroupSrv.deletedQuestionGroup(documentId).subscribe((data) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: CONSTANTS.SUMMARY.SUMMARY_DELETE_SUCCESSFUL,
+            detail: CONSTANTS.MESSAGE_ALERT.DELETE_SUCCESSFUL,
+            key: 'br',
+            life: 3000
+          });
+          this.getQuestionGroups();
+        })
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: CONSTANTS.SUMMARY.SUMMARY_CANCEL_DELETE,
+          detail: CONSTANTS.MESSAGE_ALERT.DELETE_CANCEL,
+          key: 'br',
+          life: 3000
+        });
+      },
+    })
+  }
+
 }

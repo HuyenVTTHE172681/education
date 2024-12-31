@@ -23,12 +23,8 @@ export class QuestionGroupsService {
         status: number
     ): Observable<IResponeList<QuestionGroups>> {
 
-        // https://hhq.runasp.net/api/TestQuestionGroup?filter=&offSet=0&pageSize=10&status=-1
-
         const query = `/TestQuestionGroup?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}&status=${status}`;
-
         const apiURL = `${this.apiBaseUrl}${query}`;
-        console.log('Generated API URL:', apiURL);
 
         const token = localStorage.getItem('token');
         const headers = token
@@ -42,11 +38,8 @@ export class QuestionGroupsService {
 
     getQuestionGroupsById(id: number): Observable<IResponeListData<QuestionGroups>> {
 
-        //https://hhq.runasp.net/api/TestQuestionGroup/130
         const query = `/TestQuestionGroup/${id}`;
-
         const apiURL = `${this.apiBaseUrl}${query}`;
-
 
         return this.http
             .get<IResponeListData<QuestionGroups>>(apiURL)
@@ -55,7 +48,6 @@ export class QuestionGroupsService {
 
     updateQuestionGroup(questionGroup: any): Observable<IResponeListData<QuestionGroups>> {
 
-        // https://hhq.runasp.net/api/TestQuestionGroup
         const query = `/TestQuestionGroup`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
@@ -67,6 +59,23 @@ export class QuestionGroupsService {
         return this.http
             .post<IResponeListData<QuestionGroups>>(apiURL, questionGroup, { headers })
             .pipe(catchError(this.handleError));
+    }
+
+    deletedQuestionGroup(id: number) {
+
+        const apiUrl = `${this.apiBaseUrl}/TestQuestionGroup/${id}`;
+
+        const token = localStorage.getItem('token');
+        const headers = token
+            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+            : new HttpHeaders();
+
+        return this.http.delete<any>(apiUrl, { headers }).pipe(
+            catchError((err: HttpErrorResponse) => {
+                console.error('API EditCourse Error: ', err);
+                return throwError(() => new Error(err.message || 'API call failed'));
+            })
+        );
     }
 
     // Hàm xử lý lỗi

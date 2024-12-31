@@ -23,11 +23,8 @@ export class ClassRoomService {
     filter: string = ''
   ): Observable<IResponeList<ClassRoom>> {
 
-    const query = `/ClassRoom?filter=${filter}&offSet=${(page - 1) * size
-      }&pageSize=${size}`;
-
+    const query = `/ClassRoom?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
     const apiURL = `${this.apiBaseUrl}${query}`;
-    console.log('Generated API URL:', apiURL);
 
     return this.http
       .get<IResponeList<ClassRoom>>(apiURL)
@@ -38,16 +35,8 @@ export class ClassRoomService {
     id: string
   ): Observable<IResponeListData<ClassRoom>> {
 
-    // https://hhq.runasp.net/api/ClassRoom/09EC54D6-A668-4D86-BF42-C2AAD3C00343
     const query = `/ClassRoom/${id}`;
-
     const apiURL = `${this.apiBaseUrl}${query}`;
-    console.log('Generated dashboard API URL:', apiURL);
-
-    // const token = localStorage.getItem('token');
-    // const headers = token
-    //   ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-    //   : new HttpHeaders();
 
     return this.http
       .get<IResponeListData<ClassRoom>>(apiURL)
@@ -55,9 +44,8 @@ export class ClassRoomService {
   }
 
   updateClassRoom(classroom: any): Observable<IResponeListData<ClassRoom>> {
-    // https://hhq.runasp.net/api/ClassRoom
-    const query = `/ClassRoom`;
 
+    const query = `/ClassRoom`;
     const apiURL = `${this.apiBaseUrl}${query}`;
     console.log('Generated dashboard API URL:', apiURL);
 
@@ -72,10 +60,10 @@ export class ClassRoomService {
   }
 
   deleteClassRoom(id: string) {
-    // https://hhq.runasp.net/api/ClassRoom/1436D85E-5D79-4356-A50F-D922401DFB31
-    const apiUrl = `${this.apiBaseUrl}/ClassRoom/${id}`;
 
+    const apiUrl = `${this.apiBaseUrl}/ClassRoom/${id}`;
     const token = localStorage.getItem('token');
+    
     const headers = token
       ? new HttpHeaders({ Authorization: `Bearer ${token}` })
       : new HttpHeaders();
