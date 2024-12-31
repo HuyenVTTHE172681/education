@@ -99,6 +99,9 @@
                                     </p-iconField>
                                     <label for="name">Tên nhóm <span class="text-red-500">*</span></label>
                                 </p-floatLabel>
+                                <small class="text-red-500"
+                                    *ngIf="questionGroupForm.get('name')?.hasError('required')">Tên là bắt
+                                    buộc.</small>
                             </div>
                         </div>
                         <div class="col-7">
@@ -110,6 +113,12 @@
                                     </p-iconField>
                                     <label for="name">Thứ tự<span class="text-red-500">*</span></label>
                                 </p-floatLabel>
+                                <small class="text-red-500"
+                                    *ngIf="questionGroupForm.get('order')?.hasError('required')">Order
+                                    is required.</small>
+                                <small class="text-red-500"
+                                    *ngIf="questionGroupForm.get('order')?.hasError('pattern')">Order
+                                    must be a number.</small>
                             </div>
                         </div>
                         <div class="col-5">
@@ -122,7 +131,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <p-button label="Lưu lại" severity="primary" />
+                            <p-button label="Lưu lại" severity="primary" (onClick)="saveQuestionGroup()" />
                         </div>
                     </div>
                 </form>

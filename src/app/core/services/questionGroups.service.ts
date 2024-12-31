@@ -53,6 +53,22 @@ export class QuestionGroupsService {
             .pipe(catchError(this.handleError));
     }
 
+    updateQuestionGroup(questionGroup: any): Observable<IResponeListData<QuestionGroups>> {
+
+        // https://hhq.runasp.net/api/TestQuestionGroup
+        const query = `/TestQuestionGroup`;
+        const apiURL = `${this.apiBaseUrl}${query}`;
+
+        const token = localStorage.getItem('token');
+        const headers = token
+            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+            : new HttpHeaders();
+
+        return this.http
+            .post<IResponeListData<QuestionGroups>>(apiURL, questionGroup, { headers })
+            .pipe(catchError(this.handleError));
+    }
+
     // Hàm xử lý lỗi
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {

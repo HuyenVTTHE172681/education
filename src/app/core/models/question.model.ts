@@ -116,16 +116,16 @@ export class ChildQuestionAnswer {
 }
 
 export class TestQuestionChangePublicStatus {
-    code ='';
+    code = '';
     id = '';
     messages = '';
     notiQue = false;
-    valid =  false;
+    valid = false;
     work_st = 0;
 }
 
 export class QuestionGroups {
-    id = '';
+    id = 0;
     name = '';
     order = 0;
     status = 0;
