@@ -72,7 +72,6 @@ export class QuestionGroupsService {
 
         return this.http.delete<any>(apiUrl, { headers }).pipe(
             catchError((err: HttpErrorResponse) => {
-                console.error('API EditCourse Error: ', err);
                 return throwError(() => new Error(err.message || 'API call failed'));
             })
         );

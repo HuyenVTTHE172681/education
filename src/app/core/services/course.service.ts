@@ -95,6 +95,7 @@ export class CourseService {
       .pipe(catchError(this.handleError));
   }
 
+  //================== COURSE YEAR
   getCourseYear(
     filter: string,
     offSet: number,
@@ -128,6 +129,39 @@ export class CourseService {
       .get<IResponseListData<CourseYear>>(apiURL, { headers })
       .pipe(catchError(this.handleError));
   }
+
+  updateCourseYear(courseYears: any): Observable<IResponseListData<CourseYear>> {
+
+    const query = `/CourseYear`;
+    const apiURL = `${this.apiBaseUrl}${query}`;
+
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+
+    return this.http
+      .post<IResponseListData<CourseYear>>(apiURL, courseYears, { headers })
+      .pipe(catchError(this.handleError));
+  }
+
+  deletedCourseYear(id: string) {
+
+    const apiUrl = `${this.apiBaseUrl}/CourseYear/${id}`;
+
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+
+    return this.http.delete<any>(apiUrl, { headers }).pipe(
+      catchError((err: HttpErrorResponse) => {
+        return throwError(() => new Error(err.message || 'API call failed'));
+      })
+    );
+  }
+
+  //================== COURSE YEAR ==================
 
 
   getCourseSchedule(

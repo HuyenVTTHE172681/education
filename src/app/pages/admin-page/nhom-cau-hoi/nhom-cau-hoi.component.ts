@@ -230,6 +230,7 @@ export class NhomCauHoiComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Đồng ý',
       rejectLabel: 'Hủy bỏ',
+
       accept: () => {
         this.questionGroupSrv.deletedQuestionGroup(documentId).subscribe((data) => {
           this.messageService.add({
