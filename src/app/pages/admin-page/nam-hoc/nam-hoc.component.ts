@@ -21,7 +21,7 @@ export class NamHocComponent implements OnInit {
   selectedCourseYear: any;
   query = {
     filter: '',
-    page: 0,
+    page: 1,
     size: 10,
     status: -1
   }

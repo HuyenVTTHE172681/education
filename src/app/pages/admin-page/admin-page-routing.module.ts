@@ -20,6 +20,8 @@ import { ChiTietCauHoiComponent } from './cau-hoi/chi-tiet-cau-hoi/chi-tiet-cau-
 import { NhomCauHoiComponent } from './nhom-cau-hoi/nhom-cau-hoi.component';
 import { NamHocComponent } from './nam-hoc/nam-hoc.component';
 import { DiemThiComponent } from './diem-thi/diem-thi.component';
+import { TinTuyenDungComponent } from './tin-tuyen-dung/tin-tuyen-dung.component';
+import { UngVienComponent } from './ung-vien/ung-vien.component';
 
 const routes: Routes = [
   {
@@ -126,6 +128,14 @@ const routes: Routes = [
       {
         path: 'diem-thi',
         component: DiemThiComponent
+      },
+      {
+        path: 'tuyen-dung',
+        component: TinTuyenDungComponent
+      },
+      {
+        path: 'ung-vien',
+        component: UngVienComponent
       }
 
     ],

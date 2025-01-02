@@ -7,6 +7,7 @@ import { STATUS } from '../../environments/constants';
 export class UtilsService {
     constructor() { }
 
+    // STATUS Hiển thị - Ẩn
     getStatusLabel(status: number) {
         return status === 1 ? STATUS.HIEN_THI : STATUS.AN;
     }
@@ -22,10 +23,27 @@ export class UtilsService {
         }
     }
 
+    // STATUS Recruit news Hot
+    getRecruitNewHotLabel(status: number) {
+        return status === 1 ? STATUS.HOT : STATUS.KHONG_HOT;
+    }
+
+    getRecruitNewHotClass(status: number) {
+        switch (status) {
+            case 1:
+                return 'danger';
+            case 0:
+                return 'primary';
+            default:
+                return 'warning';
+        }
+    }
+
     getStatusBooleanClass(status: boolean) {
         return status ? 'primary' : 'danger';
     }
 
+    // STATUS Mien phi - Tra phi
     getFreeLabel(status: number) {
         return status === 1 ? STATUS.MIEN_PHI : STATUS.TRA_PHI;
     }
@@ -45,10 +63,12 @@ export class UtilsService {
         }
     }
 
+    // STATUS EMAIL Gui - Khong
     getEmailLabel(status: number): string {
         return status === 1 ? STATUS.GUI : STATUS.KHONG;
     }
 
+    // STATUS Public
     getPublicStatusLabel(status: number) {
         switch (status) {
             case 0:

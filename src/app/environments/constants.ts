@@ -18,7 +18,9 @@ export const STATUS = {
     DA_THANH_TOAN: 'Đã thanh toán',
     CHO_THANH_TOAN: 'Chờ thanh toán',
     DANG_HOAT_DONG: 'Đang hoạt động',
-    DUNG_HOAT_DONG: 'Dừng hoạt động'
+    DUNG_HOAT_DONG: 'Dừng hoạt động',
+    HOT: 'Hot',
+    KHONG_HOT: 'Không Hot',
 
 }
 

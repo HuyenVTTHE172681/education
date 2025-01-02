@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ChiTietBaiKiemTraComponent implements OnInit {
   query = {
     filter: '',
-    page: 0,
+    page: 1,
     size: 10000,
   }
   testType: any;

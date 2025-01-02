@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RecruitmentService } from '../../../core/services/recruitment.service';
+import { RecruitmentService } from '../../../core/services/recruitment.services';
+import { Recruit } from '../../../core/models/recruitment.model';
 
 @Component({
   selector: 'app-recruitment',
@@ -8,7 +9,14 @@ import { RecruitmentService } from '../../../core/services/recruitment.service';
 })
 export class RecruitmentComponent implements OnInit {
   steps: any[] = [];
-  recruitment: any[] = [];
+  recruitment: Recruit[] = [];
+  totalItems = 0;
+  query = {
+    filter: '',
+    page: 1,
+    size: 10,
+    status: -1,
+  }
   breakpoints = {
     320: { slidesPerView: 1, spaceBetween: 10 }, // Màn hình rất nhỏ: 1 sản phẩm
     640: { slidesPerView: 2, spaceBetween: 20 }, // Màn hình nhỏ: 2 sản phẩm
@@ -34,7 +42,7 @@ export class RecruitmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadSteps();
-    this.loadRecruitments();
+    this.getRecruitment();
   }
 
   loadSteps() {
@@ -43,15 +51,11 @@ export class RecruitmentComponent implements OnInit {
     });
   }
 
-  loadRecruitments() {
-    this.recruitmentSrv.getRecruits().subscribe((data) => {
-      this.recruitment = data;
-    });
+  getRecruitment() {
+    this.recruitmentSrv.getRecruitment(this.query.filter, this.query.page, this.query.size, this.query.status).subscribe((data) => {
+      this.recruitment = data?.data?.data || [];
+    })
   }
 
-  // loadRecruitments() {
-  //   this.recruitmentSrv.getRecruits().subscribe((data) => {
-  //     this.recruitment = data.filter((item) => item.status === 1);
-  //   });
-  // }
+
 }

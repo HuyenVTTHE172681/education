@@ -32,7 +32,7 @@ export class DiemThiComponent implements OnInit {
     classId: '',
     courseId: '',
     filter: '',
-    page: 0,
+    page: 1,
     size: 10,
     subjectId: '',
     testCategoryId: '',
