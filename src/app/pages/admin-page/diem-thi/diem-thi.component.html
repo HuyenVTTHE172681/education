@@ -2,22 +2,23 @@
 <p-confirmDialog />
 
 <div class="diem-thi customer-table common-content">
-    <p-table [value]="listScores" dataKey="id" [expandedRowKeys]="expandedRows" [scrollable]="true"
-        scrollHeight="800px">
+    <p-table [value]="listScores" dataKey="id" [expandedRowKeys]="expandedRows" [scrollable]="true" scrollHeight="800px"
+        [frozenWidth]="'400px'" [unfrozenWidth]="'calc(100% - 300px)'">
 
         <ng-template pTemplate="caption">
             <div class="grid align-items-end">
                 <div class="col-12 md:col-4">
                     <p-breadcrumb class="max-w-full" [model]="breadcrumb" [home]="home" />
-                    <div class="header-title hidden-mobile">Khóa học</div>
+                    <div class="header-title hidden-mobile">Điểm thi</div>
                 </div>
                 <div class="col-12 md:col-8 text-right flex justify-content-end align-items-end">
                     <div class="mr-2 text-left search">
                         <label for="search">Tìm kiếm: </label>
                         <p-inputGroup [style.height.px]="32">
-                            <input type="text" pInputText placeholder="Nhập nội dung tìm kiếm" severity="secondary" />
-                            <button type="button" pButton icon="pi pi-search" [outlined]="true"
-                                severity="secondary"></button>
+                            <input type="text" pInputText placeholder="Nhập nội dung tìm kiếm" severity="secondary"
+                                [(ngModel)]="query.filter" (ngModelChange)="onSearchChange($event)" />
+                            <button type="button" pButton icon="pi pi-search" [outlined]="true" severity="secondary"
+                                (click)="search()"></button>
                         </p-inputGroup>
                     </div>
                     <!-- <p-button class="mr-2" label="Bộ lọc" icon="pi pi-sliders-h" menu.toggle($event)/> -->
@@ -28,9 +29,10 @@
 
         <ng-template pTemplate="header">
             <tr>
-                <th style="width: 70px; left: 0"></th>
-                <th style="width: 70px; left: 65px"></th>
-                <th style="min-width: 200px; left: 136px" pSortableColumn="name">Tên người dùng </th>
+                <th style="width: 70px; left: 0" pFrozenColumn></th>
+                <th style="width: 70px; left: 65px" pFrozenColumn></th>
+                <th style="min-width: 200px; left: 136px" pSortableColumn="name" pFrozenColumn>Tên
+                    người dùng </th>
                 <th style="min-width: 300px" pSortableColumn="price">Tên bài thi</th>
                 <th style="min-width: 150px" pSortableColumn="category">Điện thoại </th>
                 <th style="min-width: 220px" pSortableColumn="rating">Email </th>
@@ -46,24 +48,25 @@
                 <th style="min-width: 200px" pSortableColumn="inventoryStatus">Lớp </th>
                 <th style="min-width: 200px" pSortableColumn="inventoryStatus">Môn học </th>
                 <th style="min-width: 200px" pSortableColumn="inventoryStatus">Khóa học </th>
-                <th style="min-width: 200px" pSortableColumn="inventoryStatus">Ghi chú </th>
+                <th style="min-width: 200px" pSortableColumn="inventoryStatus" alignFrozen="right" pFrozenColumn>Ghi chú
+                </th>
 
             </tr>
         </ng-template>
 
         <ng-template pTemplate="body" let-scores let-expanded="expanded">
             <tr>
-                <td>
+                <td pFrozenColumn>
                     <div *ngIf="scores?.historiesTestUser?.length > 0">
                         <p-button type="button" pRipple [pRowToggler]="scores" [text]="true" [rounded]="true"
                             [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
                     </div>
                 </td>
-                <td>
+                <td pFrozenColumn>
                     <p-button icon="pi pi-ellipsis-v" [text]="true" severity="secondary"
                         (onClick)="setSelectedScore(scores); menu.toggle($event)" />
                 </td>
-                <td>{{ scores?.userName }}</td>
+                <td pFrozenColumn>{{ scores?.userName }}</td>
                 <td>{{ scores?.testName }}</td>
                 <td>{{ scores?.userPhone }}</td>
                 <td>{{ scores?.userEmail }}</td>
@@ -79,12 +82,13 @@
                         [severity]="utilsService.getStatusBooleanClass(scores?.isHaveEssay)" />
                 </td>
                 <td>{{ scores?.createdDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
-                <td>{{ scores?.modifiedDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+                <td>{{ scores?.finishedDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+                <td>{{ scores?.modifiedBy }}</td>
                 <td>{{ scores?.modifiedBy }}</td>
                 <td>{{ scores?.classRoomName }}</td>
                 <td>{{ scores?.subjectName }}</td>
                 <td>{{ scores?.courseName }}</td>
-                <td>{{ scores?.comment }}</td>
+                <td pFrozenColumn alignFrozen="right">{{ scores?.comment }}</td>
             </tr>
         </ng-template>
 
@@ -176,21 +180,24 @@
         </div>
         <div>
             <ul class="list-none p-0 m-0 flex flex-column gap-3">
-                <li class="align-items-center ">
-                    <p-dropdown optionLabel="name" optionValue="id" [filter]="true" filterBy="name" [showClear]="true"
-                        [style]="{'width':'100%'}" placeholder="Giáo viên">
-                    </p-dropdown>
-                </li>
-
                 <li class="align-items-center mt-2">
-                    <p-dropdown optionLabel="name" optionValue="id" [filter]="true" filterBy="name" [showClear]="true"
+                    <p-dropdown [options]="classRoom" [(ngModel)]="selectedClassroom" (ngModelChange)="search()"
+                        optionLabel="name" optionValue="id" [filter]="true" filterBy="name" [showClear]="true"
                         [style]="{'width':'100%'}" placeholder="Lớp học">
                     </p-dropdown>
                 </li>
 
                 <li class="align-items-center mt-2">
-                    <p-dropdown optionLabel="name" optionValue="id" [filter]="true" filterBy="name" [showClear]="true"
+                    <p-dropdown [options]="subject" [(ngModel)]="selectedSubject" (ngModelChange)="search()"
+                        optionLabel="name" optionValue="id" [filter]="true" filterBy="name" [showClear]="true"
                         [style]="{'width':'100%'}" placeholder="Môn học">
+                    </p-dropdown>
+                </li>
+
+                <li class="align-items-center ">
+                    <p-dropdown [options]="course" [(ngModel)]="selectedCourse" (ngModelChange)="search()"
+                        optionLabel="name" optionValue="id" [filter]="true" filterBy="name" [showClear]="true"
+                        [style]="{'width':'100%'}" placeholder="Khóa học">
                     </p-dropdown>
                 </li>
             </ul>

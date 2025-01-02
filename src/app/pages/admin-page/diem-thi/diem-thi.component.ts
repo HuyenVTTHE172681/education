@@ -2,8 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { HistoriesTestUser, Scores } from '../../../core/models/scores.model';
 import { SCoresService } from '../../../core/services/scores.service';
-import { map } from 'rxjs/operators';
+import { debounceTime, map, throwIfEmpty } from 'rxjs/operators';
 import { UtilsService } from '../../../core/utils/utils.service';
+import { Subject } from 'rxjs';
+import { ClassRoom } from '../../../core/models/classRoom.model';
+import { Course } from '../../../core/models/course.model';
+import { Subject as SubjectModel } from '../../../core/models/subject.model';
+import { ClassRoomService } from '../../../core/services/classRoom.service';
+import { IResponseList } from '../../../core/models/common.model';
+import { CourseService } from '../../../core/services/course.service';
+import { SubjectService } from '../../../core/services/subject.service';
 
 @Component({
   selector: 'app-diem-thi',
@@ -29,16 +37,44 @@ export class DiemThiComponent implements OnInit {
     subjectId: '',
     testCategoryId: '',
     userId: '',
+    pageFilter: 1,
+    sizeFilter: 1000,
+    searchText: '',
+    accountId: '',
+    callFromAdmin: 1,
+    isPayment: -1,
+    status: -1,
+    teacherId: '',
   }
+  private searchSubject: Subject<string> = new Subject();
+  classRoom: ClassRoom[] = [];
+  selectedClassroom: string | undefined;
+  subject: SubjectModel[] = [];
+  selectedSubject: string | undefined;
+  course: Course[] = [];
+  selectedCourse: string | undefined;
 
   constructor(
     private scoresSrv: SCoresService,
-    public utilsService: UtilsService
+    public utilsService: UtilsService,
+    private classRoomSrv: ClassRoomService,
+    private courseSrv: CourseService,
+    private subjectSrv: SubjectService
   ) { }
 
   ngOnInit(): void {
     this.initParams();
     this.getScores();
+    this.getClassRoom();
+    this.getAllKhoaHoc();
+    this.getSubject();
+
+    // Subscribe to the search subject with debounce
+    this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
+      this.query.filter = searchValue;
+      this.query.page = 1;
+      this.getScores();
+    });
   }
 
   initParams() {
@@ -83,12 +119,12 @@ export class DiemThiComponent implements OnInit {
 
   getScores() {
     this.scoresSrv.getScores(
-      this.query.classId,
-      this.query.courseId,
+      this.selectedClassroom || '',
+      this.selectedCourse || '',
       this.query.filter,
       this.query.page,
       this.query.size,
-      this.query.subjectId,
+      this.selectedSubject || '',
       this.query.testCategoryId,
       this.query.userId
     ).subscribe({
@@ -116,6 +152,57 @@ export class DiemThiComponent implements OnInit {
 
   setSelectedHistory(history: HistoriesTestUser) {
     this.selectedScoreHistories = history;
+  }
+
+  onSearchChange(searchValue: string): void {
+    this.searchSubject.next(searchValue);
+  }
+
+  search() {
+    this.query.page = 1;
+    this.getScores();
+  }
+
+  resetFilters(): void {
+    this.query.filter = '';
+    this.query.page = 1;
+    this.getScores();
+  }
+
+  getClassRoom() {
+    this.classRoomSrv
+      .getClassRooms(this.query.pageFilter, this.query.sizeFilter, this.query.searchText)
+      .subscribe({
+        next: (data: IResponseList<ClassRoom>) => {
+          this.classRoom = data?.data?.data || [];
+        },
+      });
+  }
+
+  getAllKhoaHoc(): void {
+    this.courseSrv.getKhoaHoc(
+      this.query.accountId,
+      this.query.callFromAdmin,
+      this.query.classId,
+      this.query.filter,
+      this.query.isPayment,
+      this.query.pageFilter,
+      this.query.sizeFilter,
+      this.query.status,
+      this.query.subjectId,
+      this.query.teacherId
+    ).subscribe({
+      next: (data: IResponseList<Course>) => {
+        this.course = data?.data?.data || [];
+      }
+    })
+  }
+
+  getSubject() {
+    this.subjectSrv.getSubjectByCourse(this.query.classId, this.query.searchText, this.query.pageFilter, this.query.sizeFilter).subscribe((data) => {
+      this.subject = data?.data?.data || [];
+
+    })
   }
 
 }
