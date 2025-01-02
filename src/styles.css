@@ -354,3 +354,11 @@ textarea {
   border-radius: 15px;
   overflow: hidden;
 }
+
+/* tr.ng-star-inserted {
+  background: #ecebeb !important;
+} */
+
+.p-datatable-wrapper .p-datatable-tbody>tr.ng-star-inserted {
+  /* background: #e3e7f2 !important; */
+}

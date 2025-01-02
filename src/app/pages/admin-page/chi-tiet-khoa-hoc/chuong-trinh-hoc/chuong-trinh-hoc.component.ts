@@ -33,12 +33,17 @@ export class ChuongTrinhHocComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.initParams();
 
-    if (this.id) {
-      this.getCourseSchedule(this.id);
-    }
+    this.route.params.subscribe((params) => {
+      this.id = params['id'];
+      if (this.id) {
+        this.getCourseSchedule(this.id);
+      }
+    });
+  }
 
+  initParams() {
     this.items = [
       {
         label: 'Options',

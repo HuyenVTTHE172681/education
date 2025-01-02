@@ -2,8 +2,8 @@
 <p-confirmDialog />
 
 <div class="diem-thi customer-table common-content">
-    <p-table [value]="listScores" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows"
-        [scrollable]="true" scrollHeight="600px">
+    <p-table [value]="listScores" dataKey="id" [expandedRowKeys]="expandedRows" [scrollable]="true"
+        scrollHeight="800px">
 
         <ng-template pTemplate="caption">
             <div class="grid align-items-end">
@@ -28,25 +28,25 @@
 
         <ng-template pTemplate="header">
             <tr>
-                <th style="width: 70px"></th>
-                <th style="width: 70px"></th>
-                <th style="width: 200px; left: 136px" pSortableColumn="name">Tên người dùng </th>
-                <th style="width: 150px" pSortableColumn="price">Tên bài thi</th>
-                <th style="width: 150px" pSortableColumn="category">Điện thoại </th>
-                <th style="width: 150px" pSortableColumn="rating">Email </th>
-                <th style="width: 150px" pSortableColumn="inventoryStatus">Tổng điểm </th>
-                <th style="width: 150px" pSortableColumn="inventoryStatus">Tổng câu đúng </th>
-                <th style="width: 150px" pSortableColumn="inventoryStatus">Tổng câu sai </th>
-                <th style="width: 150px" pSortableColumn="inventoryStatus">Gửi mail </th>
-                <th style="width: 150px" pSortableColumn="inventoryStatus">Có tự luận </th>
-                <th style="width: 200px;" pSortableColumn="inventoryStatus">Ngày tạo </th>
-                <th style="width: 200px" pSortableColumn="inventoryStatus">NGày hoàn thành </th>
-                <th style="width: 200px" pSortableColumn="inventoryStatus">Ngày sửa </th>
-                <th style="width: 200px" pSortableColumn="inventoryStatus">Người sửa </th>
-                <th style="width: 200px" pSortableColumn="inventoryStatus">Lớp </th>
-                <th style="width: 200px" pSortableColumn="inventoryStatus">Môn học </th>
-                <th style="width: 200px" pSortableColumn="inventoryStatus">Khóa học </th>
-                <th style="width: 200px" pSortableColumn="inventoryStatus">Ghi chú </th>
+                <th style="width: 70px; left: 0"></th>
+                <th style="width: 70px; left: 65px"></th>
+                <th style="min-width: 200px; left: 136px" pSortableColumn="name">Tên người dùng </th>
+                <th style="min-width: 300px" pSortableColumn="price">Tên bài thi</th>
+                <th style="min-width: 150px" pSortableColumn="category">Điện thoại </th>
+                <th style="min-width: 220px" pSortableColumn="rating">Email </th>
+                <th style="min-width: 150px" pSortableColumn="inventoryStatus">Tổng điểm </th>
+                <th style="min-width: 150px" pSortableColumn="inventoryStatus">Tổng câu đúng </th>
+                <th style="min-width: 150px" pSortableColumn="inventoryStatus">Tổng câu sai </th>
+                <th style="min-width: 150px" pSortableColumn="inventoryStatus">Gửi mail </th>
+                <th style="min-width: 150px" pSortableColumn="inventoryStatus">Có tự luận </th>
+                <th style="min-width: 200px;" pSortableColumn="inventoryStatus">Ngày tạo </th>
+                <th style="min-width: 200px" pSortableColumn="inventoryStatus">Ngày hoàn thành </th>
+                <th style="min-width: 200px" pSortableColumn="inventoryStatus">Ngày sửa </th>
+                <th style="min-width: 200px" pSortableColumn="inventoryStatus">Người sửa </th>
+                <th style="min-width: 200px" pSortableColumn="inventoryStatus">Lớp </th>
+                <th style="min-width: 200px" pSortableColumn="inventoryStatus">Môn học </th>
+                <th style="min-width: 200px" pSortableColumn="inventoryStatus">Khóa học </th>
+                <th style="min-width: 200px" pSortableColumn="inventoryStatus">Ghi chú </th>
 
             </tr>
         </ng-template>
@@ -54,10 +54,15 @@
         <ng-template pTemplate="body" let-scores let-expanded="expanded">
             <tr>
                 <td>
-                    <p-button type="button" pRipple [pRowToggler]="scores" [text]="true" [rounded]="true" [plain]="true"
-                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                    <div *ngIf="scores?.historiesTestUser?.length > 0">
+                        <p-button type="button" pRipple [pRowToggler]="scores" [text]="true" [rounded]="true"
+                            [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                    </div>
                 </td>
-                <td></td>
+                <td>
+                    <p-button icon="pi pi-ellipsis-v" [text]="true" severity="secondary"
+                        (onClick)="setSelectedScore(scores); menu.toggle($event)" />
+                </td>
                 <td>{{ scores?.userName }}</td>
                 <td>{{ scores?.testName }}</td>
                 <td>{{ scores?.userPhone }}</td>
@@ -65,8 +70,14 @@
                 <td>{{ scores?.totalPointPass }} / {{ scores?.totalPoint }}</td>
                 <td>{{ scores?.totalPointPass }}</td>
                 <td>{{ scores?.totalWrong }}</td>
-                <td>{{ scores?.isSendMail }}</td>
-                <td>{{ scores?.isHaveEssay }}</td>
+                <td>
+                    <p-button [icon]="utilsService.getIconsStatusBoolean(scores?.isSendMail)" [text]="true"
+                        [severity]="utilsService.getStatusBooleanClass(scores?.isSendMail)" />
+                </td>
+                <td>
+                    <p-button [icon]="utilsService.getIconsStatusBoolean(scores?.isHaveEssay)" [text]="true"
+                        [severity]="utilsService.getStatusBooleanClass(scores?.isHaveEssay)" />
+                </td>
                 <td>{{ scores?.createdDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
                 <td>{{ scores?.modifiedDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
                 <td>{{ scores?.modifiedBy }}</td>
@@ -77,41 +88,50 @@
             </tr>
         </ng-template>
 
-        <ng-template pTemplate="rowexpansion" let-product>
+        <ng-template pTemplate="rowexpansion" let-score class="p-3 orders-subtable">
             <tr>
-                <td colspan="5">
-                    <div class="p-3">
-                        <p-table [value]="product.orders" dataKey="id">
-                            <ng-template pTemplate="header">
+                <td colspan="5" [style]="{ backgroundColor: '#e3e7f2' }">
+                    <div>
+                        <b class="mb-1">Các lần kiểm tra trước</b>
+                        <div class="p-3">
+                            <p-table [value]="score?.historiesTestUser" dataKey="id">
+                                <ng-template pTemplate="header">
             <tr>
-                <th style="width: 50px"></th>
-                <th style="width: 200px">Tên bài thi</th>
-                <th style="width: 150px">Tổng điểm</th>
-                <th style="width: 150px">Tổng câu đúng</th>
-                <th style="width: 150px">Tổng câu sai</th>
-                <th style="width: 150px">Gửi mail</th>
-                <th style="width: 150px">Có tự luận</th>
-                <th style="width: 150px">Ngày tạo</th>
-                <th style="width: 150px">Ngày hoàn thành</th>
-                <th style="width: 150px">Ngày sửa</th>
-                <th style="width: 150px">Người sửa</th>
-                <th style="width: 150px">Ghi chú</th>
+                <th style="min-width: 50px"></th>
+                <th style="min-width: 200px">Tên bài thi</th>
+                <th style="min-width: 150px">Tổng điểm</th>
+                <th style="min-width: 150px">Tổng câu đúng</th>
+                <th style="min-width: 150px">Tổng câu sai</th>
+                <th style="min-width: 150px">Gửi mail</th>
+                <th style="min-width: 150px">Có tự luận</th>
+                <th style="min-width: 150px">Ngày tạo</th>
+                <th style="min-width: 150px">Ngày hoàn thành</th>
+                <th style="min-width: 150px">Ngày sửa</th>
+                <th style="min-width: 150px">Người sửa</th>
+                <th style="min-width: 150px">Ghi chú</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-order>
+        <ng-template pTemplate="body" let-history>
             <tr>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
+                <td><p-button icon="pi pi-ellipsis-v" [text]="true" severity="secondary"
+                        (onClick)="setSelectedHistory(history); menu.toggle($event)" /></td>
+                <td>{{ history?.testName }}</td>
+                <td>{{ history?.totalPoint }}</td>
+                <td>{{ history?.totalPointPass }}</td>
+                <td>{{ history?.totalWrong }}</td>
+                <td>
+                    <p-button [icon]="utilsService.getIconsStatusBoolean(history?.isSendMail)" [text]="true"
+                        [severity]="utilsService.getStatusBooleanClass(history?.isSendMail)" />
+                </td>
+                <td>
+                    <p-button [icon]="utilsService.getIconsStatusBoolean(history?.isHaveEssay)" [text]="true"
+                        [severity]="utilsService.getStatusBooleanClass(history?.isHaveEssay)" />
+                </td>
+                <td>{{ history?.createdDate | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                <td>{{ history?.finishedDate | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                <td>{{ history?.modifiedDate | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                <td>{{ history?.modifiedBy }}</td>
+                <td>{{ history?.comment }}</td>
             </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
@@ -121,12 +141,13 @@
         </ng-template>
     </p-table>
 </div>
+</div>
 </td>
 </tr>
 </ng-template>
 </p-table>
 
-<!-- <div class="flex align-items-center justify-content-start" style="
+<div class="flex align-items-center justify-content-start" style="
                   display: flex;
                   align-items: center;
                   justify-content: flex-end;
@@ -138,7 +159,7 @@
     <div class="flex justify-content-center align-items-center gap-3">
         <span>Từ {{ (query.page - 1) * query.size + 1 }} đến {{ totalItems }}</span>
     </div>
-</div> -->
+</div>
 </div>
 
 

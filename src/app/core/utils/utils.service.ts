@@ -22,6 +22,10 @@ export class UtilsService {
         }
     }
 
+    getStatusBooleanClass(status: boolean) {
+        return status ? 'primary' : 'danger';
+    }
+
     getFreeLabel(status: number) {
         return status === 1 ? STATUS.MIEN_PHI : STATUS.TRA_PHI;
     }
@@ -82,6 +86,10 @@ export class UtilsService {
 
     getIconsStatus(status: number): string {
         return status === 1 ? 'pi pi-check' : 'pi pi-times';
+    }
+
+    getIconsStatusBoolean(status: boolean): string {
+        return status ? 'pi pi-check' : 'pi pi-times';
     }
 
     getPaymentLabel(isPayment: number) {
