@@ -76,6 +76,7 @@ import { NamHocComponent } from './nam-hoc/nam-hoc.component';
 import { DiemThiComponent } from './diem-thi/diem-thi.component';
 import { TinTuyenDungComponent } from './tin-tuyen-dung/tin-tuyen-dung.component';
 import { UngVienComponent } from './ung-vien/ung-vien.component';
+import { ChiTietUngVienComponent } from './ung-vien/chi-tiet-ung-vien/chi-tiet-ung-vien.component';
 
 register(); // Register Swiper
 @NgModule({
@@ -119,6 +120,7 @@ register(); // Register Swiper
     DiemThiComponent,
     TinTuyenDungComponent,
     UngVienComponent,
+    ChiTietUngVienComponent,
   ],
   imports: [
     CommonModule,

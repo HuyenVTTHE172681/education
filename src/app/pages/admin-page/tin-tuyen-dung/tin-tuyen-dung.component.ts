@@ -3,7 +3,6 @@ import { MenuItem } from 'primeng/api';
 import { Recruit } from '../../../core/models/recruitment.model';
 import { UtilsService } from '../../../core/utils/utils.service';
 import { RecruitmentService } from '../../../core/services/recruitment.services';
-import { Quiz } from '../../../core/models/quiz.model';
 import { debounceTime, Subject } from 'rxjs';
 
 @Component({
@@ -99,10 +98,6 @@ export class TinTuyenDungComponent implements OnInit {
   setSelectedRecruit(recruit: Recruit) {
     this.selectedRecruit = recruit;
   }
-
-  startIndex: number = 0;
-  endIndex: number = 0;
-
 
 
 }

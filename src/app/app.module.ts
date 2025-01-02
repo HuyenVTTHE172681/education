@@ -11,9 +11,9 @@ import { register } from 'swiper/element/bundle';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AdminPageModule } from './pages/admin-page/admin-page.module';
 import { EduModule } from './pages/edu/edu.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { AdminPageModule } from './pages/admin-page/admin-page.module';
 
 register();
 @NgModule({

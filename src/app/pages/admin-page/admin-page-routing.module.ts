@@ -22,6 +22,7 @@ import { NamHocComponent } from './nam-hoc/nam-hoc.component';
 import { DiemThiComponent } from './diem-thi/diem-thi.component';
 import { TinTuyenDungComponent } from './tin-tuyen-dung/tin-tuyen-dung.component';
 import { UngVienComponent } from './ung-vien/ung-vien.component';
+import { ChiTietUngVienComponent } from './ung-vien/chi-tiet-ung-vien/chi-tiet-ung-vien.component';
 
 const routes: Routes = [
   {
@@ -136,6 +137,10 @@ const routes: Routes = [
       {
         path: 'ung-vien',
         component: UngVienComponent
+      },
+      {
+        path: 'ung-vien/:id',
+        component: ChiTietUngVienComponent
       }
 
     ],

@@ -1,0 +1,137 @@
+<p-toast position="bottom-right" key="br" />
+
+<div class="chi-tiet-tin-tuc common-content">
+    <div class="detail-breadcumb">
+        <div class="col-12 md:col-4">
+            <p-breadcrumb class="max-w-full" [model]="breadcrumb" [home]="home" />
+            <div class="header-title hidden-mobile">Chi tiết ứng viên</div>
+        </div>
+    </div>
+
+    <div>
+        <div class="quan-tri-chi-tiet-mon-hoc common-content">
+            <div class="grid mt-3">
+                <div class="col-12">
+                    <form class="p-fluid mt-3" [formGroup]="recruitmentCandidateForm">
+                        <div class="grid">
+                            <div class="col-12">
+                                <h4>Thông tin ứng viên</h4>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-user" />
+                                            <input pInputText class="input-field" />
+                                        </p-iconField>
+                                        <label for="name">Họ tên <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-ellipsis-h" />
+                                            <input pInputText class="input-field" />
+                                        </p-iconField>
+                                        <label for="name">Email <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-sort-alpha-down" />
+                                            <input pInputText class="input-field" />
+                                        </p-iconField>
+                                        <label for="name">Điện thoại <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-at" />
+                                            <input pInputText class="input-field" />
+                                        </p-iconField>
+                                        <label for="phone">Ngày ứng tuyển <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="field pl-2 pr-2">
+                                    <small class="text-black-300">Nội dung</small>
+                                    <div class="text-black-300"></div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="field pl-2 pr-2">
+                                    <small class="text-black-300">Bài tuyển dụng</small>
+                                    <div class="text-black-300"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="grid">
+                            <div class="col-12">
+                                <h4>Thông tin phỏng vấn</h4>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-user" />
+                                            <input pInputText class="input-field" />
+                                        </p-iconField>
+                                        <label for="name">Ngày phỏng vấn <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-user" />
+                                            <input pInputText class="input-field" />
+                                        </p-iconField>
+                                        <label for="name">Người phỏng vấn <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-inputSwitch></p-inputSwitch>
+                                        <label for="status" class="manual-active">Phỏng vấn đạt <span
+                                                class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-inputSwitch></p-inputSwitch>
+                                        <label for="status" class="manual-active">Đã phỏng vấn <span
+                                                class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 pt-0">
+                                <div class="field">
+                                    <label for="" class="font-size-14">Mô tả chi tiết</label>
+                                    <p-editor [style]="{ height: '320px' }" />
+                                </div>
+                            </div>
+                            <div class="col-12 fixed-action">
+                                <p-button label="Hủy bỏ" [outlined]="true" icon="pi pi-times" (click)="goBack()" />
+                                <p-button label="Cập nhật" icon="pi pi-save" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

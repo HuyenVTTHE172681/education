@@ -5,7 +5,7 @@ export const API_URL = {
 export const HttpStatus = {
     OK: 200,
     UNAUTHORIZED: 401,
-    INTERNAL_SERVER_ERROR: 500, 
+    INTERNAL_SERVER_ERROR: 500,
 }
 
 export const STATUS = {
@@ -21,7 +21,10 @@ export const STATUS = {
     DUNG_HOAT_DONG: 'Dừng hoạt động',
     HOT: 'Hot',
     KHONG_HOT: 'Không Hot',
-
+    DAT: 'Đạt',
+    TRUOT: 'Loại',
+    DANG_CHO: 'Đang chờ',
+    PHONG_VAN: 'Phỏng vấn'
 }
 
 export const CONSTANTS = {

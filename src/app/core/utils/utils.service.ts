@@ -119,4 +119,12 @@ export class UtilsService {
     getStatusOnlineLabel(status: number) {
         return status === 1 ? STATUS.DANG_HOAT_DONG : STATUS.DUNG_HOAT_DONG;
     }
+
+    getInterviewLabel(status: number) {
+        return status === 1 ? STATUS.DAT : STATUS.TRUOT;
+    }
+
+    getStatusInterview(status: number) {
+        return status === 1 ? STATUS.PHONG_VAN : STATUS.DANG_CHO;
+    }
 }
