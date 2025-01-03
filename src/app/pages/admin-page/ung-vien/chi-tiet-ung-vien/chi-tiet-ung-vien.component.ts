@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { RecruitmentService } from '../../../../core/services/api-core/recruitment.services';
+import { HttpStatus } from '../../../../environments/constants';
 
 @Component({
   selector: 'app-chi-tiet-ung-vien',
@@ -17,14 +19,46 @@ export class ChiTietUngVienComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private recruitmentSrv: RecruitmentService,
   ) {
-    this.recruitmentCandidateForm = new FormGroup({
-
+    this.recruitmentCandidateForm = this.formBuilder.group({
+      applyDate: [''],
+      attackUrl: [''],
+      content: [''],
+      createdBy: [''],
+      createdDate: [''],
+      email: [''],
+      id: [''],
+      interviewComment: [''],
+      interviewDate: [''],
+      interviewPass: [0],
+      interviewUser: [''],
+      modifiedBy: [''],
+      modifiedDate: [''],
+      name: [''],
+      phone: [''],
+      recruitId: [''],
+      recruitName: [''],
+      status: [0],
+      totalFiltered: ['']
     });
-   }
+  }
 
   ngOnInit(): void {
     this.initParams();
+
+    this.route.params.subscribe((params) => {
+      this.id = params['id'];
+      if (this.id) {
+        this.isEditMode = true;
+        this.getRecruitmentCandidate(this.id);
+      } else {
+        this.isEditMode = false;
+        this.recruitmentCandidateForm.reset();
+      }
+    });
   }
 
   initParams() {
@@ -39,6 +73,53 @@ export class ChiTietUngVienComponent implements OnInit {
 
   goBack() {
     this.router.navigate(['/quan-tri/ung-vien']);
+  }
+
+  getRecruitmentCandidate(id: string) {
+    this.recruitmentSrv.getRecruitCandidateWithId(id).subscribe((data) => {
+      if (data.statusCode === HttpStatus.OK) {
+        const recruitCandidate = data?.data || [];
+
+        this.patchForm(recruitCandidate);
+      }
+    });
+  }
+
+  patchForm(recruitCandidate: any) {
+    const formattedApplyDate = this.formatDate(recruitCandidate.applyDate);
+
+    this.recruitmentCandidateForm.patchValue({
+      applyDate: formattedApplyDate || '',
+      attackUrl: recruitCandidate.attackUrl || '',
+      content: recruitCandidate.content || '',
+      createdBy: recruitCandidate.createdBy || '',
+      createdDate: recruitCandidate.createdDate || '',
+      email: recruitCandidate.email || '',
+      id: recruitCandidate.id || '',
+      interviewComment: recruitCandidate.interviewComment || '',
+      interviewDate: recruitCandidate.interviewDate || '',
+      interviewPass: recruitCandidate.interviewPass === 0,
+      interviewUser: recruitCandidate.interviewUser || '',
+      modifiedBy: recruitCandidate.modifiedBy || '',
+      modifiedDate: recruitCandidate.modifiedDate || '',
+      name: recruitCandidate.name || '',
+      phone: recruitCandidate.phone || '',
+      recruitId: recruitCandidate.recruitId || '',
+      recruitName: recruitCandidate.recruitName || '',
+      status: recruitCandidate.status === 0,
+      totalFiltered: recruitCandidate.totalFiltered || ''
+    });
+  }
+
+  formatDate(dateString: string): string {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    const day = ('0' + date.getDate()).slice(-2);
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const year = date.getFullYear();
+    const hours = ('0' + date.getHours()).slice(-2);
+    const minutes = ('0' + date.getMinutes()).slice(-2);
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
   }
 
 }

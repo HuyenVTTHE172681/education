@@ -4,7 +4,7 @@ import { Observable, filter, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { API_URL } from '../../../environments/constants';
 import { Recruit, RecruitCandidate } from '../../models/recruitment.model';
-import { IResponseList } from '../../models/common.model';
+import { IResponseList, IResponseListData } from '../../models/common.model';
 
 @Injectable({
     providedIn: 'root',
@@ -64,6 +64,19 @@ export class RecruitmentService {
             .get<IResponseList<RecruitCandidate>>(apiURL)
             .pipe(catchError(this.handleError));
     }
+
+    getRecruitCandidateWithId(
+        id: string
+    ): Observable<IResponseListData<RecruitCandidate>> {
+    
+        const query = `/RecruitCandidate/${id}`;
+        const apiURL = `${this.apiBaseUrl}${query}`;
+    
+        return this.http
+            .get<IResponseListData<RecruitCandidate>>(apiURL)
+          .pipe(catchError(this.handleError));
+      }
+    
 
     // Hàm xử lý lỗi
     private handleError(error: HttpErrorResponse) {

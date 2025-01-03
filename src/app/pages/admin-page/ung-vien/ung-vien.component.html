@@ -59,18 +59,16 @@
                 <td>{{ recruitCandidate?.phone }}</td>
                 <td>{{ recruitCandidate?.email }}</td>
                 <td>
-                    {{ recruitCandidate?.status }}
                     <p-button [label]="utilsService.getStatusInterview(recruitCandidate?.status)" [raised]="true"
                         [severity]="utilsService.getStatusClass(recruitCandidate?.status)" />
                 </td>
                 <td>
-                    {{ recruitCandidate?.interviewPass }}
                     <p-button [label]="utilsService.getInterviewLabel(recruitCandidate?.interviewPass)" [raised]="true"
                         [severity]="utilsService.getStatusClass(recruitCandidate?.interviewPass)" />
                 </td>
                 <td>{{ recruitCandidate?.recruitName }}</td>
-                <td>{{ recruitCandidate?.applyDate }}</td>
-                <td>{{ recruitCandidate?.interviewDate }}</td>
+                <td>{{ recruitCandidate?.applyDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+                <td>{{ recruitCandidate?.interviewDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
                 <td>{{ recruitCandidate?.interviewUser }}</td>
             </tr>
         </ng-template>

@@ -22,7 +22,8 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-user" />
-                                            <input pInputText class="input-field" />
+                                            <input pInputText class="input-field" formControlName="name"
+                                                [readonly]="true" />
                                         </p-iconField>
                                         <label for="name">Họ tên <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
@@ -33,7 +34,8 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-ellipsis-h" />
-                                            <input pInputText class="input-field" />
+                                            <input pInputText class="input-field" formControlName="email"
+                                                [readonly]="true" />
                                         </p-iconField>
                                         <label for="name">Email <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
@@ -44,7 +46,8 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-sort-alpha-down" />
-                                            <input pInputText class="input-field" />
+                                            <input pInputText class="input-field" formControlName="phone"
+                                                [readonly]="true" />
                                         </p-iconField>
                                         <label for="name">Điện thoại <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
@@ -55,22 +58,30 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-at" />
-                                            <input pInputText class="input-field" />
+                                            <p-calendar inputId="calendar-24h" [readonly]="true" [showTime]="true" [dateFormat]="'dd/mm/yy'"
+                                                formControlName="applyDate" />
                                         </p-iconField>
-                                        <label for="phone">Ngày ứng tuyển <span class="text-red-500">*</span></label>
+                                        <label for="applyDate">Ngày ứng tuyển <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
                                 </div>
+
                             </div>
                             <div class="col-12">
                                 <div class="field pl-2 pr-2">
                                     <small class="text-black-300">Nội dung</small>
-                                    <div class="text-black-300"></div>
+                                    <div class="text-black-300">
+                                        <input id="disabled-input" type="text" pInputText [readonly]="true"
+                                            formControlName="content" />
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="field pl-2 pr-2">
                                     <small class="text-black-300">Bài tuyển dụng</small>
-                                    <div class="text-black-300"></div>
+                                    <div class="text-black-300">
+                                        <input id="disabled-input" type="text" pInputText [readonly]="true"
+                                            formControlName="recruitName" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +95,8 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-user" />
-                                            <input pInputText class="input-field" />
+                                            <p-calendar inputId="calendar-24h" [readonly]="true" [showTime]="true" [dateFormat]="'dd/mm/yy'"
+                                                formControlName="interviewDate" />
                                         </p-iconField>
                                         <label for="name">Ngày phỏng vấn <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
@@ -95,7 +107,7 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-user" />
-                                            <input pInputText class="input-field" />
+                                            <input pInputText class="input-field" formControlName="interviewUser" />
                                         </p-iconField>
                                         <label for="name">Người phỏng vấn <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
@@ -104,8 +116,8 @@
                             <div class="col-12 md:col-6">
                                 <div class="field">
                                     <p-floatLabel>
-                                        <p-inputSwitch></p-inputSwitch>
-                                        <label for="status" class="manual-active">Phỏng vấn đạt <span
+                                        <p-inputSwitch formControlName="interviewPass"></p-inputSwitch>
+                                        <label for="interviewPass" class="manual-active">Phỏng vấn đạt <span
                                                 class="text-red-500">*</span></label>
                                     </p-floatLabel>
                                 </div>
@@ -113,7 +125,7 @@
                             <div class="col-12 md:col-6">
                                 <div class="field">
                                     <p-floatLabel>
-                                        <p-inputSwitch></p-inputSwitch>
+                                        <p-inputSwitch formControlName="status"></p-inputSwitch>
                                         <label for="status" class="manual-active">Đã phỏng vấn <span
                                                 class="text-red-500">*</span></label>
                                     </p-floatLabel>
@@ -122,7 +134,7 @@
                             <div class="col-12 pt-0">
                                 <div class="field">
                                     <label for="" class="font-size-14">Mô tả chi tiết</label>
-                                    <p-editor [style]="{ height: '320px' }" />
+                                    <p-editor formControlName="interviewComment" [style]="{ height: '320px' }" />
                                 </div>
                             </div>
                             <div class="col-12 fixed-action">

@@ -13,8 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EduModule } from './pages/edu/edu.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { AdminPageModule } from './pages/admin-page/admin-page.module';
 import { AuthInterceptor } from './core/services/auth.interceptor';
+import { AdminPageModule } from './pages/admin-page/admin-page.module';
 
 register();
 @NgModule({
