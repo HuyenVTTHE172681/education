@@ -3,7 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { Recruit, RecruitCandidate } from '../../../core/models/recruitment.model';
 import { debounceTime, Subject } from 'rxjs';
 import { UtilsService } from '../../../core/utils/utils.service';
-import { RecruitmentService } from '../../../core/services/recruitment.services';
+import { RecruitmentService } from '../../../core/services/api-core/recruitment.services';
 
 @Component({
   selector: 'app-ung-vien',

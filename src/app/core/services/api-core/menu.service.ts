@@ -3,8 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { MenuItem } from 'primeng/api';
-import { API_URL } from '../../environments/constants';
-import { IResponseList } from '../models/common.model';
+import { API_URL } from '../../../environments/constants';
+import { IResponseList } from '../../models/common.model';
 
 @Injectable({
   providedIn: 'root',

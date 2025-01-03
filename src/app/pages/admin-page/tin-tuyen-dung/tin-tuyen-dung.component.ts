@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Recruit } from '../../../core/models/recruitment.model';
 import { UtilsService } from '../../../core/utils/utils.service';
-import { RecruitmentService } from '../../../core/services/recruitment.services';
 import { debounceTime, Subject } from 'rxjs';
+import { RecruitmentService } from '../../../core/services/api-core/recruitment.services';
 
 @Component({
   selector: 'app-tin-tuyen-dung',

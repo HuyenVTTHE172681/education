@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClassRoomService } from '../../../../core/services/classRoom.service';
 import { IResponseList } from '../../../../core/models/common.model';
 import { ClassRoom } from '../../../../core/models/classRoom.model';
 import { Teacher } from '../../../../core/models/teacher.model';
-import { TeacherService } from '../../../../core/services/teacher.service';
-import { CourseService } from '../../../../core/services/course.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Course, CourseYear } from '../../../../core/models/course.model';
 import { Subject } from '../../../../core/models/subject.model';
-import { SubjectService } from '../../../../core/services/subject.service';
 import { MessageService } from 'primeng/api';
 import { CONSTANTS, HttpStatus } from '../../../../environments/constants';
+import { ClassRoomService } from '../../../../core/services/api-core/classRoom.service';
+import { TeacherService } from '../../../../core/services/api-core/teacher.service';
+import { CourseService } from '../../../../core/services/api-core/course.service';
+import { SubjectService } from '../../../../core/services/api-core/subject.service';
 
 @Component({
   selector: 'app-information',

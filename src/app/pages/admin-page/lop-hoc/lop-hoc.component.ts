@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { debounceTime, Subject } from 'rxjs';
 import { ClassRoom } from '../../../core/models/classRoom.model';
 import { Router } from '@angular/router';
-import { ClassRoomService } from '../../../core/services/classRoom.service';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { CONSTANTS, STATUS } from '../../../environments/constants';
 import { UtilsService } from '../../../core/utils/utils.service';
+import { ClassRoomService } from '../../../core/services/api-core/classRoom.service';
 
 @Component({
   selector: 'app-lop-hoc',

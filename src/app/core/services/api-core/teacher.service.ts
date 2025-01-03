@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { API_URL } from '../../environments/constants';
-import { IResponseList, IResponseListData } from '../models/common.model';
-import { Teacher } from '../models/teacher.model';
+import { API_URL } from '../../../environments/constants';
+import { IResponseList, IResponseListData } from '../../models/common.model';
+import { Teacher } from '../../models/teacher.model';
 
 @Injectable({
   providedIn: 'root',

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TestAbilityService } from '../../../../core/services/test-ability.service';
 import { MenuItem } from 'primeng/api';
-import { STATUS } from '../../../../environments/constants';
 import { UtilsService } from '../../../../core/utils/utils.service';
+import { TestAbilityService } from '../../../../core/services/api-core/test-ability.service';
 
 @Component({
   selector: 'app-information-comment',

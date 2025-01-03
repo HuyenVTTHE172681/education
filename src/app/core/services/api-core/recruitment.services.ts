@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, filter, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Title } from '@angular/platform-browser';
-import { API_URL } from '../../environments/constants';
-import { IResponseList } from '../models/common.model';
-import { Recruit, RecruitCandidate } from '../models/recruitment.model';
+import { API_URL } from '../../../environments/constants';
+import { Recruit, RecruitCandidate } from '../../models/recruitment.model';
+import { IResponseList } from '../../models/common.model';
 
 @Injectable({
     providedIn: 'root',

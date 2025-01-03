@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardService } from '../../../core/services/dashboard.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Guide } from '../../../core/models/guide.model';
 import { MenuItem } from 'primeng/api';
+import { DashboardService } from '../../../core/services/api-core/dashboard.service';
 
 @Component({
   selector: 'app-guide-support',

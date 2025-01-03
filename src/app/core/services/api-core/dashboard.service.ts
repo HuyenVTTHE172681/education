@@ -3,11 +3,11 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, filter, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { MenuItem } from 'primeng/api';
-import { API_URL } from '../../environments/constants';
-import { Dashboard, DashboardAdminCourse, DashboardAdminScore } from '../models/dashboard.model';
-import { User } from '../models/user.model';
-import { Guide } from '../models/guide.model';
-import { IResponseList, IResponseListData } from '../models/common.model';
+import { API_URL } from '../../../environments/constants';
+import { Dashboard, DashboardAdminCourse, DashboardAdminScore } from '../../models/dashboard.model';
+import { IResponseList, IResponseListData } from '../../models/common.model';
+import { Guide } from '../../models/guide.model';
+import { User } from '../../models/user.model';
 
 @Injectable({
     providedIn: 'root',

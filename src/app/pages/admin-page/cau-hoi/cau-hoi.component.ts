@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
-import { QuestionsService } from '../../../core/services/question.service';
 import { Question, TestQuestionGroup, TestQuestionType } from '../../../core/models/question.model';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { CONSTANTS } from '../../../environments/constants';
 import { UtilsService } from '../../../core/utils/utils.service';
+import { QuestionsService } from '../../../core/services/api-core/question.service';
 
 @Component({
   selector: 'app-cau-hoi',

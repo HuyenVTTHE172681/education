@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardService } from '../../../core/services/dashboard.service';
 import { User } from '../../../core/models/user.model';
 import { debounceTime, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { STATUS } from '../../../environments/constants';
 import { UtilsService } from '../../../core/utils/utils.service';
+import { DashboardService } from '../../../core/services/api-core/dashboard.service';
 
 @Component({
   selector: 'app-tai-khoan',

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { QuestionsService } from '../../../../core/services/question.service';
 import { TestQuestionGroup, TestQuestionNewById, TestQuestionType } from '../../../../core/models/question.model';
 import { ActivatedRoute } from '@angular/router';
 import { Teacher } from '../../../../core/models/teacher.model';
-import { TeacherService } from '../../../../core/services/teacher.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { HttpStatus } from '../../../../environments/constants';
+import { QuestionsService } from '../../../../core/services/api-core/question.service';
+import { TeacherService } from '../../../../core/services/api-core/teacher.service';
 
 @Component({
   selector: 'app-chi-tiet-cau-hoi',

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
-import { DashboardService } from '../../../../core/services/dashboard.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CONSTANTS, HttpStatus } from '../../../../environments/constants';
+import { DashboardService } from '../../../../core/services/api-core/dashboard.service';
 
 @Component({
   selector: 'app-chi-tiet-tai-khoan',

@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { API_URL } from '../../environments/constants';
-import { ClassRoom } from '../models/classRoom.model';
-import { IResponseList, IResponseListData } from '../models/common.model';
+import { API_URL } from '../../../environments/constants';
+import { IResponseList, IResponseListData } from '../../models/common.model';
+import { ClassRoom } from '../../models/classRoom.model';
 
 @Injectable({
   providedIn: 'root',

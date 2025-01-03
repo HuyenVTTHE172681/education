@@ -26,10 +26,10 @@ export class ContentLayoutComponent {
         window.scrollTo(0, 0);
       });
   }
-  openEnd(content: TemplateRef<any>) {}
-  clickOnBody() {}
+  openEnd(content: TemplateRef<any>) { }
+  clickOnBody() { }
 
-  closeMenu() {}
+  closeMenu() { }
 
-  clearToggle() {}
+  clearToggle() { }
 }

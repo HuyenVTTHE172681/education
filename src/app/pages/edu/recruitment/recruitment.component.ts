@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RecruitmentService } from '../../../core/services/recruitment.services';
 import { Recruit } from '../../../core/models/recruitment.model';
+import { RecruitmentService } from '../../../core/services/api-core/recruitment.services';
 
 @Component({
   selector: 'app-recruitment',

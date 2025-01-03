@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TestAbilityService } from '../../../core/services/test-ability.service';
-import { CourseService } from '../../../core/services/course.service';
+import { TestAbilityService } from '../../../core/services/api-core/test-ability.service';
+import { CourseService } from '../../../core/services/api-core/course.service';
 
 @Component({
   selector: 'app-course',

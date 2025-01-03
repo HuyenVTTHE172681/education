@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
-import { TeacherService } from '../../../../core/services/teacher.service';
-import { DashboardService } from '../../../../core/services/dashboard.service';
 import { CONSTANTS, HttpStatus } from '../../../../environments/constants';
+import { TeacherService } from '../../../../core/services/api-core/teacher.service';
+import { DashboardService } from '../../../../core/services/api-core/dashboard.service';
 
 @Component({
   selector: 'app-chi-tiet-giao-vien',

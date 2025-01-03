@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { HistoriesTestUser, Scores } from '../../../core/models/scores.model';
-import { SCoresService } from '../../../core/services/scores.service';
 import { debounceTime, map, throwIfEmpty } from 'rxjs/operators';
 import { UtilsService } from '../../../core/utils/utils.service';
 import { Subject } from 'rxjs';
 import { ClassRoom } from '../../../core/models/classRoom.model';
 import { Course } from '../../../core/models/course.model';
 import { Subject as SubjectModel } from '../../../core/models/subject.model';
-import { ClassRoomService } from '../../../core/services/classRoom.service';
 import { IResponseList } from '../../../core/models/common.model';
-import { CourseService } from '../../../core/services/course.service';
-import { SubjectService } from '../../../core/services/subject.service';
+import { SCoresService } from '../../../core/services/api-core/scores.service';
+import { ClassRoomService } from '../../../core/services/api-core/classRoom.service';
+import { CourseService } from '../../../core/services/api-core/course.service';
+import { SubjectService } from '../../../core/services/api-core/subject.service';
 
 @Component({
   selector: 'app-diem-thi',

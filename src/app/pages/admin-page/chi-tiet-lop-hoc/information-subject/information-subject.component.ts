@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { debounceTime, Subject } from 'rxjs';
 import { Subject as SubjectModel } from '../../../../core/models/subject.model';
-import { SubjectService } from '../../../../core/services/subject.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { CONSTANTS, STATUS } from '../../../../environments/constants';
+import { SubjectService } from '../../../../core/services/api-core/subject.service';
 
 @Component({
   selector: 'app-information-subject',

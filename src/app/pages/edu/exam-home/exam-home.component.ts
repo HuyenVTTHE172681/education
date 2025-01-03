@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StepService } from '../../../core/services/step.service';
+import { StepService } from '../../../core/services/api-core/step.service';
 
 @Component({
   selector: 'app-exam-home',

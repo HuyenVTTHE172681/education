@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ClassRoomService } from '../../../../core/services/classRoom.service';
-import { CourseService } from '../../../../core/services/course.service';
-import { DashboardService } from '../../../../core/services/dashboard.service';
-import { TeacherService } from '../../../../core/services/teacher.service';
 import { IResponseList } from '../../../../core/models/common.model';
 import { Subject as SubjectModel } from '../../../../core/models/subject.model';
 import { ClassRoom } from '../../../../core/models/classRoom.model';
 import { Course, CourseYear } from '../../../../core/models/course.model';
 import { Teacher } from '../../../../core/models/teacher.model';
 import { Subject } from 'rxjs';
-import { SubjectService } from '../../../../core/services/subject.service';
+import { ClassRoomService } from '../../../../core/services/api-core/classRoom.service';
+import { CourseService } from '../../../../core/services/api-core/course.service';
+import { DashboardService } from '../../../../core/services/api-core/dashboard.service';
+import { TeacherService } from '../../../../core/services/api-core/teacher.service';
+import { SubjectService } from '../../../../core/services/api-core/subject.service';
 
 @Component({
   selector: 'app-dashboard-course-detail',

@@ -1,54 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable, filter, throwError } from 'rxjs';
+import { Observable, throwError, filter } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { MenuItem } from 'primeng/api';
-import { API_URL } from '../../environments/constants';
-import { IResponseList, IResponseListData } from '../models/common.model';
-import { ClassRoom } from '../models/classRoom.model';
-import { Teacher } from '../models/teacher.model';
-import { Subject } from '../models/subject.model';
+import { API_URL } from '../../../environments/constants';
+import { QuestionGroups } from '../../models/question.model';
+import { IResponseList, IResponseListData } from '../../models/common.model';
 
 @Injectable({
     providedIn: 'root',
 })
-export class SubjectService {
+export class QuestionGroupsService {
     apiBaseUrl: string = '';
 
     constructor(private http: HttpClient) {
         this.apiBaseUrl = API_URL.URL_API_CORE;
     }
 
-    getSubjectByCourse(
-        classId: string,
-        filter: string = '',
+    getQuestionGroups(
+        filter: string,
         page: number,
         size: number,
-    ): Observable<IResponseList<Subject>> {
+        status: number
+    ): Observable<IResponseList<QuestionGroups>> {
 
-        const query = `/Subject?classId=${classId}&filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
-        const apiURL = `${this.apiBaseUrl}${query}`;
-
-        return this.http
-            .get<IResponseList<Subject>>(apiURL)
-            .pipe(catchError(this.handleError));
-    }
-
-    getSubjectById(
-        id: string
-    ): Observable<IResponseListData<Subject>> {
-
-        const query = `/Subject/${id}`;
-        const apiURL = `${this.apiBaseUrl}${query}`;
-
-        return this.http
-            .get<IResponseListData<Subject>>(apiURL)
-            .pipe(catchError(this.handleError));
-    }
-
-    addSubject(subject: any): Observable<IResponseListData<Subject>> {
-
-        const query = `/Subject`;
+        const query = `/TestQuestionGroup?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}&status=${status}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
         const token = localStorage.getItem('token');
@@ -57,13 +32,38 @@ export class SubjectService {
             : new HttpHeaders();
 
         return this.http
-            .post<IResponseListData<Subject>>(apiURL, subject, { headers })
+            .get<IResponseList<QuestionGroups>>(apiURL, { headers })
             .pipe(catchError(this.handleError));
     }
 
-    deleteSubject(id: string) {
+    getQuestionGroupsById(id: number): Observable<IResponseListData<QuestionGroups>> {
 
-        const apiUrl = `${this.apiBaseUrl}/Subject/${id}`;
+        const query = `/TestQuestionGroup/${id}`;
+        const apiURL = `${this.apiBaseUrl}${query}`;
+
+        return this.http
+            .get<IResponseListData<QuestionGroups>>(apiURL)
+            .pipe(catchError(this.handleError));
+    }
+
+    updateQuestionGroup(questionGroup: any): Observable<IResponseListData<QuestionGroups>> {
+
+        const query = `/TestQuestionGroup`;
+        const apiURL = `${this.apiBaseUrl}${query}`;
+
+        const token = localStorage.getItem('token');
+        const headers = token
+            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+            : new HttpHeaders();
+
+        return this.http
+            .post<IResponseListData<QuestionGroups>>(apiURL, questionGroup, { headers })
+            .pipe(catchError(this.handleError));
+    }
+
+    deletedQuestionGroup(id: number) {
+
+        const apiUrl = `${this.apiBaseUrl}/TestQuestionGroup/${id}`;
 
         const token = localStorage.getItem('token');
         const headers = token
@@ -72,27 +72,10 @@ export class SubjectService {
 
         return this.http.delete<any>(apiUrl, { headers }).pipe(
             catchError((err: HttpErrorResponse) => {
-                console.error('API EditCourse Error: ', err);
                 return throwError(() => new Error(err.message || 'API call failed'));
             })
         );
     }
-
-    updateSubject(subject: any): Observable<IResponseListData<Subject>> {
-
-        const query = `/Subject`;
-        const apiURL = `${this.apiBaseUrl}${query}`;
-
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
-        return this.http
-            .post<IResponseListData<Subject>>(apiURL, subject, { headers })
-            .pipe(catchError(this.handleError));
-    }
-
 
     // Hàm xử lý lỗi
     private handleError(error: HttpErrorResponse) {

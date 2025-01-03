@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TeacherService } from '../../../../core/services/teacher.service';
-import { ClassRoomService } from '../../../../core/services/classRoom.service';
-import { ClassRoom } from '../../../../core/models/classRoom.model';
-import { MenuItem, MessageService } from 'primeng/api';
 import { CONSTANTS, HttpStatus } from '../../../../environments/constants';
+import { ClassRoomService } from '../../../../core/services/api-core/classRoom.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-infomation-classroom',

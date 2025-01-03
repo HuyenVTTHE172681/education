@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject as SubjectModel } from '../../../core/models/subject.model';
-import { SubjectService } from '../../../core/services/subject.service';
 import { Router } from '@angular/router';
-import { ClassRoomService } from '../../../core/services/classRoom.service';
 import { ClassRoom } from '../../../core/models/classRoom.model';
 import { debounceTime, Subject } from 'rxjs';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { CONSTANTS, STATUS } from '../../../environments/constants';
 import { UtilsService } from '../../../core/utils/utils.service';
+import { ClassRoomService } from '../../../core/services/api-core/classRoom.service';
+import { SubjectService } from '../../../core/services/api-core/subject.service';
 @Component({
   selector: 'app-mon-hoc',
   templateUrl: './mon-hoc.component.html',

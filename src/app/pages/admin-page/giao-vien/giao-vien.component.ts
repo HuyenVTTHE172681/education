@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { debounceTime, Subject } from 'rxjs';
-import { DashboardService } from '../../../core/services/dashboard.service';
 import { Router } from '@angular/router';
-import { TeacherService } from '../../../core/services/teacher.service';
 import { Teacher } from '../../../core/models/teacher.model';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { CONSTANTS, STATUS } from '../../../environments/constants';
 import { UtilsService } from '../../../core/utils/utils.service';
+import { TeacherService } from '../../../core/services/api-core/teacher.service';
 
 @Component({
   selector: 'app-giao-vien',

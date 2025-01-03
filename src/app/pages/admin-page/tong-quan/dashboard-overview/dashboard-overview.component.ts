@@ -3,11 +3,11 @@ import { Subject as SubjectModel } from "../../../../core/models/subject.model";
 import { Dashboard } from "../../../../core/models/dashboard.model";
 import { IResponseList } from "../../../../core/models/common.model";
 import { Subject } from "rxjs";
-import { DashboardService } from "../../../../core/services/dashboard.service";
-import { ClassRoomService } from "../../../../core/services/classRoom.service";
 import { ClassRoom } from "../../../../core/models/classRoom.model";
-import { CourseService } from "../../../../core/services/course.service";
-import { SubjectService } from "../../../../core/services/subject.service";
+import { DashboardService } from "../../../../core/services/api-core/dashboard.service";
+import { ClassRoomService } from "../../../../core/services/api-core/classRoom.service";
+import { CourseService } from "../../../../core/services/api-core/course.service";
+import { SubjectService } from "../../../../core/services/api-core/subject.service";
 
 @Component({
   selector: 'app-dashboard-overview',

@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, filter } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { API_URL } from '../../environments/constants';
-import { IResponseList, IResponseListData } from '../models/common.model';
-import { Question, TestQuestionChangePublicStatus, TestQuestionGroup, TestQuestionNewById, TestQuestionType } from '../models/question.model';
+import { API_URL } from '../../../environments/constants';
+import { IResponseList, IResponseListData } from '../../models/common.model';
+import { Question, TestQuestionChangePublicStatus, TestQuestionGroup, TestQuestionNewById, TestQuestionType } from '../../models/question.model';
 
 @Injectable({
     providedIn: 'root',

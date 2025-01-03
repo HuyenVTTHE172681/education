@@ -215,7 +215,7 @@
 <p-sidebar [(visible)]="sidebarForEdit" [position]="'right'" [modal]="true" [showCloseIcon]="true"
   class="custom-sidebar">
   <app-edit-chuong-trinh-hoc [file]="selectedFile"
-    (dataUpdated)="handleDataUpdated($event)"></app-edit-chuong-trinh-hoc>
+    (dataUpdated)="handleDataUpdated(selectedFile)"></app-edit-chuong-trinh-hoc>
 </p-sidebar>
 
 

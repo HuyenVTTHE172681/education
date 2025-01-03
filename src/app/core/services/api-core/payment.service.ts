@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { API_URL } from '../../environments/constants';
-import { IResponseList } from '../models/common.model';
-import { Payment } from '../models/payment.model';
+import { API_URL } from '../../../environments/constants';
+import { Payment } from '../../models/payment.model';
+import { IResponseList } from '../../models/common.model';
 
 @Injectable({
     providedIn: 'root',

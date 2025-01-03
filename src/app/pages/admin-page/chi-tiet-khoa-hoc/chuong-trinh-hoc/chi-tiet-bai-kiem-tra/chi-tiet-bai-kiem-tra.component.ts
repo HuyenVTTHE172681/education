@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TestAbilityService } from '../../../../../core/services/test-ability.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TestAbilityService } from '../../../../../core/services/api-core/test-ability.service';
 
 @Component({
   selector: 'app-chi-tiet-bai-kiem-tra',

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { QuestionGroups } from '../../../core/models/question.model';
-import { QuestionGroupsService } from '../../../core/services/questionGroups.service';
 import { CONSTANTS, HttpStatus } from '../../../environments/constants';
 import { UtilsService } from '../../../core/utils/utils.service';
 import { debounceTime, Subject } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { QuestionGroupsService } from '../../../core/services/api-core/questionGroups.service';
 
 @Component({
   selector: 'app-nhom-cau-hoi',

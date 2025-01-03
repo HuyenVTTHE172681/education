@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/authen.service';
-import { MenuService } from '../../../core/services/menu.service';
-import { MenuItem } from '../../../core/models/menu.model';
+import { MenuService } from '../../../core/services/api-core/menu.service';
 
 @Component({
   selector: 'app-header',

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../../../core/utils/utils.service';
-import { CourseService } from '../../../core/services/course.service';
 import { CourseYear } from '../../../core/models/course.model';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { debounceTime, Subject } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CONSTANTS, HttpStatus } from '../../../environments/constants';
+import { CourseService } from '../../../core/services/api-core/course.service';
 
 @Component({
   selector: 'app-nam-hoc',

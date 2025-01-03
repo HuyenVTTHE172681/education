@@ -3,9 +3,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { API_URL } from '../../environments/constants';
-import { Course, CourseYear } from '../models/course.model';
-import { IResponseList, IResponseListData } from '../models/common.model';
+import { API_URL } from '../../../environments/constants';
+import { IResponseList, IResponseListData } from '../../models/common.model';
+import { Course, CourseYear } from '../../models/course.model';
 
 @Injectable({
   providedIn: 'root',

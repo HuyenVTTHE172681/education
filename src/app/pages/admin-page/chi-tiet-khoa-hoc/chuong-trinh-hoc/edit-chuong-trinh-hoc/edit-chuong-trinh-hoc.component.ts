@@ -7,8 +7,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CourseService } from '../../../../../core/services/course.service';
 import { HttpStatus } from '../../../../../environments/constants';
+import { CourseService } from '../../../../../core/services/api-core/course.service';
 
 @Component({
   selector: 'app-edit-chuong-trinh-hoc',

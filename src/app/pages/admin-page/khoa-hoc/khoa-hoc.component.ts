@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { CourseService } from '../../../core/services/course.service';
 import { Course } from '../../../core/models/course.model';
 import { Subject as SubjectModel } from '../../../core/models/subject.model';
 import { IResponseList } from '../../../core/models/common.model';
 import { Router } from '@angular/router';
 import { ClassRoom } from '../../../core/models/classRoom.model';
 import { Teacher } from '../../../core/models/teacher.model';
-import { TeacherService } from '../../../core/services/teacher.service';
-import { ClassRoomService } from '../../../core/services/classRoom.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { SubjectService } from '../../../core/services/subject.service';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { CONSTANTS } from '../../../environments/constants';
 import { UtilsService } from '../../../core/utils/utils.service';
+import { CourseService } from '../../../core/services/api-core/course.service';
+import { ClassRoomService } from '../../../core/services/api-core/classRoom.service';
+import { TeacherService } from '../../../core/services/api-core/teacher.service';
+import { SubjectService } from '../../../core/services/api-core/subject.service';
 
 @Component({
   selector: 'app-khoa-hoc',

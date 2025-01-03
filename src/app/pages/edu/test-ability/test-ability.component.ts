@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TestAbilityService } from '../../../core/services/test-ability.service';
 import { Test } from '../../../core/models/test.model';
 import { IResponseList } from '../../../core/models/common.model';
+import { TestAbilityService } from '../../../core/services/api-core/test-ability.service';
 
 @Component({
   selector: 'app-test-ability',

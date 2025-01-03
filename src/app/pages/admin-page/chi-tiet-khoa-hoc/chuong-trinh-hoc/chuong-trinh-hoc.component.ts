@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CourseService } from '../../../../core/services/course.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TestAbilityService } from '../../../../core/services/test-ability.service';
 import { MenuItem } from 'primeng/api';
 import { HttpStatus } from '../../../../environments/constants';
 import { UtilsService } from '../../../../core/utils/utils.service';
+import { CourseService } from '../../../../core/services/api-core/course.service';
+import { TestAbilityService } from '../../../../core/services/api-core/test-ability.service';
 
 @Component({
   selector: 'app-chuong-trinh-hoc',
