@@ -26,25 +26,15 @@ export class PaymentService {
         const query = `/Payment?filter=${filter}&isPayment=${isPayment}&offSet=${(page - 1) * size}&pageSize=${size}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
         return this.http
-            .get<IResponseList<Payment>>(apiURL, { headers })
+            .get<IResponseList<Payment>>(apiURL)
             .pipe(catchError(this.handleError));
     }
 
     deletedPaymentList(id: string) {
         const apiUrl = `${this.apiBaseUrl}/Payment/${id}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
-        return this.http.delete<any>(apiUrl, { headers }).pipe(
+        return this.http.delete<any>(apiUrl).pipe(
             catchError((err: HttpErrorResponse) => {
                 console.error('API EditCourse Error: ', err);
                 return throwError(() => new Error(err.message || 'API call failed'));
@@ -62,16 +52,10 @@ export class PaymentService {
     }> {
         const apiUrl = `${this.apiBaseUrl}/Payment/ChangePaymentStatus`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
         return this.http
             .put<{ statusCode: number; data: { valid: boolean; messages: string } }>(
                 apiUrl,
                 payload,
-                { headers }
             )
             .pipe(catchError(this.handleError));
     }

@@ -30,11 +30,6 @@ export class SCoresService {
         const query = `/TestUser?classId=${classId}&courseId=${courseId}&filter=${filter}&offSet=${page}&pageSize=${size}&subjectId=${subjectId}&testCategoryId=${testCategoryId}&userId=${userId}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        // const token = localStorage.getItem('token');
-        // const headers = token
-        //     ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-        //     : new HttpHeaders();
-
         return this.http
             .get<IResponseList<Scores>>(apiURL)
             .pipe(catchError(this.handleError));

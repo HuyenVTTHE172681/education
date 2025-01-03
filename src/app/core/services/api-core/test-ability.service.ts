@@ -67,13 +67,8 @@ export class TestAbilityService {
 
     const apiURL = `${this.apiBaseUrl}/Test/GetTestNewById?id=${id}`;
 
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
-
     return this.http
-      .get<IResponseListData<Test>>(apiURL, { headers })
+      .get<IResponseListData<Test>>(apiURL)
       .pipe(catchError(this.handleError));
   }
 
@@ -131,16 +126,10 @@ export class TestAbilityService {
 
     const apiUrl = `${this.apiBaseUrl}/test/SetTestChangeStatus`;
 
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
-
     return this.http
       .post<{ statusCode: number; data: { valid: boolean; messages: string } }>(
         apiUrl,
-        payload,
-        { headers }
+        payload
       )
       .pipe(catchError(this.handleError));
   }
@@ -156,16 +145,10 @@ export class TestAbilityService {
 
     const apiUrl = `${this.apiBaseUrl}/test/SetTestChangeFree`;
 
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
-
     return this.http
       .post<{ statusCode: number; data: { valid: boolean; messages: string } }>(
         apiUrl,
-        payload,
-        { headers }
+        payload
       )
       .pipe(catchError(this.handleError));
   }
@@ -184,16 +167,10 @@ export class TestAbilityService {
 
     const apiUrl = `${this.apiBaseUrl}/test/SetTestChangeStatusValue`;
 
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
-
     return this.http
       .post<{ statusCode: number; data: { valid: boolean; messages: string } }>(
         apiUrl,
-        payload,
-        { headers }
+        payload
       )
       .pipe(catchError(this.handleError));
   }
@@ -218,13 +195,8 @@ export class TestAbilityService {
     const query = `/Test/SetTestNew`;
     const apiURL = `${this.apiBaseUrl}${query}`;
 
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
-
     return this.http
-      .post<IResponseListData<Test>>(apiURL, test, { headers })
+      .post<IResponseListData<Test>>(apiURL, test)
       .pipe(catchError(this.handleError));
   }
 
@@ -233,13 +205,8 @@ export class TestAbilityService {
     const query = `/Test/SetTestNew`;
     const apiURL = `${this.apiBaseUrl}${query}`;
 
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
-
     return this.http
-      .post<IResponseListData<Test>>(apiURL, test, { headers })
+      .post<IResponseListData<Test>>(apiURL, test)
       .pipe(catchError(this.handleError));
   }
 
@@ -247,12 +214,7 @@ export class TestAbilityService {
 
     const apiUrl = `${this.apiBaseUrl}/test/${id}`;
 
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
-
-    return this.http.delete<any>(apiUrl, { headers }).pipe(
+    return this.http.delete<any>(apiUrl).pipe(
       catchError((err: HttpErrorResponse) => {
         return throwError(() => new Error(err.message || 'API call failed'));
       })

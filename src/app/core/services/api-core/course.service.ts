@@ -65,12 +65,7 @@ export class CourseService {
 
     const apiUrl = `${this.apiBaseUrl}/Course/${id}`;
 
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
-
-    return this.http.delete<any>(apiUrl, { headers }).pipe(
+    return this.http.delete<any>(apiUrl).pipe(
       catchError((err: HttpErrorResponse) => {
         return throwError(() => new Error(err.message || 'API call failed'));
       })
@@ -85,13 +80,8 @@ export class CourseService {
 
     const apiURL = `${this.apiBaseUrl}/Course/GetCourseByIdCMS?id=${id}&accountId=${accountId}`;
 
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
-
     return this.http
-      .get<IResponseListData<Course>>(apiURL, { headers })
+      .get<IResponseListData<Course>>(apiURL)
       .pipe(catchError(this.handleError));
   }
 
@@ -105,13 +95,8 @@ export class CourseService {
 
     const apiUrl = `${this.apiBaseUrl}/CourseYear?filter=${filter}&offSet=${offSet}&pageSize=${pageSize}&status=${status}`;
 
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
-
     return this.http
-      .get<IResponseList<CourseYear>>(apiUrl, { headers })
+      .get<IResponseList<CourseYear>>(apiUrl)
       .pipe(catchError(this.handleError));
   }
 
@@ -120,13 +105,8 @@ export class CourseService {
     const query = `/CourseYear/${id}`;
     const apiURL = `${this.apiBaseUrl}${query}`;
 
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
-
     return this.http
-      .get<IResponseListData<CourseYear>>(apiURL, { headers })
+      .get<IResponseListData<CourseYear>>(apiURL)
       .pipe(catchError(this.handleError));
   }
 
@@ -135,13 +115,8 @@ export class CourseService {
     const query = `/CourseYear`;
     const apiURL = `${this.apiBaseUrl}${query}`;
 
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
-
     return this.http
-      .post<IResponseListData<CourseYear>>(apiURL, courseYears, { headers })
+      .post<IResponseListData<CourseYear>>(apiURL, courseYears)
       .pipe(catchError(this.handleError));
   }
 
@@ -149,12 +124,7 @@ export class CourseService {
 
     const apiUrl = `${this.apiBaseUrl}/CourseYear/${id}`;
 
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
-
-    return this.http.delete<any>(apiUrl, { headers }).pipe(
+    return this.http.delete<any>(apiUrl).pipe(
       catchError((err: HttpErrorResponse) => {
         return throwError(() => new Error(err.message || 'API call failed'));
       })
@@ -182,12 +152,7 @@ export class CourseService {
   editCourse(data: any): Observable<any> {
     const apiUrl = `${this.apiBaseUrl}/CourseSchedule`;
 
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
-
-    return this.http.post<any>(apiUrl, data, { headers }).pipe(
+    return this.http.post<any>(apiUrl, data).pipe(
       catchError((err: HttpErrorResponse) => {
         console.error('API EditCourse Error: ', err);
         return throwError(() => new Error(err.message || 'API call failed'));
@@ -199,12 +164,7 @@ export class CourseService {
 
     const apiUrl = `${this.apiBaseUrl}/CourseSchedule`;
 
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
-
-    return this.http.post<any>(apiUrl, data, { headers }).pipe(
+    return this.http.post<any>(apiUrl, data).pipe(
       catchError((err: HttpErrorResponse) => {
         console.error('API EditCourse Error: ', err);
         return throwError(() => new Error(err.message || 'API call failed'));
@@ -215,12 +175,7 @@ export class CourseService {
   deletedCourse(id: string): Observable<any> {
     const apiUrl = `${this.apiBaseUrl}/CourseSchedule/${id}`;
 
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
-
-    return this.http.delete<any>(apiUrl, { headers }).pipe(
+    return this.http.delete<any>(apiUrl).pipe(
       catchError((err: HttpErrorResponse) => {
         console.error('API EditCourse Error: ', err);
         return throwError(() => new Error(err.message || 'API call failed'));

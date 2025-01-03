@@ -58,15 +58,8 @@ export class RecruitmentService {
         status: number,
     ): Observable<IResponseList<RecruitCandidate>> {
 
-        //  https://hhq.runasp.net/api/RecruitCandidate?filter=&interviewPass=-1&offSet=0&pageSize=10&status=-1
         const query = `/RecruitCandidate?filter=${filter}&interviewPass=${interviewPass}&offSet=${page}&pageSize=${size}&status=${status}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
-
-        // const token = localStorage.getItem('token');
-        // const headers = token
-        //     ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-        //     : new HttpHeaders();
-
         return this.http
             .get<IResponseList<RecruitCandidate>>(apiURL)
             .pipe(catchError(this.handleError));

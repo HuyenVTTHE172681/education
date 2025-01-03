@@ -48,13 +48,8 @@ export class SubjectService {
         const query = `/Subject`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
         return this.http
-            .post<IResponseListData<Subject>>(apiURL, subject, { headers })
+            .post<IResponseListData<Subject>>(apiURL, subject)
             .pipe(catchError(this.handleError));
     }
 
@@ -62,12 +57,7 @@ export class SubjectService {
 
         const apiUrl = `${this.apiBaseUrl}/Subject/${id}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
-        return this.http.delete<any>(apiUrl, { headers }).pipe(
+        return this.http.delete<any>(apiUrl).pipe(
             catchError((err: HttpErrorResponse) => {
                 console.error('API EditCourse Error: ', err);
                 return throwError(() => new Error(err.message || 'API call failed'));
@@ -80,13 +70,8 @@ export class SubjectService {
         const query = `/Subject`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
         return this.http
-            .post<IResponseListData<Subject>>(apiURL, subject, { headers })
+            .post<IResponseListData<Subject>>(apiURL, subject)
             .pipe(catchError(this.handleError));
     }
 

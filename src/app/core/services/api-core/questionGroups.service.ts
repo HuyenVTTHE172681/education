@@ -25,14 +25,8 @@ export class QuestionGroupsService {
 
         const query = `/TestQuestionGroup?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}&status=${status}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
-
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
         return this.http
-            .get<IResponseList<QuestionGroups>>(apiURL, { headers })
+            .get<IResponseList<QuestionGroups>>(apiURL)
             .pipe(catchError(this.handleError));
     }
 
@@ -51,13 +45,8 @@ export class QuestionGroupsService {
         const query = `/TestQuestionGroup`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
         return this.http
-            .post<IResponseListData<QuestionGroups>>(apiURL, questionGroup, { headers })
+            .post<IResponseListData<QuestionGroups>>(apiURL, questionGroup)
             .pipe(catchError(this.handleError));
     }
 
@@ -65,12 +54,7 @@ export class QuestionGroupsService {
 
         const apiUrl = `${this.apiBaseUrl}/TestQuestionGroup/${id}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
-        return this.http.delete<any>(apiUrl, { headers }).pipe(
+        return this.http.delete<any>(apiUrl).pipe(
             catchError((err: HttpErrorResponse) => {
                 return throwError(() => new Error(err.message || 'API call failed'));
             })

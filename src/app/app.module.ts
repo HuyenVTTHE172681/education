@@ -8,12 +8,13 @@ import { RegisterComponent } from './authen/register/register.component';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { register } from 'swiper/element/bundle';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EduModule } from './pages/edu/edu.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AdminPageModule } from './pages/admin-page/admin-page.module';
+import { AuthInterceptor } from './core/services/auth.interceptor';
 
 register();
 @NgModule({
@@ -31,7 +32,15 @@ register();
     AdminPageModule,
     EduModule,
   ],
-  providers: [MessageService, ConfirmationService],
+  providers: [
+    MessageService, 
+    ConfirmationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

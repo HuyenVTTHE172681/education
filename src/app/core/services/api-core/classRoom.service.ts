@@ -46,28 +46,17 @@ export class ClassRoomService {
 
     const query = `/ClassRoom`;
     const apiURL = `${this.apiBaseUrl}${query}`;
-    console.log('Generated dashboard API URL:', apiURL);
-
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
 
     return this.http
-      .post<IResponseListData<ClassRoom>>(apiURL, classroom, { headers })
+      .post<IResponseListData<ClassRoom>>(apiURL, classroom)
       .pipe(catchError(this.handleError));
   }
 
   deleteClassRoom(id: string) {
 
     const apiUrl = `${this.apiBaseUrl}/ClassRoom/${id}`;
-    const token = localStorage.getItem('token');
 
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
-
-    return this.http.delete<any>(apiUrl, { headers }).pipe(
+    return this.http.delete<any>(apiUrl).pipe(
       catchError((err: HttpErrorResponse) => {
         return throwError(() => new Error(err.message || 'API call failed'));
       })

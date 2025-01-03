@@ -30,13 +30,8 @@ export class QuestionsService {
         const query = `/testQuestion?filter=${filter}&isHaveConfig=${isHaveConfig}&level=${level}&offSet=${(page - 1) * size}&pageSize=${size}&publicStatus=${publicStatus}&testQuestionGroupId=${testQuestionGroupId}&testQuestionTypeCode=${testQuestionTypeCode}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
         return this.http
-            .get<IResponseList<Question>>(apiURL, { headers })
+            .get<IResponseList<Question>>(apiURL)
             .pipe(catchError(this.handleError));
     }
 
@@ -49,13 +44,8 @@ export class QuestionsService {
         const query = `/TestQuestionGroup?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}&status=${status}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
         return this.http
-            .get<IResponseList<TestQuestionGroup>>(apiURL, { headers })
+            .get<IResponseList<TestQuestionGroup>>(apiURL)
             .pipe(catchError(this.handleError));
     }
 
@@ -64,13 +54,8 @@ export class QuestionsService {
         const query = `/TestQuestionType?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
         return this.http
-            .get<IResponseList<TestQuestionType>>(apiURL, { headers })
+            .get<IResponseList<TestQuestionType>>(apiURL)
             .pipe(catchError(this.handleError));
     }
 
@@ -81,13 +66,8 @@ export class QuestionsService {
         const query = `/TestQuestion/GetTestQuestionNewById?id=${id}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
         return this.http
-            .get<IResponseListData<TestQuestionNewById>>(apiURL, { headers })
+            .get<IResponseListData<TestQuestionNewById>>(apiURL)
             .pipe(catchError(this.handleError));
     }
 
@@ -96,13 +76,8 @@ export class QuestionsService {
         const query = `/TestQuestion/UpdateTestQuestionChangePublicStatus?id=${id}&publicStatus=${publicStatus}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
         return this.http
-            .get<IResponseListData<TestQuestionChangePublicStatus>>(apiURL, { headers })
+            .get<IResponseListData<TestQuestionChangePublicStatus>>(apiURL)
             .pipe(catchError(this.handleError));
     }
 
@@ -111,21 +86,13 @@ export class QuestionsService {
         const query = `/testQuestion`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            })
-            : new HttpHeaders({ 'Content-Type': 'application/json' });
-
         const payload = {
             id: documentId,
             isMultiple: isMultiple,
         };
 
         return this.http
-            .delete<any>(apiURL, { headers, body: payload })
+            .delete<any>(apiURL, { body: payload })
             .pipe(catchError(this.handleError));
     }
 

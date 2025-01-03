@@ -47,25 +47,15 @@ export class TeacherService {
     const query = `/Teacher`;
     const apiURL = `${this.apiBaseUrl}${query}`;
 
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
-
     return this.http
-      .post<IResponseListData<Teacher>>(apiURL, teacher, { headers })
+      .post<IResponseListData<Teacher>>(apiURL, teacher)
       .pipe(catchError(this.handleError));
   }
 
   deleteTeacher(id: string) {
     const apiUrl = `${this.apiBaseUrl}/Teacher/${id}`;
 
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
-
-    return this.http.delete<any>(apiUrl, { headers }).pipe(
+    return this.http.delete<any>(apiUrl).pipe(
       catchError((err: HttpErrorResponse) => {
         console.error('API EditCourse Error: ', err);
         return throwError(() => new Error(err.message || 'API call failed'));

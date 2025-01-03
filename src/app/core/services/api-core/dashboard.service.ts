@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable, filter, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { MenuItem } from 'primeng/api';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { API_URL } from '../../../environments/constants';
 import { Dashboard, DashboardAdminCourse, DashboardAdminScore } from '../../models/dashboard.model';
 import { IResponseList, IResponseListData } from '../../models/common.model';
@@ -31,13 +30,8 @@ export class DashboardService {
         const query = `/Dashboard/GetDashboardAdminOverview?ClassRoomId=${classRoomId}&SubjectIds=${subjectIds}&accountId=${accountId}&filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
         return this.http
-            .get<IResponseList<Dashboard>>(apiURL, { headers })
+            .get<IResponseList<Dashboard>>(apiURL)
             .pipe(catchError(this.handleError));
     }
 
@@ -46,12 +40,7 @@ export class DashboardService {
         const query = `/Dashboard?fromDate=${fromDate}&toDate=${toDate}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
-        return this.http.get<any>(apiURL, { headers }).pipe(catchError(this.handleError));
+        return this.http.get<any>(apiURL).pipe(catchError(this.handleError));
     }
 
     getDashboardAdminCourse(
@@ -66,14 +55,8 @@ export class DashboardService {
         const query = `/Dashboard/GetDashboardAdminCourse?ClassRoomId=${classRoomId}&SubjectIds=${subjectIds}&accountId=${accountId}&filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
         return this.http
-            .get<IResponseList<DashboardAdminCourse>>(apiURL, { headers })
+            .get<IResponseList<DashboardAdminCourse>>(apiURL)
             .pipe(catchError(this.handleError));
     }
 
@@ -88,13 +71,8 @@ export class DashboardService {
         const query = `/Dashboard/GetDashboardAdminCourseDetail?classRoomId=${classRoomId}&courseId=${courseId}&courseYearId=${courseYearId}&subjectId=${subjectId}&teacherId=${teacherId}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
         return this.http
-            .get<IResponseList<any>>(apiURL, { headers })
+            .get<IResponseList<any>>(apiURL)
             .pipe(catchError(this.handleError));
     }
 
@@ -110,13 +88,8 @@ export class DashboardService {
         const query = `/Dashboard/GetDashboardAdminScore?ClassRoomId=${classRoomId}&SubjectIds=${subjectIds}&accountId=${accountId}&filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
         return this.http
-            .get<IResponseList<DashboardAdminScore>>(apiURL, { headers })
+            .get<IResponseList<DashboardAdminScore>>(apiURL)
             .pipe(catchError(this.handleError));
     }
 
@@ -130,13 +103,8 @@ export class DashboardService {
         const query = `/Guide?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}&screen=${screen}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
         return this.http
-            .get<IResponseList<Guide>>(apiURL, { headers })
+            .get<IResponseList<Guide>>(apiURL)
             .pipe(catchError(this.handleError));
     }
 
@@ -151,13 +119,8 @@ export class DashboardService {
         const query = `/Account?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}&roleId=${roleId}&roleTypeDataId=${roleTypeDataId}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
         return this.http
-            .get<IResponseList<User>>(apiURL, { headers })
+            .get<IResponseList<User>>(apiURL)
             .pipe(catchError(this.handleError));
     }
 
@@ -170,13 +133,8 @@ export class DashboardService {
         const query = `/Role?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
         return this.http
-            .get<IResponseList<any>>(apiURL, { headers })
+            .get<IResponseList<any>>(apiURL)
             .pipe(catchError(this.handleError));
     }
 
@@ -189,13 +147,8 @@ export class DashboardService {
         const query = `/RoleDataType?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
         return this.http
-            .get<IResponseList<any>>(apiURL, { headers })
+            .get<IResponseList<any>>(apiURL)
             .pipe(catchError(this.handleError));
     }
 
@@ -206,13 +159,8 @@ export class DashboardService {
         const query = `/Account/${id}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
         return this.http
-            .get<IResponseListData<User>>(apiURL, { headers })
+            .get<IResponseListData<User>>(apiURL)
             .pipe(catchError(this.handleError));
     }
 
@@ -221,13 +169,8 @@ export class DashboardService {
         const query = `/account/SetAccountUser`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-            
         return this.http
-            .post<IResponseListData<User>>(apiURL, account, { headers })
+            .post<IResponseListData<User>>(apiURL, account)
             .pipe(catchError(this.handleError));
     }
 
@@ -240,13 +183,8 @@ export class DashboardService {
         const query = `/Account/GetAccountsNotTeacher?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
 
-        const token = localStorage.getItem('token');
-        const headers = token
-            ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-            : new HttpHeaders();
-
         return this.http
-            .get<IResponseList<User>>(apiURL, { headers })
+            .get<IResponseList<User>>(apiURL)
             .pipe(catchError(this.handleError));
     }
 

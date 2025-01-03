@@ -25,16 +25,10 @@ export class AuthService {
 
   // https://hhq.runasp.net/api/Account/GetAccountByUserName?username=admin
   getUserInfo(username: string): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
-      : new HttpHeaders();
 
     return this.http
       .get<any>(
-        `${this.apiBaseUrl}/Account/GetAccountByUserName?username=${username}`,
-        { headers }
-      )
+        `${this.apiBaseUrl}/Account/GetAccountByUserName?username=${username}`)
       .pipe();
   }
 
