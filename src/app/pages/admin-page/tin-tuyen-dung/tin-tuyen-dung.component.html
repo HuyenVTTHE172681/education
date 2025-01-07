@@ -59,7 +59,7 @@
                         (onClick)="setSelectedRecruit(recruit); menu.toggle($event)" />
                 </td>
                 <td class="text-blue-700 pointer">
-                    <a [routerLink]="['/quan-tri/lop-hoc', recruit?.id]" style="text-decoration: none;">
+                    <a [routerLink]="['/quan-tri/tuyen-dung', recruit?.id]" style="text-decoration: none;">
                         {{ recruit?.name }}
                     </a>
                 </td>
@@ -86,7 +86,9 @@
             (onPageChange)="onPageChange($event)"></p-paginator>
 
         <div class="flex justify-content-center align-items-center gap-3">
-            <span>Từ {{ (query.page - 1) * query.size + 1 }} đến {{ totalItems }}</span>
+            <!-- <span>Từ {{ (query.page - 1) * query.size + 1 }} đến {{ totalItems }}</span> -->
+            <span>Từ {{ (query.page - 1) * query.size + 1 }} đến {{ (query.page * query.size) < totalItems ? query.page
+                    * query.size : totalItems }}</span>
         </div>
     </div>
 </div>

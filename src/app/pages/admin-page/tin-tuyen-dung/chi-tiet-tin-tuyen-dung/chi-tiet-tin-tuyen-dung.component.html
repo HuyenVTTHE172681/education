@@ -1,0 +1,109 @@
+<p-toast position="bottom-right" key="br" />
+
+<div class="chi-tiet-tin-tuc common-content">
+    <div class="detail-breadcumb">
+        <div class="col-12 md:col-4">
+            <p-breadcrumb class="max-w-full" [model]="breadcrumb" [home]="home" />
+            <div class="header-title hidden-mobile">Chi tiết tuyển dụng</div>
+        </div>
+    </div>
+
+    <div>
+        <div class="quan-tri-chi-tiet-mon-hoc common-content">
+            <div class="grid">
+                <div class="col-12">
+                    <form class="p-fluid" >
+                        <div class="grid">
+                            <div class="col-12">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-ellipsis-h" />
+                                            <input pInputText class="input-field"  />
+                                        </p-iconField>
+                                        <label for="name">Tiêu đề <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-ellipsis-h" />
+                                            <input pInputText class="input-field" />
+                                        </p-iconField>
+                                        <label for="name">Mức lương <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-sort-alpha-down" />
+                                            <input pInputText class="input-field"  />
+                                        </p-iconField>
+                                        <label for="name">Địa chỉ <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-sort-alpha-down" />
+                                            <input pInputText class="input-field" />
+                                        </p-iconField>
+                                        <label for="name">Thứ tự <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-3">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-inputSwitch ></p-inputSwitch>
+                                        <label for="interviewPass" class="manual-active">Hiển thị <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-3">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-inputSwitch ></p-inputSwitch>
+                                        <label for="interviewPass" class="manual-active">Tuyển dụng hot <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="field pl-2 pr-2">
+                                    <small class="text-black-300">Tags</small>
+                                    <div class="text-black-300">
+                                        <!-- <p-multiselect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities"
+                                            [maxSelectedLabels]="3" styleClass="w-full md:w-80" /> -->
+                                        <p-multiselect optionLabel="name" placeholder="Select Cities"
+                                            [maxSelectedLabels]="3" styleClass="w-full md:w-80" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="field pl-2 pr-2">
+                                <label for="" class="font-size-14">Yêu cầu <span class="text-red-500">*</span></label>
+                                <p-editor [style]="{ height: '320px' }" />
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="field pl-2 pr-2">
+                                    <label for="" class="font-size-14">Chi tiết tuyển dụng</label>
+                                    <p-editor [style]="{ height: '320px' }" />
+                                </div>
+                            </div>
+                            <div class="col-12 fixed-action">
+                                <p-button label="Hủy bỏ" [outlined]="true" icon="pi pi-times" (click)="goBack()" />
+                                <p-button label="Cập nhật" icon="pi pi-save" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -23,6 +23,7 @@ import { DiemThiComponent } from './diem-thi/diem-thi.component';
 import { TinTuyenDungComponent } from './tin-tuyen-dung/tin-tuyen-dung.component';
 import { UngVienComponent } from './ung-vien/ung-vien.component';
 import { ChiTietUngVienComponent } from './ung-vien/chi-tiet-ung-vien/chi-tiet-ung-vien.component';
+import { ChiTietTinTuyenDungComponent } from './tin-tuyen-dung/chi-tiet-tin-tuyen-dung/chi-tiet-tin-tuyen-dung.component';
 
 const routes: Routes = [
   {
@@ -133,6 +134,10 @@ const routes: Routes = [
       {
         path: 'tuyen-dung',
         component: TinTuyenDungComponent
+      },
+      {
+        path: 'tuyen-dung/:id',
+        component: ChiTietTinTuyenDungComponent
       },
       {
         path: 'ung-vien',

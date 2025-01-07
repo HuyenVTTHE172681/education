@@ -10,9 +10,9 @@
 
     <div>
         <div class="quan-tri-chi-tiet-mon-hoc common-content">
-            <div class="grid mt-3">
+            <div class="grid">
                 <div class="col-12">
-                    <form class="p-fluid mt-3" [formGroup]="recruitmentCandidateForm">
+                    <form class="p-fluid" [formGroup]="recruitmentCandidateForm">
                         <div class="grid">
                             <div class="col-12">
                                 <h4>Thông tin ứng viên</h4>
@@ -58,10 +58,11 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-at" />
-                                            <p-calendar inputId="calendar-24h" [readonly]="true" [showTime]="true" [dateFormat]="'dd/mm/yy'"
-                                                formControlName="applyDate" />
+                                            <p-calendar inputId="calendar-24h" [readonly]="true" [showTime]="true"
+                                                [dateFormat]="'dd/mm/yy'" formControlName="applyDate" />
                                         </p-iconField>
-                                        <label for="applyDate">Ngày ứng tuyển <span class="text-red-500">*</span></label>
+                                        <label for="applyDate">Ngày ứng tuyển <span
+                                                class="text-red-500">*</span></label>
                                     </p-floatLabel>
                                 </div>
 
@@ -95,8 +96,8 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-user" />
-                                            <p-calendar inputId="calendar-24h" [readonly]="true" [showTime]="true" [dateFormat]="'dd/mm/yy'"
-                                                formControlName="interviewDate" />
+                                            <p-calendar inputId="calendar-24h" [readonly]="true" [showTime]="true"
+                                                [dateFormat]="'dd/mm/yy'" formControlName="interviewDate" />
                                         </p-iconField>
                                         <label for="name">Ngày phỏng vấn <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
