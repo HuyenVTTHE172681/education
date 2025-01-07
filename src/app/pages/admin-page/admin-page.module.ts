@@ -78,6 +78,7 @@ import { TinTuyenDungComponent } from './tin-tuyen-dung/tin-tuyen-dung.component
 import { UngVienComponent } from './ung-vien/ung-vien.component';
 import { ChiTietUngVienComponent } from './ung-vien/chi-tiet-ung-vien/chi-tiet-ung-vien.component';
 import { ChiTietTinTuyenDungComponent } from './tin-tuyen-dung/chi-tiet-tin-tuyen-dung/chi-tiet-tin-tuyen-dung.component';
+import { ChipModule } from 'primeng/chip';
 
 register(); // Register Swiper
 @NgModule({
@@ -162,7 +163,8 @@ register(); // Register Swiper
     MultiSelectModule,
     InputTextareaModule,
     ConfirmDialogModule,
-    ToastModule
+    ToastModule,
+    ChipModule
   ],
   providers: [ConfirmationService, MessageService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

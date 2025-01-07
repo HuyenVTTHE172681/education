@@ -24,6 +24,7 @@ import { TinTuyenDungComponent } from './tin-tuyen-dung/tin-tuyen-dung.component
 import { UngVienComponent } from './ung-vien/ung-vien.component';
 import { ChiTietUngVienComponent } from './ung-vien/chi-tiet-ung-vien/chi-tiet-ung-vien.component';
 import { ChiTietTinTuyenDungComponent } from './tin-tuyen-dung/chi-tiet-tin-tuyen-dung/chi-tiet-tin-tuyen-dung.component';
+import { ComponentFixture } from '@angular/core/testing';
 
 const routes: Routes = [
   {
@@ -137,6 +138,10 @@ const routes: Routes = [
       },
       {
         path: 'tuyen-dung/:id',
+        component: ChiTietTinTuyenDungComponent
+      },
+      {
+        path: 'tuyen-dung/them-moi',
         component: ChiTietTinTuyenDungComponent
       },
       {

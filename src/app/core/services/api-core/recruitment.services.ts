@@ -76,6 +76,16 @@ export class RecruitmentService {
             .get<IResponseListData<RecruitCandidate>>(apiURL)
           .pipe(catchError(this.handleError));
       }
+
+    getRecruitmentWithId(id: string): Observable<IResponseListData<Recruit>> {
+
+        const query = `/recruit/${id}`;
+        const apiURL = `${this.apiBaseUrl}${query}`;
+
+        return this.http
+            .get<IResponseListData<Recruit>>(apiURL)
+            .pipe(catchError(this.handleError));
+    }
     
 
     // Hàm xử lý lỗi

@@ -12,14 +12,14 @@
         <div class="quan-tri-chi-tiet-mon-hoc common-content">
             <div class="grid">
                 <div class="col-12">
-                    <form class="p-fluid" >
+                    <form class="p-fluid" [formGroup]="newsRecruitmentForm">
                         <div class="grid">
                             <div class="col-12">
                                 <div class="field">
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-ellipsis-h" />
-                                            <input pInputText class="input-field"  />
+                                            <input pInputText class="input-field" formControlName="name" />
                                         </p-iconField>
                                         <label for="name">Tiêu đề <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
@@ -30,7 +30,7 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-ellipsis-h" />
-                                            <input pInputText class="input-field" />
+                                            <input pInputText class="input-field" formControlName="price" />
                                         </p-iconField>
                                         <label for="name">Mức lương <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
@@ -41,7 +41,7 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-sort-alpha-down" />
-                                            <input pInputText class="input-field"  />
+                                            <input pInputText class="input-field" formControlName="address" />
                                         </p-iconField>
                                         <label for="name">Địa chỉ <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
@@ -52,7 +52,7 @@
                                     <p-floatLabel>
                                         <p-iconField iconPosition="right">
                                             <p-inputIcon styleClass="pi pi-sort-alpha-down" />
-                                            <input pInputText class="input-field" />
+                                            <input pInputText class="input-field" formControlName="order" />
                                         </p-iconField>
                                         <label for="name">Thứ tự <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
@@ -61,16 +61,18 @@
                             <div class="col-12 md:col-3">
                                 <div class="field">
                                     <p-floatLabel>
-                                        <p-inputSwitch ></p-inputSwitch>
-                                        <label for="interviewPass" class="manual-active">Hiển thị <span class="text-red-500">*</span></label>
+                                        <p-inputSwitch formControlName="status"></p-inputSwitch>
+                                        <label for="interviewPass" class="manual-active">Hiển thị <span
+                                                class="text-red-500">*</span></label>
                                     </p-floatLabel>
                                 </div>
                             </div>
                             <div class="col-12 md:col-3">
                                 <div class="field">
                                     <p-floatLabel>
-                                        <p-inputSwitch ></p-inputSwitch>
-                                        <label for="interviewPass" class="manual-active">Tuyển dụng hot <span class="text-red-500">*</span></label>
+                                        <p-inputSwitch formControlName="isHot"></p-inputSwitch>
+                                        <label for="interviewPass" class="manual-active">Tuyển dụng hot <span
+                                                class="text-red-500">*</span></label>
                                     </p-floatLabel>
                                 </div>
                             </div>
@@ -82,19 +84,25 @@
                                             [maxSelectedLabels]="3" styleClass="w-full md:w-80" /> -->
                                         <p-multiselect optionLabel="name" placeholder="Select Cities"
                                             [maxSelectedLabels]="3" styleClass="w-full md:w-80" />
+                                        <p-chip formControlName="tags">
+                                            <ng-template let-gfg pTemplate="gfg">
+                                                {{gfg}}<i class="pi pi-user p-ml-2"></i>
+                                            </ng-template>
+                                        </p-chip>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="field pl-2 pr-2">
-                                <label for="" class="font-size-14">Yêu cầu <span class="text-red-500">*</span></label>
-                                <p-editor [style]="{ height: '320px' }" />
+                                    <label for="" class="font-size-14">Yêu cầu <span
+                                            class="text-red-500">*</span></label>
+                                    <p-editor formControlName="requirement" [style]="{ height: '320px' }" />
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="field pl-2 pr-2">
                                     <label for="" class="font-size-14">Chi tiết tuyển dụng</label>
-                                    <p-editor [style]="{ height: '320px' }" />
+                                    <p-editor formControlName="content" [style]="{ height: '320px' }" />
                                 </div>
                             </div>
                             <div class="col-12 fixed-action">

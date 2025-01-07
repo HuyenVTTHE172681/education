@@ -4,6 +4,7 @@ import { Recruit } from '../../../core/models/recruitment.model';
 import { UtilsService } from '../../../core/utils/utils.service';
 import { debounceTime, Subject } from 'rxjs';
 import { RecruitmentService } from '../../../core/services/api-core/recruitment.services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tin-tuyen-dung',
@@ -27,7 +28,8 @@ export class TinTuyenDungComponent implements OnInit {
 
   constructor(
     public utilsService: UtilsService,
-    private recruitmentSrv: RecruitmentService
+    private recruitmentSrv: RecruitmentService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -76,7 +78,7 @@ export class TinTuyenDungComponent implements OnInit {
     this.recruitmentSrv.getRecruitment(this.query.filter, this.query.page, this.query.size, this.query.status).subscribe((data) => {
       this.recruitment = data?.data?.data || [];
       this.totalItems = data?.data?.recordsTotal || 0;
-      
+
       if (this.query.page < 1) {
         this.query.page = 1; // Reset to page 1 if it's invalid
       }
@@ -102,5 +104,8 @@ export class TinTuyenDungComponent implements OnInit {
     this.selectedRecruit = recruit;
   }
 
+  addNew() {
+    this.router.navigate(['/quan-tri/tuyen-dung/them-moi']);
+  }
 
 }
