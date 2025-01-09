@@ -25,6 +25,9 @@
                                         </p-iconField>
                                         <label for="name">Tiêu đề <span class="text-red-500">*</span></label>
                                     </p-floatLabel>
+                                    <small class="text-red-500"
+                                        *ngIf="newsRecruitmentForm.get('name')?.hasError('required')">Nhập tên vào
+                                        đây</small>
                                 </div>
                             </div>
                             <div class="col-12 md:col-6">
@@ -99,6 +102,9 @@
                                     <label for="" class="font-size-14">Yêu cầu <span
                                             class="text-red-500">*</span></label>
                                     <p-editor formControlName="requirement" [style]="{ height: '320px' }" />
+                                    <small class="text-red-500"
+                                        *ngIf="newsRecruitmentForm.get('requirement')?.hasError('required')">Hãy nhập
+                                        yêu cầu tuyển dụng</small>
                                 </div>
                             </div>
                             <div class="col-12">

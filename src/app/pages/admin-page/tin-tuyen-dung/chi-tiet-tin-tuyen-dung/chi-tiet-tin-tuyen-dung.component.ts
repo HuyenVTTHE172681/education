@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { RecruitmentService } from '../../../../core/services/api-core/recruitment.services';
@@ -33,10 +33,10 @@ export class ChiTietTinTuyenDungComponent implements OnInit {
       isHot: [0],
       modifiedBy: [''],
       modifiedDate: [''],
-      name: [''],
+      name: ['', [Validators.required]],
       order: [1],
       price: [''],
-      requirement: [''],
+      requirement: ['', [Validators.required]],
       status: [0],
       tags: [''],
       totalFiltered: ['']
