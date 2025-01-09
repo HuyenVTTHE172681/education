@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { RecruitmentService } from '../../../../core/services/api-core/recruitment.services';
-import { HttpStatus } from '../../../../environments/constants';
+import { CONSTANTS, HttpStatus } from '../../../../environments/constants';
 
 @Component({
   selector: 'app-chi-tiet-ung-vien',
@@ -22,6 +22,7 @@ export class ChiTietUngVienComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private recruitmentSrv: RecruitmentService,
+    private messageService: MessageService
   ) {
     this.recruitmentCandidateForm = this.formBuilder.group({
       applyDate: [''],
@@ -120,6 +121,9 @@ export class ChiTietUngVienComponent implements OnInit {
     const hours = ('0' + date.getHours()).slice(-2);
     const minutes = ('0' + date.getMinutes()).slice(-2);
     return `${day}/${month}/${year} ${hours}:${minutes}`;
+  }
+
+  update() {
   }
 
 }

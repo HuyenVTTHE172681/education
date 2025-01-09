@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { RecruitmentService } from '../../../../core/services/api-core/recruitment.services';
-import { HttpStatus } from '../../../../environments/constants';
+import { CONSTANTS, HttpStatus } from '../../../../environments/constants';
 
 @Component({
   selector: 'app-chi-tiet-tin-tuyen-dung',
@@ -22,6 +22,7 @@ export class ChiTietTinTuyenDungComponent implements OnInit {
     private formBuilder: FormBuilder,
     private recruitmentSrv: RecruitmentService,
     private route: ActivatedRoute,
+    private messageService: MessageService
   ) {
     this.newsRecruitmentForm = this.formBuilder.group({
       address: [''],
@@ -38,7 +39,7 @@ export class ChiTietTinTuyenDungComponent implements OnInit {
       requirement: [''],
       status: [0],
       tags: [''],
-      totalFiltered: [0]
+      totalFiltered: ['']
     })
   }
 
@@ -51,8 +52,8 @@ export class ChiTietTinTuyenDungComponent implements OnInit {
         this.isEditMode = true;
         this.getRecruitmentWithId(this.id);
       } else {
-        this.isEditMode = false;
         this.newsRecruitmentForm.reset();
+        this.isEditMode = false;
       }
     });
   }
@@ -99,9 +100,44 @@ export class ChiTietTinTuyenDungComponent implements OnInit {
       requirement: recruitmentForm.requirement || '',
       status: recruitmentForm.status === 1,
       tags: recruitmentForm.tags || '',
-      totalFiltered: recruitmentForm.totalFiltered === 0
+      totalFiltered: recruitmentForm.totalFiltered || ''
     })
   }
 
 
+  update() {
+    if (this.newsRecruitmentForm.valid) {
+      const formValue = { ...this.newsRecruitmentForm.value };
+      formValue.isHot = formValue.isHot ? 1 : 0;
+      formValue.status = formValue.status ? 1 : 0;
+
+      this.recruitmentSrv.updateRecruitCandidate(formValue).subscribe({
+        next: (data) => {
+          if (data.statusCode === HttpStatus.OK) {
+            let detail = this.isEditMode ? CONSTANTS.MESSAGE_ALERT.UPDATE_FAIL : CONSTANTS.MESSAGE_ALERT.ADD_SUCCESSFUL
+            let summary = this.isEditMode ? CONSTANTS.SUMMARY.SUMMARY_UPDATE_FAIL : CONSTANTS.SUMMARY.SUMMARY_ADD_SUCCESSFUL
+
+            this.messageService.add({
+              severity: 'success',
+              summary: summary,
+              detail: detail,
+              key: 'br',
+              life: 3000
+            });
+            setTimeout(() => {
+              this.router.navigate(['/quan-tri/tuyen-dung']);
+            }, 1000);
+          }
+        }
+      })
+    } else {
+      this.messageService.add({
+        severity: 'info',
+        summary: CONSTANTS.SUMMARY.SUMMARY_INVALID_DATA,
+        detail: CONSTANTS.MESSAGE_ALERT.INVALID_DATA,
+        key: 'br',
+        life: 3000
+      })
+    }
+  }
 }

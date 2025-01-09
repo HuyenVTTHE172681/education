@@ -68,14 +68,24 @@ export class RecruitmentService {
     getRecruitCandidateWithId(
         id: string
     ): Observable<IResponseListData<RecruitCandidate>> {
-    
+
         const query = `/RecruitCandidate/${id}`;
         const apiURL = `${this.apiBaseUrl}${query}`;
-    
+
         return this.http
             .get<IResponseListData<RecruitCandidate>>(apiURL)
-          .pipe(catchError(this.handleError));
-      }
+            .pipe(catchError(this.handleError));
+    }
+
+    updateRecruitCandidate(recruitCandidate: any): Observable<IResponseListData<RecruitCandidate>> {
+
+        const query = `/recruit`;
+        const apiURL = `${this.apiBaseUrl}${query}`;
+
+        return this.http
+            .post<IResponseListData<RecruitCandidate>>(apiURL, recruitCandidate)
+            .pipe(catchError(this.handleError));
+    }
 
     getRecruitmentWithId(id: string): Observable<IResponseListData<Recruit>> {
 
@@ -86,7 +96,7 @@ export class RecruitmentService {
             .get<IResponseListData<Recruit>>(apiURL)
             .pipe(catchError(this.handleError));
     }
-    
+
 
     // Hàm xử lý lỗi
     private handleError(error: HttpErrorResponse) {

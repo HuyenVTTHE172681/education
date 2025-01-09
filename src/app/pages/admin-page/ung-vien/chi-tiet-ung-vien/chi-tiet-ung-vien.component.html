@@ -119,7 +119,7 @@
                                     <p-floatLabel>
                                         <p-inputSwitch formControlName="interviewPass"></p-inputSwitch>
                                         <label for="interviewPass" class="manual-active">Phỏng vấn đạt <span
-                                                class="text-red-500">*</span></label>
+                                            class="text-red-500">*</span></label>
                                     </p-floatLabel>
                                 </div>
                             </div>
@@ -140,7 +140,7 @@
                             </div>
                             <div class="col-12 fixed-action">
                                 <p-button label="Hủy bỏ" [outlined]="true" icon="pi pi-times" (click)="goBack()" />
-                                <p-button label="Cập nhật" icon="pi pi-save" />
+                                <p-button label="{{ isEditMode ? 'Cập nhật' : 'Thêm mới'}}" icon="pi pi-save" (onClick)="update()" />
                             </div>
                         </div>
                     </form>
