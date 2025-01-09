@@ -1,5 +1,5 @@
 export class Recruit {
-    id = '';
+    id: string = '';
     name = '';
     address = '';
     content = '';

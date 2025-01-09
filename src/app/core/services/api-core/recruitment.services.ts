@@ -50,6 +50,17 @@ export class RecruitmentService {
             .pipe(catchError(this.handleError));
     }
 
+    deleteRecruitment(id: string) {
+        const apiUrl = `${this.apiBaseUrl}/recruit/${id}`;
+
+        return this.http.delete<any>(apiUrl).pipe(
+            catchError((err: HttpErrorResponse) => {
+                console.error('API EditCourse Error: ', err);
+                return throwError(() => new Error(err.message || 'API call failed'));
+            })
+        );
+    }
+
     getRecruitCandidate(
         filter: string,
         interviewPass: number,

@@ -70,7 +70,8 @@ export const CONSTANTS = {
         DELETE_PAYMENT: 'Bạn có chắc chắn muốn xóa thanh toán này không ?',
         DELETE_QUESTION: 'Bạn có chắc chắn muốn xóa câu hỏi này không ?',
         CHANGE_STATUS_QUESTION: 'Bạn có muốn Trình duyệt câu hỏi này không ?',
-        DELETE_QUESTION_GROUP: 'Bạn có muốn xóa nhóm câu hỏi này không ?'
+        DELETE_QUESTION_GROUP: 'Bạn có muốn xóa nhóm câu hỏi này không ?',
+        DELETE_TIN_TUYEN_DUNG: 'Bạn có muốn xóa tin tuyển dụng này không ?'
     }
 }
 

@@ -87,13 +87,14 @@
                                     <div class="text-black-300">
                                         <!-- <p-multiselect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities"
                                             [maxSelectedLabels]="3" styleClass="w-full md:w-80" /> -->
-                                        <p-multiselect optionLabel="name" placeholder="Select Cities"
-                                            [maxSelectedLabels]="3" styleClass="w-full md:w-80" />
-                                        <p-chip formControlName="tags">
+                                        <!-- <p-multiselect optionLabel="name" placeholder="Select Cities"
+                                            [maxSelectedLabels]="3" styleClass="w-full md:w-80" /> -->
+                                        <!-- <p-chip formControlName="tags">
                                             <ng-template let-gfg pTemplate="gfg">
                                                 {{gfg}}<i class="pi pi-user p-ml-2"></i>
                                             </ng-template>
-                                        </p-chip>
+                                        </p-chip> -->
+                                        <input pInputText class="input-field" formControlName="tags" />
                                     </div>
                                 </div>
                             </div>

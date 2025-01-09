@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Recruit } from '../../../core/models/recruitment.model';
 import { UtilsService } from '../../../core/utils/utils.service';
 import { debounceTime, Subject } from 'rxjs';
 import { RecruitmentService } from '../../../core/services/api-core/recruitment.services';
 import { Router } from '@angular/router';
+import { CONSTANTS } from '../../../environments/constants';
 
 @Component({
   selector: 'app-tin-tuyen-dung',
@@ -16,7 +17,7 @@ export class TinTuyenDungComponent implements OnInit {
   home: MenuItem = [];
   items: MenuItem[] = [];
   recruitment: Recruit[] = [];
-  selectedRecruit: Recruit | null = null;
+  selectedRecruit: any;
   totalItems = 0;
   query = {
     filter: '',
@@ -29,7 +30,9 @@ export class TinTuyenDungComponent implements OnInit {
   constructor(
     public utilsService: UtilsService,
     private recruitmentSrv: RecruitmentService,
-    private router: Router
+    private router: Router,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
   ) { }
 
   ngOnInit(): void {
@@ -59,8 +62,8 @@ export class TinTuyenDungComponent implements OnInit {
         items: [
           {
             label: 'Sửa',
-            icon: 'pi pi-check',
-            command: () => this.deleted(), // Open sidebar on click
+            icon: 'pi pi-pencil',
+            command: () => this.edit(), // Open sidebar on click
           },
           {
             label: 'Xóa',
@@ -72,7 +75,39 @@ export class TinTuyenDungComponent implements OnInit {
     ];
   }
 
-  deleted() { }
+  edit() {
+    this.router.navigate(['/quan-tri/tuyen-dung/', this.selectedRecruit?.id]);
+  }
+
+  deleted() {
+    const documentId = this.selectedRecruit?.id;
+    this.confirmationService.confirm({
+      message: CONSTANTS.CONFIRM.DELETE_TEACHER,
+      header: 'Xác nhận',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Đồng ý',
+      rejectLabel: 'Hủy bỏ',
+      accept: () => {
+        this.recruitmentSrv.deleteRecruitment(documentId).subscribe((data) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: CONSTANTS.SUMMARY.SUMMARY_DELETE_SUCCESSFUL,
+            detail: CONSTANTS.MESSAGE_ALERT.DELETE_SUCCESSFUL,
+            key: 'br', life: 3000
+          });
+          this.getRecruitment();
+        })
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: CONSTANTS.SUMMARY.SUMMARY_CANCEL_DELETE,
+          detail: CONSTANTS.MESSAGE_ALERT.DELETE_CANCEL,
+          key: 'br', life: 3000
+        });
+      },
+    })
+  }
 
   getRecruitment() {
     this.recruitmentSrv.getRecruitment(this.query.filter, this.query.page, this.query.size, this.query.status).subscribe((data) => {
