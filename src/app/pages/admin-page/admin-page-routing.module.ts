@@ -25,6 +25,7 @@ import { UngVienComponent } from './ung-vien/ung-vien.component';
 import { ChiTietUngVienComponent } from './ung-vien/chi-tiet-ung-vien/chi-tiet-ung-vien.component';
 import { ChiTietTinTuyenDungComponent } from './tin-tuyen-dung/chi-tiet-tin-tuyen-dung/chi-tiet-tin-tuyen-dung.component';
 import { ComponentFixture } from '@angular/core/testing';
+import { DanhMucTinTucComponent } from './danh-muc-tin-tuc/danh-muc-tin-tuc.component';
 
 const routes: Routes = [
   {
@@ -151,6 +152,10 @@ const routes: Routes = [
       {
         path: 'ung-vien/:id',
         component: ChiTietUngVienComponent
+      },
+      {
+        path: 'danh-muc-tin-tuc',
+        component: DanhMucTinTucComponent
       }
 
     ],
