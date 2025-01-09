@@ -20,7 +20,7 @@ export class NhomCauHoiComponent implements OnInit {
   questionGroups: QuestionGroups[] = [];
   query = {
     filter: '',
-    page: 1,
+    page: 0,
     size: 10,
     status: -1
   }
@@ -90,6 +90,10 @@ export class NhomCauHoiComponent implements OnInit {
       if (res.statusCode === HttpStatus.OK) {
         this.questionGroups = res?.data?.data || [];
         this.totalItems = res?.data?.recordsTotal || 0;
+
+        if (this.query.page < 1) {
+          this.query.page = 1; // Reset to page 1 if it's invalid
+        }
       }
     })
   }

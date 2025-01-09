@@ -22,7 +22,7 @@
                                 (click)="search()"></button>
                         </p-inputGroup>
                     </div>
-                    <p-button label="Thêm mới" icon="pi pi-plus" class="mr-2" (onClick)="addNew()" />
+                    <p-button label="Thêm mới" icon="pi pi-plus" class="mr-2" (onClick)="showAdd()" />
                     <p-button icon="pi pi-file-excel" severity="success"></p-button>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                 <th pSortableColumn="code" style="min-width: 53px; left: 0px">
                     <p-checkbox [binary]="true" inputId="binary" />
                 </th>
-                <th pSortableColumn="code" style="min-width: 70px; left: 94px;"></th>
+                <th pSortableColumn="code" style="min-width: 80px; left: 53px;"></th>
                 <th pSortableColumn="code" style="width: 350px;">
                     Tên <p-sortIcon field="code" />
                 </th>
@@ -48,15 +48,9 @@
         <ng-template pTemplate="body" let-news>
             <tr style="font-size: 14px;">
                 <td><p-checkbox [binary]="true" inputId="binary" /></td>
-                <td>
-                    <p-button icon="pi pi-ellipsis-v" [text]="true" severity="secondary"
-                        (onClick)="setSelectedNews(news); menu.toggle($event)" />
-                </td>
-                <td class="text-blue-700 pointer">
-                    <a [routerLink]="['/quan-tri/danh-muc-tin-tuc', news?.id]" style="text-decoration: none;">
-                        {{ news?.name }}
-                    </a>
-                </td>
+                <td><p-button icon="pi pi-ellipsis-v" [text]="true" severity="secondary"
+                        (onClick)="setSelectedNews(news); menu.toggle($event)" /></td>
+                <td>{{ news?.name }}</td>
                 <td>
                     <p-button [label]="utilsService.getStatusLabel(news?.status)" [raised]="true"
                         [severity]="utilsService.getStatusClass(news?.status)" />
@@ -75,9 +69,7 @@
             (onPageChange)="onPageChange($event)"></p-paginator>
 
         <div class="flex justify-content-center align-items-center gap-3">
-            <!-- <span>Từ {{ (query.page - 1) * query.size + 1 }} đến {{ totalItems }}</span> -->
-            <span>Từ {{ (query.page - 1) * query.size + 1 }} đến {{ (query.page * query.size) < totalItems ? query.page
-                    * query.size : totalItems }}</span>
+            <span>Từ {{ (query.page - 1) * query.size + 1 }} đến {{ totalItems }}</span>
         </div>
     </div>
 </div>
@@ -86,3 +78,58 @@
 <div class="card flex justify-content-center">
     <p-menu #menu [model]="items" [popup]="true" />
 </div>
+
+<!-- Dialog for EDIT/ADD -->
+<p-dialog header="Chi tiết nhóm câu hỏi" [modal]="true" [(visible)]="showEditDialog" [style]="{ width: '500px' }">
+    <div class="chi-tiet-nhom-cau-hoi mt-3">
+        <div class="grid">
+            <div class="col-12 pl-5 pt-4">
+                <form [formGroup]="newsForm" class="p-fluid">
+                    <div class="grid">
+                        <div class="col-12">
+                            <div class="field">
+                                <p-floatLabel>
+                                    <p-iconField iconPosition="right">
+                                        <p-inputIcon styleClass="pi pi-user" />
+                                        <input pInputText class="input-field" formControlName="name" />
+                                    </p-iconField>
+                                    <label for="name">Tên nhóm <span class="text-red-500">*</span></label>
+                                </p-floatLabel>
+                                <small class="text-red-500" *ngIf="newsForm.get('name')?.hasError('required')">Tên là
+                                    bắt
+                                    buộc.</small>
+                            </div>
+                        </div>
+                        <div class="col-7">
+                            <div class="field">
+                                <p-floatLabel>
+                                    <p-iconField iconPosition="right">
+                                        <p-inputIcon styleClass="pi pi-sort-numeric-down" />
+                                        <input pInputText class="input-field" formControlName="order" />
+                                    </p-iconField>
+                                    <label for="name">Thứ tự<span class="text-red-500">*</span></label>
+                                </p-floatLabel>
+                                <small class="text-red-500" *ngIf="newsForm.get('order')?.hasError('required')">Order
+                                    is required.</small>
+                                <small class="text-red-500" *ngIf="newsForm.get('order')?.hasError('pattern')">Order
+                                    must be a number.</small>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="field">
+                                <p-floatLabel>
+                                    <p-inputSwitch formControlName="status"></p-inputSwitch>
+                                    <label for="status" class="manual-active">Hiển thị <span
+                                            class="text-red-500">*</span></label>
+                                </p-floatLabel>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <p-button label="Lưu lại" severity="primary" (onClick)="save()" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</p-dialog>

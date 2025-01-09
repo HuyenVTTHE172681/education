@@ -26,6 +26,7 @@ import { ChiTietUngVienComponent } from './ung-vien/chi-tiet-ung-vien/chi-tiet-u
 import { ChiTietTinTuyenDungComponent } from './tin-tuyen-dung/chi-tiet-tin-tuyen-dung/chi-tiet-tin-tuyen-dung.component';
 import { ComponentFixture } from '@angular/core/testing';
 import { DanhMucTinTucComponent } from './danh-muc-tin-tuc/danh-muc-tin-tuc.component';
+import { TinTucComponent } from './tin-tuc/tin-tuc.component';
 
 const routes: Routes = [
   {
@@ -156,6 +157,10 @@ const routes: Routes = [
       {
         path: 'danh-muc-tin-tuc',
         component: DanhMucTinTucComponent
+      },
+      {
+        path: 'tin-tuc',
+        component: TinTucComponent
       }
 
     ],

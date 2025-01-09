@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsService } from '../../../core/services/api-core/news.service';
-import { NewsCategory } from '../../../core/models/news.model';
+import { News, NewsCategory } from '../../../core/models/news.model';
 import { filter } from 'rxjs';
 import { HttpStatus } from '../../../environments/constants';
+import { TRISTATECHECKBOX_VALUE_ACCESSOR } from 'primeng/tristatecheckbox';
 
 @Component({
   selector: 'app-news',
@@ -10,12 +11,13 @@ import { HttpStatus } from '../../../environments/constants';
   styleUrl: './news.component.css',
 })
 export class NewsComponent implements OnInit {
-  news: any[] = [];
+  news: News[] = [];
   newsByDate: any[] = [];
   newsByView: any[] = [];
 
   newsCategory: NewsCategory[] = [];
   query = {
+    categoryId: '',
     filter: '',
     page: 1,
     size: 10,
@@ -25,10 +27,8 @@ export class NewsComponent implements OnInit {
   constructor(private newSrv: NewsService) { }
   ngOnInit() {
     this.getNewsCategory();
+    this.getNews();
 
-    this.newSrv.getNews().subscribe((res) => {
-      this.news = res;
-    });
 
     this.newSrv.getNewsByDate().subscribe((res) => {
       this.newsByDate = res;
@@ -43,6 +43,14 @@ export class NewsComponent implements OnInit {
     this.newSrv.getNewsCategory(this.query.filter, this.query.page, this.query.size, this.query.status).subscribe(res => {
       if (res.statusCode === HttpStatus.OK) {
         this.newsCategory = res?.data?.data || [];
+      }
+    })
+  }
+
+  getNews() {
+    this.newSrv.getNews(this.query.categoryId || '', this.query.filter, this.query.page, this.query.size, this.query.status).subscribe(res => {
+      if (res.statusCode === HttpStatus.OK) {
+        this.news = res?.data?.data || [];
       }
     })
   }

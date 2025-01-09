@@ -3,8 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { API_URL } from '../../../environments/constants';
-import { IResponseList } from '../../models/common.model';
-import { NewsCategory } from '../../models/news.model';
+import { IResponseList, IResponseListData } from '../../models/common.model';
+import { News, NewsCategory } from '../../models/news.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -22,12 +22,57 @@ export class NewsService {
     status: number,
   ): Observable<IResponseList<NewsCategory>> {
 
-    // https://hhq.runasp.net/api/NewsCategory?filter=&offSet=0&pageSize=10&status=-1
     const query = `/NewsCategory?filter=${filter}&offSet=${page}&pageSize=${size}&status=${status}`;
     const apiURL = `${this.apiBaseUrl}${query}`;
 
     return this.http
       .get<IResponseList<NewsCategory>>(apiURL)
+      .pipe(catchError(this.handleError));
+  }
+
+  getNewsCategoryById(id: string): Observable<IResponseListData<NewsCategory>> {
+
+    const query = `/NewsCategory/${id}`;
+    const apiURL = `${this.apiBaseUrl}${query}`;
+
+    return this.http
+      .get<IResponseListData<NewsCategory>>(apiURL)
+      .pipe(catchError(this.handleError));
+  }
+
+  updateNewsCategory(newsCategory: any): Observable<IResponseListData<NewsCategory>> {
+    const query = `/NewsCategory`;
+    const apiURL = `${this.apiBaseUrl}${query}`;
+
+    return this.http
+      .post<IResponseListData<NewsCategory>>(apiURL, newsCategory)
+      .pipe(catchError(this.handleError));
+  }
+
+  deletedNews(id: number) {
+
+    const apiUrl = `${this.apiBaseUrl}/NewsCategory/${id}`;
+
+    return this.http.delete<any>(apiUrl).pipe(
+      catchError((err: HttpErrorResponse) => {
+        return throwError(() => new Error(err.message || 'API call failed'));
+      })
+    );
+  }
+
+  getNews(
+    categoryId: string,
+    filter: string,
+    page: number,
+    size: number,
+    status: number,
+  ): Observable<IResponseList<News>> {
+
+    const query = `/News?categoryId=${categoryId}&filter=${filter}&offSet=${page}&pageSize=${size}&status=${status}`;
+    const apiURL = `${this.apiBaseUrl}${query}`;
+
+    return this.http
+      .get<IResponseList<News>>(apiURL)
       .pipe(catchError(this.handleError));
   }
 
@@ -53,32 +98,6 @@ export class NewsService {
     );
   }
 
-  // private apiUrl =
-  //   'https://hhq.runasp.net/api/News?categoryId&filter=&offSet=0&pageSize=10&status=1';
-
-  getNews(): Observable<any[]> {
-    return this.http
-      .get<any>(
-        `${this.apiBaseUrl}/News?categoryId&filter=&offSet=0&pageSize=10&status=1`
-      )
-      .pipe(
-        map((response) => {
-          return response.data.data.map((item: any) => ({
-            id: item.id,
-            avatar: item.avatar,
-            categoryId: item.categoryId,
-            categoryName: item.categoryName,
-            content: item.content,
-            createdDate: item.createdDate,
-            order: item.order,
-            rate: item.rate,
-            title: item.title,
-            totalFiltered: item.totalFiltered,
-            view: item.view,
-          }));
-        })
-      );
-  }
 
   getNewsByDate(): Observable<any[]> {
     return this.http.get<any>(`${this.apiBaseUrl}/News/GetNewsOther`).pipe(
