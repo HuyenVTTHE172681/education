@@ -79,6 +79,7 @@ import { UngVienComponent } from './ung-vien/ung-vien.component';
 import { ChiTietUngVienComponent } from './ung-vien/chi-tiet-ung-vien/chi-tiet-ung-vien.component';
 import { ChiTietTinTuyenDungComponent } from './tin-tuyen-dung/chi-tiet-tin-tuyen-dung/chi-tiet-tin-tuyen-dung.component';
 import { ChipModule } from 'primeng/chip';
+import { DanhMucTinTucComponent } from './danh-muc-tin-tuc/danh-muc-tin-tuc.component';
 
 register(); // Register Swiper
 @NgModule({
@@ -124,6 +125,7 @@ register(); // Register Swiper
     UngVienComponent,
     ChiTietUngVienComponent,
     ChiTietTinTuyenDungComponent,
+    DanhMucTinTucComponent,
   ],
   imports: [
     CommonModule,
