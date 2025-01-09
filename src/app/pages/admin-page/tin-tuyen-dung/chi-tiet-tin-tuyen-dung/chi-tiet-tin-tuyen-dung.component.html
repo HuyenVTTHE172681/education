@@ -4,7 +4,9 @@
     <div class="detail-breadcumb">
         <div class="col-12 md:col-4">
             <p-breadcrumb class="max-w-full" [model]="breadcrumb" [home]="home" />
-            <div class="header-title hidden-mobile">Chi tiết tuyển dụng</div>
+            <div class="header-title hidden-mobile">
+                {{ isEditMode ? 'Chi tiết Tuyển dụng' : 'Thêm Tuyển dụng' }}
+            </div>
         </div>
     </div>
 
@@ -107,7 +109,8 @@
                             </div>
                             <div class="col-12 fixed-action">
                                 <p-button label="Hủy bỏ" [outlined]="true" icon="pi pi-times" (click)="goBack()" />
-                                <p-button label="{{ isEditMode ? 'Cập nhật' : 'Thêm mới' }}" icon="pi pi-save" (onClick)="update()" />
+                                <p-button label="{{ isEditMode ? 'Cập nhật' : 'Thêm mới' }}" icon="pi pi-save"
+                                    (onClick)="update()" />
                             </div>
                         </div>
                     </form>

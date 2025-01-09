@@ -52,9 +52,14 @@ export class ChiTietTinTuyenDungComponent implements OnInit {
         this.isEditMode = true;
         this.getRecruitmentWithId(this.id);
       } else {
+        console.log(this.id);
+
         this.newsRecruitmentForm.reset();
         this.isEditMode = false;
       }
+      console.log("Edit mode: ", this.isEditMode);
+      console.log(this.id);
+
     });
   }
 

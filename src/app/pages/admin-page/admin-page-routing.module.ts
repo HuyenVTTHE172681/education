@@ -137,11 +137,11 @@ const routes: Routes = [
         component: TinTuyenDungComponent
       },
       {
-        path: 'tuyen-dung/:id',
+        path: 'tuyen-dung/them-moi',
         component: ChiTietTinTuyenDungComponent
       },
       {
-        path: 'tuyen-dung/them-moi',
+        path: 'tuyen-dung/:id',
         component: ChiTietTinTuyenDungComponent
       },
       {
