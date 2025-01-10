@@ -1,0 +1,105 @@
+<p-toast position="bottom-right" key="br" />
+
+<div class="chi-tiet-tin-tuc common-content">
+    <div>
+        <div class="quan-tri-chi-tiet-tin-tuc common-content">
+            <div class="grid mt-3">
+                <div class="col-12 md:col-2">
+                    <div class="grid mt-3">
+                        <div class="col-12 avatar">
+                            <img *ngIf="newsForm.get('avatar')?.value, else elseBlock" [src]="
+                    newsForm.get('avatar')?.value || 'default-avatar.jpg'
+                  " alt="" />
+                            <ng-template #elseBlock>
+                                <img src="https://hochieuqua7.web.app/images/admin/setting/slide/empty-image.png"
+                                    alt="" />
+                            </ng-template>
+                            <label for="upload-image">
+                                <i class="pi pi-upload"></i> Ảnh đại diện
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 md:col-10">
+                    <form class="p-fluid mt-3" [formGroup]="newsForm">
+                        <div class="grid">
+                            <div class="col-12">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-user" />
+                                            <input pInputText class="input-field" formControlName="title" />
+                                        </p-iconField>
+                                        <label for="name">Tiêu đề <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                    <small class="text-red-500" *ngIf="newsForm.get('title')?.hasError('required')">Tên
+                                        là bắt
+                                        buộc.</small>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-user" />
+                                            <input pInputText class="input-field" formControlName="tags" />
+                                        </p-iconField>
+                                        <label for="name">Tags <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-dropdown [options]="newsCategory" optionLabel="name" optionValue="id"
+                                            formControlName="categoryId" placeholder="Danh mục bài viết"></p-dropdown>
+                                        <label for="name">Danh mục <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-iconField iconPosition="right">
+                                            <p-inputIcon styleClass="pi pi-ellipsis-h" />
+                                            <input pInputText class="input-field" formControlName="order" />
+                                        </p-iconField>
+                                        <label for="name">Thứ tự <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-rating formControlName="rate" [cancel]="false" />
+                                        <label for="name">Đánh giá <span class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6">
+                                <div class="field">
+                                    <p-floatLabel>
+                                        <p-inputSwitch formControlName="status"></p-inputSwitch>
+                                        <label for="status" class="manual-active">Hiển thị <span
+                                                class="text-red-500">*</span></label>
+                                    </p-floatLabel>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="field">
+                                    <label for="" class="font-size-13">Nội dung bài viết</label>
+                                    <p-editor [style]="{ height: '320px' }" formControlName="content" />
+                                </div>
+                            </div>
+                            <div class="col-12 fixed-action">
+                                <p-button label="Hủy bỏ" [outlined]="true" icon="pi pi-times" (click)="goBack()" />
+                                <p-button label="{{ isEditMode ? 'Cập nhật' : 'Thêm mới' }}" icon="pi pi-save"
+                                    (onClick)="update()" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

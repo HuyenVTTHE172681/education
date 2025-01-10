@@ -1,1 +1,32 @@
-<p>chi-tiet-tin-tuc works!</p>
+<div class="chi-tiet-tin-tuc common-content">
+    <div class="detail-breadcumb">
+        <p-breadcrumb class="max-w-full" [model]="menuBreachCrumbs" [home]="home" />
+    </div>
+    <div class="tab-view">
+        <p-tabView (onChange)="onTabChange($event)">
+            <p-tabPanel>
+                <ng-template pTemplate="header">
+                    <div class="flex align-items-center gap-2">
+                        <span>
+                            <i class="pi pi-map-marker" style="font-size: 12px"></i>
+                        </span>
+                        <span class="font-bold white-space-nowrap m-0">Thông tin bài viết</span>
+                    </div>
+                </ng-template>
+                <app-information-news></app-information-news>
+            </p-tabPanel>
+
+            <p-tabPanel *ngIf="isEditMode">
+                <ng-template pTemplate="header">
+                    <div class="flex align-items-center gap-2">
+                        <span>
+                            <i class="pi pi-list" style="font-size: 12px"></i>
+                        </span>
+                        <span class="font-bold white-space-nowrap m-0">Bình luận</span>
+                    </div>
+                </ng-template>
+                <app-information-comment></app-information-comment>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+</div>

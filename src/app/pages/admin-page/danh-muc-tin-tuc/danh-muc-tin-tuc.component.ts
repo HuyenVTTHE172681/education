@@ -101,7 +101,7 @@ export class DanhMucTinTucComponent implements OnInit {
       rejectLabel: 'Hủy bỏ',
 
       accept: () => {
-        this.newSrv.deletedNews(documentId).subscribe((data) => {
+        this.newSrv.deletedNewsCategory(documentId).subscribe((data) => {
           this.messageService.add({
             severity: 'success',
             summary: CONSTANTS.SUMMARY.SUMMARY_DELETE_SUCCESSFUL,

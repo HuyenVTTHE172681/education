@@ -22,10 +22,10 @@ export class News {
     modifiedBy = '';
     modifiedDate = '';
     newsRelations = '';
-    order = 0;
-    rate = 0;
+    order = 1;
+    rate = 1;
     shortContent = '';
-    status = 1;
+    status = 0;
     tags = '';
     title = '';
     totalFiltered = 1;

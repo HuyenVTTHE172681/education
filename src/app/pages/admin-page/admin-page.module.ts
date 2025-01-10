@@ -82,6 +82,8 @@ import { ChipModule } from 'primeng/chip';
 import { DanhMucTinTucComponent } from './danh-muc-tin-tuc/danh-muc-tin-tuc.component';
 import { TinTucComponent } from './tin-tuc/tin-tuc.component';
 import { ChiTietTinTucComponent } from './chi-tiet-tin-tuc/chi-tiet-tin-tuc.component';
+import { InformationNewsComponent } from './chi-tiet-tin-tuc/information-news/information-news.component';
+import { RatingModule } from 'primeng/rating';
 
 register(); // Register Swiper
 @NgModule({
@@ -130,6 +132,7 @@ register(); // Register Swiper
     DanhMucTinTucComponent,
     TinTucComponent,
     ChiTietTinTucComponent,
+    InformationNewsComponent,
   ],
   imports: [
     CommonModule,
@@ -170,7 +173,8 @@ register(); // Register Swiper
     InputTextareaModule,
     ConfirmDialogModule,
     ToastModule,
-    ChipModule
+    ChipModule,
+    RatingModule
   ],
   providers: [ConfirmationService, MessageService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

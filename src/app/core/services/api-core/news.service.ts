@@ -49,7 +49,7 @@ export class NewsService {
       .pipe(catchError(this.handleError));
   }
 
-  deletedNews(id: number) {
+  deletedNewsCategory(id: number) {
 
     const apiUrl = `${this.apiBaseUrl}/NewsCategory/${id}`;
 
@@ -75,6 +75,17 @@ export class NewsService {
       .get<IResponseList<News>>(apiURL)
       .pipe(catchError(this.handleError));
   }
+
+  getNewsById(id: string): Observable<IResponseListData<News>> {
+  
+    const query = `/News/${id}`;
+      const apiURL = `${this.apiBaseUrl}${query}`;
+  
+      return this.http
+        .get<IResponseListData<News>>(apiURL)
+        .pipe(catchError(this.handleError));
+    }
+  
 
   // private apiUrl2 = 'https://hhq.runasp.net/api/News/GetNewsOther';
   getNewsOther(): Observable<any[]> {

@@ -27,6 +27,7 @@ import { ChiTietTinTuyenDungComponent } from './tin-tuyen-dung/chi-tiet-tin-tuye
 import { ComponentFixture } from '@angular/core/testing';
 import { DanhMucTinTucComponent } from './danh-muc-tin-tuc/danh-muc-tin-tuc.component';
 import { TinTucComponent } from './tin-tuc/tin-tuc.component';
+import { ChiTietTinTucComponent } from './chi-tiet-tin-tuc/chi-tiet-tin-tuc.component';
 
 const routes: Routes = [
   {
@@ -161,7 +162,15 @@ const routes: Routes = [
       {
         path: 'tin-tuc',
         component: TinTucComponent
-      }
+      },
+      {
+        path: 'tin-tuc/them-moi',
+        component: ChiTietTinTucComponent
+      },
+      {
+        path: 'tin-tuc/:id',
+        component: ChiTietTinTucComponent
+      },
 
     ],
   },
