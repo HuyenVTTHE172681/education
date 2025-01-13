@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../core/services/authen.service';
 import { FooterService } from '../../../core/services/api-core/footer.service';
+import { Footer } from '../../../core/models/slide.model';
 
 @Component({
   selector: 'app-footer',
@@ -9,46 +10,48 @@ import { FooterService } from '../../../core/services/api-core/footer.service';
 })
 export class FooterComponent implements OnInit {
   footer: any;
-  footerLeft: any[] = [];
-  footerRight: any[] = [];
+  footerLeft: Footer[] = [];
+  footerRight: Footer[] = [];
   isAdmin: boolean = false;
-  user: any = null;
+  user: any;
+  query = {
+    filter: '',
+    page: 0,
+    size: 10,
+  }
 
   constructor(private footerSrv: FooterService, private authenSrv: AuthService) { }
 
   ngOnInit(): void {
-    this.footerSrv.getFooter().subscribe((data) => {
-      this.processFooterData(data);
-    });
+    this.getFooter();
     this.loadUserInfo();
   }
 
+  getFooter() {
+    this.footerSrv.getFooter(this.query.filter, this.query.page, this.query.size).subscribe((data) => {
+      this.processFooterData(data);
+    });
+  }
   loadUserInfo() {
     const savedUser = localStorage.getItem('user');
-    console.log('Thông tin người dùng từ localStorage:', savedUser);
 
     if (savedUser) {
       this.user = JSON.parse(savedUser);
 
       // Kiểm tra role
       this.isAdmin = this.user?.roleTypeDataId === 'admin';
-      console.log('Is Admin From Footer:', this.isAdmin);
 
     } else {
       const token = localStorage.getItem('token');
-      console.log('Không tìm thấy thông tin user, token hiện tại:', token);
 
       if (token) {
         // Gọi lại API nếu cần cập nhật thông tin
         this.authenSrv.getUserInfo('username-from-token').subscribe({
           next: (res) => {
-            console.log('Phản hồi từ API lấy thông tin user:', res);
-
             this.user = res.data;
             localStorage.setItem('user', JSON.stringify(this.user));
           },
           error: (err) => {
-            console.error('Lỗi khi gọi API lấy thông tin user:', err);
             alert('Không thể lấy thông tin người dùng.');
           },
         });
