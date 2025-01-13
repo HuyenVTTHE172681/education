@@ -1,1 +1,121 @@
-<p>slide works!</p>
+<p-toast position="bottom-right" key="br" />
+<p-confirmDialog />
+
+<div class="quan-li-slider customer-table common-content">
+    <p-table [value]="slider" dataKey="id" [scrollable]="true" scrollHeight="600px"
+        [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+        [tableStyle]="{ 'min-width': '75rem' }">
+
+        <ng-template pTemplate="caption">
+            <div class="grid align-items-end">
+                <div class="col-12 md:col-4">
+                    <p-breadcrumb class="max-w-full" [model]="breadcrumb" [home]="home" />
+                    <div class="header-title hidden-mobile">Slide</div>
+                </div>
+                <div class="col-12 md:col-8 text-right flex justify-content-end align-items-end">
+                    <div class="mr-2 text-left search">
+                        <label for="search">Tìm kiếm: </label>
+                        <p-inputGroup [style.height.px]="32">
+                            <input type="text" pInputText placeholder="Nhập nội dung tìm kiếm" severity="secondary"
+                                [(ngModel)]="query.filter" (ngModelChange)="onSearchChange($event)" />
+                            <button type="button" pButton icon="pi pi-search" [outlined]="true" severity="secondary"
+                                (click)="search()"></button>
+                        </p-inputGroup>
+                    </div>
+                    <p-button class="mr-2" label="Bộ lọc" (onClick)="op.toggle($event)" icon="pi pi-sliders-h" />
+                    <p-button label="Thêm mới" icon="pi pi-plus" (click)="add()" />
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr style="font-size: 14px;">
+                <th pSortableColumn="code" style="min-width: 53px; left: 0px">
+                    <p-checkbox [binary]="true" inputId="binary" />
+                </th>
+                <th pSortableColumn="code" style="min-width: 70px; left: 60px;"></th>
+                <th pSortableColumn="code" style="min-width: 200px;"><p-sortIcon field="code" />
+                    Hình ảnh
+                </th>
+                <th pSortableColumn="code" style="min-width: 200px; left: 100px;">
+                    Tên <p-sortIcon field="code" />
+                </th>
+                <th pSortableColumn="code" style="width: 120px;">
+                    Sắp xếp <p-sortIcon field="code" />
+                </th>
+                <th pSortableColumn="code" style="width: 300px;">
+                    Màn hình <p-sortIcon field="code" />
+                </th>
+                <th pSortableColumn="code" style="min-width: 120px;">
+                    Hiển thị <p-sortIcon field="code" />
+                </th>
+                <th pSortableColumn="code" style="min-width: 120px;">
+                    Loại <p-sortIcon field="code" />
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-slider>
+            <tr style="font-size: 14px;">
+                <td><p-checkbox [binary]="true" inputId="binary" /></td>
+                <td><p-button icon="pi pi-ellipsis-v" [text]="true" severity="secondary"
+                        (onClick)="setSelected(slider); menu.toggle($event)" /></td>
+                <td>
+                    <img [src]="slider?.imageUrl" width="50" height="50" class="shadow-4"
+                        style="border-radius: 6px; max-height: 50px; object-fit: contain;" />
+                </td>
+                <td class="text-blue-700 pointer">
+                    {{ slider?.name }}
+                </td>
+                <td>{{ slider?.order }}</td>
+                <td>{{ slider?.screen }}</td>
+                <td><p-button [label]="utilsService.getStatusLabel(slider?.status)" [raised]="true"
+                        [severity]="utilsService.getStatusClass(slider?.status)" /></td>
+                <td><p-button [label]="utilsService.getTypeLabel(slider?.isVideo)" [raised]="true"
+                        [severity]="utilsService.getTypeClass(slider?.isVideo)" /></td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <div class="flex align-items-center justify-content-start" style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: flex-end;
+                  gap: 10px;
+                ">
+        <p-paginator [rows]="query.size" [totalRecords]="totalItems" [first]="(query.page - 1) * query.size"
+            (onPageChange)="onPageChange($event)"></p-paginator>
+
+        <div class="flex justify-content-center align-items-center gap-3">
+            <span>Từ {{ (query.page - 1) * query.size + 1 }} đến {{ totalItems }}</span>
+        </div>
+    </div>
+</div>
+
+
+<!-- Popup view to edit/deleted -->
+<div class="card flex justify-content-center">
+    <p-menu #menu [model]="items" [popup]="true" />
+</div>
+
+
+<p-overlayPanel #op>
+    <div class="flex flex-column gap-3 w-25rem">
+        <div>
+            <span class="font-medium text-900 block mb-2">Tìm kiếm nâng cao</span>
+        </div>
+        <div>
+            <ul class="list-none p-0 m-0 flex flex-column gap-3">
+                <li class="align-items-center ">
+                    <p-dropdown [options]="statusList" [(ngModel)]="selectedStatus" optionLabel="name" [filter]="true"
+                        filterBy="name" [showClear]="true" placeholder="Tất cả" (onChange)="onStatusChange($event)"
+                        [style]="{'width':'100%'}"></p-dropdown>
+                </li>
+            </ul>
+        </div>
+
+        <div class="text-right" style="margin-top: 30px;">
+            <p-button class="mr-2" label="Xuất excel" icon="pi pi-file-excel" severity="success" />
+            <p-button class="mr-2" label="Làm mới" icon="pi pi-sync" severity="secondary" (onClick)="resetFilters()" />
+            <p-button label="Tìm kiếm" icon="pi pi-search" (onClick)="search()" />
+        </div>
+    </div>
+</p-overlayPanel>
