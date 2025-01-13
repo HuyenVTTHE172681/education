@@ -31,3 +31,20 @@ export class News {
     totalFiltered = 1;
     view = 1;
 }
+
+export class CommentNews {
+    avatar = '';
+    comments = '';
+    content = '';
+    createdBy = '';
+    createdDate = '';
+    id = '';
+    modifiedBy = '';
+    modifiedDate = '';
+    parentId = '';
+    screen = '';
+    status = 0;
+    totalFiltered = 0;
+    userId = '';
+    userName = '';
+}
