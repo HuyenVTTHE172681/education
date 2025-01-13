@@ -72,7 +72,8 @@ export const CONSTANTS = {
         CHANGE_STATUS_QUESTION: 'Bạn có muốn Trình duyệt câu hỏi này không ?',
         DELETE_QUESTION_GROUP: 'Bạn có muốn xóa nhóm câu hỏi này không ?',
         DELETE_TIN_TUYEN_DUNG: 'Bạn có muốn xóa tin tuyển dụng này không ?',
-        DELETE_DANH_MUC_TIN_TUC: 'Bạn có muốn xóa danh mục tin tức này không ?'
+        DELETE_DANH_MUC_TIN_TUC: 'Bạn có muốn xóa danh mục tin tức này không ?',
+        DELETE_BAI_VIET: 'Bạn có muốn xóa bài viết (tin tức) này không ?'
     }
 }
 
