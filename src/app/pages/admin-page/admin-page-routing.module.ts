@@ -179,7 +179,7 @@ const routes: Routes = [
         component: SlideComponent
       },
       {
-        path: 'step/',
+        path: 'step/0',
         component: StepComponent
       },
       {
