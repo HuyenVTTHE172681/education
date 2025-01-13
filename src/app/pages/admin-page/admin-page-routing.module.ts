@@ -28,6 +28,9 @@ import { ComponentFixture } from '@angular/core/testing';
 import { DanhMucTinTucComponent } from './danh-muc-tin-tuc/danh-muc-tin-tuc.component';
 import { TinTucComponent } from './tin-tuc/tin-tuc.component';
 import { ChiTietTinTucComponent } from './chi-tiet-tin-tuc/chi-tiet-tin-tuc.component';
+import { SlideComponent } from './slide/slide.component';
+import { StepComponent } from './step/step.component';
+import { FooterComponent } from './footer/footer.component';
 
 const routes: Routes = [
   {
@@ -171,6 +174,18 @@ const routes: Routes = [
         path: 'tin-tuc/:id',
         component: ChiTietTinTucComponent
       },
+      {
+        path: 'slide',
+        component: SlideComponent
+      },
+      {
+        path: 'step/',
+        component: StepComponent
+      },
+      {
+        path: 'footer',
+        component: FooterComponent
+      }
 
     ],
   },
