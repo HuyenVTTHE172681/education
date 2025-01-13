@@ -1,0 +1,32 @@
+<p-toast position="bottom-right" key="br"></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
+<div class="quan-ly-binh-luan">
+    <div *ngIf="comments.length === 0; else commentsBlock">
+        <div class="table-not-found text-center common-content">
+            <img src="https://hochieuqua7.web.app/images/common/not-found2.gif" alt="not found">
+            <div class="text-bold text-blue-500">
+                Không có dữ liệu
+            </div>
+        </div>
+    </div>
+    <ng-template #commentsBlock>
+        <div *ngFor="let comment of comments" class="library-comment--item">
+            <div class="library-comment--item-left">
+                <div>
+                    <img [src]="comment?.avatar || 'default-image-url.png'" alt="User Image" />
+                </div>
+                <div>
+                    <div class="name">{{ comment?.userName }}</div>
+                    <div class="comment">{{ comment.content }}</div>
+                </div>
+            </div>
+            <div class="library-comment--item-right">
+                <div class="time">{{ comment.createdDate | date:'yyyy-MM-dd HH:mm:ss' }}</div>
+                <div class="action text-right">
+                    <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger"></p-button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>
