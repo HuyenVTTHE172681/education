@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { API_URL } from '../../../environments/constants';
 import { IResponseList, IResponseListData } from '../../models/common.model';
-import { News, NewsCategory } from '../../models/news.model';
+import { CommentNews, News, NewsCategory } from '../../models/news.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -77,15 +77,62 @@ export class NewsService {
   }
 
   getNewsById(id: string): Observable<IResponseListData<News>> {
-  
+
     const query = `/News/${id}`;
-      const apiURL = `${this.apiBaseUrl}${query}`;
-  
-      return this.http
-        .get<IResponseListData<News>>(apiURL)
-        .pipe(catchError(this.handleError));
-    }
-  
+    const apiURL = `${this.apiBaseUrl}${query}`;
+
+    return this.http
+      .get<IResponseListData<News>>(apiURL)
+      .pipe(catchError(this.handleError));
+  }
+
+  updateNews(classroom: any): Observable<IResponseListData<News>> {
+
+    const query = `/News`;
+    const apiURL = `${this.apiBaseUrl}${query}`;
+
+    return this.http
+      .post<IResponseListData<News>>(apiURL, classroom)
+      .pipe(catchError(this.handleError));
+  }
+
+  deleteNew(id: string) {
+    const apiUrl = `${this.apiBaseUrl}/News/${id}`;
+
+    return this.http.delete<any>(apiUrl).pipe(
+      catchError((err: HttpErrorResponse) => {
+        console.error('API EditCourse Error: ', err);
+        return throwError(() => new Error(err.message || 'API call failed'));
+      })
+    );
+  }
+  getComment(
+    filter: string,
+    page: number,
+    size: number,
+    parentId: string, 
+    screen: string
+  ): Observable<IResponseList<CommentNews>> {
+
+    const query = `/Comment?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}&parentId=${parentId}&screen=${screen}`;
+    const apiURL = `${this.apiBaseUrl}${query}`;
+
+    return this.http
+      .get<IResponseList<CommentNews>>(apiURL)
+      .pipe(catchError(this.handleError));
+  }
+
+  deleteComment(id: string) {
+
+    const apiUrl = `${this.apiBaseUrl}/Comment/${id}`;
+
+    return this.http.delete<any>(apiUrl).pipe(
+      catchError((err: HttpErrorResponse) => {
+        return throwError(() => new Error(err.message || 'API call failed'));
+      })
+    );
+  }
+
 
   // private apiUrl2 = 'https://hhq.runasp.net/api/News/GetNewsOther';
   getNewsOther(): Observable<any[]> {
