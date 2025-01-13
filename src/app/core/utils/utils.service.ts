@@ -100,6 +100,26 @@ export class UtilsService {
         }
     }
 
+    // Status video, image
+    getTypeClass(status: number) {
+        switch (status) {
+            case 0:
+                return 'success';
+            case 1:
+                return 'warning';
+
+            case 2:
+                return 'success';
+
+            default:
+                return 'danger';
+        }
+    }
+
+    getTypeLabel(status: number) {
+        return status === 0 ? 'Ảnh' : 'Video';
+    }
+
     getCourseFreeLabel(status: number) {
         return status === 1 ? 'isFree' : 'notFree';
     }
