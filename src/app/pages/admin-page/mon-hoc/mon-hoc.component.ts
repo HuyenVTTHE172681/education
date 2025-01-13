@@ -18,7 +18,7 @@ export class MonHocComponent implements OnInit {
   home: MenuItem = [];
   items: MenuItem[] = [];
   query = {
-    page: 1,
+    page: 0,
     size: 10,
     filter: '',
   }
@@ -125,8 +125,9 @@ export class MonHocComponent implements OnInit {
       this.subject = data?.data?.data || [];
       this.totalItems = data?.data?.recordsTotal || 0;
 
-      // console.log("Subject: ", this.subject);
-      // console.log("Filter: ", this.filter)
+      if (this.query.page < 1) {
+        this.query.page = 1; // Reset to page 1 if it's invalid
+      }
     })
   }
 
