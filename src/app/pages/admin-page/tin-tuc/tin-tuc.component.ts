@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { NewsService } from '../../../core/services/api-core/news.service';
 import { News, NewsCategory } from '../../../core/models/news.model';
 import { debounceTime, filter, Subject } from 'rxjs';
-import { HttpStatus } from '../../../environments/constants';
+import { CONSTANTS, HttpStatus } from '../../../environments/constants';
 import { Router } from '@angular/router';
 import { UtilsService } from '../../../core/utils/utils.service';
 
@@ -41,7 +41,9 @@ export class TinTucComponent implements OnInit {
   constructor(
     private newsSrv: NewsService,
     private router: Router,
-    public utilsService: UtilsService
+    public utilsService: UtilsService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
   ) { }
 
   ngOnInit(): void {
@@ -73,7 +75,7 @@ export class TinTucComponent implements OnInit {
           {
             label: 'Sửa',
             icon: 'pi pi-pencil',
-            command: () => this.deleted(), // Open sidebar on click
+            command: () => this.edit(), // Open sidebar on click
           },
           {
             label: 'Xóa',
@@ -85,7 +87,39 @@ export class TinTucComponent implements OnInit {
     ];
   }
 
-  deleted() { }
+  deleted() {
+    const documentId = this.selectedNews?.id;
+    this.confirmationService.confirm({
+      message: CONSTANTS.CONFIRM.DELETE_BAI_VIET,
+      header: 'Xác nhận',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Đồng ý',
+      rejectLabel: 'Hủy bỏ',
+      accept: () => {
+        this.newsSrv.deleteNew(documentId).subscribe((data) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: CONSTANTS.SUMMARY.SUMMARY_DELETE_SUCCESSFUL,
+            detail: CONSTANTS.MESSAGE_ALERT.DELETE_SUCCESSFUL,
+            key: 'br', life: 3000
+          });
+          this.getNews();
+        })
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: CONSTANTS.SUMMARY.SUMMARY_CANCEL_DELETE,
+          detail: CONSTANTS.MESSAGE_ALERT.DELETE_CANCEL,
+          key: 'br', life: 3000
+        });
+      },
+    })
+  }
+
+  edit() {
+    this.router.navigate(['/quan-tri/tin-tuc', this.selectedNews?.id])
+  }
 
   getNews() {
     this.newsSrv.getNews(this.selectedNewsCategory || '', this.query.filter, this.query.page, this.query.size, this.selectedStatus.value).subscribe((res) => {
