@@ -84,6 +84,7 @@ import { TinTucComponent } from './tin-tuc/tin-tuc.component';
 import { ChiTietTinTucComponent } from './chi-tiet-tin-tuc/chi-tiet-tin-tuc.component';
 import { InformationNewsComponent } from './chi-tiet-tin-tuc/information-news/information-news.component';
 import { RatingModule } from 'primeng/rating';
+import { CommentComponent } from './chi-tiet-tin-tuc/comment/comment.component';
 
 register(); // Register Swiper
 @NgModule({
@@ -133,6 +134,7 @@ register(); // Register Swiper
     TinTucComponent,
     ChiTietTinTucComponent,
     InformationNewsComponent,
+    CommentComponent,
   ],
   imports: [
     CommonModule,
