@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Test } from '../../../core/models/test.model';
-import { HttpStatus } from '../../../environments/constants';
+import { HttpStatus } from '../../../common/constants';
 import { TestAbilityService } from '../../../core/services/api-core/test-ability.service';
 
 @Component({

@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { ClassRoom } from '../../../../core/models/classRoom.model';
-import { CONSTANTS, HttpStatus } from '../../../../environments/constants';
+import { CONSTANTS, HttpStatus } from '../../../../common/constants';
 import { ClassRoomService } from '../../../../core/services/api-core/classRoom.service';
 import { SubjectService } from '../../../../core/services/api-core/subject.service';
 

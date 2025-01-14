@@ -3,8 +3,8 @@ import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Question, TestQuestionGroup, TestQuestionType } from '../../../core/models/question.model';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { CONSTANTS } from '../../../environments/constants';
-import { UtilsService } from '../../../core/utils/utils.service';
+import { CONSTANTS } from '../../../common/constants';
+import { UtilsService } from '../../../common/utils/utils.service';
 import { QuestionsService } from '../../../core/services/api-core/question.service';
 
 @Component({
@@ -150,7 +150,7 @@ export class CauHoiComponent implements OnInit {
         if (res.statusCode === 200) {
           this.questions = res?.data?.data || [];
           this.totalItems = res?.data?.recordsTotal || 0;
-        } 
+        }
       })
   }
 

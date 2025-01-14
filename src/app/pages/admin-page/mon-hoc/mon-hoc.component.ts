@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { ClassRoom } from '../../../core/models/classRoom.model';
 import { debounceTime, Subject } from 'rxjs';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
-import { CONSTANTS, STATUS } from '../../../environments/constants';
-import { UtilsService } from '../../../core/utils/utils.service';
+import { CONSTANTS, STATUS } from '../../../common/constants';
+import { UtilsService } from '../../../common/utils/utils.service';
 import { ClassRoomService } from '../../../core/services/api-core/classRoom.service';
 import { SubjectService } from '../../../core/services/api-core/subject.service';
 @Component({

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Test, TestCategory } from '../../../../core/models/test.model';
 import { MenuItem, MessageService } from 'primeng/api';
-import { CONSTANTS, HttpStatus } from '../../../../environments/constants';
+import { CONSTANTS, HttpStatus } from '../../../../common/constants';
 import { TestAbilityService } from '../../../../core/services/api-core/test-ability.service';
 
 @Component({

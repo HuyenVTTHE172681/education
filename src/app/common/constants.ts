@@ -29,6 +29,8 @@ export const STATUS = {
 
 export const CONSTANTS = {
     MESSAGE_ALERT: {
+        LOGIN_SUCCESSFUL: 'Đăng nhập thành công!',
+        LOGIN_FAIL: 'Tài khoản, mật khẩu không đúng. Hãy đăng nhập lại',
         ADD_SUCCESSFUL: 'Thêm mới thành công',
         ADD_FAIL: 'Thêm mới thất bại',
         UPDATE_SUCCESSFUL: 'Cập nhật thành công',
@@ -46,6 +48,8 @@ export const CONSTANTS = {
         CHANGE_STATUS: 'Thay đổi trạng thái thành công !'
     },
     SUMMARY: {
+        SUMMARY_LOGIN_SUCCESSFUL: 'Đăng nhập thành công.',
+        SUMMARY_LOGIN_FAIL: 'Đăng nhập thất bại! Không tìm thấy token.',
         SUMMARY_DELETE_SUCCESSFUL: 'Xóa danh mục thành công',
         SUMMARY_CANCEL_DELETE: 'Hủy xóa danh mục',
         SUMMARY_UPDATE_SUCCESSFUL: 'Cập nhật danh mục thành công',

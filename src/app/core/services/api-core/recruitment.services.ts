@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, filter, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { API_URL } from '../../../environments/constants';
+import { API_URL } from '../../../common/constants';
 import { Recruit, RecruitCandidate } from '../../models/recruitment.model';
 import { IResponseList, IResponseListData } from '../../models/common.model';
 

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../core/services/authen.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { CONSTANTS } from '../../common/constants';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +21,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authenticationSrv: AuthService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService,
   ) { }
 
   ngOnInit(): void {
@@ -37,28 +40,48 @@ export class LoginComponent implements OnInit {
 
         if (token) {
           // Store token in localStorage
-          localStorage.setItem('token', token);  // 'token' is the correct key
+          localStorage.setItem('token', token);
 
           // Fetch user details
           this.authenticationSrv.getUserInfo(username).subscribe({
             next: (userRes) => {
 
               localStorage.setItem('user', JSON.stringify(userRes.data));
-              alert('Đăng nhập thành công!');
-              this.router.navigate(['/edu']);
+              this.messageService.add({
+                severity: 'success',
+                summary: CONSTANTS.SUMMARY.SUMMARY_LOGIN_SUCCESSFUL,
+                detail: CONSTANTS.MESSAGE_ALERT.LOGIN_SUCCESSFUL,
+                key: 'br', life: 3000
+              });
+              setTimeout(() => {
+                this.router.navigate(['/edu']);
+              }, 1000)
             },
             error: (err) => {
-              console.error('Lỗi khi lấy thông tin người dùng:', err);
-              alert('Không thể lấy thông tin người dùng.');
+              this.messageService.add({
+                severity: 'info',
+                summary: CONSTANTS.SUMMARY.SUMMARY_ERROR,
+                detail: CONSTANTS.MESSAGE_ALERT.ERROR,
+                key: 'br', life: 3000
+              });
             },
           });
         } else {
-          alert('Đăng nhập thất bại! Không tìm thấy token.');
+          this.messageService.add({
+            severity: 'success',
+            summary: CONSTANTS.SUMMARY.SUMMARY_LOGIN_FAIL,
+            detail: CONSTANTS.MESSAGE_ALERT.LOGIN_FAIL,
+            key: 'br', life: 3000
+          });
         }
       },
       error: (err) => {
-        console.error('Lỗi khi gửi request đăng nhập:', err);
-        alert('Tên đăng nhập hoặc mật khẩu không đúng.');
+        this.messageService.add({
+          severity: 'info',
+          summary: err.mess,
+          detail: CONSTANTS.MESSAGE_ALERT.ERROR,
+          key: 'br', life: 3000
+        });
       },
     });
   }
@@ -68,11 +91,9 @@ export class LoginComponent implements OnInit {
     if (this.passwordType === 'password') {
       this.passwordType = 'text';
       this.showIcon = true;
-      console.log(this.showIcon);
     } else {
       this.passwordType = 'password';
       this.showIcon = false;
-      console.log(this.showIcon, this.passwordType);
     }
   }
 

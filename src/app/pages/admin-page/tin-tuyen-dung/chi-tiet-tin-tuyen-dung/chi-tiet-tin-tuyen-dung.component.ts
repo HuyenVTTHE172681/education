@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { RecruitmentService } from '../../../../core/services/api-core/recruitment.services';
-import { CONSTANTS, HttpStatus } from '../../../../environments/constants';
+import { CONSTANTS, HttpStatus } from '../../../../common/constants';
 
 @Component({
   selector: 'app-chi-tiet-tin-tuyen-dung',

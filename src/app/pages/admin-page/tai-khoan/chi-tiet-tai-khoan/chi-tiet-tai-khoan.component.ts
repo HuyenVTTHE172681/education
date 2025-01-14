@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CONSTANTS, HttpStatus } from '../../../../environments/constants';
+import { CONSTANTS, HttpStatus } from '../../../../common/constants';
 import { DashboardService } from '../../../../core/services/api-core/dashboard.service';
 
 @Component({

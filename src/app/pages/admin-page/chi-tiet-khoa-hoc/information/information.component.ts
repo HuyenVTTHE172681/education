@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Course, CourseYear } from '../../../../core/models/course.model';
 import { Subject } from '../../../../core/models/subject.model';
 import { MessageService } from 'primeng/api';
-import { CONSTANTS, HttpStatus } from '../../../../environments/constants';
+import { CONSTANTS, HttpStatus } from '../../../../common/constants';
 import { ClassRoomService } from '../../../../core/services/api-core/classRoom.service';
 import { TeacherService } from '../../../../core/services/api-core/teacher.service';
 import { CourseService } from '../../../../core/services/api-core/course.service';

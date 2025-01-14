@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CONSTANTS, HttpStatus } from '../../../../environments/constants';
+import { CONSTANTS, HttpStatus } from '../../../../common/constants';
 import { ClassRoomService } from '../../../../core/services/api-core/classRoom.service';
 import { MessageService } from 'primeng/api';
 
@@ -55,7 +55,7 @@ export class InfomationClassroomComponent implements OnInit {
   getClassRoomDetail(id: string) {
     this.classRoomSrv.getClassRoomWithId(id).subscribe((data) => {
       if (data.statusCode === HttpStatus.OK) {
-        const classRoomDetail = data?.data || []; 
+        const classRoomDetail = data?.data || [];
         this.patchAccountForm(classRoomDetail);
       }
     });

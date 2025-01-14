@@ -4,7 +4,7 @@ import { TestQuestionGroup, TestQuestionNewById, TestQuestionType } from '../../
 import { ActivatedRoute } from '@angular/router';
 import { Teacher } from '../../../../core/models/teacher.model';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { HttpStatus } from '../../../../environments/constants';
+import { HttpStatus } from '../../../../common/constants';
 import { QuestionsService } from '../../../../core/services/api-core/question.service';
 import { TeacherService } from '../../../../core/services/api-core/teacher.service';
 

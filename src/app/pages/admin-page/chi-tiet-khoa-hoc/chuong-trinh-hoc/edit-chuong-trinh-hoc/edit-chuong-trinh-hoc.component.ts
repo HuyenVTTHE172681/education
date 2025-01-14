@@ -7,7 +7,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpStatus } from '../../../../../environments/constants';
+import { HttpStatus } from '../../../../../common/constants';
 import { CourseService } from '../../../../../core/services/api-core/course.service';
 
 @Component({

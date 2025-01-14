@@ -3,7 +3,7 @@ import { CommentNews } from '../../../../core/models/news.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NewsService } from '../../../../core/services/api-core/news.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { CONSTANTS } from '../../../../environments/constants';
+import { CONSTANTS } from '../../../../common/constants';
 
 @Component({
   selector: 'app-comment',

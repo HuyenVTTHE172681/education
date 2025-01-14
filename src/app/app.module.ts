@@ -15,6 +15,8 @@ import { EduModule } from './pages/edu/edu.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthInterceptor } from './core/services/auth.interceptor';
 import { AdminPageModule } from './pages/admin-page/admin-page.module';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 register();
 @NgModule({
@@ -31,9 +33,11 @@ register();
     ReactiveFormsModule,
     AdminPageModule,
     EduModule,
+    ToastModule,
+    ConfirmDialogModule
   ],
   providers: [
-    MessageService, 
+    MessageService,
     ConfirmationService,
     {
       provide: HTTP_INTERCEPTORS,

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { HistoriesTestUser, Scores } from '../../../core/models/scores.model';
 import { debounceTime, map, throwIfEmpty } from 'rxjs/operators';
-import { UtilsService } from '../../../core/utils/utils.service';
+import { UtilsService } from '../../../common/utils/utils.service';
 import { Subject } from 'rxjs';
 import { ClassRoom } from '../../../core/models/classRoom.model';
 import { Course } from '../../../core/models/course.model';

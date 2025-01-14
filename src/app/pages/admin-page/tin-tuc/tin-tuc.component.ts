@@ -3,9 +3,9 @@ import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { NewsService } from '../../../core/services/api-core/news.service';
 import { News, NewsCategory } from '../../../core/models/news.model';
 import { debounceTime, filter, Subject } from 'rxjs';
-import { CONSTANTS, HttpStatus } from '../../../environments/constants';
+import { CONSTANTS, HttpStatus } from '../../../common/constants';
 import { Router } from '@angular/router';
-import { UtilsService } from '../../../core/utils/utils.service';
+import { UtilsService } from '../../../common/utils/utils.service';
 
 @Component({
   selector: 'app-tin-tuc',

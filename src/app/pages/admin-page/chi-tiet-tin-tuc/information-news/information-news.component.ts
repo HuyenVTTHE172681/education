@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { News, NewsCategory } from '../../../../core/models/news.model';
 import { NewsService } from '../../../../core/services/api-core/news.service';
-import { CONSTANTS, HttpStatus } from '../../../../environments/constants';
+import { CONSTANTS, HttpStatus } from '../../../../common/constants';
 
 @Component({
   selector: 'app-information-news',

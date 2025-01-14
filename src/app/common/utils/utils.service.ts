@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { STATUS } from '../../environments/constants';
+import { STATUS } from '../constants';
 
 @Injectable({
     providedIn: 'root',
@@ -116,7 +116,7 @@ export class UtilsService {
     getEmailLabel(status: number): string {
         return status === 1 ? STATUS.GUI : STATUS.KHONG;
     }
-    
+
     // STATUS Mien phi - Tra phi
     getFreeLabel(status: number) {
         return status === 1 ? STATUS.MIEN_PHI : STATUS.TRA_PHI;

@@ -3,7 +3,7 @@ import { Footer } from '../../../core/models/slide.model';
 import { FooterService } from '../../../core/services/api-core/footer.service';
 import { MenuItem } from 'primeng/api';
 import { debounceTime, Subject } from 'rxjs';
-import { UtilsService } from '../../../core/utils/utils.service';
+import { UtilsService } from '../../../common/utils/utils.service';
 
 @Component({
   selector: 'app-footer',
@@ -92,7 +92,7 @@ export class FooterComponent implements OnInit {
     this.getFooter();
   }
 
-  add() {}
+  add() { }
 
   setSelected(footer: any) {
     this.selectedFooter = footer;

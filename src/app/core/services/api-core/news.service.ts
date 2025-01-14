@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { API_URL } from '../../../environments/constants';
+import { API_URL } from '../../../common/constants';
 import { IResponseList, IResponseListData } from '../../models/common.model';
 import { CommentNews, News, NewsCategory } from '../../models/news.model';
 @Injectable({
@@ -110,7 +110,7 @@ export class NewsService {
     filter: string,
     page: number,
     size: number,
-    parentId: string, 
+    parentId: string,
     screen: string
   ): Observable<IResponseList<CommentNews>> {
 

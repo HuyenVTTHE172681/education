@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { UtilsService } from '../../../core/utils/utils.service';
+import { UtilsService } from '../../../common/utils/utils.service';
 import { NewsItemStep, Step } from '../../../core/models/slide.model';
 import { StepService } from '../../../core/services/api-core/step.service';
 import { debounceTime, Subject } from 'rxjs';

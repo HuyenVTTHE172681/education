@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { debounceTime, Subject } from 'rxjs';
 import { Payment } from '../../../core/models/payment.model';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
-import { CONSTANTS, STATUS } from '../../../environments/constants';
-import { UtilsService } from '../../../core/utils/utils.service';
+import { CONSTANTS, STATUS } from '../../../common/constants';
+import { UtilsService } from '../../../common/utils/utils.service';
 import { PaymentService } from '../../../core/services/api-core/payment.service';
 
 @Component({

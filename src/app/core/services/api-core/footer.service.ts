@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, filter } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { API_URL } from '../../../environments/constants';
+import { API_URL } from '../../../common/constants';
 import { IResponseList } from '../../models/common.model';
 import { Footer } from '../../models/slide.model';
 

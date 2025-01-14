@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NewsService } from '../../../core/services/api-core/news.service';
 import { News, NewsCategory } from '../../../core/models/news.model';
 import { filter } from 'rxjs';
-import { HttpStatus } from '../../../environments/constants';
+import { HttpStatus } from '../../../common/constants';
 import { TRISTATECHECKBOX_VALUE_ACCESSOR } from 'primeng/tristatecheckbox';
 
 @Component({

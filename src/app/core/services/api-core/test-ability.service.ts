@@ -6,7 +6,7 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { API_URL } from '../../../environments/constants';
+import { API_URL } from '../../../common/constants';
 import { Test, TestCategory } from '../../models/test.model';
 import { IResponseList, IResponseListData } from '../../models/common.model';
 
