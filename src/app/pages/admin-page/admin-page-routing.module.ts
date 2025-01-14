@@ -31,6 +31,7 @@ import { ChiTietTinTucComponent } from './chi-tiet-tin-tuc/chi-tiet-tin-tuc.comp
 import { SlideComponent } from './slide/slide.component';
 import { StepComponent } from './step/step.component';
 import { FooterComponent } from './footer/footer.component';
+import { FeedbackManagementComponent } from './feedback-management/feedback-management.component';
 
 const routes: Routes = [
   {
@@ -185,6 +186,10 @@ const routes: Routes = [
       {
         path: 'footer',
         component: FooterComponent
+      },
+      {
+        path: 'feed-back',
+        component: FeedbackManagementComponent
       }
 
     ],

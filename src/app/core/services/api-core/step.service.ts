@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { API_URL } from '../../../environments/constants';
 import { IResponseList } from '../../models/common.model';
-import { NewsItemStep, Slide } from '../../models/slide.model';
+import { Feedback, NewsItemStep, Slide } from '../../models/slide.model';
 
 @Injectable({
   providedIn: 'root',
@@ -70,6 +70,22 @@ export class StepService {
 
     return this.http
       .get<IResponseList<Slide>>(apiURL)
+      .pipe(catchError(this.handleError));
+  }
+
+  getFeedBack(
+    filter: string,
+    page: number,
+    size: number
+  ): Observable<IResponseList<Feedback>> {
+
+    // https://hhq.runasp.net/api/feedback?filter=&offSet=0&pageSize=10
+    const query = `/feedback?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
+
+    const apiURL = `${this.apiBaseUrl}${query}`;
+
+    return this.http
+      .get<IResponseList<Feedback>>(apiURL)
       .pipe(catchError(this.handleError));
   }
 

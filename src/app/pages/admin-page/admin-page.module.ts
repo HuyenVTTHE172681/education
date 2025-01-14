@@ -88,6 +88,7 @@ import { CommentComponent } from './chi-tiet-tin-tuc/comment/comment.component';
 import { SlideComponent } from './slide/slide.component';
 import { StepComponent } from './step/step.component';
 import { FooterComponent } from './footer/footer.component';
+import { FeedbackManagementComponent } from './feedback-management/feedback-management.component';
 
 register(); // Register Swiper
 @NgModule({
@@ -141,6 +142,7 @@ register(); // Register Swiper
     SlideComponent,
     StepComponent,
     FooterComponent,
+    FeedbackManagementComponent,
   ],
   imports: [
     CommonModule,

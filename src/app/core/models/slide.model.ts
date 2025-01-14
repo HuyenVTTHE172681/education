@@ -72,3 +72,15 @@ export class Footer {
   totalFiltered = 1;
 }
 
+export class Feedback {
+  content = '';
+  createdBy = '';
+  createdDate = '';
+  email = '';
+  id = '';
+  modifiedBy = '';
+  modifiedDate = '';
+  phone = '';
+  totalFiltered = 0;
+}
+
