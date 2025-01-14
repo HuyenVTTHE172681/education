@@ -154,3 +154,18 @@ export class AdminNotifications {
   userName: any = null;
 }
 
+export class Advice {
+  academicAbility = '';
+  birthday = '';
+  comment = '';
+  createdBy = '';
+  createdDate = '';
+  id = '';
+  isAdvice = false;
+  modifiedBy = '';
+  modifiedDate = '';
+  name = '';
+  phone = '';
+  totalFiltered = 0;
+}
+

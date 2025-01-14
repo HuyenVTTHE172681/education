@@ -33,25 +33,25 @@
                 <th pSortableColumn="code" style="min-width: 53px; left: 0px">
                     <p-checkbox [binary]="true" inputId="binary" />
                 </th>
-                <th pSortableColumn="code" style="min-width: 70px; left: 60px;"></th>
+                <th pSortableColumn="code" style="width: 70px; left: 60px;"></th>
                 <th pSortableColumn="code" style="width: 350px;"><p-sortIcon field="code" /> Tiêu đề
                 </th>
                 <th pSortableColumn="code" style="width: 100px;">
                     Nhóm quyền <p-sortIcon field="code" />
                 </th>
-                <th pSortableColumn="code" style="width: 120px;">
+                <th pSortableColumn="code" style="width: 200px;">
                     Liên kết <p-sortIcon field="code" />
                 </th>
-                <th pSortableColumn="code" style="width: 150px;">
+                <th pSortableColumn="code" style="width: 100px;">
                     Trạng thái <p-sortIcon field="code" />
                 </th>
-                <th pSortableColumn="code" style="min-width: 385px;">
+                <th pSortableColumn="code" style="width: 80px;">
                     HT admin <p-sortIcon field="code" />
                 </th>
-                <th pSortableColumn="code" style="min-width: 385px;">
+                <th pSortableColumn="code" style="width: 80px;">
                     HT user <p-sortIcon field="code" />
                 </th>
-                <th pSortableColumn="code" style="min-width: 385px;">
+                <th pSortableColumn="code" style="min-width: 350px;">
                     Nội dung <p-sortIcon field="code" />
                 </th>
             </tr>
@@ -80,7 +80,7 @@
                     <p-button [icon]="utilsService.getIconsStatusBoolean(noti?.isShowUser)" [text]="true"
                         [severity]="utilsService.getStatusBooleanClass(noti?.isShowUser)" />
                 </td>
-                <td>{{ noti?.content }}</td>
+                <td [innerHTML]="noti?.content"></td>
             </tr>
         </ng-template>
     </p-table>

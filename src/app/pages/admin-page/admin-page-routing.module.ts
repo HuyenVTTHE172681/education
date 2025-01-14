@@ -33,6 +33,8 @@ import { StepComponent } from './step/step.component';
 import { FooterComponent } from './footer/footer.component';
 import { FeedbackManagementComponent } from './feedback-management/feedback-management.component';
 import { ThongBaoComponent } from './thong-bao/thong-bao.component';
+import { YeuCauTuVanComponent } from './yeu-cau-tu-van/yeu-cau-tu-van.component';
+import { TroGiupComponent } from './tro-giup/tro-giup.component';
 
 const routes: Routes = [
   {
@@ -195,6 +197,18 @@ const routes: Routes = [
       {
         path: 'thong-bao',
         component: ThongBaoComponent
+      },
+      {
+        path: 'yeu-cau-tu-van',
+        component: YeuCauTuVanComponent
+      },
+      {
+        path: 'tro-giup',
+        component: TroGiupComponent,
+        data: {
+          title: 'Trợ giúp',
+          url: 'tro-giup',
+        },
       }
 
     ],

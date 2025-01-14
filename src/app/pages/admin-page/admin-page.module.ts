@@ -90,6 +90,8 @@ import { StepComponent } from './step/step.component';
 import { FooterComponent } from './footer/footer.component';
 import { FeedbackManagementComponent } from './feedback-management/feedback-management.component';
 import { ThongBaoComponent } from './thong-bao/thong-bao.component';
+import { YeuCauTuVanComponent } from './yeu-cau-tu-van/yeu-cau-tu-van.component';
+import { TroGiupComponent } from './tro-giup/tro-giup.component';
 
 register(); // Register Swiper
 @NgModule({
@@ -145,6 +147,8 @@ register(); // Register Swiper
     FooterComponent,
     FeedbackManagementComponent,
     ThongBaoComponent,
+    YeuCauTuVanComponent,
+    TroGiupComponent,
   ],
   imports: [
     CommonModule,

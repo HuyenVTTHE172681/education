@@ -110,7 +110,6 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('user');
     localStorage.clear();
     this.user = null;
-    alert('Bạn đã đăng xuất.');
     window.location.reload(); // Tải lại trang để reset UI
     this.router.navigate(['/edu']);
   }
