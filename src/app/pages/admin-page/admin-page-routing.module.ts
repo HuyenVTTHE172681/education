@@ -32,6 +32,7 @@ import { SlideComponent } from './slide/slide.component';
 import { StepComponent } from './step/step.component';
 import { FooterComponent } from './footer/footer.component';
 import { FeedbackManagementComponent } from './feedback-management/feedback-management.component';
+import { ThongBaoComponent } from './thong-bao/thong-bao.component';
 
 const routes: Routes = [
   {
@@ -190,6 +191,10 @@ const routes: Routes = [
       {
         path: 'feed-back',
         component: FeedbackManagementComponent
+      },
+      {
+        path: 'thong-bao',
+        component: ThongBaoComponent
       }
 
     ],

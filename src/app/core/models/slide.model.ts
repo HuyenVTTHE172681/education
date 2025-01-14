@@ -7,7 +7,7 @@ export class Slide {
   link = '';
   screen = '';
   status = 0;
-  order =  1;
+  order = 1;
   createdBy = '';
   createdDate = '';
   modifiedBy = '';
@@ -82,5 +82,75 @@ export class Feedback {
   modifiedDate = '';
   phone = '';
   totalFiltered = 0;
+}
+
+export class Notification {
+  id = '';
+  accounts: any = null;
+  address: any = null;
+  avatar: any = null;
+  content = '';
+  createdBy = '';
+  createdDate = '';
+  email: any = null;
+  fromAddress: any = null;
+  fromAvatar: any = null;
+  fromEmail: any = null;
+  fromIdentityNo: any = null;
+  fromName: any = null;
+  fromPhone: any = null;
+  fromUserName: any = null;
+  identityNo: any = null;
+  isManual = false;
+  isRead = 0;
+  isShowAdmin = false;
+  isShowUser = true;
+  key = '';
+  modifiedBy = '';
+  modifiedDate: any = null;
+  name: any = null;
+  notificationTypeId = '';
+  phone: any = null;
+  roleId = '';
+  routerLink = '';
+  status = true;
+  title = '';
+  totalFiltered = 0;
+  userName: any = null;
+}
+
+export class AdminNotifications {
+  accounts: any = null;
+  address: any = null;
+  avatar: any = null;
+  content = '';
+  createdBy = '';
+  createdDate = '';
+  email: any = null;
+  fromAddress: any = null;
+  fromAvatar: any = null;
+  fromEmail: any = null;
+  fromIdentityNo: any = null;
+  fromName: any = null;
+  fromPhone: any = null;
+  fromUserName: any = null;
+  id = '';
+  identityNo: any = null;
+  isManual = false;
+  isRead = 0;
+  isShowAdmin = false;
+  isShowUser = true;
+  key: any = null;
+  modifiedBy = '';
+  modifiedDate: any = null;
+  name: any = null;
+  notificationTypeId = '';
+  phone: any = null;
+  roleId = '';
+  routerLink = '';
+  status = true;
+  title = '';
+  totalFiltered = 0;
+  userName: any = null;
 }
 

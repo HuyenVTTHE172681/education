@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StepService } from '../../../core/services/api-core/step.service';
+import { NewsItemStep } from '../../../core/models/slide.model';
 
 @Component({
   selector: 'app-exam-home',
@@ -7,6 +8,15 @@ import { StepService } from '../../../core/services/api-core/step.service';
   styleUrl: './exam-home.component.css',
 })
 export class ExamHomeComponent implements OnInit {
+  listSteps: NewsItemStep[] = [];
+  query = {
+    filter: '',
+    isParent: '',
+    page: 0,
+    size: 10,
+    screen: '',
+    status: -1
+  }
   breakpoints = {
     320: { slidesPerView: 1, spaceBetween: 10 }, // Màn hình rất nhỏ: 1 sản phẩm
     640: { slidesPerView: 2, spaceBetween: 20 }, // Màn hình nhỏ: 2 sản phẩm
@@ -39,8 +49,25 @@ export class ExamHomeComponent implements OnInit {
   constructor(private stepSrv: StepService) { }
 
   ngOnInit(): void {
-    this.stepSrv.getSteps().subscribe((data) => {
-      this.stepsApi = data;
-    });
+    this.getStep();
+  }
+
+  getStep() {
+    this.stepSrv.getStep(
+      this.query.filter,
+      this.query.isParent,
+      this.query.page,
+      this.query.size,
+      this.query.screen,
+      this.query.status
+    ).subscribe({
+      next: (data) => {
+        this.listSteps = data?.data?.data || [];
+
+        if (this.query.page < 1) {
+          this.query.page = 1; // Reset to page 1 if it's invalid
+        }
+      }
+    })
   }
 }
