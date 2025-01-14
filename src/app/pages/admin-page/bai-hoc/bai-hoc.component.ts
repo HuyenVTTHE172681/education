@@ -23,7 +23,7 @@ export class BaiHocComponent implements OnInit {
 
   query = {
     searchText: '',
-    page: 1,
+    page: 0,
     size: 10,
     sizeForFilter: 1000,
     status: -1,
@@ -167,6 +167,10 @@ export class BaiHocComponent implements OnInit {
     )
       .subscribe((data) => {
         this.subject = data?.data?.data || [];
+
+        if (this.query.page < 1) {
+          this.query.page = 1; // Reset to page 1 if it's invalid
+        }
       })
   }
 

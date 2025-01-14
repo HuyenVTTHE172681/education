@@ -7,11 +7,6 @@ import { STATUS } from '../../environments/constants';
 export class UtilsService {
     constructor() { }
 
-    // STATUS Hiển thị - Ẩn
-    getStatusLabel(status: number) {
-        return status === 1 ? STATUS.HIEN_THI : STATUS.AN;
-    }
-
     getStatusClass(status: number) {
         switch (status) {
             case 1:
@@ -21,11 +16,6 @@ export class UtilsService {
             default:
                 return 'warning';
         }
-    }
-
-    // STATUS Recruit news Hot
-    getRecruitNewHotLabel(status: number) {
-        return status === 1 ? STATUS.HOT : STATUS.KHONG_HOT;
     }
 
     getRecruitNewHotClass(status: number) {
@@ -43,11 +33,6 @@ export class UtilsService {
         return status ? 'primary' : 'danger';
     }
 
-    // STATUS Mien phi - Tra phi
-    getFreeLabel(status: number) {
-        return status === 1 ? STATUS.MIEN_PHI : STATUS.TRA_PHI;
-    }
-
     getFreeClass(status: number) {
         switch (status) {
             case 1:
@@ -61,11 +46,6 @@ export class UtilsService {
             default:
                 return 'danger';
         }
-    }
-
-    // STATUS EMAIL Gui - Khong
-    getEmailLabel(status: number): string {
-        return status === 1 ? STATUS.GUI : STATUS.KHONG;
     }
 
     // STATUS Public
@@ -130,6 +110,25 @@ export class UtilsService {
 
     getIconsStatusBoolean(status: boolean): string {
         return status ? 'pi pi-check' : 'pi pi-times';
+    }
+
+    // STATUS EMAIL Gui - Khong
+    getEmailLabel(status: number): string {
+        return status === 1 ? STATUS.GUI : STATUS.KHONG;
+    }
+    
+    // STATUS Mien phi - Tra phi
+    getFreeLabel(status: number) {
+        return status === 1 ? STATUS.MIEN_PHI : STATUS.TRA_PHI;
+    }
+
+    // STATUS Recruit news Hot
+    getRecruitNewHotLabel(status: number) {
+        return status === 1 ? STATUS.HOT : STATUS.KHONG_HOT;
+    }
+    // STATUS Hiển thị - Ẩn
+    getStatusLabel(status: number) {
+        return status === 1 ? STATUS.HIEN_THI : STATUS.AN;
     }
 
     getPaymentLabel(isPayment: number) {

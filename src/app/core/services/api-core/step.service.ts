@@ -38,7 +38,7 @@ export class StepService {
 
   getStep(
     filter: string,
-    isParent: number,
+    isParent: string,
     page: number,
     size: number,
     screen: string,

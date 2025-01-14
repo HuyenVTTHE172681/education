@@ -1,1 +1,160 @@
-<p>step works!</p>
+<p-toast position="bottom-right" key="br" />
+<p-confirmDialog />
+
+<div class="diem-thi customer-table common-content">
+    <p-table [value]="listSteps" dataKey="id" [expandedRowKeys]="expandedRows" [scrollable]="true" scrollHeight="800px"
+        [frozenWidth]="'400px'" [unfrozenWidth]="'calc(100% - 300px)'">
+
+        <ng-template pTemplate="caption">
+            <div class="grid align-items-end">
+                <div class="col-12 md:col-4">
+                    <p-breadcrumb class="max-w-full" [model]="breadcrumb" [home]="home" />
+                    <div class="header-title hidden-mobile">Điểm thi</div>
+                </div>
+                <div class="col-12 md:col-8 text-right flex justify-content-end align-items-end">
+                    <div class="mr-2 text-left search">
+                        <label for="search">Tìm kiếm: </label>
+                        <p-inputGroup [style.height.px]="32">
+                            <input type="text" pInputText placeholder="Nhập nội dung tìm kiếm" severity="secondary"
+                                [(ngModel)]="query.filter" (ngModelChange)="onSearchChange($event)" />
+                            <button type="button" pButton icon="pi pi-search" [outlined]="true" severity="secondary"
+                                (click)="search()"></button>
+                        </p-inputGroup>
+                    </div>
+                    <p-button class="mr-2" label="Bộ lọc" (onClick)="op.toggle($event)" icon="pi pi-sliders-h" />
+                    <p-button label="Thêm mới" icon="pi pi-sliders-h" />
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 60px; left: 0" pFrozenColumn></th>
+                <th style="width: 70px; left: 78px" pFrozenColumn></th>
+                <th style="width: 450px;" pSortableColumn="name" pFrozenColumn>Tên nhóm</th>
+                <th style="width: 150px" pSortableColumn="price">Sắp xếp</th>
+                <th style="width: 120px" pSortableColumn="category">Thời gian </th>
+                <th style="width: 120px" pSortableColumn="rating">Màn hình</th>
+                <th style="width: 150px" pSortableColumn="inventoryStatus">Nút chuyển </th>
+                <th style="width: 150px" pSortableColumn="inventoryStatus">Hiển thị </th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-step let-expanded="expanded">
+            <tr>
+                <td>
+                    <div *ngIf="step?.steps?.length > 0">
+                        <p-button type="button" pRipple [pRowToggler]="step" [text]="true" [rounded]="true"
+                            [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                    </div>
+                </td>
+                <td>
+                    <p-button icon="pi pi-ellipsis-v" [text]="true" severity="secondary"
+                        (onClick)="setSelectedStep(step); menu.toggle($event)" />
+                </td>
+                <td>{{ step?.name }}</td>
+                <td>{{ step?.order }}</td>
+                <td>{{ step?.delay }}</td>
+                <td>{{ step?.screen }}</td>
+                <td>
+                    <p-button [label]="utilsService.getStatusLabel(step?.showNavigation)" [raised]="true"
+                        [severity]="utilsService.getStatusClass(step?.showNavigation)" [rounded]="true" />
+                </td>
+                <td>
+                    <p-button [label]="utilsService.getStatusLabel(step?.status)" [raised]="true"
+                        [severity]="utilsService.getStatusClass(step?.status)" [rounded]="true" />
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="rowexpansion" let-stepChild class="p-3 orders-subtable">
+            <tr>
+                <td colspan="5" [style]="{ backgroundColor: '#e3e7f2' }">
+                    <div>
+                        <b class="mb-1">Step con</b>
+                        <div class="p-3">
+                            <p-table [value]="stepChild?.steps" dataKey="id">
+                                <ng-template pTemplate="header">
+            <tr>
+                <th style="min-width: 80px; left: 0;"></th>
+                <th style="width: 450px">Tiêu đề chính</th>
+                <th style="width: 450px">Tiêu đề con</th>
+                <th style="width: 150px">Sắp xếp</th>
+                <th style="width: 150px">Hiển thị</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-child>
+            <tr>
+                <td><p-button icon="pi pi-ellipsis-v" [text]="true" severity="secondary"
+                        (onClick)="setSelectedStepChild(child); menuChild.toggle($event)" /></td>
+                <td>{{ child?.title }}</td>
+                <td>{{ child?.subTitle }}</td>
+                <td>{{ child?.order }}</td>
+                <td>
+                    <p-button [label]="utilsService.getStatusLabel(child?.status)" [raised]="true"
+                        [severity]="utilsService.getStatusClass(child?.status)" [rounded]="true" />
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="6">There are no order for this product yet.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+</div>
+</td>
+</tr>
+</ng-template>
+</p-table>
+
+<div class="flex align-items-center justify-content-start" style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: flex-end;
+                  gap: 10px;
+                ">
+    <p-paginator [rows]="query.size" [totalRecords]="totalItems" [first]="(query.page - 1) * query.size"
+        (onPageChange)="onPageChange($event)"></p-paginator>
+
+    <div class="flex justify-content-center align-items-center gap-3">
+        <span>Từ {{ (query.page - 1) * query.size + 1 }} đến {{ totalItems }}</span>
+    </div>
+</div>
+</div>
+
+
+<!-- Popup view to edit/deleted -->
+<div class="card flex justify-content-center">
+    <p-menu #menu [model]="items" [popup]="true" />
+</div>
+
+<!-- Popup view to edit/deleted -->
+<div class="card flex justify-content-center">
+    <p-menu #menuChild [model]="itemsChild" [popup]="true" />
+</div>
+
+
+<p-overlayPanel #op>
+    <div class="flex flex-column gap-3 w-25rem">
+        <div>
+            <span class="font-medium text-900 block mb-2">Tìm kiếm nâng cao</span>
+        </div>
+        <div>
+            <ul class="list-none p-0 m-0 flex flex-column gap-3">
+                <li class="align-items-center mt-2">
+                    <p-dropdown [options]="statusList" [(ngModel)]="selectedStatus" optionLabel="name" [filter]="true"
+                        filterBy="name" [showClear]="true" placeholder="Tất cả" (onChange)="onStatusChange($event)"
+                        [style]="{'width':'100%'}"></p-dropdown>
+                </li>
+            </ul>
+        </div>
+
+        <div class="text-right" style="margin-top: 30px;">
+            <p-button class="mr-2" label="Xuất excel" icon="pi pi-file-excel" severity="success" />
+            <p-button class="mr-2" label="Làm mới" icon="pi pi-sync" severity="secondary" />
+            <p-button label="Tìm kiếm" icon="pi pi-search" />
+        </div>
+    </div>
+</p-overlayPanel>
