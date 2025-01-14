@@ -106,7 +106,8 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    console.log('Đăng xuất, xóa dữ liệu localStorage.');
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     localStorage.clear();
     this.user = null;
     alert('Bạn đã đăng xuất.');

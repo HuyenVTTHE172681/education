@@ -30,28 +30,22 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log('Bắt đầu gửi request đăng nhập với dữ liệu:', this.loginObj);
-
     this.authenticationSrv.login(this.loginObj.value).subscribe({
       next: (res) => {
-        console.log('Phản hồi từ API đăng nhập:', res);
-
         const token = res?.data?.token;
         const username = res?.data?.username;
 
         if (token) {
-          // Lưu token vào localStorage
-          localStorage.setItem('token', token);
-          console.log('Token đã được lưu:', token);
+          // Store token in localStorage
+          localStorage.setItem('token', token);  // 'token' is the correct key
 
-          // Lấy thông tin chi tiết của user
+          // Fetch user details
           this.authenticationSrv.getUserInfo(username).subscribe({
             next: (userRes) => {
-              console.log('Thông tin người dùng từ API:', userRes);
 
               localStorage.setItem('user', JSON.stringify(userRes.data));
               alert('Đăng nhập thành công!');
-              this.router.navigate(['/home']);
+              this.router.navigate(['/edu']);
             },
             error: (err) => {
               console.error('Lỗi khi lấy thông tin người dùng:', err);
@@ -68,6 +62,7 @@ export class LoginComponent implements OnInit {
       },
     });
   }
+
 
   onChange() {
     if (this.passwordType === 'password') {

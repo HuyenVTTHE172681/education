@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ContentLayoutComponent } from './shared/layouts/content-layout/content-layout.component';
 import { LoginComponent } from './authen/login/login.component';
 import { RegisterComponent } from './authen/register/register.component';
+import { AuthGuardService } from './core/services/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -27,12 +28,14 @@ const routes: Routes = [
       import('./pages/admin-page/admin-page.module').then(
         (m) => m.AdminPageModule
       ),
+    canActivate: [AuthGuardService],
   },
   {
     path: 'edu',
     component: ContentLayoutComponent,
     loadChildren: () =>
       import('./pages/edu/edu.module').then((m) => m.EduModule),
+    canActivate: [AuthGuardService],
   },
   {
     path: 'login',
