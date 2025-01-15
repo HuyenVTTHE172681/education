@@ -1,1 +1,47 @@
-<p>menu works!</p>
+<div class="qt-menu-nguoi-dung common-content">
+    <div class="detail-breadcumb">
+        <p-breadcrumb class="max-w-full" [model]="breadcrumb" [home]="home" />
+        <div class="header-title hidden-mobile">Quản trị menu người dùng</div>
+    </div>
+    <div class="tab-view">
+        <p-tabView>
+
+            <p-tabPanel>
+                <ng-template pTemplate="header">
+                    <div class="flex align-items-center gap-2">
+                        <span>
+                            <i class="pi pi-server" style="font-size: 12px"></i>
+                        </span>
+                        <span class="font-bold white-space-nowrap m-0">Menu</span>
+                    </div>
+                </ng-template>
+                <app-sub-menu></app-sub-menu>
+            </p-tabPanel>
+
+            <p-tabPanel>
+                <ng-template pTemplate="header">
+                    <div class="flex align-items-center gap-2">
+                        <span>
+                            <i class="pi pi-th-large" style="font-size: 12px"></i>
+                        </span>
+                        <span class="font-bold white-space-nowrap m-0">Hành động</span>
+                    </div>
+                </ng-template>
+                <app-hanh-dong></app-hanh-dong>
+            </p-tabPanel>
+
+            <p-tabPanel>
+                <ng-template pTemplate="header">
+                    <div class="flex align-items-center gap-2">
+                        <span>
+                            <i class="pi pi-sitemap" style="font-size: 12px"></i>
+                        </span>
+                        <span class="font-bold white-space-nowrap m-0">Nhóm quyền</span>
+                    </div>
+                </ng-template>
+                <app-nhom-quyen></app-nhom-quyen>
+            </p-tabPanel>
+
+        </p-tabView>
+    </div>
+</div>

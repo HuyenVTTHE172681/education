@@ -93,6 +93,9 @@ import { ThongBaoComponent } from './thong-bao/thong-bao.component';
 import { YeuCauTuVanComponent } from './yeu-cau-tu-van/yeu-cau-tu-van.component';
 import { TroGiupComponent } from './tro-giup/tro-giup.component';
 import { MenuComponent } from './menu/menu.component';
+import { SubMenuComponent } from './menu/sub-menu/sub-menu.component';
+import { HanhDongComponent } from './menu/hanh-dong/hanh-dong.component';
+import { NhomQuyenComponent } from './menu/nhom-quyen/nhom-quyen.component';
 
 register(); // Register Swiper
 @NgModule({
@@ -151,6 +154,9 @@ register(); // Register Swiper
     YeuCauTuVanComponent,
     TroGiupComponent,
     MenuComponent,
+    SubMenuComponent,
+    HanhDongComponent,
+    NhomQuyenComponent,
   ],
   imports: [
     CommonModule,

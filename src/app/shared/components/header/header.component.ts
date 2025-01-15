@@ -178,7 +178,7 @@ export class HeaderComponent implements OnInit {
   }
 
   getMenuUser() {
-    this.menuService.getMenuUser(this.page, this.size, this.filter, this.screenUser, this.status).subscribe((data) => {
+    this.menuService.getMenus(this.page, this.size, this.filter, this.screenUser, this.status).subscribe((data) => {
       console.log("Raw Menu User Data:", data.data.data);
       this.menu = this.buildTree(data.data.data);
       console.log("Processed Menu User:", this.menu);
@@ -187,7 +187,7 @@ export class HeaderComponent implements OnInit {
 
 
   getMenuAdmin(): void {
-    this.menuService.getMenuAdmin(this.page, this.size, this.filter, this.screenAdmin, this.status).subscribe((data) => {
+    this.menuService.getMenus(this.page, this.size, this.filter, this.screenAdmin, this.status).subscribe((data) => {
       console.log("Raw Menu User Data:", data.data.data);
       this.menu = this.buildTree(data.data.data);
       console.log("Processed Menu User:", this.menu);

@@ -8,7 +8,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class ChiTietKhoaHocComponent implements OnInit {
   menuBreachCrumbs: MenuItem[] = [];
-  home: MenuItem | undefined;
+  home: MenuItem = [];
 
   constructor() { }
 

@@ -1,0 +1,154 @@
+<p-toast position="bottom-right" key="br" />
+<p-confirmDialog />
+
+<div class="diem-thi customer-table common-content">
+    <p-table [value]="listMenus" dataKey="id" [expandedRowKeys]="expandedRows" [scrollable]="true" scrollHeight="800px"
+        [frozenWidth]="'400px'" [unfrozenWidth]="'calc(100% - 300px)'">
+
+        <ng-template pTemplate="caption">
+            <div class="grid">
+                <div class="col-12 md:col-3 custom-group">
+                    <label>Màn hình</label>
+                    <p-dropdown [options]="statusList" [(ngModel)]="selectedStatus" optionLabel="name" [filter]="true"
+                        filterBy="name" [showClear]="true" placeholder="Màn hình" (onChange)="onStatusChange($event)"
+                        [style]="{'width':'100%'}"></p-dropdown>
+                </div>
+                <div class="col-3"></div>
+                <div class="col-12 md:col-6 flex justify-content-end">
+                    <p-button label="Thêm mới" icon="pi pi-sliders-h" />
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 60px; left: 0" pFrozenColumn></th>
+                <th style="width: 70px; left: 60px" pFrozenColumn></th>
+                <th style="width: 250px;" pSortableColumn="name" pFrozenColumn>Tên</th>
+                <th style="width: 250px" pSortableColumn="price">Tên tiếng anh</th>
+                <th style="width: 250px" pSortableColumn="category">Đường dẫn </th>
+                <th style="width: 150px" pSortableColumn="rating">Biểu tượng</th>
+                <th style="width: 150px" pSortableColumn="inventoryStatus">Sắp xếp </th>
+                <th style="width: 150px" pSortableColumn="inventoryStatus">Màn hình </th>
+                <th style="width: 150px" pSortableColumn="inventoryStatus">Trạng thái </th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-menu let-expanded="expanded">
+            <tr>
+                <td>
+                    <div *ngIf="menu?.childs?.length > 0">
+                        <p-button type="button" pRipple [pRowToggler]="menu" [text]="true" [rounded]="true"
+                            [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                    </div>
+                </td>
+                <td>
+                    <p-button icon="pi pi-ellipsis-v" [text]="true" severity="secondary"
+                        (onClick)="setSelectedMenu(menu); menu.toggle($event)" />
+                </td>
+                <td>{{ menu?.name }}</td>
+                <td>{{ menu?.nameEn }}</td>
+                <td>{{ menu?.path }}</td>
+                <td><i [class]="menu?.icon"></i></td>
+                <td>{{ menu?.order}}</td>
+                <td>{{ menu?.screen}}</td>
+                <td>
+                    <p-button [label]="utilsService.getStatusLabel(menu?.status)" [raised]="true"
+                        [severity]="utilsService.getStatusClass(menu?.status)" [rounded]="true" />
+                </td>
+                <td></td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="rowexpansion" let-subMenu class="p-3 orders-subtable">
+            <tr>
+                <td colspan="5" [style]="{ backgroundColor: '#e3e7f2' }">
+                    <div>
+                        <b class="mb-1">Step con</b>
+                        <div class="p-3">
+                            <p-table [value]="subMenu?.childs" dataKey="id">
+                                <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 60px; left: 0" pFrozenColumn></th>
+                <th style="width: 70px; left: 78px" pFrozenColumn></th>
+                <th style="width: 450px;" pSortableColumn="name" pFrozenColumn>Tên</th>
+                <th style="width: 120px" pSortableColumn="category">Đường dẫn </th>
+                <th style="width: 120px" pSortableColumn="rating">Biểu tượng</th>
+                <th style="width: 150px" pSortableColumn="inventoryStatus">Sắp xếp </th>
+                <th style="width: 150px" pSortableColumn="inventoryStatus">Màn hình </th>
+                <th style="width: 150px" pSortableColumn="inventoryStatus">Trạng thái </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-child>
+            <tr>
+                <td></td>
+                <td><p-button icon="pi pi-ellipsis-v" [text]="true" severity="secondary"
+                        (onClick)="setSelectedSubMenu(child); menu.toggle($event)" /></td>
+                <td>{{ child?.name }}</td>
+                <td>{{ child?.path }}</td>
+                <td><i [class]="child?.icon"></i></td>
+                <td>{{ child?.order }}</td>
+                <td>{{ child?.screen }}</td>
+                <td>
+                    <p-button [label]="utilsService.getStatusLabel(child?.status)" [raised]="true"
+                        [severity]="utilsService.getStatusClass(child?.status)" [rounded]="true" />
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="6">There are no order for this product yet.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+</div>
+</td>
+</tr>
+</ng-template>
+</p-table>
+
+<div class="flex align-items-center justify-content-start" style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: flex-end;
+                  gap: 10px;
+                ">
+    <p-paginator [rows]="query.size" [totalRecords]="totalItems" [first]="(query.page - 1) * query.size"
+        (onPageChange)="onPageChange($event)"></p-paginator>
+
+    <div class="flex justify-content-center align-items-center gap-3">
+        <span>Từ {{ (query.page - 1) * query.size + 1 }} đến {{ totalItems }}</span>
+    </div>
+</div>
+</div>
+
+
+<!-- Popup view to edit/deleted -->
+<div class="card flex justify-content-center">
+    <p-menu #menu [model]="items" [popup]="true" />
+</div>
+
+
+<p-overlayPanel #op>
+    <div class="flex flex-column gap-3 w-25rem">
+        <div>
+            <span class="font-medium text-900 block mb-2">Tìm kiếm nâng cao</span>
+        </div>
+        <div>
+            <ul class="list-none p-0 m-0 flex flex-column gap-3">
+                <li class="align-items-center mt-2">
+                    <p-dropdown [options]="statusList" [(ngModel)]="selectedStatus" optionLabel="name" [filter]="true"
+                        filterBy="name" [showClear]="true" placeholder="Tất cả" (onChange)="onStatusChange($event)"
+                        [style]="{'width':'100%'}"></p-dropdown>
+                </li>
+            </ul>
+        </div>
+
+        <div class="text-right" style="margin-top: 30px;">
+            <p-button class="mr-2" label="Xuất excel" icon="pi pi-file-excel" severity="success" />
+            <p-button class="mr-2" label="Làm mới" icon="pi pi-sync" severity="secondary" />
+            <p-button label="Tìm kiếm" icon="pi pi-search" />
+        </div>
+    </div>
+</p-overlayPanel>

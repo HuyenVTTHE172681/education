@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { MenuItem } from 'primeng/api';
 import { API_URL } from '../../../common/constants';
 import { IResponseList } from '../../models/common.model';
+import { Menu } from '../../models/menu.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,35 +16,35 @@ export class MenuService {
     this.apiBaseUrl = API_URL.URL_API_CORE;
   }
 
-  getMenuUser(
+  // getMenuUser(
+  //   page: number,
+  //   size: number,
+  //   filter: string = '',
+  //   screen: string = '',
+  //   status: number = 1
+  // ): Observable<IResponseList<MenuItem>> {
+
+  //   const query = `/Menu/GetMenusTree?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}&screen=${screen}&status=${status}`;
+  //   const apiURL = `${this.apiBaseUrl}${query}`;
+
+  //   return this.http
+  //     .get<IResponseList<MenuItem>>(apiURL)
+  //     .pipe(catchError(this.handleError));
+  // }
+
+  getMenus(
     page: number,
     size: number,
     filter: string = '',
     screen: string = '',
     status: number = 1
-  ): Observable<IResponseList<MenuItem>> {
+  ): Observable<IResponseList<Menu>> {
 
     const query = `/Menu/GetMenusTree?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}&screen=${screen}&status=${status}`;
     const apiURL = `${this.apiBaseUrl}${query}`;
 
     return this.http
-      .get<IResponseList<MenuItem>>(apiURL)
-      .pipe(catchError(this.handleError));
-  }
-
-  getMenuAdmin(
-    page: number,
-    size: number,
-    filter: string = '',
-    screen: string = '',
-    status: number = 1
-  ): Observable<IResponseList<MenuItem>> {
-
-    const query = `/Menu/GetMenusTree?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}&screen=${screen}&status=${status}`;
-    const apiURL = `${this.apiBaseUrl}${query}`;
-
-    return this.http
-      .get<IResponseList<MenuItem>>(apiURL)
+      .get<IResponseList<Menu>>(apiURL)
       .pipe(catchError(this.handleError));
   }
 

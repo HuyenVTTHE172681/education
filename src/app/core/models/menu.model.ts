@@ -1,26 +1,38 @@
-export interface MenuData {
-  recordsTotal: number;
-  recordsFiltered: number;
-  statusCode: number;
-  message: string;
-  status: string;
-  data: MenuItem[];
+
+export class Menu {
+  id = '';
+  name = '';
+  nameEn = '';
+  icon = '';
+  path = '';
+  parentId = '';
+  order = 1;
+  screen = '';
+  status = 1;
+  childs?: MenuSub[] = [];
+  actions = '';
+  createdBy = '';
+  createdDate = '';
+  modifiedBy = '';
+  modifiedDate = '';
+  code = '';
 }
 
-export interface MenuItem {
-  id: string;
-  name: string;
-  nameEn: string | null;
-  icon?: string;
-  path?: string;
-  parentId?: string;
-  order?: number;
-  screen?: string;
-  status?: number;
-  childs?: MenuItem[];
-  actions?: string; // JSON string of actions
-  createdBy?: string | null;
-  createdDate?: string | null;
-  modifiedBy?: string | null;
-  modifiedDate?: string | null;
+export class MenuSub {
+  id = '';
+  name = '';
+  nameEn = '';
+  icon = '';
+  path = '';
+  parentId = '';
+  order = 1;
+  screen = '';
+  status = 1;
+  childs = [];
+  actions = '';
+  createdBy = '';
+  createdDate = '';
+  modifiedBy = '';
+  modifiedDate = '';
+  code = '';
 }
