@@ -131,6 +131,10 @@ export class UtilsService {
         return status === 1 ? STATUS.HIEN_THI : STATUS.AN;
     }
 
+    getStatusLabelBoolean(status: boolean) {
+        return status ? STATUS.HIEN_THI : STATUS.AN;
+    }
+
     getPaymentLabel(isPayment: number) {
         return isPayment === 1 ? STATUS.DA_THANH_TOAN : STATUS.CHO_THANH_TOAN;
     }

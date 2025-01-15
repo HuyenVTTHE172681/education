@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TroGiupComponent } from './tro-giup.component';
+import { MenuComponent } from './menu.component';
 
-describe('TroGiupComponent', () => {
-  let component: TroGiupComponent;
-  let fixture: ComponentFixture<TroGiupComponent>;
+describe('MenuComponent', () => {
+  let component: MenuComponent;
+  let fixture: ComponentFixture<MenuComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TroGiupComponent]
+      declarations: [MenuComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TroGiupComponent);
+    fixture = TestBed.createComponent(MenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

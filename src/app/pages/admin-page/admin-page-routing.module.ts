@@ -35,6 +35,7 @@ import { FeedbackManagementComponent } from './feedback-management/feedback-mana
 import { ThongBaoComponent } from './thong-bao/thong-bao.component';
 import { YeuCauTuVanComponent } from './yeu-cau-tu-van/yeu-cau-tu-van.component';
 import { TroGiupComponent } from './tro-giup/tro-giup.component';
+import { MenuComponent } from './menu/menu.component';
 
 const routes: Routes = [
   {
@@ -205,10 +206,10 @@ const routes: Routes = [
       {
         path: 'tro-giup',
         component: TroGiupComponent,
-        data: {
-          title: 'Trợ giúp',
-          url: 'tro-giup',
-        },
+      },
+      {
+        path: 'menu',
+        component: MenuComponent
       }
 
     ],

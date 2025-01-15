@@ -21,7 +21,10 @@ export class GuideSupportComponent implements OnInit {
   }
   selectedGuide: Guide | null = null;
 
-  constructor(private dashboardSrv: DashboardService, public sanitizer: DomSanitizer) { }
+  constructor(
+    private dashboardSrv: DashboardService, 
+    public sanitizer: DomSanitizer
+  ) { }
 
   ngOnInit(): void {
     this.getDashboardGuide();
