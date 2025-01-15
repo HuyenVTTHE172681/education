@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { API_URL } from '../../../common/constants';
 import { IResponseList } from '../../models/common.model';
-import { Menu } from '../../models/menu.model';
+import { Action, Menu, Role } from '../../models/menu.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,22 +15,6 @@ export class MenuService {
   constructor(private http: HttpClient) {
     this.apiBaseUrl = API_URL.URL_API_CORE;
   }
-
-  // getMenuUser(
-  //   page: number,
-  //   size: number,
-  //   filter: string = '',
-  //   screen: string = '',
-  //   status: number = 1
-  // ): Observable<IResponseList<MenuItem>> {
-
-  //   const query = `/Menu/GetMenusTree?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}&screen=${screen}&status=${status}`;
-  //   const apiURL = `${this.apiBaseUrl}${query}`;
-
-  //   return this.http
-  //     .get<IResponseList<MenuItem>>(apiURL)
-  //     .pipe(catchError(this.handleError));
-  // }
 
   getMenus(
     page: number,
@@ -45,6 +29,34 @@ export class MenuService {
 
     return this.http
       .get<IResponseList<Menu>>(apiURL)
+      .pipe(catchError(this.handleError));
+  }
+
+  getActions(
+    filter: string,
+    page: number,
+    size: number
+  ): Observable<IResponseList<Action>> {
+
+    const query = `/Role/GetActions?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
+    const apiURL = `${this.apiBaseUrl}${query}`;
+
+    return this.http
+      .get<IResponseList<Action>>(apiURL)
+      .pipe(catchError(this.handleError));
+  }
+
+  getRole(
+    filter: string,
+    page: number,
+    size: number
+  ): Observable<IResponseList<Role>> {
+
+    const query = `/Role?filter=${filter}&offSet=${(page - 1) * size}&pageSize=${size}`;
+    const apiURL = `${this.apiBaseUrl}${query}`;
+
+    return this.http
+      .get<IResponseList<Role>>(apiURL)
       .pipe(catchError(this.handleError));
   }
 

@@ -36,3 +36,28 @@ export class MenuSub {
   modifiedDate = '';
   code = '';
 }
+
+export class Action {
+  actionCode = '';
+  actionName = '';
+  createdBy = '';
+  createdDate = '';
+  description = '';
+  id = '';
+  modifiedBy = '';
+  modifiedDate = '';
+  totalFiltered = 0;
+}
+
+export class Role {
+  createdBy = '';
+  createdDate = '';
+  description = '';
+  id = '';
+  modifiedBy = '';
+  modifiedDate = '';
+  name = '';
+  roleActions = '';
+  roleMenus = '';
+  totalFiltered = 0;
+}
