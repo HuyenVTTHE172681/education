@@ -3,12 +3,14 @@
     <div class="header-title hidden-mobile mb-3">Quản lí thư viện</div>
     <div class="grid quan-li-thu-vien">
         <div class="col-12 md:col-3 menu-folder">
-            <p-button label="Thư mục gốc" [outlined]="true" severity="contrast" class="mb-2" icon="pi pi-folder" />
-            <p-tree [value]="treeSource" [lazy]="true" (onNodeExpand)="loadFiles($event)"
-                [style]="{ width: '100%' }"></p-tree>
+            <p-button label="Thư mục gốc" [outlined]="true" severity="contrast" class="mb-3" icon="pi pi-folder" />
+            <p-tree [(selection)]="selectedFile" [value]="treeSource" [selectionMode]="'single'"
+                (onNodeSelect)="onNodeSelect($event)">
+            </p-tree>
+
         </div>
         <div class="col-12 md:col-9">
-            <div class="image_actions text-right">
+            <div class="image_actions text-right mb-3">
                 <p-button label="Thêm file" [outlined]="true" severity="contrast" class="mr-2 mb-2" icon="pi pi-file" />
                 <p-button label="Thêm thư mục" [outlined]="true" severity="contrast" class="mb-2" icon="pi pi-folder" />
             </div>
@@ -31,8 +33,20 @@
                 </div>
             </div>
 
-            <div class="justify-contet-end">
+            <div class="flex align-items-center justify-content-end mt-3" *ngIf="children.length !== 0">
+                <p-paginator [rows]="itemsPerPage" [totalRecords]="totalRecords" [first]="first"
+                    [styleClass]="'all_' + itemsPerPage" (onPageChange)="paginate($event)"
+                    [rowsPerPageOptions]="[5, 10, 20, 50, 100, 500]"
+                    currentPageReportTemplate="Showing {countRecord.currentRecordStart} to {last} of {totalRecords}">
+                </p-paginator>
+                <small class="ml-2">
+                    {{ 'Từ' }} {{ countRecord.currentRecordStart }}
+                    {{ 'đến' }} {{ countRecord.currentRecordEnd }}
+                    {{ 'trên tổng số' }} {{ totalRecords }}
+                    {{ 'kết quả' }}
+                </small>
             </div>
+
         </div>
     </div>
 </div>

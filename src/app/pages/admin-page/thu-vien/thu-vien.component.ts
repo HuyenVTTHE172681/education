@@ -18,6 +18,7 @@ export class ThuVienComponent implements OnInit {
   breadcrumb: MenuItem[] = [];
   home: MenuItem = [];
   treeSource: TreeNode[] = [];
+  selectedFile: any;
   folders: FolderNode[] = [];
   query = {
     callFromAdmin: 1,
@@ -27,6 +28,10 @@ export class ThuVienComponent implements OnInit {
     size: 10
   };
   children: Library[] = [];
+  totalRecords: number = 0; // Tổng số mục để hiển thị trong bảng
+  itemsPerPage: number = 10; // Số dòng trên mỗi trang
+  first: number = 0;
+  countRecord: any = {};
 
   constructor(private librarySrv: LibraryService) { }
 
@@ -60,32 +65,30 @@ export class ThuVienComponent implements OnInit {
 
 
 
-  loadFiles(event: any) {
-    const node: TreeNode = event.node;
+  // Hàm xử lý gọi API với thông tin phân trang
+  loadFilesByPage(folderId: string, page: number, size: number): void {
+    this.librarySrv
+      .getLibrariesFile(this.query.callFromAdmin, folderId, page, size, this.query.type)
+      .subscribe((data: any) => {
+        const files = data?.data?.data || [];
 
-    // Kiểm tra node và data trước khi sử dụng
-    if (node && node.data && node.data.id) {
-      const folderId = node.data.id; // Lấy id của folder được chọn
-      console.log("Selected Folder ID:", folderId);
-
-      // Gọi API để lấy dữ liệu
-      this.librarySrv
-        .getLibrariesFile(
-          this.query.callFromAdmin,
-          folderId, // Đảm bảo gửi đúng id folder
-          this.query.page,
-          this.query.size,
-          this.query.type
-        )
-        .subscribe((data: any) => {
-          this.children = data?.data?.data || []; // Gán dữ liệu trả về
-          console.log("Files in Folder:", this.children);
-        });
-    } else {
-      console.error("Invalid node or node data. Could not load files.");
-    }
+        this.children = data?.data?.data || [];
+        this.totalRecords = data?.data?.recordsTotal || 0;
+        this.updatePaginationInfo(page, size, files.length);
+      });
   }
 
+  onNodeSelect(event: any): void {
+    const selectedNode: TreeNode = event.node;
+
+    if (selectedNode && selectedNode.data && selectedNode.data.id) {
+      const folderId = selectedNode.data.id;
+
+      this.loadFilesByPage(folderId, 0, this.itemsPerPage);
+    } else {
+      console.error("Invalid folder selection.");
+    }
+  }
 
   buildTree(folders: FolderNode[]): TreeNode[] {
     const map: { [key: string]: TreeNode } = {};
@@ -118,6 +121,24 @@ export class ThuVienComponent implements OnInit {
     });
 
     return roots;
+  }
+
+  // Hàm cập nhật thông tin hiển thị phân trang
+  updatePaginationInfo(page: number, size: number, currentItems: number): void {
+    this.countRecord.currentRecordStart = page * size + 1;
+    this.countRecord.currentRecordEnd = page * size + currentItems;
+  }
+
+  paginate(event: any): void {
+    this.first = event.first;
+    const page = event.page;
+    const size = event.rows;
+
+    const selectedNode = this.selectedFile;
+    if (selectedNode && selectedNode.data && selectedNode.data.id) {
+      const folderId = selectedNode.data.id;
+      this.loadFilesByPage(folderId, page, size);
+    }
   }
 
 
