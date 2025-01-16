@@ -36,6 +36,7 @@ import { ThongBaoComponent } from './thong-bao/thong-bao.component';
 import { YeuCauTuVanComponent } from './yeu-cau-tu-van/yeu-cau-tu-van.component';
 import { TroGiupComponent } from './tro-giup/tro-giup.component';
 import { MenuComponent } from './menu/menu.component';
+import { ThuVienComponent } from './thu-vien/thu-vien.component';
 
 const routes: Routes = [
   {
@@ -210,6 +211,10 @@ const routes: Routes = [
       {
         path: 'menu',
         component: MenuComponent
+      },
+      {
+        path: 'thu-vien',
+        component: ThuVienComponent
       }
 
     ],

@@ -1,0 +1,18 @@
+<div class="quan-tri-thu-vien common-content">
+    <p-breadcrumb class="max-w-full" [model]="breadcrumb" [home]="home" />
+    <div class="header-title hidden-mobile">Quản lí thư viện</div>
+    <div class="grid quan-li-thu-vien">
+        <div class="col-12 md:col-3 menu-folder">
+            <p-button label="Thư mục gốc" variant="outlined" severity="contrast" icon="pi pi-folder" />
+            <p-tree [value]="librariesFolder" />
+        </div>
+        <div class="col-12 md:col-9">
+            <div class="image_actions text-right"></div>
+            <div class="image-list"></div>
+            <!-- <div class="justify-contet-end">
+                <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120"
+                    [rowsPerPageOptions]="[10, 20, 30]" />
+            </div> -->
+        </div>
+    </div>
+</div>

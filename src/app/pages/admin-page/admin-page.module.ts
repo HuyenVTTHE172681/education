@@ -96,6 +96,7 @@ import { MenuComponent } from './menu/menu.component';
 import { SubMenuComponent } from './menu/sub-menu/sub-menu.component';
 import { HanhDongComponent } from './menu/hanh-dong/hanh-dong.component';
 import { NhomQuyenComponent } from './menu/nhom-quyen/nhom-quyen.component';
+import { ThuVienComponent } from './thu-vien/thu-vien.component';
 
 register(); // Register Swiper
 @NgModule({
@@ -157,6 +158,7 @@ register(); // Register Swiper
     SubMenuComponent,
     HanhDongComponent,
     NhomQuyenComponent,
+    ThuVienComponent,
   ],
   imports: [
     CommonModule,
