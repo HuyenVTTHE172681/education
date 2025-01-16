@@ -97,6 +97,7 @@ import { SubMenuComponent } from './menu/sub-menu/sub-menu.component';
 import { HanhDongComponent } from './menu/hanh-dong/hanh-dong.component';
 import { NhomQuyenComponent } from './menu/nhom-quyen/nhom-quyen.component';
 import { ThuVienComponent } from './thu-vien/thu-vien.component';
+import { TreeModule } from 'primeng/tree';
 
 register(); // Register Swiper
 @NgModule({
@@ -200,7 +201,8 @@ register(); // Register Swiper
     ConfirmDialogModule,
     ToastModule,
     ChipModule,
-    RatingModule
+    RatingModule,
+    TreeModule
   ],
   providers: [ConfirmationService, MessageService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

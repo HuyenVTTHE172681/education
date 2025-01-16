@@ -1,18 +1,38 @@
 <div class="quan-tri-thu-vien common-content">
     <p-breadcrumb class="max-w-full" [model]="breadcrumb" [home]="home" />
-    <div class="header-title hidden-mobile">Quản lí thư viện</div>
+    <div class="header-title hidden-mobile mb-3">Quản lí thư viện</div>
     <div class="grid quan-li-thu-vien">
         <div class="col-12 md:col-3 menu-folder">
-            <p-button label="Thư mục gốc" variant="outlined" severity="contrast" icon="pi pi-folder" />
-            <p-tree [value]="librariesFolder" />
+            <p-button label="Thư mục gốc" [outlined]="true" severity="contrast" class="mb-2" icon="pi pi-folder" />
+            <p-tree [value]="treeSource" [lazy]="true" (onNodeExpand)="loadFiles($event)"
+                [style]="{ width: '100%' }"></p-tree>
         </div>
         <div class="col-12 md:col-9">
-            <div class="image_actions text-right"></div>
-            <div class="image-list"></div>
-            <!-- <div class="justify-contet-end">
-                <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120"
-                    [rowsPerPageOptions]="[10, 20, 30]" />
-            </div> -->
+            <div class="image_actions text-right">
+                <p-button label="Thêm file" [outlined]="true" severity="contrast" class="mr-2 mb-2" icon="pi pi-file" />
+                <p-button label="Thêm thư mục" [outlined]="true" severity="contrast" class="mb-2" icon="pi pi-folder" />
+            </div>
+            <div class="image-list">
+                <div *ngFor="let file of children" class="image-item">
+                    <img [src]="'https://hhq.runasp.net/images/' + (file?.url || 'default-image.jpg')" alt="">
+
+                    <div class="image-item--actions">
+                        <div class="image-item--actions-left">
+                            <i class="pi pi-images"></i>
+                        </div>
+                        <div class="image-item--action-right">
+                            <p-button icon="pi pi-check" [rounded]="true" [text]="true"></p-button>
+                            <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger"></p-button>
+                        </div>
+                    </div>
+                    <div class="image-item--info">
+                        <div class="image-item--info-name">{{ file?.name }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="justify-contet-end">
+            </div>
         </div>
     </div>
 </div>
