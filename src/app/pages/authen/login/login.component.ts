@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../core/services/authen.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { CONSTANTS } from '../../common/constants';
+import { AuthService } from '../../../core/services/authen.service';
+import { CONSTANTS } from '../../../common/constants';
 
 @Component({
   selector: 'app-login',
