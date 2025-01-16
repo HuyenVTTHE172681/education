@@ -3,7 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { Slide } from '../../../core/models/slide.model';
 import { StepService } from '../../../core/services/api-core/step.service';
 import { debounceTime, Subject } from 'rxjs';
-import { UtilsService } from '../../../common/utils/utils.service';
+import { UtilsService } from '../../../utils/utils.service';
 
 @Component({
   selector: 'app-slide',

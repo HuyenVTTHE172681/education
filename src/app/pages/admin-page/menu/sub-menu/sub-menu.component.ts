@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../../../../core/services/api-core/menu.service';
 import { MenuItem } from 'primeng/api';
 import { Menu, MenuSub } from '../../../../core/models/menu.model';
-import { UtilsService } from '../../../../common/utils/utils.service';
+import { UtilsService } from '../../../../utils/utils.service';
 
 @Component({
   selector: 'app-sub-menu',
@@ -99,7 +99,7 @@ export class SubMenuComponent implements OnInit {
     this.selectedMenu = menu;
   }
 
-  setSelectedSubMenu(child: MenuSub){
+  setSelectedSubMenu(child: MenuSub) {
     this.selectedSubMenu = child;
   }
 

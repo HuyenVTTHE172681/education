@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Teacher } from '../../../core/models/teacher.model';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { CONSTANTS, STATUS } from '../../../common/constants';
-import { UtilsService } from '../../../common/utils/utils.service';
+import { UtilsService } from '../../../utils/utils.service';
 import { TeacherService } from '../../../core/services/api-core/teacher.service';
 
 @Component({

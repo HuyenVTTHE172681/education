@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-import { UtilsService } from '../../../../common/utils/utils.service';
+import { UtilsService } from '../../../../utils/utils.service';
 import { TestAbilityService } from '../../../../core/services/api-core/test-ability.service';
 
 @Component({

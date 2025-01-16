@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UtilsService } from '../../../common/utils/utils.service';
+import { UtilsService } from '../../../utils/utils.service';
 import { CourseYear } from '../../../core/models/course.model';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { debounceTime, Subject } from 'rxjs';

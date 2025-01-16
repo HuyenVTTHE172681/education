@@ -4,7 +4,7 @@ import { NewsCategory } from '../../../core/models/news.model';
 import { NewsService } from '../../../core/services/api-core/news.service';
 import { CONSTANTS, HttpStatus } from '../../../common/constants';
 import { Router } from '@angular/router';
-import { UtilsService } from '../../../common/utils/utils.service';
+import { UtilsService } from '../../../utils/utils.service';
 import { debounceTime, Subject } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 

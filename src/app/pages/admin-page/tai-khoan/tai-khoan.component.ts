@@ -4,7 +4,7 @@ import { debounceTime, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { STATUS } from '../../../common/constants';
-import { UtilsService } from '../../../common/utils/utils.service';
+import { UtilsService } from '../../../utils/utils.service';
 import { DashboardService } from '../../../core/services/api-core/dashboard.service';
 
 @Component({

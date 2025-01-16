@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { STATUS } from '../constants';
+import { STATUS } from '../common/constants';
 
 @Injectable({
     providedIn: 'root',

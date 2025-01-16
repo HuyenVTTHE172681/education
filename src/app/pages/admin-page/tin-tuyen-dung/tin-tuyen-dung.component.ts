@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Recruit } from '../../../core/models/recruitment.model';
-import { UtilsService } from '../../../common/utils/utils.service';
+import { UtilsService } from '../../../utils/utils.service';
 import { debounceTime, Subject } from 'rxjs';
 import { RecruitmentService } from '../../../core/services/api-core/recruitment.services';
 import { Router } from '@angular/router';

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Recruit, RecruitCandidate } from '../../../core/models/recruitment.model';
 import { debounceTime, Subject } from 'rxjs';
-import { UtilsService } from '../../../common/utils/utils.service';
+import { UtilsService } from '../../../utils/utils.service';
 import { RecruitmentService } from '../../../core/services/api-core/recruitment.services';
 
 @Component({

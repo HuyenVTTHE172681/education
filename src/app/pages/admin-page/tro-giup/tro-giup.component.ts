@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Guide } from '../../../core/models/guide.model';
 import { DashboardService } from '../../../core/services/api-core/dashboard.service';
-import { UtilsService } from '../../../common/utils/utils.service';
+import { UtilsService } from '../../../utils/utils.service';
 import { PaginatorModule } from 'primeng/paginator';
 import { debounceTime, Subject } from 'rxjs';
 

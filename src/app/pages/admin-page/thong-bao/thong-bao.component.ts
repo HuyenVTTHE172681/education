@@ -3,7 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { NotificationService } from '../../../core/services/api-core/notification.service';
 import { AdminNotifications } from '../../../core/models/slide.model';
 import { debounceTime, Subject } from 'rxjs';
-import { UtilsService } from '../../../common/utils/utils.service';
+import { UtilsService } from '../../../utils/utils.service';
 
 @Component({
   selector: 'app-thong-bao',

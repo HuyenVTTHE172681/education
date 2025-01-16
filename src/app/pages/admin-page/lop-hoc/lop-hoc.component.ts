@@ -4,7 +4,7 @@ import { ClassRoom } from '../../../core/models/classRoom.model';
 import { Router } from '@angular/router';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { CONSTANTS, STATUS } from '../../../common/constants';
-import { UtilsService } from '../../../common/utils/utils.service';
+import { UtilsService } from '../../../utils/utils.service';
 import { ClassRoomService } from '../../../core/services/api-core/classRoom.service';
 
 @Component({

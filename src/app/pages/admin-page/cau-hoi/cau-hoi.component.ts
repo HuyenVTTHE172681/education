@@ -4,7 +4,7 @@ import { Question, TestQuestionGroup, TestQuestionType } from '../../../core/mod
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { CONSTANTS } from '../../../common/constants';
-import { UtilsService } from '../../../common/utils/utils.service';
+import { UtilsService } from '../../../utils/utils.service';
 import { QuestionsService } from '../../../core/services/api-core/question.service';
 
 @Component({

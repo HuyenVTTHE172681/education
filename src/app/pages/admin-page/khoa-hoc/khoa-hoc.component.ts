@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { CONSTANTS } from '../../../common/constants';
-import { UtilsService } from '../../../common/utils/utils.service';
+import { UtilsService } from '../../../utils/utils.service';
 import { CourseService } from '../../../core/services/api-core/course.service';
 import { ClassRoomService } from '../../../core/services/api-core/classRoom.service';
 import { TeacherService } from '../../../core/services/api-core/teacher.service';

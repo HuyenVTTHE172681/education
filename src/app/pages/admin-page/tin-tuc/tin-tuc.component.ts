@@ -5,7 +5,7 @@ import { News, NewsCategory } from '../../../core/models/news.model';
 import { debounceTime, filter, Subject } from 'rxjs';
 import { CONSTANTS, HttpStatus } from '../../../common/constants';
 import { Router } from '@angular/router';
-import { UtilsService } from '../../../common/utils/utils.service';
+import { UtilsService } from '../../../utils/utils.service';
 
 @Component({
   selector: 'app-tin-tuc',
